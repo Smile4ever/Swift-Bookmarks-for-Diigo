@@ -1,0 +1,116 @@
+// A part of the Swift Library (library.html); library.js has what they share, library-page.js puts them to work.
+
+// ---- deleting after a while: time to think it over, in the trash ----
+
+// With deleteDelay (options/settings.js), Delete (of one bookmark, or with Bulk edit) asks nothing: the bookmarks go to
+// the trash at once, with a short message that they can be put back there, but Diigo only deletes them after
+// DELETE_DELAY. Till then the trash shows them as not deleted yet (pendingTrash), and Put back only takes them out of
+// pending: Diigo never knew. Once Diigo deleted them they are in the trash as any other (library-index.js:
+// deleteItems). One wait for all of them: another Delete in the meantime starts it over. Busy with the index then,
+// they wait for that. Leaving the page before, the browser asks first (library-page.js), as they aren't deleted then.
+// Without deleteDelay: a question first, and deleted at once, as Diigo does.
+const DELETE_DELAY = 30 * 1000;
+const pending = new Map();  // id -> when Delete was chosen (milliseconds)
+let pendingVersion = 0;     // one more with each change of it (library-trash.js: duplicateKeys)
+let pendingTimer = 0;
+
+function deleteLater(ids) {
+  for (const id of ids) {
+    pending.set(id, Date.now());
+    chosen.delete(id);
+  }
+  pendingVersion++;
+  clearTimeout(pendingTimer);
+  pendingTimer = setTimeout(deletePending, DELETE_DELAY);
+  toastIds = ids;
+  showToast(message('libraryMovedToTrash', String(ids.length)));
+}
+
+// Undo in the bar of showToast: those of that Delete back, while it shows (TOAST_TIME, well within DELETE_DELAY, so
+// Diigo never knew)
+let toastIds = [];
+
+function undoDelete() {
+  $('toast').hidden = true;
+  // an outliner of that Delete (library-outliners.js)
+  if (outlinerPart.undo()) return show({keepScroll: true});
+  for (const id of toastIds) pending.delete(id);
+  toastIds = [];
+  pendingVersion++;
+  if (!pending.size) clearTimeout(pendingTimer);
+  show({keepScroll: true});
+}
+
+// Put back of one in the trash that Diigo hasn't deleted yet
+function cancelDelete(item, li) {
+  if (item.type == 'outliner') return outlinerPart.cancel(item, li);
+  pending.delete(item.id);
+  pendingVersion++;
+  if (!pending.size) clearTimeout(pendingTimer);
+  leaveList(item, li);
+  safely('side bar', showTags);
+}
+
+// That they are in the trash: a dark bar floating at the bottom for TOAST_TIME, with Undo, and Trash, which opens it
+const TOAST_TIME = 7000;
+let toastTimer = 0;
+
+function showToast(text) {
+  $('toastText').textContent = text;
+  $('toast').hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $('toast').hidden = true, TOAST_TIME);
+}
+
+// those waiting, as the trash shows them: from the index, with when Delete was chosen; not those Diigo is deleting
+// right now and the trash has already
+const pendingTrash = () => [...pending].filter(([id]) => index.has(id) && !trash.has(id))
+  .map(([id, time]) => ({...index.get(id), deletedAt: time, pendingDelete: true}))
+  // and outliners (library-outliners.js)
+  .concat(outlinerPart.pendingCopies());
+
+// Empty trash: those waiting deleted by Diigo now, and not kept in the trash after (forgetPending), as all of it
+// goes; busy with the index, as soon as it isn't
+let forgetPending = false;
+
+// done: how many Diigo has done so far, for Empty trash (library-trash.js: emptyTrash); the answer comes once it's all done
+function deleteNow(done) {
+  forgetPending = true;
+  clearTimeout(pendingTimer);
+  return deletePending(done);
+}
+
+async function deletePending(done) {
+  if (controller) {
+    return new Promise(resolve => pendingTimer = setTimeout(() => resolve(deletePending(done)), 2000));
+  }
+  const ids = [...pending.keys()].filter(id => index.has(id));
+  const forget = forgetPending;
+  const signal = start();
+  let result = {deleted: 0, failed: 0};
+  const deletedIds = [];
+  try {
+    let count = 0;
+    result = await deleteItems(ids, signal, (batch, ok) => {
+      if (ok) deletedIds.push(...batch);
+      count += batch.length;
+      done?.(count);
+    });
+    if (forget && deletedIds.length) {
+      deletedIds.forEach(id => trash.delete(id));
+      await saveIndex({trashRemove: deletedIds});
+    }
+  } catch (e) {
+    reportProblem(e, 'delete');
+  } finally {
+    stop();
+    forgetPending = false;
+    // what Diigo didn't delete is in the list again
+    pending.clear();
+    pendingVersion++;
+    show({keepScroll: true});
+    // what worked was said at Delete already; only what didn't
+    if (result.failed) showStatus(message('cleanupFailed', String(result.failed)), true);
+  }
+  return result;
+}

@@ -1,0 +1,1801 @@
+{
+    "move": {
+        "message": "Verplaatsen"
+    },
+    "moveTitle": {
+        "message": "Opslaan in Diigo en deze bladwijzer uit de browser verwijderen"
+    },
+    "syncNotWebPage": {
+        "message": "“$TITLE$” kan niet naar Diigo: het is geen webpagina ($URL$).",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            },
+            "url": {
+                "content": "$2"
+            }
+        }
+    },
+    "syncFolderEmpty": {
+        "message": "De map “$TITLE$” heeft geen bladwijzers van webpagina's om naar Diigo te sturen.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "logHead": {
+        "message": "Logboek"
+    },
+    "logIntro": {
+        "message": "Wat er de laatste tijd misging in de add-on: wanneer, waar en waarom. Het logboek staat alleen in het geheugen en is leeg na een herstart van de browser."
+    },
+    "logReportHead": {
+        "message": "Een probleem melden"
+    },
+    "logReportText": {
+        "message": "Werkt er iets niet? Sla het logboek op en voeg het bestand toe aan een nieuw issue op GitHub. Het bestand bevat de fouten hieronder, de versie van de add-on, je browser en je instellingen, zonder je verborgen tags, regels per site en mappen; gebruik de filter om alleen de fouten op te slaan die ertoe doen."
+    },
+    "logSave": {
+        "message": "Logboek opslaan voor een foutmelding"
+    },
+    "logNewIssue": {
+        "message": "Nieuw issue op GitHub"
+    },
+    "logFilter": {
+        "message": "Filter"
+    },
+    "logClear": {
+        "message": "Logboek leegmaken"
+    },
+    "logClearConfirm": {
+        "message": "De $COUNT$ fouten uit het logboek wissen?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "logEmpty": {
+        "message": "Nog geen fouten."
+    },
+    "logEmptySince": {
+        "message": "Geen fouten sinds $TIME$.",
+        "placeholders": {
+            "time": {
+                "content": "$1"
+            }
+        }
+    },
+    "logNoMatch": {
+        "message": "Geen fout bevat dat."
+    },
+    "extDesc": {
+        "message": "Bewaar pagina's en links snel in je Diigo-bibliotheek, met voorgestelde tags. Een onofficieel alternatief voor de add-on van Diigo."
+    },
+    "unofficial": {
+        "message": "Deze add-on is niet gemaakt door Diigo en is geen officiële Diigo-add-on: het is een alternatief voor de add-on van Diigo zelf, gemaakt om bladwijzers te bewaren. Hij gebruikt je aanmelding op diigo.com."
+    },
+    "donate": {
+        "message": "Vind je deze add-on nuttig? Trakteer de maker via PayPal"
+    },
+    "browserActionDefaultTitle": {
+        "message": "Opslaan in Diigo"
+    },
+    "browserActionOptionsTitle": {
+        "message": "Opties van Swift Bookmarks for Diigo"
+    },
+    "cannotBookmark": {
+        "message": "Deze pagina kan niet in Diigo worden opgeslagen"
+    },
+    "commandShowForm": {
+        "message": "Deze pagina opslaan in Diigo"
+    },
+    "optionsTagsHead": {
+        "message": "Verborgen tags"
+    },
+    "optionsTagsIntro": {
+        "message": "Eén tag per regel. Ze worden niet voorgesteld in het bladwijzerformulier tenzij je ze volledig typt, en bladwijzers met die tags worden verborgen in de Swift Library, de adresbalk en Swift Discover, tenzij je die tag volledig zoekt."
+    },
+    "optionsTagsExample": {
+        "message": "bijv.\nprivé\nwerknotities"
+    },
+    "optionsHead": {
+        "message": "Op diigo.com"
+    },
+    "optionsIntro": {
+        "message": "De add-on verandert niet meer hoe diigo.com eruitziet en werkt: wat hij beter doet, zit in de Swift Library en Swift Discover. Op diigo.com voegt hij alleen de weg daarheen toe, in het menu bovenaan."
+    },
+    "optionMyLibraryToSwift": {
+        "message": "My Library in het menu bovenaan diigo.com opent de Swift Library. Die van Diigo zelf: Ctrl+klik of een middelklik, of My Library in het menu van de Swift Library"
+    },
+    "myLibraryToSwiftTitle": {
+        "message": "Opent de Swift Library. Ctrl+klik: My Library op diigo.com"
+    },
+    "optionSignInToSwift": {
+        "message": "Na het inloggen op diigo.com opent de Swift Library in plaats van je library op diigo.com"
+    },
+    "toolsAddonIntro": {
+        "message": "De tools van Diigo voor je library, met deze add-on: het bladwijzerformulier met de werkbalkknop en Ctrl+Alt+D, de Swift Library en Swift Discover."
+    },
+    "optionToolsToSwift": {
+        "message": "Tools in het menu bovenaan diigo.com opent de Tools-pagina van de add-on: zonder Google Play en Import kindle highlights, met deze add-on. Die van Diigo zelf: Ctrl+klik of een middelklik"
+    },
+    "toolsToSwiftTitle": {
+        "message": "Opent de Tools-pagina van de add-on. Ctrl+klik: Tools op diigo.com"
+    },
+    "optionDeadLinks": {
+        "message": "In de Swift Library aangeven welke links dood zijn (404) of waarvan de site niet antwoordt. Daarvoor vraagt de add-on elke pagina op bij de site zelf. Klik op de statuscode om de pagina op te zoeken in de Wayback Machine of op archive.is."
+    },
+    "linkDeadTitle": {
+        "message": "Deze pagina bestaat niet meer (HTTP $STATUS$)",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkUnreachableTitle": {
+        "message": "De site antwoordt niet: het domein bestaat niet meer, de server weigert de verbinding of het certificaat klopt niet"
+    },
+    "linkArchives": {
+        "message": "Deze pagina opzoeken in de Wayback Machine of op archive.is"
+    },
+    "archiveWaybackLatest": {
+        "message": "Wayback Machine: laatste versie"
+    },
+    "archiveWaybackAll": {
+        "message": "Wayback Machine: alle versies"
+    },
+    "archiveTodayLatest": {
+        "message": "archive.is: laatste versie"
+    },
+    "archiveTodayAll": {
+        "message": "archive.is: alle versies"
+    },
+    "optionHideShareToOutliner": {
+        "message": "Share to outliner verbergen: in het bladwijzerformulier en in de Swift Library (toevoegen, Edit, Bulk edit)"
+    },
+    "optionSplitAdd": {
+        "message": "Vier knoppen bovenaan de zijbalk in plaats van de knop + met een menu: Bookmark, Image, PDF en Note, zodat je met één klik toevoegt"
+    },
+    "topMenuHead": {
+        "message": "Het menu bovenaan diigo.com"
+    },
+    "topMenuIntro": {
+        "message": "Welke items het toont, in welke volgorde, en links van jezelf; hetzelfde bovenaan de Swift Library en Swift Discover. My Library, My Outliners, My Groups en Swift Library staan er alleen als je ingelogd bent."
+    },
+    "topMenuAdd": {
+        "message": "Link toevoegen"
+    },
+    "topMenuName": {
+        "message": "Naam"
+    },
+    "topMenuShow": {
+        "message": "Tonen in het menu"
+    },
+    "topMenuUp": {
+        "message": "Omhoog"
+    },
+    "topMenuDown": {
+        "message": "Omlaag"
+    },
+    "topMenuRemove": {
+        "message": "Verwijderen"
+    },
+    "cleanupHead": {
+        "message": "Bladwijzers zoeken en opruimen"
+    },
+    "cleanupOptionsIntro": {
+        "message": "Bladwijzers vinden op site, titel, tag, beschrijving en meer, ook in een grote library, en ze in één keer verwijderen."
+    },
+    "cleanupOpen": {
+        "message": "Openen"
+    },
+    "cleanupStop": {
+        "message": "Stoppen"
+    },
+    "cleanupSignedOut": {
+        "message": "Diigo gaf je library niet. Log eerst in op diigo.com."
+    },
+    "cleanupPageFailed": {
+        "message": "Diigo antwoordde niet voor pagina $PAGE$. Probeer opnieuw.",
+        "placeholders": {
+            "page": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupConfirm": {
+        "message": "$COUNT$ bladwijzers uit je Diigo-library verwijderen? Van elk gaat een kopie naar de prullenbak van de Swift Library.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupDeleted": {
+        "message": "$COUNT$ bladwijzers verwijderd, in Diigo en in de index.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupFailed": {
+        "message": "Diigo verwijderde er $COUNT$ niet: die staan nog in de lijst.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryPin": {
+        "message": "Als filter bewaren"
+    },
+    "bulkEdit": {
+        "message": "Bulk bewerken"
+    },
+    "bulkSelected": {
+        "message": "$COUNT$ geselecteerd",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkApplyTags": {
+        "message": "Tags toepassen"
+    },
+    "bulkTagsHint": {
+        "message": "tag  -tag om weg te halen"
+    },
+    "bulkPublic": {
+        "message": "Openbaar maken"
+    },
+    "bulkPrivate": {
+        "message": "Privé maken"
+    },
+    "bulkPublicConfirm": {
+        "message": "$COUNT$ bladwijzers openbaar maken? Iedereen kan ze dan zien, in je openbare library op Diigo.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkRead": {
+        "message": "Als gelezen markeren"
+    },
+    "bulkUnread": {
+        "message": "Als ongelezen markeren"
+    },
+    "bulkProgress": {
+        "message": "$DONE$ van $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "bulkDone": {
+        "message": "$COUNT$ bladwijzers gewijzigd, in Diigo en in de index.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkFailed": {
+        "message": "Diigo heeft er $COUNT$ niet gewijzigd.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexNone": {
+        "message": "Nog geen index. Hij wordt vanzelf opgebouwd: de add-on gaat je library pagina per pagina af, ongeveer een minuut voor 16.000 bladwijzers."
+    },
+    "indexStatus": {
+        "message": "Index: $COUNT$ items, bijgewerkt $WHEN$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "when": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexOtherUser": {
+        "message": "De index is van $USER$. Bouw hem opnieuw op voor jouw library.",
+        "placeholders": {
+            "user": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexBuild": {
+        "message": "Index opbouwen"
+    },
+    "indexRebuild": {
+        "message": "Opnieuw opbouwen"
+    },
+    "indexUpdate": {
+        "message": "Snel bijwerken"
+    },
+    "indexBuilding": {
+        "message": "Index opbouwen: pagina $DONE$ van $PAGES$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "pages": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexUpdating": {
+        "message": "Index bijwerken: pagina $PAGE$",
+        "placeholders": {
+            "page": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexStopped": {
+        "message": "Gestopt: de index is zoals hij was."
+    },
+    "indexDiffers": {
+        "message": "Diigo zegt dat het $TOTAL$ items heeft, maar geeft er $COUNT$, ook nadat de index vanzelf opnieuw werd opgebouwd. De andere staan misschien alleen op diigo.com.",
+        "placeholders": {
+            "total": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "searchNone": {
+        "message": "Niets komt overeen, in $TOTAL$ items",
+        "placeholders": {
+            "total": {
+                "content": "$2"
+            }
+        }
+    },
+    "searchFieldSite": {
+        "message": "Site"
+    },
+    "searchFieldUrl": {
+        "message": "URL"
+    },
+    "searchFieldTitle": {
+        "message": "Titel"
+    },
+    "searchFieldDescription": {
+        "message": "Beschrijving"
+    },
+    "searchFieldTag": {
+        "message": "Tag"
+    },
+    "searchFieldPrivate": {
+        "message": "Privé"
+    },
+    "searchFieldUnread": {
+        "message": "Ongelezen"
+    },
+    "searchFieldSaved": {
+        "message": "Bewaard"
+    },
+    "librarySavedAny": {
+        "message": "Altijd bewaard"
+    },
+    "librarySavedWeek": {
+        "message": "Afgelopen week"
+    },
+    "librarySavedMonth": {
+        "message": "Afgelopen maand"
+    },
+    "librarySavedYear": {
+        "message": "Afgelopen jaar"
+    },
+    "librarySavedOverYear": {
+        "message": "Meer dan een jaar geleden"
+    },
+    "librarySavedOver5Years": {
+        "message": "Meer dan 5 jaar geleden"
+    },
+    "libraryLinks": {
+        "message": "Linkstatus"
+    },
+    "libraryLinksAny": {
+        "message": "Alle links"
+    },
+    "libraryLinksDead": {
+        "message": "Dode links (404)"
+    },
+    "libraryLinksUnreachable": {
+        "message": "Site antwoordt niet"
+    },
+    "libraryLinksWarn": {
+        "message": "Andere fouten"
+    },
+    "libraryLinksOk": {
+        "message": "Werkende links"
+    },
+    "libraryLinksUnchecked": {
+        "message": "Nog niet gecontroleerd"
+    },
+    "cloudCount": {
+        "message": "$COUNT$ bladwijzers",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cloudNoMatch": {
+        "message": "Geen tag heeft dat in zijn naam."
+    },
+    "libraryMenu": {
+        "message": "Swift Library"
+    },
+    "libraryOptionsIntro": {
+        "message": "Je hele Diigo-library uit de index in deze browser: zoeken, sorteren en de tags meteen, ook met duizenden bladwijzers."
+    },
+    "optionBulkExitAfter": {
+        "message": "Bulk bewerken verlaten na een actie"
+    },
+    "optionBulkClearFilters": {
+        "message": "Na een actie van Bulk bewerken de zoekopdracht en de filters wissen als er niets meer te tonen is"
+    },
+    "optionDeleteDelay": {
+        "message": "Verwijderen in de Swift Library zonder eerst te vragen: meteen naar de prullenbak, pas na 30 seconden verwijderd bij Diigo"
+    },
+    "libraryAllFields": {
+        "message": "Alles"
+    },
+    "libraryQuery": {
+        "message": "Zoeken…"
+    },
+    "libraryField": {
+        "message": "Zoeken in"
+    },
+    "librarySort": {
+        "message": "Volgorde"
+    },
+    "librarySortNewest": {
+        "message": "Nieuwste eerst"
+    },
+    "librarySortOldest": {
+        "message": "Oudste eerst"
+    },
+    "librarySortUpdated": {
+        "message": "Laatst gewijzigd"
+    },
+    "librarySortTitle": {
+        "message": "Titel A–Z"
+    },
+    "librarySortTitleDesc": {
+        "message": "Titel Z–A"
+    },
+    "libraryPrivacy": {
+        "message": "Privacy"
+    },
+    "libraryPrivacyAll": {
+        "message": "Openbaar en privé"
+    },
+    "libraryPrivacyPublic": {
+        "message": "Alleen openbaar"
+    },
+    "libraryPrivacyPrivate": {
+        "message": "Alleen privé"
+    },
+    "libraryShowHidden": {
+        "message": "Verborgen tonen"
+    },
+    "libraryAnnotated": {
+        "message": "Geannoteerd"
+    },
+    "libraryUnread": {
+        "message": "Ongelezen"
+    },
+    "libraryCount": {
+        "message": "$COUNT$ van $TOTAL$ items",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "total": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryNoItems": {
+        "message": "0 items"
+    },
+    "libraryTagFilter": {
+        "message": "Tag zoeken…"
+    },
+    "libraryOpenDiigo": {
+        "message": "Op Diigo"
+    },
+    "libraryDelete": {
+        "message": "Verwijderen"
+    },
+    "libraryConfirm": {
+        "message": "“$TITLE$” uit je Diigo-library verwijderen? Er gaat een kopie naar de prullenbak van de Swift Library.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDeleteFailed": {
+        "message": "Diigo verwijderde hem niet."
+    },
+    "libraryMovedToTrash": {
+        "message": "Naar de prullenbak verplaatst ($COUNT$)",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryNotDeletedYet": {
+        "message": "Nog niet verwijderd bij Diigo"
+    },
+    "libraryUndo": {
+        "message": "Ongedaan maken"
+    },
+    "libraryRemoveFilter": {
+        "message": "Deze filter weghalen"
+    },
+    "libraryHuntIntro": {
+        "message": "20 van je bladwijzers waarvan de link nog niet gecontroleerd is, willekeurig: hun links worden nu gecontroleerd, een dode in het rood. Klik links opnieuw op Dode links voor de gevonden dode links, of 20 andere."
+    },
+    "libraryHuntNone": {
+        "message": "Geen dode links: alle links van je bladwijzers zijn onlangs gecontroleerd."
+    },
+    "tagRename": {
+        "message": "Tag hernoemen"
+    },
+    "tagRenamePrompt": {
+        "message": "Nieuwe naam voor de tag $TAG$, op al je items:",
+        "placeholders": {
+            "tag": {
+                "content": "$1"
+            }
+        }
+    },
+    "tagRenaming": {
+        "message": "$TAG$ wordt hernoemd…",
+        "placeholders": {
+            "tag": {
+                "content": "$1"
+            }
+        }
+    },
+    "tagRenamed": {
+        "message": "$OLD$ heet nu $NEW$, op $COUNT$ items.",
+        "placeholders": {
+            "old": {
+                "content": "$1"
+            },
+            "new": {
+                "content": "$2"
+            },
+            "count": {
+                "content": "$3"
+            }
+        }
+    },
+    "libraryImageView": {
+        "message": "De afbeelding tonen"
+    },
+    "libraryImageLoading": {
+        "message": "De afbeelding wordt geladen van Diigo…"
+    },
+    "libraryImageNone": {
+        "message": "Diigo gaf geen bestand voor deze afbeelding."
+    },
+    "libraryImageOpen": {
+        "message": "De afbeelding zelf, in een nieuw tabblad"
+    },
+    "libraryRandomIntro": {
+        "message": "10 willekeurige bladwijzers uit je library, geen met een verborgen tag. Klik links nog eens op Willekeurig voor 10 andere."
+    },
+    "libraryRandom": {
+        "message": "Willekeurig"
+    },
+    "libraryHome": {
+        "message": "Start"
+    },
+    "homeRecent": {
+        "message": "Recent bewaard"
+    },
+    "homeShared": {
+        "message": "Recent gedeeld"
+    },
+    "homeTotal": {
+        "message": "$COUNT$ items in je Diigo-library",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeUnread": {
+        "message": "Nog te lezen"
+    },
+    "homeOnThisDay": {
+        "message": "Op deze dag"
+    },
+    "homeOnDay": {
+        "message": "Op $DAY$",
+        "placeholders": {
+            "day": {
+                "content": "$1",
+                "example": "20 November"
+            }
+        }
+    },
+    "homeYesterday": {
+        "message": "Gisteren"
+    },
+    "homeToday": {
+        "message": "Vandaag"
+    },
+    "homeTomorrow": {
+        "message": "Morgen"
+    },
+    "homePreviousDay": {
+        "message": "Vorige dag"
+    },
+    "homeNextDay": {
+        "message": "Volgende dag"
+    },
+    "homeNothingOnDay": {
+        "message": "Niets bewaard op deze dag in vorige jaren"
+    },
+    "homeCleanup": {
+        "message": "Opruimen"
+    },
+    "homeMore": {
+        "message": "Meer"
+    },
+    "homeOtherRandom": {
+        "message": "Andere"
+    },
+    "homeNothingToClean": {
+        "message": "Niets op te ruimen"
+    },
+    "homeEmptyTrash": {
+        "message": "Leegmaken"
+    },
+    "libraryTrash": {
+        "message": "Prullenbak"
+    },
+    "libraryTrashIntro": {
+        "message": "Verwijderd met de add-on, bewaard in deze browser. Terugzetten zet het opnieuw in Diigo, met de datum van vandaag en zonder markeringen. Na 30 dagen voorgoed weg."
+    },
+    "libraryRestore": {
+        "message": "Terugzetten"
+    },
+    "libraryForget": {
+        "message": "Definitief weg"
+    },
+    "libraryEmptyTrash": {
+        "message": "Prullenbak leegmaken"
+    },
+    "libraryEmptyConfirm": {
+        "message": "De $COUNT$ items in de prullenbak definitief weggooien?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryEmptying": {
+        "message": "De prullenbak leegmaken · $DONE$ van $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryEmptied": {
+        "message": "$COUNT$ items definitief uit de prullenbak verwijderd.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDeletedOn": {
+        "message": "Verwijderd $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryRestoreFailed": {
+        "message": "Diigo bewaarde hem niet opnieuw: $ERROR$",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryCantRestore": {
+        "message": "Diigo maakt Kindle-items alleen door ze uit Kindle te importeren: dit opent die importpagina, die je markeringen en notities opnieuw bij Amazon ophaalt."
+    },
+    "libraryReimportKindle": {
+        "message": "Opnieuw importeren uit Kindle"
+    },
+    "libraryNoteText": {
+        "message": "Tekst"
+    },
+    "noteBold": {
+        "message": "Vet"
+    },
+    "noteItalic": {
+        "message": "Cursief"
+    },
+    "noteUnderline": {
+        "message": "Onderstrepen"
+    },
+    "noteBulletList": {
+        "message": "Lijst met opsommingstekens"
+    },
+    "noteNumberedList": {
+        "message": "Genummerde lijst"
+    },
+    "noteLink": {
+        "message": "Link"
+    },
+    "noteClearFormat": {
+        "message": "Opmaak wissen"
+    },
+    "noteLinkPrompt": {
+        "message": "Webadres van de link"
+    },
+    "libraryNoteNotSaved": {
+        "message": "Diigo heeft de notitie niet bewaard: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDuplicates": {
+        "message": "Dubbels"
+    },
+    "libraryDuplicatesIntro": {
+        "message": "Bladwijzers met hetzelfde webadres, op de schrijfwijze na: http of https, www., een slash op het einde of trackingparameters (utm_…). Die van één adres staan bij elkaar."
+    },
+    "libraryTickDuplicates": {
+        "message": "Alles behalve de nieuwste aanvinken"
+    },
+    "libraryNoFile": {
+        "message": "De prullenbak heeft het bestand hiervan niet: het werd verwijderd voordat de prullenbak bestanden bewaarde, of Diigo gaf het niet."
+    },
+    "libraryTrashSize": {
+        "message": "$COUNT$ items, $SIZE$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "size": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryTrashEmpty": {
+        "message": "De prullenbak is leeg."
+    },
+    "libraryStorage": {
+        "message": "· de add-on in totaal: $USED$ van $QUOTA$",
+        "placeholders": {
+            "used": {
+                "content": "$1"
+            },
+            "quota": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryNoNoteText": {
+        "message": "De index heeft de tekst van deze notitie niet: ze ging naar de prullenbak voordat de index die bewaarde."
+    },
+    "libraryEdit": {
+        "message": "Bewerken"
+    },
+    "libraryBadUrl": {
+        "message": "De URL moet beginnen met http:// of https://."
+    },
+    "libraryUrlNotSaved": {
+        "message": "Diigo bewaarde de nieuwe URL niet. Probeer opnieuw, of verander hem op Diigo."
+    },
+    "libraryProblem": {
+        "message": "Er ging iets mis ($ERROR$). Alles wat getoond kon worden, staat er; de pagina herladen kan helpen.",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexUnavailable": {
+        "message": "De index kan niet bewaard worden in deze browser ($ERROR$), zoals in een privévenster: hij wordt telkens opnieuw opgebouwd als de pagina opent.",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "shortcutsHead": {
+        "message": "Sneltoetsen"
+    },
+    "shortcutsFormHead": {
+        "message": "In het bladwijzerformulier"
+    },
+    "shortcutOpenForm": {
+        "message": "Het formulier openen of sluiten. Deze sneltoets wijzig je in de extensie-instellingen van je browser."
+    },
+    "shortcutSaveFromTags": {
+        "message": "Opslaan, in het veld Tags"
+    },
+    "shortcutSave": {
+        "message": "Opslaan, in elk veld (ook Alt + S)"
+    },
+    "shortcutPickTag": {
+        "message": "Een voorgestelde tag kiezen, en dan Enter of Tab om hem toe te voegen"
+    },
+    "shortcutCloseForm": {
+        "message": "Het formulier sluiten (of eerst de lijst met voorgestelde tags)"
+    },
+    "menuSaveLink": {
+        "message": "Link opslaan in Diigo"
+    },
+    "menuSavePage": {
+        "message": "Pagina opslaan in Diigo"
+    },
+    "optionsMenu": {
+        "message": "Swift Opties",
+        "description": "The item of the add-on in the menu at the top of diigo.com and of its pages: its options page"
+    },
+    "optionsFind": {
+        "message": "Een optie zoeken"
+    },
+    "optionsFindNone": {
+        "message": "Geen optie met dat erin."
+    },
+    "menuOptions": {
+        "message": "Opties"
+    },
+    "randomBookmark": {
+        "message": "Willekeurige bladwijzer"
+    },
+    "formTitleNew": {
+        "message": "Nieuwe bladwijzer"
+    },
+    "formTitleEdit": {
+        "message": "Bladwijzer bewerken"
+    },
+    "close": {
+        "message": "Sluiten (Esc)"
+    },
+    "fieldTitle": {
+        "message": "Titel"
+    },
+    "fieldUrl": {
+        "message": "URL"
+    },
+    "fieldDescription": {
+        "message": "Beschrijving"
+    },
+    "fieldTags": {
+        "message": "Tags"
+    },
+    "yourTags": {
+        "message": "Je tags tonen"
+    },
+    "tagCloudHead": {
+        "message": "Je 100 meest gebruikte tags"
+    },
+    "editTags": {
+        "message": "Tags beheren"
+    },
+    "noTags": {
+        "message": "Je hebt nog geen tags."
+    },
+    "recommended": {
+        "message": "Voorgesteld:"
+    },
+    "addAll": {
+        "message": "Alle voorgestelde tags toevoegen"
+    },
+    "private": {
+        "message": "Privé"
+    },
+    "readLater": {
+        "message": "Later lezen"
+    },
+    "shareToGroup": {
+        "message": "Delen in groep"
+    },
+    "createGroup": {
+        "message": "Groep aanmaken…"
+    },
+    "shareToOutliner": {
+        "message": "Toevoegen aan outliner"
+    },
+    "delete": {
+        "message": "Verwijderen"
+    },
+    "removeBookmark": {
+        "message": "Deze bladwijzer uit je Diigo-bibliotheek verwijderen"
+    },
+    "add": {
+        "message": "Opslaan"
+    },
+    "save": {
+        "message": "Bijwerken"
+    },
+    "saving": {
+        "message": "Opslaan…"
+    },
+    "savedAgo": {
+        "message": "Opgeslagen $WHEN$",
+        "placeholders": {
+            "when": {
+                "content": "$1"
+            }
+        }
+    },
+    "savedOn": {
+        "message": "Opgeslagen op $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "clickToRemove": {
+        "message": "$SAVED$. Klik om de bladwijzer uit je Diigo-bibliotheek te verwijderen.",
+        "placeholders": {
+            "saved": {
+                "content": "$1"
+            }
+        }
+    },
+    "confirmDelete": {
+        "message": "Deze pagina heeft markeringen of notities in je Diigo-bibliotheek. Als je de bladwijzer verwijdert, verdwijnen die ook. Toch verwijderen?"
+    },
+    "errorNoAnswer": {
+        "message": "De add-on gaf geen antwoord. Probeer het opnieuw."
+    },
+    "errorNoConnection": {
+        "message": "diigo.com is niet bereikbaar. Controleer je verbinding en probeer het opnieuw."
+    },
+    "errorNotSignedIn": {
+        "message": "Volgens Diigo ben je niet aangemeld. Meld je aan op diigo.com en probeer het opnieuw."
+    },
+    "errorNotSaved": {
+        "message": "Diigo heeft de bladwijzer niet opgeslagen (HTTP $STATUS$, code $CODE$)",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            },
+            "code": {
+                "content": "$2"
+            }
+        }
+    },
+    "syncHead": {
+        "message": "Bladwijzers van deze browser naar Diigo"
+    },
+    "syncIntro": {
+        "message": "Zet de bladwijzers van de mappen die je kiest in je Diigo-bibliotheek, één per seconde. Een bladwijzer die al in Diigo staat, blijft daar zoals hij is, en een bladwijzer die je hier verwijdert, blijft in Diigo."
+    },
+    "syncAllow": {
+        "message": "Toegang tot je bladwijzers geven"
+    },
+    "syncFoldersHead": {
+        "message": "Mappen, met hun submappen"
+    },
+    "syncFolderTags": {
+        "message": "Mapnamen als tags: een bladwijzer in Recepten › Italiaans Eten krijgt de tags recepten en italiaans-eten"
+    },
+    "syncPrivate": {
+        "message": "Als privé opslaan"
+    },
+    "syncAuto": {
+        "message": "Gesynchroniseerd houden: een nieuwe bladwijzer in deze mappen gaat een minuut nadat je hem maakt naar Diigo, als hij zijn naam en map heeft, en de mappen worden opnieuw nagekeken als de browser start en om de 6 uur"
+    },
+    "syncNow": {
+        "message": "Nu synchroniseren"
+    },
+    "syncStatus": {
+        "message": "$SAVED$ opgeslagen, $SKIPPED$ stonden al in Diigo, $FAILED$ mislukt, nog $LEFT$ te gaan",
+        "placeholders": {
+            "saved": {
+                "content": "$1"
+            },
+            "skipped": {
+                "content": "$2"
+            },
+            "failed": {
+                "content": "$3"
+            },
+            "left": {
+                "content": "$4"
+            }
+        }
+    },
+    "syncNothing": {
+        "message": "Niets nieuws om in Diigo te zetten."
+    },
+    "syncNoFolders": {
+        "message": "Kies eerst een of meer mappen."
+    },
+    "syncSignedOut": {
+        "message": "Meld je aan op diigo.com: de synchronisatie gaat verder zodra je aangemeld bent."
+    },
+    "syncMenuHint": {
+        "message": "Klik met rechts op een bladwijzer of map voor Opslaan in Diigo, of Verplaatsen naar Diigo, dat hem uit deze browser verwijdert zodra hij in Diigo staat."
+    },
+    "menuSaveBookmark": {
+        "message": "Opslaan in Diigo"
+    },
+    "menuMoveBookmark": {
+        "message": "Verplaatsen naar Diigo"
+    },
+    "omniboxSearch": {
+        "message": "Zoek deze woorden in de Swift Library"
+    },
+    "omniboxNoIndex": {
+        "message": "Open de Swift Library één keer om de index van je Diigo-bibliotheek te maken"
+    },
+    "libraryAdd": {
+        "message": "Toevoegen"
+    },
+    "libraryAddBookmark": {
+        "message": "Bladwijzer"
+    },
+    "libraryAddImage": {
+        "message": "Afbeelding"
+    },
+    "libraryAddPdf": {
+        "message": "PDF"
+    },
+    "libraryAddOutliner": {
+        "message": "Outliner"
+    },
+    "libraryAddNote": {
+        "message": "Notitie"
+    },
+    "libraryDropImages": {
+        "message": "Sleep afbeeldingen hierheen,\nof klik om ze te kiezen"
+    },
+    "libraryDropPdfs": {
+        "message": "Sleep PDF's hierheen,\nof klik om ze te kiezen\nTot 64 MB per stuk"
+    },
+    "libraryUpload": {
+        "message": "Uploaden"
+    },
+    "libraryRetry": {
+        "message": "Opnieuw proberen"
+    },
+    "libraryRemoveFile": {
+        "message": "Weghalen"
+    },
+    "libraryNotImage": {
+        "message": "Geen afbeelding die Diigo aanneemt (JPEG, PNG, GIF of BMP)"
+    },
+    "libraryNotPdf": {
+        "message": "Geen PDF"
+    },
+    "libraryPdfTooBig": {
+        "message": "64 MB of meer: te groot voor Diigo"
+    },
+    "libraryUploadFailed": {
+        "message": "Niet geüpload"
+    },
+    "libraryUploadLimit": {
+        "message": "Je hebt de uploadlimiet van je Diigo-abonnement bereikt."
+    },
+    "libraryPremium": {
+        "message": "Upgraden op Diigo"
+    },
+    "libraryUploadError": {
+        "message": "Diigo nam het niet aan: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryAdded": {
+        "message": "Toegevoegd aan je library: $COUNT$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryNext": {
+        "message": "Volgende"
+    },
+    "libraryNewNote": {
+        "message": "Nieuwe notitie"
+    },
+    "libraryEditBookmark": {
+        "message": "Bladwijzer bewerken"
+    },
+    "libraryEditImage": {
+        "message": "Afbeelding bewerken"
+    },
+    "libraryEditPdf": {
+        "message": "Pdf bewerken"
+    },
+    "libraryItemNotSaved": {
+        "message": "Diigo heeft het niet opgeslagen: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryEditNote": {
+        "message": "Notitie bewerken"
+    },
+    "libraryAddImageTitle": {
+        "message": "Afbeeldingen toevoegen"
+    },
+    "libraryAddPdfTitle": {
+        "message": "PDF's toevoegen"
+    },
+    "discoverMenu": {
+        "message": "Swift Discover",
+        "description": "Name of the Swift Discover page (a name, not translated), in the menus"
+    },
+    "discoverQuery": {
+        "message": "Zoeken in de Hot Bookmarks",
+        "description": "Swift Discover: placeholder of the search box"
+    },
+    "discoverShows": {
+        "message": "Welke bladwijzers",
+        "description": "Swift Discover: label of the menu of which bookmarks to show"
+    },
+    "discoverShowNew": {
+        "message": "Nieuw voor jou",
+        "description": "Swift Discover: only bookmarks that are not in your library"
+    },
+    "discoverShowAll": {
+        "message": "Alle, ook de jouwe",
+        "description": "Swift Discover: all bookmarks, also those in your library"
+    },
+    "discoverShowSaved": {
+        "message": "Alleen die in je library",
+        "description": "Swift Discover: only bookmarks in your library"
+    },
+    "discoverSortHot": {
+        "message": "Hot, zoals op Diigo",
+        "description": "Swift Discover: the order of Diigo"
+    },
+    "discoverSortForYou": {
+        "message": "Voor jou: op je tags",
+        "description": "Swift Discover: the order by how many of your own tags are in a bookmark"
+    },
+    "discoverSortPeople": {
+        "message": "Meest bewaard",
+        "description": "Swift Discover: the order by how many people saved it"
+    },
+    "discoverSortNewest": {
+        "message": "Nieuwste eerst",
+        "description": "Swift Discover: the newest first"
+    },
+    "discoverRefresh": {
+        "message": "Vernieuwen",
+        "description": "Swift Discover: load the Hot Bookmarks again"
+    },
+    "discoverLoading": {
+        "message": "De Hot Bookmarks worden geladen van Diigo…",
+        "description": "Swift Discover: while loading"
+    },
+    "discoverLoadMore": {
+        "message": "Meer van Diigo",
+        "description": "Swift Discover: below the list, load the next page"
+    },
+    "discoverChallenge": {
+        "message": "diigo.com wil eerst nagaan dat dit een browser is (Cloudflare). Open Discover één keer op diigo.com en probeer het dan opnieuw.",
+        "description": "Swift Discover: Cloudflare asks to check the browser"
+    },
+    "discoverOpenBuzz": {
+        "message": "Discover openen op diigo.com",
+        "description": "Swift Discover: link to diigo.com/buzz/hot"
+    },
+    "discoverRetry": {
+        "message": "Opnieuw proberen",
+        "description": "Swift Discover: try loading again"
+    },
+    "discoverFailed": {
+        "message": "Diigo gaf de Hot Bookmarks niet (fout $STATUS$).",
+        "description": "Swift Discover: loading failed; STATUS is the HTTP status",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverNoIndex": {
+        "message": "Open de Swift Library één keer om zijn index te maken: dan weet Swift Discover wat al in je library staat, en welke tags van jou zijn.",
+        "description": "Swift Discover: there is no index of the Swift Library yet"
+    },
+    "discoverSaved": {
+        "message": "Bewaard: $TITLE$",
+        "description": "Swift Discover: after saving; TITLE is the title of the bookmark",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverPeople": {
+        "message": "Mensen die het op Diigo bewaarden: $COUNT$",
+        "description": "Swift Discover: tooltip of the number at the left of a bookmark",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverSavedBy": {
+        "message": "bewaard door",
+        "description": "Swift Discover: before the name of who saved it"
+    },
+    "discoverFirstSavedBy": {
+        "message": "eerst bewaard door",
+        "description": "Swift Discover: before the name of who saved it first"
+    },
+    "discoverInteresting": {
+        "message": "Interessant voor jou"
+    },
+    "discoverInLibrary": {
+        "message": "In je library",
+        "description": "Swift Discover: flag of a bookmark that is in your library"
+    },
+    "discoverYourTags": {
+        "message": "Je tags:",
+        "description": "Swift Discover: before your tags that are in a bookmark"
+    },
+    "discoverYourTagsHere": {
+        "message": "Je tags hierin",
+        "description": "Swift Discover: side bar, your tags in what is shown"
+    },
+    "discoverSites": {
+        "message": "Sites",
+        "description": "Swift Discover: side bar, the sites of what is shown"
+    },
+    "discoverSave": {
+        "message": "Bewaren",
+        "description": "Swift Discover: button that saves a bookmark to your library"
+    },
+    "discoverDismiss": {
+        "message": "Niet interessant",
+        "description": "Swift Discover: button that hides a bookmark from then on"
+    },
+    "discoverShowDismissed": {
+        "message": "Niet interessant tonen",
+        "description": "Swift Discover: checkbox, show the hidden ones again"
+    },
+    "discoverLeftOutSaved": {
+        "message": "$COUNT$ uit je library weggelaten",
+        "description": "Swift Discover: after how many are shown",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverLeftOutDismissed": {
+        "message": "$COUNT$ niet interessant weggelaten",
+        "description": "Swift Discover: after how many are shown",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "relatedTags": {
+        "message": "Vaak samen met deze:"
+    },
+    "similarSaved": {
+        "message": "Je bewaarde deze pagina al eerder op een ander webadres:"
+    },
+    "similarEdit": {
+        "message": "Die bewerken"
+    },
+    "formOptionsHead": {
+        "message": "Het bladwijzerformulier"
+    },
+    "formOptionsIntro": {
+        "message": "Wat het formulier invult voor een nieuwe bladwijzer. Een bladwijzer die je al bewaarde, opent zoals je hem bewaarde."
+    },
+    "optionPageDescription": {
+        "message": "Zonder geselecteerde tekst op de pagina de beschrijving die de pagina van zichzelf geeft (zoals zoekmachines die tonen) als beschrijving"
+    },
+    "optionCleanUrls": {
+        "message": "Een nieuwe bladwijzer zonder trackingparameters (utm_…, fbclid en dergelijke), en op het webadres dat de pagina het hare noemt (canonical) als dat op dezelfde site is"
+    },
+    "siteRulesHead": {
+        "message": "Regels per site"
+    },
+    "siteRulesIntro": {
+        "message": "Wat een nieuwe bladwijzer van een site krijgt in het formulier: tags, privé of openbaar, later lezen of niet. Een regel voor example.com geldt ook voor zijn subdomeinen, zoals blog.example.com."
+    },
+    "siteRulesAdd": {
+        "message": "Regel toevoegen"
+    },
+    "siteRulesSite": {
+        "message": "Site, bv. github.com"
+    },
+    "siteRulesTags": {
+        "message": "Tags"
+    },
+    "ruleAsUsualPrivacy": {
+        "message": "Privé: zoals gewoonlijk"
+    },
+    "rulePublic": {
+        "message": "Openbaar"
+    },
+    "ruleAsUsualUnread": {
+        "message": "Later lezen: zoals gewoonlijk"
+    },
+    "ruleNotReadLater": {
+        "message": "Niet later lezen"
+    },
+    "similarTags": {
+        "message": "Gelijkaardige tags"
+    },
+    "similarIntro": {
+        "message": "Tags die bijna hetzelfde zijn: met of zonder koppelteken, spatie of accent, of de ene het meervoud van de andere. Kies welke je houdt: Samenvoegen geeft de bladwijzers met de andere die ene in hun plaats, ook in Diigo."
+    },
+    "similarNone": {
+        "message": "Geen gelijkaardige tags."
+    },
+    "similarMerge": {
+        "message": "Samenvoegen"
+    },
+    "similarIgnore": {
+        "message": "Niet hetzelfde"
+    },
+    "similarMerged": {
+        "message": "$COUNT$ bladwijzers hebben nu de tag $TAG$.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            },
+            "tag": {
+                "content": "$2",
+                "example": "recipe"
+            }
+        }
+    },
+    "linksCheckAll": {
+        "message": "Alle links controleren"
+    },
+    "linksCheckAllIntro": {
+        "message": "$COUNT$ links van je library zijn niet of niet onlangs gecontroleerd: Alle links controleren controleert ze allemaal, ook die je niet tegenkomt bij het scrollen.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksAllChecked": {
+        "message": "Alle links van je library zijn onlangs gecontroleerd."
+    },
+    "linksChecking": {
+        "message": "Links controleren: $DONE$ van $TOTAL$, tot nu $DEAD$ dood…",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "total": {
+                "content": "$2"
+            },
+            "dead": {
+                "content": "$3"
+            }
+        }
+    },
+    "linksChecked": {
+        "message": "$DONE$ links gecontroleerd: $DEAD$ dood.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksCheckStopped": {
+        "message": "Gestopt na $DONE$ links: $DEAD$ dood. Wat gecontroleerd is, blijft gecontroleerd.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linkBusyTitle": {
+        "message": "De site vroeg om trager te gaan (429, Too Many Requests), ook na wachten: geen fout. Hij wordt de volgende keer opnieuw gecontroleerd."
+    },
+    "linkSearchTitle": {
+        "message": "Titel zoeken via Google"
+    },
+    "linkUseWayback": {
+        "message": "De laatste kopie in de Wayback Machine gebruiken"
+    },
+    "linkTagDead": {
+        "message": "De tag dead-link geven"
+    },
+    "linkWaybackLooking": {
+        "message": "“$TITLE$” opzoeken in de Wayback Machine…",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackNoAnswer": {
+        "message": "De Wayback Machine antwoordde niet voor “$TITLE$”. Probeer later opnieuw.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackNone": {
+        "message": "De Wayback Machine heeft geen kopie van “$TITLE$”: de bladwijzer blijft zoals hij is.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackUsed": {
+        "message": "“$TITLE$” leidt nu naar zijn kopie in de Wayback Machine.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeStale": {
+        "message": "Al meer dan 3 maanden te lezen"
+    },
+    "homeMarkRead": {
+        "message": "Gelezen"
+    },
+    "homeAllRead": {
+        "message": "Alles gelezen"
+    },
+    "homeAllReadConfirm": {
+        "message": "Alle $COUNT$ als gelezen markeren, ook in Diigo?",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "40"
+            }
+        }
+    },
+    "libraryDeadLinks": {
+        "message": "Dode links"
+    },
+    "optionHidePrivateFlag": {
+        "message": "Geen Privé bij elk privé-item in de lijst, want de meeste zijn dat; in de plaats Openbaar bij een openbaar item"
+    },
+    "libraryPublicFlag": {
+        "message": "Openbaar"
+    },
+    "setupBuildingTitle": {
+        "message": "Je library wordt klaargezet"
+    },
+    "setupBuildingText": {
+        "message": "De Swift Library gaat je Diigo-library één keer af, pagina per pagina, en bewaart een kopie in deze browser: ongeveer een minuut voor 16.000 bladwijzers. Daarna opent hij meteen, en vraagt hij Diigo alleen nog wat er veranderde."
+    },
+    "setupStarting": {
+        "message": "Diigo om je library vragen…"
+    },
+    "setupProgress": {
+        "message": "$DONE$ van $TOTAL$ items",
+        "placeholders": {
+            "done": {
+                "content": "$1",
+                "example": "4,800"
+            },
+            "total": {
+                "content": "$2",
+                "example": "16,000"
+            }
+        }
+    },
+    "setupTimeLeft": {
+        "message": "nog ongeveer $TIME$",
+        "placeholders": {
+            "time": {
+                "content": "$1",
+                "example": "40 seconds"
+            }
+        }
+    },
+    "setupFailedTitle": {
+        "message": "Je library kon niet geladen worden"
+    },
+    "setupRetry": {
+        "message": "Opnieuw proberen"
+    },
+    "setupStoppedTitle": {
+        "message": "Nog niet klaar"
+    },
+    "setupSignedOutTitle": {
+        "message": "Log in op Diigo"
+    },
+    "setupSignedOutText": {
+        "message": "De Swift Library toont je Diigo-library, met de aanmelding die je op diigo.com hebt. Log daar in: deze pagina gaat dan vanzelf verder."
+    },
+    "setupSignIn": {
+        "message": "Inloggen op diigo.com"
+    },
+    "linkIgnore": {
+        "message": "Niet dood: deze link negeren"
+    },
+    "linkIgnoreSite": {
+        "message": "Niet dood: alle links van $SITE$ negeren",
+        "placeholders": {
+            "site": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "linkUnignore": {
+        "message": "Weer als dood tellen"
+    },
+    "linkUnignoreSite": {
+        "message": "Links van $SITE$ weer als dood tellen",
+        "placeholders": {
+            "site": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "linkIgnoredTitle": {
+        "message": "Dood bevonden, maar volgens jou niet: niet bij Dode links"
+    },
+    "libraryLinksMoved": {
+        "message": "Verhuisd"
+    },
+    "libraryLinksBlocked": {
+        "message": "Geblokkeerd door botbeveiliging"
+    },
+    "linkGoneHomeTitle": {
+        "message": "Deze pagina leidt nu naar de homepage van de site: de pagina zelf is weg"
+    },
+    "linkGoneNotFoundTitle": {
+        "message": "De site antwoordt, maar de pagina zegt dat ze niet gevonden is: de pagina is weg"
+    },
+    "linkParkedTitle": {
+        "message": "Dit domein is geparkeerd of te koop: de site die er was, is weg"
+    },
+    "linkMovedTitle": {
+        "message": "Verhuisd naar $URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1",
+                "example": "https://example.org/new"
+            }
+        }
+    },
+    "linkBlockedTitle": {
+        "message": "De site weigerde de controle ($STATUS$): een botbeveiliging, die een browsertabblad wel doorlaat. Open hem om te zien of hij werkt.",
+        "placeholders": {
+            "status": {
+                "content": "$1",
+                "example": "403"
+            }
+        }
+    },
+    "linkUseNewUrl": {
+        "message": "Het nieuwe webadres gebruiken"
+    },
+    "linkUseNewUrlAll": {
+        "message": "Alles naar het nieuwe adres"
+    },
+    "linkUseNewUrlConfirm": {
+        "message": "$COUNT$ bladwijzers het webadres geven waarnaar ze verhuisden, ook in Diigo?",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "linkNewUrlUsed": {
+        "message": "$COUNT$ bladwijzers hebben hun nieuwe webadres.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryNoTitle": {
+        "message": "Zonder titel"
+    },
+    "libraryNoTitleIntro": {
+        "message": "Bladwijzers zonder echte titel: geen, hun webadres, of een zoals Untitled. Titels ophalen vraagt elke pagina haar eigen titel en bewaart die ook in Diigo."
+    },
+    "libraryFetchTitles": {
+        "message": "Titels ophalen"
+    },
+    "libraryTitlesFetched": {
+        "message": "$COUNT$ bladwijzers hebben nu een titel.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryTitlesNone": {
+        "message": "$COUNT$ pagina's gaven geen titel.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryTitleFromPage": {
+        "message": "Titel van de pagina"
+    },
+    "outlinersNewTitle": {
+        "message": "Titel van een nieuwe outliner"
+    },
+    "outlinersNone": {
+        "message": "Je hebt nog geen outliners: Toevoegen → Outliner maakt een nieuwe."
+    },
+    "outlinersTotalOne": {
+        "message": "1 outliner op Diigo"
+    },
+    "outlinersTotal": {
+        "message": "$COUNT$ outliners op Diigo",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersChangedOn": {
+        "message": "Gewijzigd op $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersEmpty": {
+        "message": "Deze outliner is leeg: voeg een item toe, of items uit je library."
+    },
+    "outlinersAddItem": {
+        "message": "+ Item"
+    },
+    "outlinersAddFromLibrary": {
+        "message": "Uit je library"
+    },
+    "outlinersExpandAll": {
+        "message": "Alles uitklappen"
+    },
+    "outlinersCollapseAll": {
+        "message": "Alles inklappen"
+    },
+    "outlinersExpand": {
+        "message": "Uitklappen"
+    },
+    "outlinersCollapse": {
+        "message": "Inklappen"
+    },
+    "outlinersItemDelete": {
+        "message": "Dit item verwijderen"
+    },
+    "outlinersItemDeleteAsk": {
+        "message": "Dit item en de $COUNT$ items eronder verwijderen?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersDescription": {
+        "message": "Notitie"
+    },
+    "outlinersKeys": {
+        "message": "Enter: nieuw item · Tab / Shift+Tab: in / uit · Shift+Enter: de notitie · Alt+Shift+↑↓: verplaatsen · Backspace op een leeg item: verwijderen · Ctrl+Shift+Backspace: item verwijderen"
+    },
+    "outlinersReadOnly": {
+        "message": "Met jou gedeeld om te lezen: hier niet te wijzigen."
+    },
+    "outlinersLoading": {
+        "message": "Laden van Diigo…"
+    },
+    "outlinersSaving": {
+        "message": "Opslaan…"
+    },
+    "outlinersSaved": {
+        "message": "Opgeslagen op Diigo"
+    },
+    "outlinersNotSaved": {
+        "message": "Niet opgeslagen op Diigo: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersFailed": {
+        "message": "Diigo antwoordde niet: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersChanged": {
+        "message": "Intussen elders gewijzigd: opnieuw geladen."
+    },
+    "outlinersNoJson": {
+        "message": "Diigo antwoordde met een pagina in plaats van gegevens (uitgelogd, of een controle van Cloudflare: open diigo.com even)."
+    },
+    "outlinersLibraryFind": {
+        "message": "Zoek in je library"
+    },
+    "outlinersNoIndex": {
+        "message": "De Swift Library heeft nog geen index: open hem één keer om die te maken."
+    },
+    "bulkSharedToOutliner": {
+        "message": "$COUNT$ toegevoegd aan “$OUTLINER$”.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "outliner": {
+                "content": "$2"
+            }
+        }
+    },
+    "outlinersAdd": {
+        "message": "Toevoegen"
+    },
+    "outlinersAdded": {
+        "message": "Toegevoegd"
+    }
+}

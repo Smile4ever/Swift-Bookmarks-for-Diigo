@@ -1,0 +1,464 @@
+:root {
+  color-scheme: light;
+  --text: #222;
+  --grey: #9a9a9a;
+  --line: #cfcfcf;
+  --blue: #1e88e5;
+  --blue-dark: #1976d2;
+  --red: #d32f2f;
+  --pale-red: #fdecea;
+  --hover: #f0f0f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html, body {
+  margin: 0;
+  /* the page shows around the card */
+  background: transparent;
+  color: var(--text);
+  font: 15px "Open Sans", "Segoe UI", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible, a:focus-visible, input[type=checkbox]:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+#card {
+  margin: 16px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .2), 0 1px 3px rgba(0, 0, 0, .12);
+}
+
+
+/* header */
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px 14px 24px;
+  border-bottom: 1px solid #ececec;
+}
+
+h1 {
+  flex: 1;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+#when {
+  color: var(--grey);
+  font-size: 13px;
+}
+
+#when:empty {
+  display: none;
+}
+
+#spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ddd;
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+#close {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' stroke='%23757575' stroke-width='2'%3E%3Cpath d='M2 2l12 12M14 2L2 14'/%3E%3C/svg%3E") center / 14px no-repeat;
+}
+
+#close:hover {
+  background-color: var(--hover);
+}
+
+
+/* fields: the label sits in the empty field and moves above it when there is text */
+
+#fields {
+  padding: 20px 24px 4px;
+}
+
+.field {
+  position: relative;
+  padding-top: 18px;
+  margin-bottom: 14px;
+}
+
+.field input, .field textarea {
+  display: block;
+  width: 100%;
+  padding: 4px 0 8px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  resize: none;
+}
+
+#description {
+  min-height: 60px;
+}
+
+.field input:focus, .field textarea:focus {
+  border-bottom: 2px solid var(--blue);
+  padding-bottom: 7px;
+}
+
+.field label {
+  position: absolute;
+  left: 0;
+  top: 22px;
+  color: var(--grey);
+  font-size: 16px;
+  pointer-events: none;
+  transform-origin: left top;
+  transition: transform .15s, color .15s;
+}
+
+.field :not(:placeholder-shown) + label, .field :focus + label {
+  transform: translateY(-20px) scale(.78);
+}
+
+.field :focus + label {
+  color: var(--blue);
+}
+
+.field.invalid input, .field.invalid textarea {
+  border-bottom-color: var(--red);
+}
+
+.field.invalid label {
+  color: var(--red);
+}
+
+
+/* tags */
+
+#tags {
+  padding-right: 32px;
+}
+
+#cloud-button {
+  position: absolute;
+  right: 0;
+  bottom: 6px;
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 50%;
+  opacity: .55;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M21.4 11.6l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7c0 .55.22 1.05.59 1.42l9 9a2 2 0 0 0 2.82 0l7-7a2 2 0 0 0 0-2.82zM5.5 7A1.5 1.5 0 1 1 7 5.5 1.5 1.5 0 0 1 5.5 7z'/%3E%3C/svg%3E") center / 16px no-repeat;
+}
+
+#cloud-button:hover {
+  opacity: 1;
+  background-color: var(--hover);
+}
+
+#matches {
+  margin: -14px 0 14px;
+  padding: 4px 0;
+  list-style: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#matches li {
+  padding: 6px 12px;
+}
+
+#matches li.active {
+  background: #eef4fc;
+}
+
+#cloud {
+  margin: -4px 0 14px;
+  padding: 10px 12px;
+  max-height: 180px;
+  overflow-y: auto;
+  border-radius: 4px;
+  background: #fafafa;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+#cloud-head {
+  display: flex;
+  justify-content: space-between;
+  color: var(--grey);
+  font-size: 12px;
+}
+
+#cloud-tags {
+  color: var(--grey);
+}
+
+#cloud .tag {
+  margin: 0 10px 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #555;
+  line-height: inherit;
+}
+
+#cloud .tag.chosen {
+  color: var(--blue);
+}
+
+#suggested {
+  margin: -4px 0 12px;
+  font-size: 12px;
+}
+
+#suggested .tag, #related .tag {
+  margin: 4px 4px 0 0;
+  padding: 2px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: #f1f3f4;
+  color: #444;
+  font-size: 12px;
+}
+
+#related {
+  margin: -8px 0 12px;
+  color: var(--grey);
+  font-size: 12px;
+}
+
+#related .tag {
+  background: #e8f0fe;
+  color: #1a4f9c;
+}
+
+/* in your library already at another web address: above the fields */
+
+#similar {
+  margin: 12px 24px 0;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: #fff8e1;
+  color: #5d4037;
+  font-size: 13px;
+}
+
+#similar ul {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+#similar li {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+#similar .similar-url {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#similar button {
+  flex: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--blue);
+  font-size: 13px;
+}
+
+
+/* checkboxes */
+
+#options {
+  display: flex;
+  gap: 20px;
+  margin: 4px 0 8px;
+}
+
+#options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#options input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border: 2px solid #757575;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+#options input:checked {
+  border-color: var(--blue);
+  background: var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 14px no-repeat;
+}
+
+
+/* share to group and to outliner */
+
+#share {
+  display: flex;
+  gap: 12px;
+  margin: 4px 0 16px;
+}
+
+/* Share to group not for a private bookmark, as on diigo.com with the option privateNoSharing; to an outliner it can */
+#fields:has(#private:checked) #group {
+  display: none;
+}
+
+#share:not(:has(select:not([hidden]))),
+#fields:has(#private:checked) #share:not(:has(#outliner:not([hidden]))) {
+  display: none;
+}
+
+#share select {
+  flex: 1;
+  min-width: 0;
+  padding: 4px 0 6px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+}
+
+#share select:focus {
+  border-bottom: 2px solid var(--blue);
+  padding-bottom: 5px;
+}
+
+/* nothing chosen: grey like the labels of the fields */
+#share select:has(option[value=""]:checked) {
+  color: var(--grey);
+}
+
+#share option {
+  color: var(--text);
+}
+
+
+/* asking the URL first, in the Swift Library (form.js: askUrl): only that field */
+
+.asking #fields > :not(.field:has(#url)) {
+  display: none !important;
+}
+
+
+/* footer */
+
+#error {
+  margin: 4px 24px 0;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: var(--pale-red);
+  color: #b71c1c;
+  font-size: 13px;
+}
+
+footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 12px 24px 24px;
+}
+
+#delete {
+  margin-right: auto;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--red);
+}
+
+#delete:hover {
+  background: var(--pale-red);
+}
+
+#save {
+  min-width: 90px;
+  padding: 9px 24px;
+  border: 0;
+  border-radius: 2px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 16px;
+}
+
+#save:hover {
+  background: var(--blue-dark);
+}
+
+#save:disabled {
+  opacity: .7;
+  cursor: default;
+}
+
+/* Move: next to Save, as a second choice: its blue as a line around it */
+#move {
+  padding: 9px 18px;
+  border: 1px solid var(--blue);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--blue);
+  font-size: 16px;
+}
+
+#move:hover {
+  background: color-mix(in srgb, var(--blue) 10%, transparent);
+}
+
+#move:disabled {
+  opacity: .7;
+  cursor: default;
+}

@@ -1,0 +1,1801 @@
+{
+    "move": {
+        "message": "移动"
+    },
+    "moveTitle": {
+        "message": "保存到 Diigo，并从浏览器中删除此书签"
+    },
+    "syncNotWebPage": {
+        "message": "“$TITLE$”无法发送到 Diigo：它不是网页（$URL$）。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            },
+            "url": {
+                "content": "$2"
+            }
+        }
+    },
+    "syncFolderEmpty": {
+        "message": "文件夹“$TITLE$”中没有可发送到 Diigo 的网页书签。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "logHead": {
+        "message": "日志"
+    },
+    "logIntro": {
+        "message": "扩展最近出现的问题：时间、位置和原因。日志只保存在内存中，重启浏览器后为空。"
+    },
+    "logReportHead": {
+        "message": "报告问题"
+    },
+    "logReportText": {
+        "message": "有功能不正常？保存日志并将文件附加到 GitHub 上的新 issue。文件包含下面的错误、扩展版本、浏览器和你的设置（不含隐藏标签、网站规则和文件夹）；使用筛选只保存相关的错误。"
+    },
+    "logSave": {
+        "message": "保存日志用于错误报告"
+    },
+    "logNewIssue": {
+        "message": "在 GitHub 上新建 issue"
+    },
+    "logFilter": {
+        "message": "筛选"
+    },
+    "logClear": {
+        "message": "清空日志"
+    },
+    "logClearConfirm": {
+        "message": "清除日志中的 $COUNT$ 个错误？",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "logEmpty": {
+        "message": "暂无错误。"
+    },
+    "logEmptySince": {
+        "message": "自 $TIME$ 以来没有错误。",
+        "placeholders": {
+            "time": {
+                "content": "$1"
+            }
+        }
+    },
+    "logNoMatch": {
+        "message": "没有包含此内容的错误。"
+    },
+    "extDesc": {
+        "message": "快速将页面和链接保存到 Diigo 收藏库，并提供标签建议。Diigo 官方扩展的非官方替代品。"
+    },
+    "unofficial": {
+        "message": "此扩展不是由 Diigo 制作的，也不是 Diigo 官方扩展：它是 Diigo 自家扩展的替代品，专为书签打造。它使用你在 diigo.com 上的登录。"
+    },
+    "donate": {
+        "message": "觉得这个扩展有用？通过 PayPal 请作者喝杯咖啡"
+    },
+    "browserActionDefaultTitle": {
+        "message": "保存到 Diigo"
+    },
+    "browserActionOptionsTitle": {
+        "message": "Swift Bookmarks for Diigo 的选项"
+    },
+    "cannotBookmark": {
+        "message": "Diigo 无法保存此页面"
+    },
+    "commandShowForm": {
+        "message": "将此页面保存到 Diigo"
+    },
+    "optionsTagsHead": {
+        "message": "隐藏的标签"
+    },
+    "optionsTagsIntro": {
+        "message": "每行一个标签。除非完整输入，否则不会在书签表单中建议它们；带有这些标签的书签在 Swift Library、地址栏和 Swift Discover 中会被隐藏，完整搜索该标签时除外。"
+    },
+    "optionsTagsExample": {
+        "message": "例如\n私人\n工作笔记"
+    },
+    "optionsHead": {
+        "message": "在 diigo.com 上"
+    },
+    "optionsIntro": {
+        "message": "本扩展不再改变 diigo.com 的外观和功能：它做得更好的部分在 Swift Library 和 Swift Discover 中。在 diigo.com 上，它只在顶部菜单中添加通往它们的入口。"
+    },
+    "optionMyLibraryToSwift": {
+        "message": "diigo.com 顶部菜单中的 My Library 打开 Swift Library。Diigo 自己的：Ctrl+单击或中键单击，或 Swift Library 菜单中的 My Library"
+    },
+    "myLibraryToSwiftTitle": {
+        "message": "打开 Swift Library。Ctrl+单击：diigo.com 上的 My Library"
+    },
+    "optionSignInToSwift": {
+        "message": "在 diigo.com 登录后，打开 Swift Library，而不是 diigo.com 上的书签库"
+    },
+    "toolsAddonIntro": {
+        "message": "用于书签库的 Diigo 工具，含本扩展：工具栏按钮和 Ctrl+Alt+D 的书签表单、Swift Library 和 Swift Discover。"
+    },
+    "optionToolsToSwift": {
+        "message": "diigo.com 顶部菜单中的 Tools 打开扩展的 Tools 页面：不含 Google Play 和 Import kindle highlights，含本扩展。Diigo 自己的：Ctrl+单击或中键单击"
+    },
+    "toolsToSwiftTitle": {
+        "message": "打开扩展的 Tools 页面。Ctrl+单击：diigo.com 上的 Tools"
+    },
+    "optionDeadLinks": {
+        "message": "在 Swift Library 中显示哪些链接已失效 (404) 或其网站没有响应。为此，扩展会向网站本身请求每个页面。点击状态码可在 Wayback Machine 或 archive.is 上查找该页面。"
+    },
+    "linkDeadTitle": {
+        "message": "此页面已不存在（HTTP $STATUS$）",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkUnreachableTitle": {
+        "message": "网站无响应：域名已不存在、服务器拒绝连接或证书无效"
+    },
+    "linkArchives": {
+        "message": "在 Wayback Machine 或 archive.is 中查找此页面"
+    },
+    "archiveWaybackLatest": {
+        "message": "Wayback Machine：最新版本"
+    },
+    "archiveWaybackAll": {
+        "message": "Wayback Machine：所有版本"
+    },
+    "archiveTodayLatest": {
+        "message": "archive.is：最新版本"
+    },
+    "archiveTodayAll": {
+        "message": "archive.is：所有版本"
+    },
+    "optionHideShareToOutliner": {
+        "message": "隐藏 Share to outliner：在书签表单中以及在 Swift Library 中（添加、Edit、Bulk edit）"
+    },
+    "optionSplitAdd": {
+        "message": "在侧边栏顶部用四个按钮代替带菜单的 + 按钮：Bookmark、Image、PDF 和 Note，一键添加"
+    },
+    "topMenuHead": {
+        "message": "diigo.com 顶部的菜单"
+    },
+    "topMenuIntro": {
+        "message": "显示哪些项目、按什么顺序，以及你自己的链接；Swift Library 和 Swift Discover 的顶部也一样。My Library、My Outliners、My Groups 和 Swift Library 仅在登录后显示。"
+    },
+    "topMenuAdd": {
+        "message": "添加链接"
+    },
+    "topMenuName": {
+        "message": "名称"
+    },
+    "topMenuShow": {
+        "message": "在菜单中显示"
+    },
+    "topMenuUp": {
+        "message": "上移"
+    },
+    "topMenuDown": {
+        "message": "下移"
+    },
+    "topMenuRemove": {
+        "message": "移除"
+    },
+    "cleanupHead": {
+        "message": "搜索和清理书签"
+    },
+    "cleanupOptionsIntro": {
+        "message": "按网站、标题、标签、描述等查找书签，书签库再大也可以，并一次删除。"
+    },
+    "cleanupOpen": {
+        "message": "打开"
+    },
+    "cleanupStop": {
+        "message": "停止"
+    },
+    "cleanupSignedOut": {
+        "message": "Diigo 没有返回你的书签库。请先登录 diigo.com。"
+    },
+    "cleanupPageFailed": {
+        "message": "Diigo 没有响应第 $PAGE$ 页。请重试。",
+        "placeholders": {
+            "page": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupConfirm": {
+        "message": "从 Diigo 书签库删除 $COUNT$ 个书签？每个的副本都会放入 Swift Library 的回收站。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupDeleted": {
+        "message": "已从 Diigo 和索引中删除 $COUNT$ 个书签。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupFailed": {
+        "message": "Diigo 有 $COUNT$ 个没有删除：它们仍在列表中。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryPin": {
+        "message": "保留为筛选"
+    },
+    "bulkEdit": {
+        "message": "批量编辑"
+    },
+    "bulkSelected": {
+        "message": "已选 $COUNT$ 个",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkApplyTags": {
+        "message": "应用标签"
+    },
+    "bulkTagsHint": {
+        "message": "标签  -标签 表示移除"
+    },
+    "bulkPublic": {
+        "message": "设为公开"
+    },
+    "bulkPrivate": {
+        "message": "设为私密"
+    },
+    "bulkPublicConfirm": {
+        "message": "将 $COUNT$ 个书签设为公开？之后任何人都能在你的 Diigo 公开书签库中看到它们。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkRead": {
+        "message": "标记为已读"
+    },
+    "bulkUnread": {
+        "message": "标记为未读"
+    },
+    "bulkProgress": {
+        "message": "$DONE$ / $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "bulkDone": {
+        "message": "已在 Diigo 和索引中更改 $COUNT$ 个书签。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkFailed": {
+        "message": "Diigo 有 $COUNT$ 个未更改。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexNone": {
+        "message": "还没有索引。它会自动建立：扩展会逐页读取你的书签库，16,000 个书签大约需要一分钟。"
+    },
+    "indexStatus": {
+        "message": "索引：$COUNT$ 项，更新于 $WHEN$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "when": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexOtherUser": {
+        "message": "此索引属于 $USER$。请为你的书签库重新建立。",
+        "placeholders": {
+            "user": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexBuild": {
+        "message": "建立索引"
+    },
+    "indexRebuild": {
+        "message": "重新建立"
+    },
+    "indexUpdate": {
+        "message": "更新"
+    },
+    "indexBuilding": {
+        "message": "正在建立索引：第 $DONE$ 页，共 $PAGES$ 页",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "pages": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexUpdating": {
+        "message": "正在更新索引：第 $PAGE$ 页",
+        "placeholders": {
+            "page": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexStopped": {
+        "message": "已停止：索引保持不变。"
+    },
+    "indexDiffers": {
+        "message": "Diigo 称有 $TOTAL$ 个项目，但即使索引已自动重建，也只返回 $COUNT$ 个。其余的可能只在 diigo.com 上显示。",
+        "placeholders": {
+            "total": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "searchNone": {
+        "message": "$TOTAL$ 项中没有匹配项",
+        "placeholders": {
+            "total": {
+                "content": "$2"
+            }
+        }
+    },
+    "searchFieldSite": {
+        "message": "网站"
+    },
+    "searchFieldUrl": {
+        "message": "URL"
+    },
+    "searchFieldTitle": {
+        "message": "标题"
+    },
+    "searchFieldDescription": {
+        "message": "描述"
+    },
+    "searchFieldTag": {
+        "message": "标签"
+    },
+    "searchFieldPrivate": {
+        "message": "私密"
+    },
+    "searchFieldUnread": {
+        "message": "未读"
+    },
+    "searchFieldSaved": {
+        "message": "保存于"
+    },
+    "librarySavedAny": {
+        "message": "任何时间保存"
+    },
+    "librarySavedWeek": {
+        "message": "过去一周"
+    },
+    "librarySavedMonth": {
+        "message": "过去一个月"
+    },
+    "librarySavedYear": {
+        "message": "过去一年"
+    },
+    "librarySavedOverYear": {
+        "message": "一年多以前"
+    },
+    "librarySavedOver5Years": {
+        "message": "五年多以前"
+    },
+    "libraryLinks": {
+        "message": "链接状态"
+    },
+    "libraryLinksAny": {
+        "message": "所有链接"
+    },
+    "libraryLinksDead": {
+        "message": "失效链接 (404)"
+    },
+    "libraryLinksUnreachable": {
+        "message": "网站无响应"
+    },
+    "libraryLinksWarn": {
+        "message": "其他错误"
+    },
+    "libraryLinksOk": {
+        "message": "有效链接"
+    },
+    "libraryLinksUnchecked": {
+        "message": "尚未检查"
+    },
+    "cloudCount": {
+        "message": "$COUNT$ 个书签",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cloudNoMatch": {
+        "message": "没有名称中包含该内容的标签。"
+    },
+    "libraryMenu": {
+        "message": "Swift Library"
+    },
+    "libraryOptionsIntro": {
+        "message": "从此浏览器中的索引查看整个 Diigo 书签库：即使有成千上万个书签，搜索、排序和标签也能立即使用。"
+    },
+    "optionBulkExitAfter": {
+        "message": "执行操作后退出批量编辑"
+    },
+    "optionBulkClearFilters": {
+        "message": "批量编辑操作后，如果没有可显示的内容，则清除搜索和筛选"
+    },
+    "optionDeleteDelay": {
+        "message": "在 Swift Library 中删除时不再询问：立即移到回收站，30 秒后才从 Diigo 删除"
+    },
+    "libraryAllFields": {
+        "message": "所有字段"
+    },
+    "libraryQuery": {
+        "message": "搜索…"
+    },
+    "libraryField": {
+        "message": "搜索范围"
+    },
+    "librarySort": {
+        "message": "排序"
+    },
+    "librarySortNewest": {
+        "message": "最新优先"
+    },
+    "librarySortOldest": {
+        "message": "最早优先"
+    },
+    "librarySortUpdated": {
+        "message": "最近修改"
+    },
+    "librarySortTitle": {
+        "message": "标题 A–Z"
+    },
+    "librarySortTitleDesc": {
+        "message": "标题 Z–A"
+    },
+    "libraryPrivacy": {
+        "message": "隐私"
+    },
+    "libraryPrivacyAll": {
+        "message": "公开和私密"
+    },
+    "libraryPrivacyPublic": {
+        "message": "仅公开"
+    },
+    "libraryPrivacyPrivate": {
+        "message": "仅私密"
+    },
+    "libraryShowHidden": {
+        "message": "显示隐藏的"
+    },
+    "libraryAnnotated": {
+        "message": "已批注"
+    },
+    "libraryUnread": {
+        "message": "未读"
+    },
+    "libraryCount": {
+        "message": "$TOTAL$ 项中的 $COUNT$ 项",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "total": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryNoItems": {
+        "message": "0 项"
+    },
+    "libraryTagFilter": {
+        "message": "查找标签…"
+    },
+    "libraryOpenDiigo": {
+        "message": "在 Diigo 上"
+    },
+    "libraryDelete": {
+        "message": "删除"
+    },
+    "libraryConfirm": {
+        "message": "从 Diigo 书签库删除“$TITLE$”？副本会放入 Swift Library 的回收站。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDeleteFailed": {
+        "message": "Diigo 没有删除它。"
+    },
+    "libraryMovedToTrash": {
+        "message": "已移到回收站（$COUNT$ 项）",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryNotDeletedYet": {
+        "message": "尚未从 Diigo 删除"
+    },
+    "libraryUndo": {
+        "message": "撤销"
+    },
+    "libraryRemoveFilter": {
+        "message": "移除此筛选"
+    },
+    "libraryHuntIntro": {
+        "message": "随机显示 20 个链接尚未检查的书签：正在检查它们的链接，失效的显示为红色。再次点击左侧的失效链接，查看找到的失效链接，或另外 20 个。"
+    },
+    "libraryHuntNone": {
+        "message": "没有失效链接：书签的所有链接最近都已检查过。"
+    },
+    "tagRename": {
+        "message": "重命名标签"
+    },
+    "tagRenamePrompt": {
+        "message": "标签 $TAG$ 的新名称（应用于你的所有项目）：",
+        "placeholders": {
+            "tag": {
+                "content": "$1"
+            }
+        }
+    },
+    "tagRenaming": {
+        "message": "正在重命名 $TAG$…",
+        "placeholders": {
+            "tag": {
+                "content": "$1"
+            }
+        }
+    },
+    "tagRenamed": {
+        "message": "$OLD$ 已改为 $NEW$，共 $COUNT$ 个项目。",
+        "placeholders": {
+            "old": {
+                "content": "$1"
+            },
+            "new": {
+                "content": "$2"
+            },
+            "count": {
+                "content": "$3"
+            }
+        }
+    },
+    "libraryImageView": {
+        "message": "显示图片"
+    },
+    "libraryImageLoading": {
+        "message": "正在从 Diigo 加载图片…"
+    },
+    "libraryImageNone": {
+        "message": "Diigo 没有提供此图片的文件。"
+    },
+    "libraryImageOpen": {
+        "message": "在新标签页中打开图片本身"
+    },
+    "libraryRandomIntro": {
+        "message": "从你的书签库中随机选出的 10 个书签（不含带隐藏标签的）。再次点击左侧的“随机”可换 10 个。"
+    },
+    "libraryRandom": {
+        "message": "随机"
+    },
+    "libraryHome": {
+        "message": "开始"
+    },
+    "homeRecent": {
+        "message": "最近保存"
+    },
+    "homeShared": {
+        "message": "最近分享"
+    },
+    "homeTotal": {
+        "message": "你的 Diigo 书签库中有 $COUNT$ 项",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeUnread": {
+        "message": "待读"
+    },
+    "homeOnThisDay": {
+        "message": "历史上的今天"
+    },
+    "homeOnDay": {
+        "message": "$DAY$",
+        "placeholders": {
+            "day": {
+                "content": "$1",
+                "example": "20 November"
+            }
+        }
+    },
+    "homeYesterday": {
+        "message": "昨天"
+    },
+    "homeToday": {
+        "message": "今天"
+    },
+    "homeTomorrow": {
+        "message": "明天"
+    },
+    "homePreviousDay": {
+        "message": "前一天"
+    },
+    "homeNextDay": {
+        "message": "后一天"
+    },
+    "homeNothingOnDay": {
+        "message": "往年的这一天没有保存任何内容"
+    },
+    "homeCleanup": {
+        "message": "清理"
+    },
+    "homeMore": {
+        "message": "更多"
+    },
+    "homeOtherRandom": {
+        "message": "换一批"
+    },
+    "homeNothingToClean": {
+        "message": "没有需要清理的"
+    },
+    "homeEmptyTrash": {
+        "message": "清空"
+    },
+    "libraryTrash": {
+        "message": "回收站"
+    },
+    "libraryTrashIntro": {
+        "message": "用附加组件删除、保存在此浏览器中的内容。还原会在 Diigo 中重新创建，日期为今天，不含高亮。30 天后永久删除。"
+    },
+    "libraryRestore": {
+        "message": "还原"
+    },
+    "libraryForget": {
+        "message": "永久删除"
+    },
+    "libraryEmptyTrash": {
+        "message": "清空回收站"
+    },
+    "libraryEmptyConfirm": {
+        "message": "永久删除回收站中的 $COUNT$ 项？",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryEmptying": {
+        "message": "正在清空回收站 · $DONE$ / $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryEmptied": {
+        "message": "已从回收站永久删除 $COUNT$ 项。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDeletedOn": {
+        "message": "删除于 $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryRestoreFailed": {
+        "message": "Diigo 没有重新保存它：$ERROR$",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryCantRestore": {
+        "message": "Diigo 只能通过从 Kindle 导入来创建 Kindle 条目：这会打开导入页面，重新从亚马逊获取你的标注和笔记。"
+    },
+    "libraryReimportKindle": {
+        "message": "重新从 Kindle 导入"
+    },
+    "libraryNoteText": {
+        "message": "正文"
+    },
+    "noteBold": {
+        "message": "粗体"
+    },
+    "noteItalic": {
+        "message": "斜体"
+    },
+    "noteUnderline": {
+        "message": "下划线"
+    },
+    "noteBulletList": {
+        "message": "项目符号列表"
+    },
+    "noteNumberedList": {
+        "message": "编号列表"
+    },
+    "noteLink": {
+        "message": "链接"
+    },
+    "noteClearFormat": {
+        "message": "清除格式"
+    },
+    "noteLinkPrompt": {
+        "message": "链接的网址"
+    },
+    "libraryNoteNotSaved": {
+        "message": "Diigo 没有保存笔记：$WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDuplicates": {
+        "message": "重复项"
+    },
+    "libraryDuplicatesIntro": {
+        "message": "网址相同、仅写法不同的书签：http 或 https、www.、末尾斜杠或跟踪参数 (utm_…)。同一网址的书签排在一起。"
+    },
+    "libraryTickDuplicates": {
+        "message": "勾选除最新以外的全部"
+    },
+    "libraryNoFile": {
+        "message": "回收站中没有它的文件：它在回收站保存文件之前被删除，或 Diigo 没有提供。"
+    },
+    "libraryTrashSize": {
+        "message": "$COUNT$ 项，$SIZE$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "size": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryTrashEmpty": {
+        "message": "回收站是空的。"
+    },
+    "libraryStorage": {
+        "message": "· 附加组件总计：$USED$ / $QUOTA$",
+        "placeholders": {
+            "used": {
+                "content": "$1"
+            },
+            "quota": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryNoNoteText": {
+        "message": "索引中没有这条笔记的正文：它在索引保存正文之前就进了回收站。"
+    },
+    "libraryEdit": {
+        "message": "编辑"
+    },
+    "libraryBadUrl": {
+        "message": "URL 必须以 http:// 或 https:// 开头。"
+    },
+    "libraryUrlNotSaved": {
+        "message": "Diigo 没有保存新的 URL。请重试，或在 Diigo 上修改。"
+    },
+    "libraryProblem": {
+        "message": "出现问题（$ERROR$）。能显示的内容都已显示；重新加载页面可能会有帮助。",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexUnavailable": {
+        "message": "无法在此浏览器中保存索引（$ERROR$），例如在隐私窗口中：每次打开页面都会重新建立。",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "shortcutsHead": {
+        "message": "快捷键"
+    },
+    "shortcutsFormHead": {
+        "message": "在书签表单中"
+    },
+    "shortcutOpenForm": {
+        "message": "打开或关闭表单。可在浏览器的扩展设置中更改此快捷键。"
+    },
+    "shortcutSaveFromTags": {
+        "message": "保存（在标签字段中）"
+    },
+    "shortcutSave": {
+        "message": "保存（在任意字段中，也可用 Alt + S）"
+    },
+    "shortcutPickTag": {
+        "message": "选择一个建议的标签，再按 Enter 或 Tab 添加"
+    },
+    "shortcutCloseForm": {
+        "message": "关闭表单（或先关闭建议标签列表）"
+    },
+    "menuSaveLink": {
+        "message": "将链接保存到 Diigo"
+    },
+    "menuSavePage": {
+        "message": "将页面保存到 Diigo"
+    },
+    "optionsMenu": {
+        "message": "Swift 选项",
+        "description": "The item of the add-on in the menu at the top of diigo.com and of its pages: its options page"
+    },
+    "optionsFind": {
+        "message": "查找选项"
+    },
+    "optionsFindNone": {
+        "message": "没有包含此内容的选项。"
+    },
+    "menuOptions": {
+        "message": "选项"
+    },
+    "randomBookmark": {
+        "message": "随机书签"
+    },
+    "formTitleNew": {
+        "message": "新书签"
+    },
+    "formTitleEdit": {
+        "message": "编辑书签"
+    },
+    "close": {
+        "message": "关闭 (Esc)"
+    },
+    "fieldTitle": {
+        "message": "标题"
+    },
+    "fieldUrl": {
+        "message": "网址"
+    },
+    "fieldDescription": {
+        "message": "描述"
+    },
+    "fieldTags": {
+        "message": "标签"
+    },
+    "yourTags": {
+        "message": "显示你的标签"
+    },
+    "tagCloudHead": {
+        "message": "你最常用的 100 个标签"
+    },
+    "editTags": {
+        "message": "管理标签"
+    },
+    "noTags": {
+        "message": "你还没有标签。"
+    },
+    "recommended": {
+        "message": "建议："
+    },
+    "addAll": {
+        "message": "添加所有建议的标签"
+    },
+    "private": {
+        "message": "私密"
+    },
+    "readLater": {
+        "message": "稍后阅读"
+    },
+    "shareToGroup": {
+        "message": "分享到群组"
+    },
+    "createGroup": {
+        "message": "创建群组…"
+    },
+    "shareToOutliner": {
+        "message": "添加到大纲"
+    },
+    "delete": {
+        "message": "删除"
+    },
+    "removeBookmark": {
+        "message": "从你的 Diigo 收藏库中删除此书签"
+    },
+    "add": {
+        "message": "保存"
+    },
+    "save": {
+        "message": "更新"
+    },
+    "saving": {
+        "message": "正在保存…"
+    },
+    "savedAgo": {
+        "message": "保存于$WHEN$",
+        "placeholders": {
+            "when": {
+                "content": "$1"
+            }
+        }
+    },
+    "savedOn": {
+        "message": "保存于 $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "clickToRemove": {
+        "message": "$SAVED$。点击可将其从你的 Diigo 收藏库中删除。",
+        "placeholders": {
+            "saved": {
+                "content": "$1"
+            }
+        }
+    },
+    "confirmDelete": {
+        "message": "此页面在你的 Diigo 收藏库中有高亮或笔记。删除书签也会删除它们。仍要删除吗？"
+    },
+    "errorNoAnswer": {
+        "message": "扩展没有响应。请重试。"
+    },
+    "errorNoConnection": {
+        "message": "无法连接 diigo.com。请检查网络连接后重试。"
+    },
+    "errorNotSignedIn": {
+        "message": "Diigo 显示你尚未登录。请在 diigo.com 登录后重试。"
+    },
+    "errorNotSaved": {
+        "message": "Diigo 未保存书签（HTTP $STATUS$，代码 $CODE$）",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            },
+            "code": {
+                "content": "$2"
+            }
+        }
+    },
+    "syncHead": {
+        "message": "将此浏览器的书签同步到 Diigo"
+    },
+    "syncIntro": {
+        "message": "把你选择的文件夹中的书签保存到 Diigo 收藏库，每秒一个。已在 Diigo 中的书签保持不变，在这里删除的书签仍保留在 Diigo 中。"
+    },
+    "syncAllow": {
+        "message": "允许访问你的书签"
+    },
+    "syncFoldersHead": {
+        "message": "文件夹（含子文件夹）"
+    },
+    "syncFolderTags": {
+        "message": "文件夹名称作为标签：“食谱 › 意大利菜”中的书签会得到标签“食谱”和“意大利菜”"
+    },
+    "syncPrivate": {
+        "message": "保存为私密"
+    },
+    "syncAuto": {
+        "message": "保持同步：这些文件夹中的新书签会在创建一分钟后（已有名称和文件夹时）发送到 Diigo，并在浏览器启动时和每 6 小时重新检查这些文件夹"
+    },
+    "syncNow": {
+        "message": "立即同步"
+    },
+    "syncStatus": {
+        "message": "已保存 $SAVED$，已在 Diigo 中 $SKIPPED$，失败 $FAILED$，剩余 $LEFT$",
+        "placeholders": {
+            "saved": {
+                "content": "$1"
+            },
+            "skipped": {
+                "content": "$2"
+            },
+            "failed": {
+                "content": "$3"
+            },
+            "left": {
+                "content": "$4"
+            }
+        }
+    },
+    "syncNothing": {
+        "message": "没有需要添加到 Diigo 的新书签。"
+    },
+    "syncNoFolders": {
+        "message": "请先选择一个或多个文件夹。"
+    },
+    "syncSignedOut": {
+        "message": "请在 diigo.com 登录：登录后同步会继续。"
+    },
+    "syncMenuHint": {
+        "message": "右键点击书签或文件夹：“保存到 Diigo”，或“移动到 Diigo”（书签进入 Diigo 后会从此浏览器中删除）。"
+    },
+    "menuSaveBookmark": {
+        "message": "保存到 Diigo"
+    },
+    "menuMoveBookmark": {
+        "message": "移动到 Diigo"
+    },
+    "omniboxSearch": {
+        "message": "在 Swift Library 中搜索这些词"
+    },
+    "omniboxNoIndex": {
+        "message": "请先打开一次 Swift Library，以建立你的 Diigo 书签库索引"
+    },
+    "libraryAdd": {
+        "message": "添加"
+    },
+    "libraryAddBookmark": {
+        "message": "书签"
+    },
+    "libraryAddImage": {
+        "message": "图片"
+    },
+    "libraryAddPdf": {
+        "message": "PDF"
+    },
+    "libraryAddOutliner": {
+        "message": "Outliner"
+    },
+    "libraryAddNote": {
+        "message": "笔记"
+    },
+    "libraryDropImages": {
+        "message": "将图片拖放到这里，\n或点击选择"
+    },
+    "libraryDropPdfs": {
+        "message": "将 PDF 拖放到这里，\n或点击选择\n每个最大 64 MB"
+    },
+    "libraryUpload": {
+        "message": "上传"
+    },
+    "libraryRetry": {
+        "message": "重试"
+    },
+    "libraryRemoveFile": {
+        "message": "移除"
+    },
+    "libraryNotImage": {
+        "message": "不是 Diigo 接受的图片（JPEG、PNG、GIF 或 BMP）"
+    },
+    "libraryNotPdf": {
+        "message": "不是 PDF"
+    },
+    "libraryPdfTooBig": {
+        "message": "64 MB 或更大：对 Diigo 来说太大"
+    },
+    "libraryUploadFailed": {
+        "message": "未上传"
+    },
+    "libraryUploadLimit": {
+        "message": "你已达到 Diigo 套餐的上传上限。"
+    },
+    "libraryPremium": {
+        "message": "在 Diigo 升级"
+    },
+    "libraryUploadError": {
+        "message": "Diigo 没有接受：$WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryAdded": {
+        "message": "已添加到你的书签库：$COUNT$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryNext": {
+        "message": "下一步"
+    },
+    "libraryNewNote": {
+        "message": "新笔记"
+    },
+    "libraryEditBookmark": {
+        "message": "编辑书签"
+    },
+    "libraryEditImage": {
+        "message": "编辑图片"
+    },
+    "libraryEditPdf": {
+        "message": "编辑 PDF"
+    },
+    "libraryItemNotSaved": {
+        "message": "Diigo 未保存：$WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryEditNote": {
+        "message": "编辑笔记"
+    },
+    "libraryAddImageTitle": {
+        "message": "添加图片"
+    },
+    "libraryAddPdfTitle": {
+        "message": "添加 PDF"
+    },
+    "discoverMenu": {
+        "message": "Swift Discover",
+        "description": "Name of the Swift Discover page (a name, not translated), in the menus"
+    },
+    "discoverQuery": {
+        "message": "搜索 Hot Bookmarks",
+        "description": "Swift Discover: placeholder of the search box"
+    },
+    "discoverShows": {
+        "message": "哪些书签",
+        "description": "Swift Discover: label of the menu of which bookmarks to show"
+    },
+    "discoverShowNew": {
+        "message": "对你来说是新的",
+        "description": "Swift Discover: only bookmarks that are not in your library"
+    },
+    "discoverShowAll": {
+        "message": "全部，也包括你的",
+        "description": "Swift Discover: all bookmarks, also those in your library"
+    },
+    "discoverShowSaved": {
+        "message": "仅你书签库中的",
+        "description": "Swift Discover: only bookmarks in your library"
+    },
+    "discoverSortHot": {
+        "message": "Hot，与 Diigo 相同",
+        "description": "Swift Discover: the order of Diigo"
+    },
+    "discoverSortForYou": {
+        "message": "为你推荐：按你的标签",
+        "description": "Swift Discover: the order by how many of your own tags are in a bookmark"
+    },
+    "discoverSortPeople": {
+        "message": "保存最多",
+        "description": "Swift Discover: the order by how many people saved it"
+    },
+    "discoverSortNewest": {
+        "message": "最新优先",
+        "description": "Swift Discover: the newest first"
+    },
+    "discoverRefresh": {
+        "message": "刷新",
+        "description": "Swift Discover: load the Hot Bookmarks again"
+    },
+    "discoverLoading": {
+        "message": "正在从 Diigo 加载 Hot Bookmarks…",
+        "description": "Swift Discover: while loading"
+    },
+    "discoverLoadMore": {
+        "message": "从 Diigo 加载更多",
+        "description": "Swift Discover: below the list, load the next page"
+    },
+    "discoverChallenge": {
+        "message": "diigo.com 想先确认这是浏览器 (Cloudflare)。请在 diigo.com 上打开一次 Discover，然后重试。",
+        "description": "Swift Discover: Cloudflare asks to check the browser"
+    },
+    "discoverOpenBuzz": {
+        "message": "在 diigo.com 上打开 Discover",
+        "description": "Swift Discover: link to diigo.com/buzz/hot"
+    },
+    "discoverRetry": {
+        "message": "重试",
+        "description": "Swift Discover: try loading again"
+    },
+    "discoverFailed": {
+        "message": "Diigo 没有返回 Hot Bookmarks（错误 $STATUS$）。",
+        "description": "Swift Discover: loading failed; STATUS is the HTTP status",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverNoIndex": {
+        "message": "请先打开一次 Swift Library 以建立索引：这样 Swift Discover 就知道哪些已在你的书签库中，以及哪些标签是你的。",
+        "description": "Swift Discover: there is no index of the Swift Library yet"
+    },
+    "discoverSaved": {
+        "message": "已保存：$TITLE$",
+        "description": "Swift Discover: after saving; TITLE is the title of the bookmark",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverPeople": {
+        "message": "在 Diigo 上保存它的人数：$COUNT$",
+        "description": "Swift Discover: tooltip of the number at the left of a bookmark",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverSavedBy": {
+        "message": "保存者",
+        "description": "Swift Discover: before the name of who saved it"
+    },
+    "discoverFirstSavedBy": {
+        "message": "首个保存者",
+        "description": "Swift Discover: before the name of who saved it first"
+    },
+    "discoverInteresting": {
+        "message": "你可能感兴趣"
+    },
+    "discoverInLibrary": {
+        "message": "在你的书签库中",
+        "description": "Swift Discover: flag of a bookmark that is in your library"
+    },
+    "discoverYourTags": {
+        "message": "你的标签：",
+        "description": "Swift Discover: before your tags that are in a bookmark"
+    },
+    "discoverYourTagsHere": {
+        "message": "其中你的标签",
+        "description": "Swift Discover: side bar, your tags in what is shown"
+    },
+    "discoverSites": {
+        "message": "网站",
+        "description": "Swift Discover: side bar, the sites of what is shown"
+    },
+    "discoverSave": {
+        "message": "保存",
+        "description": "Swift Discover: button that saves a bookmark to your library"
+    },
+    "discoverDismiss": {
+        "message": "不感兴趣",
+        "description": "Swift Discover: button that hides a bookmark from then on"
+    },
+    "discoverShowDismissed": {
+        "message": "显示不感兴趣的",
+        "description": "Swift Discover: checkbox, show the hidden ones again"
+    },
+    "discoverLeftOutSaved": {
+        "message": "已略去你书签库中的 $COUNT$ 个",
+        "description": "Swift Discover: after how many are shown",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverLeftOutDismissed": {
+        "message": "已略去 $COUNT$ 个不感兴趣的",
+        "description": "Swift Discover: after how many are shown",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "relatedTags": {
+        "message": "常一起使用："
+    },
+    "similarSaved": {
+        "message": "你之前已用另一个网址保存过此页面："
+    },
+    "similarEdit": {
+        "message": "编辑那个"
+    },
+    "formOptionsHead": {
+        "message": "书签表单"
+    },
+    "formOptionsIntro": {
+        "message": "表单为新书签填写的内容。已保存的书签按你保存时的样子打开。"
+    },
+    "optionPageDescription": {
+        "message": "页面上没有选中文字时，用页面对自身的描述（搜索引擎显示的那段）作为描述"
+    },
+    "optionCleanUrls": {
+        "message": "新书签去掉跟踪参数（utm_…、fbclid 等），并在同一网站上时使用页面声明的自身网址（canonical）"
+    },
+    "siteRulesHead": {
+        "message": "按网站的规则"
+    },
+    "siteRulesIntro": {
+        "message": "某个网站的新书签在表单中得到的内容：标签、私密或公开、是否稍后阅读。example.com 的规则也适用于其子域名，例如 blog.example.com。"
+    },
+    "siteRulesAdd": {
+        "message": "添加规则"
+    },
+    "siteRulesSite": {
+        "message": "网站，例如 github.com"
+    },
+    "siteRulesTags": {
+        "message": "标签"
+    },
+    "ruleAsUsualPrivacy": {
+        "message": "私密：照常"
+    },
+    "rulePublic": {
+        "message": "公开"
+    },
+    "ruleAsUsualUnread": {
+        "message": "稍后阅读：照常"
+    },
+    "ruleNotReadLater": {
+        "message": "不稍后阅读"
+    },
+    "similarTags": {
+        "message": "相似的标签"
+    },
+    "similarIntro": {
+        "message": "几乎相同的标签：有无连字符、空格或重音，或一个是另一个的复数。选择要保留的：“合并”会把带有其他标签的书签改为这个标签，Diigo 中也一样。"
+    },
+    "similarNone": {
+        "message": "没有相似的标签。"
+    },
+    "similarMerge": {
+        "message": "合并"
+    },
+    "similarIgnore": {
+        "message": "不一样"
+    },
+    "similarMerged": {
+        "message": "现在有 $COUNT$ 个书签带有标签 $TAG$。",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            },
+            "tag": {
+                "content": "$2",
+                "example": "recipe"
+            }
+        }
+    },
+    "linksCheckAll": {
+        "message": "检查所有链接"
+    },
+    "linksCheckAllIntro": {
+        "message": "书签库中有 $COUNT$ 个链接尚未检查或最近未检查：“检查所有链接”会检查全部，包括你没有滚动到的。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksAllChecked": {
+        "message": "书签库中的所有链接最近都已检查过。"
+    },
+    "linksChecking": {
+        "message": "正在检查链接：$DONE$ / $TOTAL$，目前失效 $DEAD$ 个…",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "total": {
+                "content": "$2"
+            },
+            "dead": {
+                "content": "$3"
+            }
+        }
+    },
+    "linksChecked": {
+        "message": "已检查 $DONE$ 个链接：失效 $DEAD$ 个。",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksCheckStopped": {
+        "message": "已在 $DONE$ 个链接后停止：失效 $DEAD$ 个。已检查的结果会保留。",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linkBusyTitle": {
+        "message": "网站要求放慢速度（429 Too Many Requests），等待后仍是如此：这不是错误。下次会再检查。"
+    },
+    "linkSearchTitle": {
+        "message": "在 Google 上搜索标题"
+    },
+    "linkUseWayback": {
+        "message": "使用 Wayback Machine 中的最新副本"
+    },
+    "linkTagDead": {
+        "message": "加上标签 dead-link"
+    },
+    "linkWaybackLooking": {
+        "message": "正在 Wayback Machine 中查找“$TITLE$”…",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackNoAnswer": {
+        "message": "Wayback Machine 对“$TITLE$”没有响应。请稍后重试。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackNone": {
+        "message": "Wayback Machine 没有“$TITLE$”的副本：书签保持不变。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackUsed": {
+        "message": "“$TITLE$”现在指向 Wayback Machine 中的副本。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeStale": {
+        "message": "待读超过 3 个月"
+    },
+    "homeMarkRead": {
+        "message": "已读"
+    },
+    "homeAllRead": {
+        "message": "全部已读"
+    },
+    "homeAllReadConfirm": {
+        "message": "将全部 $COUNT$ 个标记为已读（Diigo 中也是）？",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "40"
+            }
+        }
+    },
+    "libraryDeadLinks": {
+        "message": "失效链接"
+    },
+    "optionHidePrivateFlag": {
+        "message": "列表中不在每个私密项目旁显示“私密”（大多数都是私密的），改为在公开项目旁显示“公开”"
+    },
+    "libraryPublicFlag": {
+        "message": "公开"
+    },
+    "setupBuildingTitle": {
+        "message": "正在准备你的书签库"
+    },
+    "setupBuildingText": {
+        "message": "Swift Library 会逐页读取一次你的 Diigo 书签库，并在此浏览器中保存一份副本：16,000 个书签大约需要一分钟。之后它会立即打开，只向 Diigo 获取有变化的内容。"
+    },
+    "setupStarting": {
+        "message": "正在向 Diigo 获取你的书签库…"
+    },
+    "setupProgress": {
+        "message": "$TOTAL$ 个中的 $DONE$ 个",
+        "placeholders": {
+            "done": {
+                "content": "$1",
+                "example": "4,800"
+            },
+            "total": {
+                "content": "$2",
+                "example": "16,000"
+            }
+        }
+    },
+    "setupTimeLeft": {
+        "message": "还需约 $TIME$",
+        "placeholders": {
+            "time": {
+                "content": "$1",
+                "example": "40 seconds"
+            }
+        }
+    },
+    "setupFailedTitle": {
+        "message": "无法加载你的书签库"
+    },
+    "setupRetry": {
+        "message": "重试"
+    },
+    "setupStoppedTitle": {
+        "message": "尚未就绪"
+    },
+    "setupSignedOutTitle": {
+        "message": "登录 Diigo"
+    },
+    "setupSignedOutText": {
+        "message": "Swift Library 使用你在 diigo.com 上的登录来显示你的 Diigo 书签库。请在那里登录：此页面会自动继续。"
+    },
+    "setupSignIn": {
+        "message": "在 diigo.com 登录"
+    },
+    "linkIgnore": {
+        "message": "没有失效：忽略此链接"
+    },
+    "linkIgnoreSite": {
+        "message": "没有失效：忽略 $SITE$ 的所有链接",
+        "placeholders": {
+            "site": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "linkUnignore": {
+        "message": "重新算作失效"
+    },
+    "linkUnignoreSite": {
+        "message": "重新将 $SITE$ 的链接算作失效",
+        "placeholders": {
+            "site": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "linkIgnoredTitle": {
+        "message": "检测为失效，但你标记为未失效：不计入失效链接"
+    },
+    "libraryLinksMoved": {
+        "message": "已迁移"
+    },
+    "libraryLinksBlocked": {
+        "message": "被反机器人保护拦截"
+    },
+    "linkGoneHomeTitle": {
+        "message": "此页面现在跳转到网站首页：页面本身已不存在"
+    },
+    "linkGoneNotFoundTitle": {
+        "message": "网站有响应，但页面显示找不到：页面已不存在"
+    },
+    "linkParkedTitle": {
+        "message": "此域名已停放或待售：原来的网站已不存在"
+    },
+    "linkMovedTitle": {
+        "message": "已迁移到 $URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1",
+                "example": "https://example.org/new"
+            }
+        }
+    },
+    "linkBlockedTitle": {
+        "message": "网站拒绝了检查 ($STATUS$)：这是一种反机器人保护，浏览器标签页可以通过。请打开它看看是否正常。",
+        "placeholders": {
+            "status": {
+                "content": "$1",
+                "example": "403"
+            }
+        }
+    },
+    "linkUseNewUrl": {
+        "message": "使用新网址"
+    },
+    "linkUseNewUrlAll": {
+        "message": "全部改为新网址"
+    },
+    "linkUseNewUrlConfirm": {
+        "message": "将 $COUNT$ 个书签改为它们迁移到的网址（Diigo 中也一样）？",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "linkNewUrlUsed": {
+        "message": "$COUNT$ 个书签已改为新网址。",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryNoTitle": {
+        "message": "无标题"
+    },
+    "libraryNoTitleIntro": {
+        "message": "没有真正标题的书签：没有标题、标题是网址，或类似 Untitled。“获取标题”会向每个页面获取其标题，并同时保存到 Diigo。"
+    },
+    "libraryFetchTitles": {
+        "message": "获取标题"
+    },
+    "libraryTitlesFetched": {
+        "message": "现在有 $COUNT$ 个书签有了标题。",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryTitlesNone": {
+        "message": "有 $COUNT$ 个页面没有提供标题。",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryTitleFromPage": {
+        "message": "使用页面标题"
+    },
+    "outlinersNewTitle": {
+        "message": "新大纲的标题"
+    },
+    "outlinersNone": {
+        "message": "你还没有大纲：“添加”→“Outliner”可新建一个。"
+    },
+    "outlinersTotalOne": {
+        "message": "Diigo 上有 1 个大纲"
+    },
+    "outlinersTotal": {
+        "message": "Diigo 上有 $COUNT$ 个大纲",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersChangedOn": {
+        "message": "修改于 $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersEmpty": {
+        "message": "此大纲是空的：添加一个条目，或书签库中的项目。"
+    },
+    "outlinersAddItem": {
+        "message": "+ 条目"
+    },
+    "outlinersAddFromLibrary": {
+        "message": "来自书签库"
+    },
+    "outlinersExpandAll": {
+        "message": "全部展开"
+    },
+    "outlinersCollapseAll": {
+        "message": "全部折叠"
+    },
+    "outlinersExpand": {
+        "message": "展开"
+    },
+    "outlinersCollapse": {
+        "message": "折叠"
+    },
+    "outlinersItemDelete": {
+        "message": "删除此条目"
+    },
+    "outlinersItemDeleteAsk": {
+        "message": "删除此条目及其下的 $COUNT$ 个条目？",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersDescription": {
+        "message": "备注"
+    },
+    "outlinersKeys": {
+        "message": "Enter：新条目 · Tab / Shift+Tab：缩进 / 取消缩进 · Shift+Enter：备注 · Alt+Shift+↑↓：移动 · 在空条目中按 Backspace：删除 · Ctrl+Shift+Backspace：删除条目"
+    },
+    "outlinersReadOnly": {
+        "message": "与你共享为只读：无法在此更改。"
+    },
+    "outlinersLoading": {
+        "message": "正在从 Diigo 加载…"
+    },
+    "outlinersSaving": {
+        "message": "正在保存…"
+    },
+    "outlinersSaved": {
+        "message": "已保存到 Diigo"
+    },
+    "outlinersNotSaved": {
+        "message": "未保存到 Diigo：$WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersFailed": {
+        "message": "Diigo 没有响应：$WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersChanged": {
+        "message": "其间在别处已更改：已重新加载。"
+    },
+    "outlinersNoJson": {
+        "message": "Diigo 返回了网页而不是数据（已退出登录，或 Cloudflare 检查：请先打开一次 diigo.com）。"
+    },
+    "outlinersLibraryFind": {
+        "message": "搜索你的书签库"
+    },
+    "outlinersNoIndex": {
+        "message": "Swift Library 还没有索引：打开一次即可创建。"
+    },
+    "bulkSharedToOutliner": {
+        "message": "已将 $COUNT$ 项添加到“$OUTLINER$”。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "outliner": {
+                "content": "$2"
+            }
+        }
+    },
+    "outlinersAdd": {
+        "message": "添加"
+    },
+    "outlinersAdded": {
+        "message": "已添加"
+    }
+}

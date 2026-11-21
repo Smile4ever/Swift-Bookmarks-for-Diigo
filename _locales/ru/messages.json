@@ -1,0 +1,1801 @@
+{
+    "move": {
+        "message": "Переместить"
+    },
+    "moveTitle": {
+        "message": "Сохранить в Diigo и удалить эту закладку из браузера"
+    },
+    "syncNotWebPage": {
+        "message": "«$TITLE$» нельзя отправить в Diigo: это не веб-страница ($URL$).",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            },
+            "url": {
+                "content": "$2"
+            }
+        }
+    },
+    "syncFolderEmpty": {
+        "message": "В папке «$TITLE$» нет закладок веб-страниц для Diigo.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "logHead": {
+        "message": "Журнал"
+    },
+    "logIntro": {
+        "message": "Что недавно пошло не так в дополнении: когда, где и почему. Журнал хранится только в памяти и пуст после перезапуска браузера."
+    },
+    "logReportHead": {
+        "message": "Сообщить о проблеме"
+    },
+    "logReportText": {
+        "message": "Что-то не работает? Сохраните журнал и приложите файл к новому issue на GitHub. Файл содержит ошибки ниже, версию дополнения, ваш браузер и настройки, без скрытых тегов, правил для сайтов и папок; используйте фильтр, чтобы сохранить только нужные ошибки."
+    },
+    "logSave": {
+        "message": "Сохранить журнал для отчёта об ошибке"
+    },
+    "logNewIssue": {
+        "message": "Новый issue на GitHub"
+    },
+    "logFilter": {
+        "message": "Фильтр"
+    },
+    "logClear": {
+        "message": "Очистить журнал"
+    },
+    "logClearConfirm": {
+        "message": "Удалить ошибки из журнала ($COUNT$)?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "logEmpty": {
+        "message": "Пока ошибок нет."
+    },
+    "logEmptySince": {
+        "message": "Нет ошибок с $TIME$.",
+        "placeholders": {
+            "time": {
+                "content": "$1"
+            }
+        }
+    },
+    "logNoMatch": {
+        "message": "Ни одна ошибка этого не содержит."
+    },
+    "extDesc": {
+        "message": "Быстро сохраняйте страницы и ссылки в Diigo, с подсказками меток. Неофициальная альтернатива дополнению Diigo."
+    },
+    "unofficial": {
+        "message": "Это дополнение сделано не Diigo и не является официальным дополнением Diigo: это альтернатива дополнению от самого Diigo, созданная для закладок. Оно использует ваш вход на diigo.com."
+    },
+    "donate": {
+        "message": "Дополнение оказалось полезным? Угостите автора через PayPal"
+    },
+    "browserActionDefaultTitle": {
+        "message": "Сохранить в Diigo"
+    },
+    "browserActionOptionsTitle": {
+        "message": "Настройки Swift Bookmarks for Diigo"
+    },
+    "cannotBookmark": {
+        "message": "Diigo не может сохранить эту страницу"
+    },
+    "commandShowForm": {
+        "message": "Сохранить эту страницу в Diigo"
+    },
+    "optionsTagsHead": {
+        "message": "Скрытые метки"
+    },
+    "optionsTagsIntro": {
+        "message": "По одной метке в строке. Они не предлагаются в форме, пока вы не введёте их полностью, а закладки с ними скрыты в Swift Library, адресной строке и Swift Discover, кроме случаев, когда вы ищете эту метку полностью."
+    },
+    "optionsTagsExample": {
+        "message": "напр.\nличное\nрабочие заметки"
+    },
+    "optionsHead": {
+        "message": "На diigo.com"
+    },
+    "optionsIntro": {
+        "message": "Дополнение больше не меняет вид и работу diigo.com: то, что оно делает лучше, есть в Swift Library и в Swift Discover. На diigo.com оно добавляет только путь к ним, в меню вверху."
+    },
+    "optionMyLibraryToSwift": {
+        "message": "My Library в меню вверху diigo.com открывает Swift Library. Библиотека самого Diigo: Ctrl+щелчок или щелчок средней кнопкой, или My Library в меню Swift Library"
+    },
+    "myLibraryToSwiftTitle": {
+        "message": "Открывает Swift Library. Ctrl+щелчок: My Library на diigo.com"
+    },
+    "optionSignInToSwift": {
+        "message": "После входа на diigo.com открывается Swift Library вместо библиотеки на diigo.com"
+    },
+    "toolsAddonIntro": {
+        "message": "Инструменты Diigo для вашей библиотеки вместе с этим дополнением: форма закладки с кнопкой на панели и Ctrl+Alt+D, Swift Library и Swift Discover."
+    },
+    "optionToolsToSwift": {
+        "message": "Tools в верхнем меню diigo.com открывает страницу Tools дополнения: без Google Play и Import kindle highlights, с этим дополнением. Собственная Diigo: Ctrl+щелчок или щелчок средней кнопкой"
+    },
+    "toolsToSwiftTitle": {
+        "message": "Открывает страницу Tools дополнения. Ctrl+щелчок: Tools на diigo.com"
+    },
+    "optionDeadLinks": {
+        "message": "Показывать в Swift Library, какие ссылки мертвы (404) или чей сайт не отвечает. Для этого дополнение запрашивает каждую страницу у самого сайта. Нажмите на код состояния, чтобы найти страницу в Wayback Machine или на archive.is."
+    },
+    "linkDeadTitle": {
+        "message": "Этой страницы больше нет (HTTP $STATUS$)",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkUnreachableTitle": {
+        "message": "Сайт не отвечает: домен больше не существует, сервер отклоняет соединение или сертификат недействителен"
+    },
+    "linkArchives": {
+        "message": "Найти эту страницу в Wayback Machine или на archive.is"
+    },
+    "archiveWaybackLatest": {
+        "message": "Wayback Machine: последняя версия"
+    },
+    "archiveWaybackAll": {
+        "message": "Wayback Machine: все версии"
+    },
+    "archiveTodayLatest": {
+        "message": "archive.is: последняя версия"
+    },
+    "archiveTodayAll": {
+        "message": "archive.is: все версии"
+    },
+    "optionHideShareToOutliner": {
+        "message": "Скрыть Share to outliner: в форме закладки и в Swift Library (добавление, Edit, Bulk edit)"
+    },
+    "optionSplitAdd": {
+        "message": "Четыре кнопки вверху боковой панели вместо кнопки + с меню: Bookmark, Image, PDF и Note, чтобы добавлять одним щелчком"
+    },
+    "topMenuHead": {
+        "message": "Меню вверху diigo.com"
+    },
+    "topMenuIntro": {
+        "message": "Какие пункты в нём показаны, в каком порядке, и ваши собственные ссылки; так же вверху Swift Library и Swift Discover. My Library, My Outliners, My Groups и Swift Library видны только после входа."
+    },
+    "topMenuAdd": {
+        "message": "Добавить ссылку"
+    },
+    "topMenuName": {
+        "message": "Название"
+    },
+    "topMenuShow": {
+        "message": "Показывать в меню"
+    },
+    "topMenuUp": {
+        "message": "Вверх"
+    },
+    "topMenuDown": {
+        "message": "Вниз"
+    },
+    "topMenuRemove": {
+        "message": "Удалить"
+    },
+    "cleanupHead": {
+        "message": "Поиск и чистка закладок"
+    },
+    "cleanupOptionsIntro": {
+        "message": "Находите закладки по сайту, заголовку, тегу, описанию и другим полям, даже в большой библиотеке, и удаляйте их разом."
+    },
+    "cleanupOpen": {
+        "message": "Открыть"
+    },
+    "cleanupStop": {
+        "message": "Остановить"
+    },
+    "cleanupSignedOut": {
+        "message": "Diigo не выдал вашу библиотеку. Сначала войдите на diigo.com."
+    },
+    "cleanupPageFailed": {
+        "message": "Diigo не ответил для страницы $PAGE$. Попробуйте снова.",
+        "placeholders": {
+            "page": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupConfirm": {
+        "message": "Удалить закладки ($COUNT$) из библиотеки Diigo? Копия каждой попадёт в корзину Swift Library.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupDeleted": {
+        "message": "Удалено закладок: $COUNT$, в Diigo и в индексе.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupFailed": {
+        "message": "Diigo не удалил $COUNT$ из них: они остались в списке.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryPin": {
+        "message": "Оставить как фильтр"
+    },
+    "bulkEdit": {
+        "message": "Массовое редактирование"
+    },
+    "bulkSelected": {
+        "message": "Выбрано: $COUNT$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkApplyTags": {
+        "message": "Применить теги"
+    },
+    "bulkTagsHint": {
+        "message": "тег  -тег, чтобы убрать"
+    },
+    "bulkPublic": {
+        "message": "Сделать публичными"
+    },
+    "bulkPrivate": {
+        "message": "Сделать личными"
+    },
+    "bulkPublicConfirm": {
+        "message": "Сделать закладки общедоступными ($COUNT$)? Тогда их сможет увидеть любой в вашей открытой библиотеке на Diigo.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkRead": {
+        "message": "Отметить как прочитанные"
+    },
+    "bulkUnread": {
+        "message": "Отметить как непрочитанные"
+    },
+    "bulkProgress": {
+        "message": "$DONE$ из $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "bulkDone": {
+        "message": "Изменено закладок: $COUNT$, в Diigo и в индексе.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkFailed": {
+        "message": "Diigo не изменил $COUNT$ из них.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexNone": {
+        "message": "Индекса пока нет. Он создаётся сам: дополнение проходит по библиотеке страница за страницей, около минуты на 16 000 закладок."
+    },
+    "indexStatus": {
+        "message": "Индекс: $COUNT$ элементов, обновлён $WHEN$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "when": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexOtherUser": {
+        "message": "Индекс принадлежит $USER$. Создайте его заново для своей библиотеки.",
+        "placeholders": {
+            "user": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexBuild": {
+        "message": "Создать индекс"
+    },
+    "indexRebuild": {
+        "message": "Создать заново"
+    },
+    "indexUpdate": {
+        "message": "Обновить"
+    },
+    "indexBuilding": {
+        "message": "Создание индекса: страница $DONE$ из $PAGES$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "pages": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexUpdating": {
+        "message": "Обновление индекса: страница $PAGE$",
+        "placeholders": {
+            "page": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexStopped": {
+        "message": "Остановлено: индекс остался прежним."
+    },
+    "indexDiffers": {
+        "message": "Diigo сообщает о $TOTAL$ элементах, но отдаёт $COUNT$, даже после того как индекс сам построился заново. Остальные, возможно, видны только на diigo.com.",
+        "placeholders": {
+            "total": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "searchNone": {
+        "message": "Ничего не подходит, среди $TOTAL$ элементов",
+        "placeholders": {
+            "total": {
+                "content": "$2"
+            }
+        }
+    },
+    "searchFieldSite": {
+        "message": "Сайт"
+    },
+    "searchFieldUrl": {
+        "message": "URL"
+    },
+    "searchFieldTitle": {
+        "message": "Заголовок"
+    },
+    "searchFieldDescription": {
+        "message": "Описание"
+    },
+    "searchFieldTag": {
+        "message": "Тег"
+    },
+    "searchFieldPrivate": {
+        "message": "Личная"
+    },
+    "searchFieldUnread": {
+        "message": "Непрочитанная"
+    },
+    "searchFieldSaved": {
+        "message": "Сохранена"
+    },
+    "librarySavedAny": {
+        "message": "Сохранено когда угодно"
+    },
+    "librarySavedWeek": {
+        "message": "За неделю"
+    },
+    "librarySavedMonth": {
+        "message": "За месяц"
+    },
+    "librarySavedYear": {
+        "message": "За год"
+    },
+    "librarySavedOverYear": {
+        "message": "Больше года назад"
+    },
+    "librarySavedOver5Years": {
+        "message": "Больше 5 лет назад"
+    },
+    "libraryLinks": {
+        "message": "Состояние ссылок"
+    },
+    "libraryLinksAny": {
+        "message": "Все ссылки"
+    },
+    "libraryLinksDead": {
+        "message": "Мёртвые ссылки (404)"
+    },
+    "libraryLinksUnreachable": {
+        "message": "Сайт не отвечает"
+    },
+    "libraryLinksWarn": {
+        "message": "Другие ошибки"
+    },
+    "libraryLinksOk": {
+        "message": "Рабочие ссылки"
+    },
+    "libraryLinksUnchecked": {
+        "message": "Ещё не проверены"
+    },
+    "cloudCount": {
+        "message": "Закладок: $COUNT$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cloudNoMatch": {
+        "message": "Ни один тег не содержит этого в названии."
+    },
+    "libraryMenu": {
+        "message": "Swift Library"
+    },
+    "libraryOptionsIntro": {
+        "message": "Вся библиотека Diigo из индекса в этом браузере: поиск, сортировка и теги сразу, даже с тысячами закладок."
+    },
+    "optionBulkExitAfter": {
+        "message": "Выходить из массового редактирования после действия"
+    },
+    "optionBulkClearFilters": {
+        "message": "После действия массового редактирования очищать поиск и фильтры, если показывать больше нечего"
+    },
+    "optionDeleteDelay": {
+        "message": "Удалять в Swift Library без вопроса: сразу в корзину, а в Diigo удалять только через 30 секунд"
+    },
+    "libraryAllFields": {
+        "message": "Все поля"
+    },
+    "libraryQuery": {
+        "message": "Поиск…"
+    },
+    "libraryField": {
+        "message": "Искать в"
+    },
+    "librarySort": {
+        "message": "Порядок"
+    },
+    "librarySortNewest": {
+        "message": "Сначала новые"
+    },
+    "librarySortOldest": {
+        "message": "Сначала старые"
+    },
+    "librarySortUpdated": {
+        "message": "Последние изменения"
+    },
+    "librarySortTitle": {
+        "message": "Заголовок А–Я"
+    },
+    "librarySortTitleDesc": {
+        "message": "Заголовок Я–А"
+    },
+    "libraryPrivacy": {
+        "message": "Доступ"
+    },
+    "libraryPrivacyAll": {
+        "message": "Публичные и личные"
+    },
+    "libraryPrivacyPublic": {
+        "message": "Только публичные"
+    },
+    "libraryPrivacyPrivate": {
+        "message": "Только личные"
+    },
+    "libraryShowHidden": {
+        "message": "Показывать скрытые"
+    },
+    "libraryAnnotated": {
+        "message": "С пометками"
+    },
+    "libraryUnread": {
+        "message": "Непрочитанные"
+    },
+    "libraryCount": {
+        "message": "$COUNT$ из $TOTAL$ элементов",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "total": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryNoItems": {
+        "message": "0 элементов"
+    },
+    "libraryTagFilter": {
+        "message": "Найти тег…"
+    },
+    "libraryOpenDiigo": {
+        "message": "В Diigo"
+    },
+    "libraryDelete": {
+        "message": "Удалить"
+    },
+    "libraryConfirm": {
+        "message": "Удалить «$TITLE$» из библиотеки Diigo? Копия попадёт в корзину Swift Library.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDeleteFailed": {
+        "message": "Diigo не удалил её."
+    },
+    "libraryMovedToTrash": {
+        "message": "Перемещено в корзину ($COUNT$)",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryNotDeletedYet": {
+        "message": "Ещё не удалено в Diigo"
+    },
+    "libraryUndo": {
+        "message": "Отменить"
+    },
+    "libraryRemoveFilter": {
+        "message": "Убрать этот фильтр"
+    },
+    "libraryHuntIntro": {
+        "message": "20 случайных закладок, ссылки которых ещё не проверены: сейчас они проверяются, мёртвая — красным. Нажмите «Мёртвые ссылки» слева ещё раз, чтобы увидеть найденные, или 20 других."
+    },
+    "libraryHuntNone": {
+        "message": "Мёртвых ссылок нет: все ссылки закладок недавно проверены."
+    },
+    "tagRename": {
+        "message": "Переименовать тег"
+    },
+    "tagRenamePrompt": {
+        "message": "Новое имя для тега $TAG$ во всех элементах:",
+        "placeholders": {
+            "tag": {
+                "content": "$1"
+            }
+        }
+    },
+    "tagRenaming": {
+        "message": "Переименование $TAG$…",
+        "placeholders": {
+            "tag": {
+                "content": "$1"
+            }
+        }
+    },
+    "tagRenamed": {
+        "message": "$OLD$ теперь $NEW$, в $COUNT$ элементах.",
+        "placeholders": {
+            "old": {
+                "content": "$1"
+            },
+            "new": {
+                "content": "$2"
+            },
+            "count": {
+                "content": "$3"
+            }
+        }
+    },
+    "libraryImageView": {
+        "message": "Показать изображение"
+    },
+    "libraryImageLoading": {
+        "message": "Загрузка изображения с Diigo…"
+    },
+    "libraryImageNone": {
+        "message": "Diigo не отдал файл этого изображения."
+    },
+    "libraryImageOpen": {
+        "message": "Само изображение в новой вкладке"
+    },
+    "libraryRandomIntro": {
+        "message": "10 случайных закладок из вашей библиотеки, без скрытых тегов. Нажмите слева «Случайные» ещё раз, чтобы выбрать 10 других."
+    },
+    "libraryRandom": {
+        "message": "Случайные"
+    },
+    "libraryHome": {
+        "message": "Главная"
+    },
+    "homeRecent": {
+        "message": "Недавно сохранённые"
+    },
+    "homeShared": {
+        "message": "Недавно опубликованные"
+    },
+    "homeTotal": {
+        "message": "Элементов в вашей библиотеке Diigo: $COUNT$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeUnread": {
+        "message": "Прочитать"
+    },
+    "homeOnThisDay": {
+        "message": "В этот день"
+    },
+    "homeOnDay": {
+        "message": "$DAY$",
+        "placeholders": {
+            "day": {
+                "content": "$1",
+                "example": "20 November"
+            }
+        }
+    },
+    "homeYesterday": {
+        "message": "Вчера"
+    },
+    "homeToday": {
+        "message": "Сегодня"
+    },
+    "homeTomorrow": {
+        "message": "Завтра"
+    },
+    "homePreviousDay": {
+        "message": "Предыдущий день"
+    },
+    "homeNextDay": {
+        "message": "Следующий день"
+    },
+    "homeNothingOnDay": {
+        "message": "В этот день в прошлые годы ничего не сохранено"
+    },
+    "homeCleanup": {
+        "message": "Уборка"
+    },
+    "homeMore": {
+        "message": "Ещё"
+    },
+    "homeOtherRandom": {
+        "message": "Другие"
+    },
+    "homeNothingToClean": {
+        "message": "Убирать нечего"
+    },
+    "homeEmptyTrash": {
+        "message": "Очистить"
+    },
+    "libraryTrash": {
+        "message": "Корзина"
+    },
+    "libraryTrashIntro": {
+        "message": "Удалено дополнением, хранится в этом браузере. Восстановление снова создаёт запись в Diigo с сегодняшней датой и без выделений. Через 30 дней удаляется навсегда."
+    },
+    "libraryRestore": {
+        "message": "Восстановить"
+    },
+    "libraryForget": {
+        "message": "Удалить навсегда"
+    },
+    "libraryEmptyTrash": {
+        "message": "Очистить корзину"
+    },
+    "libraryEmptyConfirm": {
+        "message": "Удалить навсегда $COUNT$ элементов из корзины?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryEmptying": {
+        "message": "Очистка корзины · $DONE$ из $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryEmptied": {
+        "message": "Окончательно удалено из корзины: $COUNT$.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDeletedOn": {
+        "message": "Удалено $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryRestoreFailed": {
+        "message": "Diigo не сохранил её снова: $ERROR$",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryCantRestore": {
+        "message": "Diigo создаёт элементы Kindle только импортом из Kindle: откроется страница импорта, которая снова заберёт ваши выделения и заметки из Amazon."
+    },
+    "libraryReimportKindle": {
+        "message": "Импортировать из Kindle снова"
+    },
+    "libraryNoteText": {
+        "message": "Текст"
+    },
+    "noteBold": {
+        "message": "Жирный"
+    },
+    "noteItalic": {
+        "message": "Курсив"
+    },
+    "noteUnderline": {
+        "message": "Подчёркнутый"
+    },
+    "noteBulletList": {
+        "message": "Маркированный список"
+    },
+    "noteNumberedList": {
+        "message": "Нумерованный список"
+    },
+    "noteLink": {
+        "message": "Ссылка"
+    },
+    "noteClearFormat": {
+        "message": "Очистить форматирование"
+    },
+    "noteLinkPrompt": {
+        "message": "Веб-адрес ссылки"
+    },
+    "libraryNoteNotSaved": {
+        "message": "Diigo не сохранил заметку: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDuplicates": {
+        "message": "Дубликаты"
+    },
+    "libraryDuplicatesIntro": {
+        "message": "Закладки с одним и тем же адресом, кроме написания: http или https, www., косая черта в конце или параметры отслеживания (utm_…). Закладки одного адреса стоят рядом."
+    },
+    "libraryTickDuplicates": {
+        "message": "Отметить все, кроме самой новой"
+    },
+    "libraryNoFile": {
+        "message": "В корзине нет его файла: его удалили до того, как корзина начала хранить файлы, или Diigo его не отдал."
+    },
+    "libraryTrashSize": {
+        "message": "Элементов: $COUNT$, $SIZE$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "size": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryTrashEmpty": {
+        "message": "Корзина пуста."
+    },
+    "libraryStorage": {
+        "message": "· дополнение всего: $USED$ из $QUOTA$",
+        "placeholders": {
+            "used": {
+                "content": "$1"
+            },
+            "quota": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryNoNoteText": {
+        "message": "В индексе нет текста этой заметки: она попала в корзину до того, как индекс начал его хранить."
+    },
+    "libraryEdit": {
+        "message": "Изменить"
+    },
+    "libraryBadUrl": {
+        "message": "URL должен начинаться с http:// или https://."
+    },
+    "libraryUrlNotSaved": {
+        "message": "Diigo не сохранил новый URL. Попробуйте снова или измените его в Diigo."
+    },
+    "libraryProblem": {
+        "message": "Что-то пошло не так ($ERROR$). Показано всё, что удалось; перезагрузка страницы может помочь.",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexUnavailable": {
+        "message": "Индекс нельзя сохранить в этом браузере ($ERROR$), например в приватном окне: он создаётся заново при каждом открытии страницы.",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "shortcutsHead": {
+        "message": "Сочетания клавиш"
+    },
+    "shortcutsFormHead": {
+        "message": "В форме закладки"
+    },
+    "shortcutOpenForm": {
+        "message": "Открыть или закрыть форму. Это сочетание можно изменить в настройках расширений браузера."
+    },
+    "shortcutSaveFromTags": {
+        "message": "Сохранить, в поле «Метки»"
+    },
+    "shortcutSave": {
+        "message": "Сохранить, в любом поле (также Alt + S)"
+    },
+    "shortcutPickTag": {
+        "message": "Выбрать предложенную метку, затем Enter или Tab, чтобы добавить её"
+    },
+    "shortcutCloseForm": {
+        "message": "Закрыть форму (или сначала список предложенных меток)"
+    },
+    "menuSaveLink": {
+        "message": "Сохранить ссылку в Diigo"
+    },
+    "menuSavePage": {
+        "message": "Сохранить страницу в Diigo"
+    },
+    "optionsMenu": {
+        "message": "Swift Настройки",
+        "description": "The item of the add-on in the menu at the top of diigo.com and of its pages: its options page"
+    },
+    "optionsFind": {
+        "message": "Найти настройку"
+    },
+    "optionsFindNone": {
+        "message": "Нет настроек с таким текстом."
+    },
+    "menuOptions": {
+        "message": "Настройки"
+    },
+    "randomBookmark": {
+        "message": "Случайная закладка"
+    },
+    "formTitleNew": {
+        "message": "Новая закладка"
+    },
+    "formTitleEdit": {
+        "message": "Изменить закладку"
+    },
+    "close": {
+        "message": "Закрыть (Esc)"
+    },
+    "fieldTitle": {
+        "message": "Заголовок"
+    },
+    "fieldUrl": {
+        "message": "URL"
+    },
+    "fieldDescription": {
+        "message": "Описание"
+    },
+    "fieldTags": {
+        "message": "Метки"
+    },
+    "yourTags": {
+        "message": "Показать ваши метки"
+    },
+    "tagCloudHead": {
+        "message": "Ваши 100 самых используемых меток"
+    },
+    "editTags": {
+        "message": "Управление метками"
+    },
+    "noTags": {
+        "message": "У вас пока нет меток."
+    },
+    "recommended": {
+        "message": "Предложено:"
+    },
+    "addAll": {
+        "message": "Добавить все предложенные метки"
+    },
+    "private": {
+        "message": "Личное"
+    },
+    "readLater": {
+        "message": "Прочитать позже"
+    },
+    "shareToGroup": {
+        "message": "Поделиться в группе"
+    },
+    "createGroup": {
+        "message": "Создать группу…"
+    },
+    "shareToOutliner": {
+        "message": "Добавить в outliner"
+    },
+    "delete": {
+        "message": "Удалить"
+    },
+    "removeBookmark": {
+        "message": "Удалить эту закладку из библиотеки Diigo"
+    },
+    "add": {
+        "message": "Сохранить"
+    },
+    "save": {
+        "message": "Обновить"
+    },
+    "saving": {
+        "message": "Сохранение…"
+    },
+    "savedAgo": {
+        "message": "Сохранено $WHEN$",
+        "placeholders": {
+            "when": {
+                "content": "$1"
+            }
+        }
+    },
+    "savedOn": {
+        "message": "Сохранено $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "clickToRemove": {
+        "message": "$SAVED$. Нажмите, чтобы удалить её из библиотеки Diigo.",
+        "placeholders": {
+            "saved": {
+                "content": "$1"
+            }
+        }
+    },
+    "confirmDelete": {
+        "message": "У этой страницы есть выделения или заметки в вашей библиотеке Diigo. При удалении закладки они тоже удалятся. Всё равно удалить?"
+    },
+    "errorNoAnswer": {
+        "message": "Дополнение не ответило. Попробуйте ещё раз."
+    },
+    "errorNoConnection": {
+        "message": "Не удаётся связаться с diigo.com. Проверьте подключение и попробуйте ещё раз."
+    },
+    "errorNotSignedIn": {
+        "message": "По данным Diigo, вы не вошли. Войдите на diigo.com и попробуйте ещё раз."
+    },
+    "errorNotSaved": {
+        "message": "Diigo не сохранил закладку (HTTP $STATUS$, код $CODE$)",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            },
+            "code": {
+                "content": "$2"
+            }
+        }
+    },
+    "syncHead": {
+        "message": "Закладки этого браузера в Diigo"
+    },
+    "syncIntro": {
+        "message": "Сохраняет закладки из выбранных папок в вашу библиотеку Diigo, по одной в секунду. Закладка, которая уже есть в Diigo, остаётся там без изменений, а закладка, удалённая здесь, остаётся в Diigo."
+    },
+    "syncAllow": {
+        "message": "Разрешить доступ к закладкам"
+    },
+    "syncFoldersHead": {
+        "message": "Папки, вместе с вложенными"
+    },
+    "syncFolderTags": {
+        "message": "Названия папок как теги: закладка в Рецепты › Итальянская Кухня получает теги рецепты и итальянская-кухня"
+    },
+    "syncPrivate": {
+        "message": "Сохранять как личные"
+    },
+    "syncAuto": {
+        "message": "Поддерживать синхронизацию: новая закладка в этих папках отправляется в Diigo через минуту после создания, когда у неё уже есть название и папка, а папки проверяются заново при запуске браузера и каждые 6 часов"
+    },
+    "syncNow": {
+        "message": "Синхронизировать сейчас"
+    },
+    "syncStatus": {
+        "message": "сохранено: $SAVED$, уже в Diigo: $SKIPPED$, ошибок: $FAILED$, осталось: $LEFT$",
+        "placeholders": {
+            "saved": {
+                "content": "$1"
+            },
+            "skipped": {
+                "content": "$2"
+            },
+            "failed": {
+                "content": "$3"
+            },
+            "left": {
+                "content": "$4"
+            }
+        }
+    },
+    "syncNothing": {
+        "message": "Нечего нового добавлять в Diigo."
+    },
+    "syncNoFolders": {
+        "message": "Сначала выберите одну или несколько папок."
+    },
+    "syncSignedOut": {
+        "message": "Войдите на diigo.com: синхронизация продолжится после входа."
+    },
+    "syncMenuHint": {
+        "message": "Щёлкните правой кнопкой по закладке или папке: Сохранить в Diigo или Переместить в Diigo — закладка будет удалена из браузера, как только окажется в Diigo."
+    },
+    "menuSaveBookmark": {
+        "message": "Сохранить в Diigo"
+    },
+    "menuMoveBookmark": {
+        "message": "Переместить в Diigo"
+    },
+    "omniboxSearch": {
+        "message": "Искать эти слова в Swift Library"
+    },
+    "omniboxNoIndex": {
+        "message": "Откройте Swift Library один раз, чтобы создать индекс вашей библиотеки Diigo"
+    },
+    "libraryAdd": {
+        "message": "Добавить"
+    },
+    "libraryAddBookmark": {
+        "message": "Закладка"
+    },
+    "libraryAddImage": {
+        "message": "Изображение"
+    },
+    "libraryAddPdf": {
+        "message": "PDF"
+    },
+    "libraryAddOutliner": {
+        "message": "Outliner"
+    },
+    "libraryAddNote": {
+        "message": "Заметка"
+    },
+    "libraryDropImages": {
+        "message": "Перетащите изображения сюда\nили нажмите, чтобы выбрать"
+    },
+    "libraryDropPdfs": {
+        "message": "Перетащите PDF сюда\nили нажмите, чтобы выбрать\nДо 64 МБ каждый"
+    },
+    "libraryUpload": {
+        "message": "Загрузить"
+    },
+    "libraryRetry": {
+        "message": "Повторить"
+    },
+    "libraryRemoveFile": {
+        "message": "Убрать"
+    },
+    "libraryNotImage": {
+        "message": "Это не изображение, которое принимает Diigo (JPEG, PNG, GIF или BMP)"
+    },
+    "libraryNotPdf": {
+        "message": "Это не PDF"
+    },
+    "libraryPdfTooBig": {
+        "message": "64 МБ или больше: слишком большой для Diigo"
+    },
+    "libraryUploadFailed": {
+        "message": "Не загружено"
+    },
+    "libraryUploadLimit": {
+        "message": "Вы достигли лимита загрузок вашего тарифа Diigo."
+    },
+    "libraryPremium": {
+        "message": "Сменить тариф на Diigo"
+    },
+    "libraryUploadError": {
+        "message": "Diigo не принял файл: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryAdded": {
+        "message": "Добавлено в библиотеку: $COUNT$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryNext": {
+        "message": "Далее"
+    },
+    "libraryNewNote": {
+        "message": "Новая заметка"
+    },
+    "libraryEditBookmark": {
+        "message": "Изменить закладку"
+    },
+    "libraryEditImage": {
+        "message": "Изменить изображение"
+    },
+    "libraryEditPdf": {
+        "message": "Изменить PDF"
+    },
+    "libraryItemNotSaved": {
+        "message": "Diigo не сохранил: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryEditNote": {
+        "message": "Изменить заметку"
+    },
+    "libraryAddImageTitle": {
+        "message": "Добавить изображения"
+    },
+    "libraryAddPdfTitle": {
+        "message": "Добавить PDF"
+    },
+    "discoverMenu": {
+        "message": "Swift Discover",
+        "description": "Name of the Swift Discover page (a name, not translated), in the menus"
+    },
+    "discoverQuery": {
+        "message": "Поиск в Hot Bookmarks",
+        "description": "Swift Discover: placeholder of the search box"
+    },
+    "discoverShows": {
+        "message": "Какие закладки",
+        "description": "Swift Discover: label of the menu of which bookmarks to show"
+    },
+    "discoverShowNew": {
+        "message": "Новые для вас",
+        "description": "Swift Discover: only bookmarks that are not in your library"
+    },
+    "discoverShowAll": {
+        "message": "Все, включая ваши",
+        "description": "Swift Discover: all bookmarks, also those in your library"
+    },
+    "discoverShowSaved": {
+        "message": "Только из вашей библиотеки",
+        "description": "Swift Discover: only bookmarks in your library"
+    },
+    "discoverSortHot": {
+        "message": "Hot, как на Diigo",
+        "description": "Swift Discover: the order of Diigo"
+    },
+    "discoverSortForYou": {
+        "message": "Для вас: по вашим тегам",
+        "description": "Swift Discover: the order by how many of your own tags are in a bookmark"
+    },
+    "discoverSortPeople": {
+        "message": "Чаще всего сохранённые",
+        "description": "Swift Discover: the order by how many people saved it"
+    },
+    "discoverSortNewest": {
+        "message": "Сначала новые",
+        "description": "Swift Discover: the newest first"
+    },
+    "discoverRefresh": {
+        "message": "Обновить",
+        "description": "Swift Discover: load the Hot Bookmarks again"
+    },
+    "discoverLoading": {
+        "message": "Загрузка Hot Bookmarks из Diigo…",
+        "description": "Swift Discover: while loading"
+    },
+    "discoverLoadMore": {
+        "message": "Ещё из Diigo",
+        "description": "Swift Discover: below the list, load the next page"
+    },
+    "discoverChallenge": {
+        "message": "diigo.com сначала хочет убедиться, что это браузер (Cloudflare). Откройте один раз Discover на diigo.com и попробуйте снова.",
+        "description": "Swift Discover: Cloudflare asks to check the browser"
+    },
+    "discoverOpenBuzz": {
+        "message": "Открыть Discover на diigo.com",
+        "description": "Swift Discover: link to diigo.com/buzz/hot"
+    },
+    "discoverRetry": {
+        "message": "Повторить",
+        "description": "Swift Discover: try loading again"
+    },
+    "discoverFailed": {
+        "message": "Diigo не выдал Hot Bookmarks (ошибка $STATUS$).",
+        "description": "Swift Discover: loading failed; STATUS is the HTTP status",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverNoIndex": {
+        "message": "Откройте один раз Swift Library, чтобы создать её индекс: тогда Swift Discover будет знать, что уже есть в вашей библиотеке и какие теги ваши.",
+        "description": "Swift Discover: there is no index of the Swift Library yet"
+    },
+    "discoverSaved": {
+        "message": "Сохранено: $TITLE$",
+        "description": "Swift Discover: after saving; TITLE is the title of the bookmark",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverPeople": {
+        "message": "Сохранили в Diigo: $COUNT$",
+        "description": "Swift Discover: tooltip of the number at the left of a bookmark",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverSavedBy": {
+        "message": "сохранил(а)",
+        "description": "Swift Discover: before the name of who saved it"
+    },
+    "discoverFirstSavedBy": {
+        "message": "первым сохранил(а)",
+        "description": "Swift Discover: before the name of who saved it first"
+    },
+    "discoverInteresting": {
+        "message": "Интересно для вас"
+    },
+    "discoverInLibrary": {
+        "message": "В вашей библиотеке",
+        "description": "Swift Discover: flag of a bookmark that is in your library"
+    },
+    "discoverYourTags": {
+        "message": "Ваши теги:",
+        "description": "Swift Discover: before your tags that are in a bookmark"
+    },
+    "discoverYourTagsHere": {
+        "message": "Ваши теги здесь",
+        "description": "Swift Discover: side bar, your tags in what is shown"
+    },
+    "discoverSites": {
+        "message": "Сайты",
+        "description": "Swift Discover: side bar, the sites of what is shown"
+    },
+    "discoverSave": {
+        "message": "Сохранить",
+        "description": "Swift Discover: button that saves a bookmark to your library"
+    },
+    "discoverDismiss": {
+        "message": "Не интересно",
+        "description": "Swift Discover: button that hides a bookmark from then on"
+    },
+    "discoverShowDismissed": {
+        "message": "Показать скрытые",
+        "description": "Swift Discover: checkbox, show the hidden ones again"
+    },
+    "discoverLeftOutSaved": {
+        "message": "Пропущено из вашей библиотеки: $COUNT$",
+        "description": "Swift Discover: after how many are shown",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverLeftOutDismissed": {
+        "message": "Пропущено неинтересных: $COUNT$",
+        "description": "Swift Discover: after how many are shown",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "relatedTags": {
+        "message": "Часто вместе с этими:"
+    },
+    "similarSaved": {
+        "message": "Вы уже сохранили эту страницу по другому адресу:"
+    },
+    "similarEdit": {
+        "message": "Изменить её"
+    },
+    "formOptionsHead": {
+        "message": "Форма закладки"
+    },
+    "formOptionsIntro": {
+        "message": "Что форма заполняет для новой закладки. Уже сохранённая закладка открывается такой, какой вы её сохранили."
+    },
+    "optionPageDescription": {
+        "message": "Если на странице ничего не выделено, описание, которое страница даёт о себе (как его показывают поисковики), как описание"
+    },
+    "optionCleanUrls": {
+        "message": "Новая закладка без параметров отслеживания (utm_…, fbclid и подобных) и по адресу, который страница называет своим (canonical), если он на том же сайте"
+    },
+    "siteRulesHead": {
+        "message": "Правила для сайтов"
+    },
+    "siteRulesIntro": {
+        "message": "Что новая закладка сайта получает в форме: метки, личная или публичная, прочитать позже или нет. Правило для example.com действует и для его поддоменов, например blog.example.com."
+    },
+    "siteRulesAdd": {
+        "message": "Добавить правило"
+    },
+    "siteRulesSite": {
+        "message": "Сайт, например github.com"
+    },
+    "siteRulesTags": {
+        "message": "Метки"
+    },
+    "ruleAsUsualPrivacy": {
+        "message": "Личная: как обычно"
+    },
+    "rulePublic": {
+        "message": "Публичная"
+    },
+    "ruleAsUsualUnread": {
+        "message": "Прочитать позже: как обычно"
+    },
+    "ruleNotReadLater": {
+        "message": "Не читать позже"
+    },
+    "similarTags": {
+        "message": "Похожие метки"
+    },
+    "similarIntro": {
+        "message": "Почти одинаковые метки: с дефисом, пробелом или диакритикой или без, или одна — множественное число другой. Выберите, какую оставить: «Объединить» ставит её закладкам с остальными вместо них, и в Diigo тоже."
+    },
+    "similarNone": {
+        "message": "Похожих меток нет."
+    },
+    "similarMerge": {
+        "message": "Объединить"
+    },
+    "similarIgnore": {
+        "message": "Не одно и то же"
+    },
+    "similarMerged": {
+        "message": "Теперь у $COUNT$ закладок метка $TAG$.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            },
+            "tag": {
+                "content": "$2",
+                "example": "recipe"
+            }
+        }
+    },
+    "linksCheckAll": {
+        "message": "Проверить все ссылки"
+    },
+    "linksCheckAllIntro": {
+        "message": "$COUNT$ ссылок библиотеки не проверены или проверены давно: «Проверить все ссылки» проверит их все, даже те, до которых вы не прокручиваете.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksAllChecked": {
+        "message": "Все ссылки библиотеки недавно проверены."
+    },
+    "linksChecking": {
+        "message": "Проверка ссылок: $DONE$ из $TOTAL$, пока мёртвых: $DEAD$…",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "total": {
+                "content": "$2"
+            },
+            "dead": {
+                "content": "$3"
+            }
+        }
+    },
+    "linksChecked": {
+        "message": "Проверено ссылок: $DONE$, мёртвых: $DEAD$.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksCheckStopped": {
+        "message": "Остановлено после $DONE$ ссылок: мёртвых $DEAD$. Проверенное остаётся проверенным.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linkBusyTitle": {
+        "message": "Сайт попросил замедлиться (429, Too Many Requests), даже после ожидания: это не ошибка. Ссылка будет проверена в следующий раз."
+    },
+    "linkSearchTitle": {
+        "message": "Искать заголовок в Google"
+    },
+    "linkUseWayback": {
+        "message": "Использовать последнюю копию из Wayback Machine"
+    },
+    "linkTagDead": {
+        "message": "Поставить метку dead-link"
+    },
+    "linkWaybackLooking": {
+        "message": "Поиск «$TITLE$» в Wayback Machine…",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackNoAnswer": {
+        "message": "Wayback Machine не ответил для «$TITLE$». Попробуйте позже.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackNone": {
+        "message": "В Wayback Machine нет копии «$TITLE$»: закладка остаётся как есть.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackUsed": {
+        "message": "«$TITLE$» теперь ведёт на копию в Wayback Machine.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeStale": {
+        "message": "Ждут прочтения больше 3 месяцев"
+    },
+    "homeMarkRead": {
+        "message": "Прочитано"
+    },
+    "homeAllRead": {
+        "message": "Всё прочитано"
+    },
+    "homeAllReadConfirm": {
+        "message": "Отметить все $COUNT$ как прочитанные, и в Diigo тоже?",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "40"
+            }
+        }
+    },
+    "libraryDeadLinks": {
+        "message": "Мёртвые ссылки"
+    },
+    "optionHidePrivateFlag": {
+        "message": "Не показывать «Личное» у каждого личного элемента списка, ведь таких большинство; вместо этого «Публичное» у публичного"
+    },
+    "libraryPublicFlag": {
+        "message": "Публичное"
+    },
+    "setupBuildingTitle": {
+        "message": "Готовим вашу библиотеку"
+    },
+    "setupBuildingText": {
+        "message": "Swift Library один раз проходит по вашей библиотеке Diigo, страница за страницей, и хранит копию в этом браузере: около минуты на 16 000 закладок. Потом она открывается сразу и запрашивает у Diigo только изменения."
+    },
+    "setupStarting": {
+        "message": "Запрашиваем библиотеку у Diigo…"
+    },
+    "setupProgress": {
+        "message": "$DONE$ из $TOTAL$ элементов",
+        "placeholders": {
+            "done": {
+                "content": "$1",
+                "example": "4,800"
+            },
+            "total": {
+                "content": "$2",
+                "example": "16,000"
+            }
+        }
+    },
+    "setupTimeLeft": {
+        "message": "осталось около $TIME$",
+        "placeholders": {
+            "time": {
+                "content": "$1",
+                "example": "40 seconds"
+            }
+        }
+    },
+    "setupFailedTitle": {
+        "message": "Не удалось загрузить библиотеку"
+    },
+    "setupRetry": {
+        "message": "Повторить"
+    },
+    "setupStoppedTitle": {
+        "message": "Ещё не готово"
+    },
+    "setupSignedOutTitle": {
+        "message": "Войдите в Diigo"
+    },
+    "setupSignedOutText": {
+        "message": "Swift Library показывает вашу библиотеку Diigo, используя ваш вход на diigo.com. Войдите там: эта страница продолжит сама."
+    },
+    "setupSignIn": {
+        "message": "Войти на diigo.com"
+    },
+    "linkIgnore": {
+        "message": "Не мёртвая: игнорировать эту ссылку"
+    },
+    "linkIgnoreSite": {
+        "message": "Не мёртвая: игнорировать все ссылки $SITE$",
+        "placeholders": {
+            "site": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "linkUnignore": {
+        "message": "Снова считать мёртвой"
+    },
+    "linkUnignoreSite": {
+        "message": "Снова считать ссылки $SITE$ мёртвыми",
+        "placeholders": {
+            "site": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "linkIgnoredTitle": {
+        "message": "Найдена мёртвой, но вы указали, что это не так: не в «Мёртвых ссылках»"
+    },
+    "libraryLinksMoved": {
+        "message": "Перемещены"
+    },
+    "libraryLinksBlocked": {
+        "message": "Заблокированы защитой от ботов"
+    },
+    "linkGoneHomeTitle": {
+        "message": "Эта страница теперь ведёт на главную сайта: самой страницы больше нет"
+    },
+    "linkGoneNotFoundTitle": {
+        "message": "Сайт отвечает, но страница сообщает, что не найдена: страницы больше нет"
+    },
+    "linkParkedTitle": {
+        "message": "Этот домен припаркован или продаётся: прежнего сайта больше нет"
+    },
+    "linkMovedTitle": {
+        "message": "Перемещена на $URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1",
+                "example": "https://example.org/new"
+            }
+        }
+    },
+    "linkBlockedTitle": {
+        "message": "Сайт отклонил проверку ($STATUS$): защита от ботов, которая пропускает вкладку браузера. Откройте его, чтобы проверить.",
+        "placeholders": {
+            "status": {
+                "content": "$1",
+                "example": "403"
+            }
+        }
+    },
+    "linkUseNewUrl": {
+        "message": "Использовать новый адрес"
+    },
+    "linkUseNewUrlAll": {
+        "message": "Все на новый адрес"
+    },
+    "linkUseNewUrlConfirm": {
+        "message": "Дать закладкам ($COUNT$) адрес, куда они переехали, и в Diigo тоже?",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "linkNewUrlUsed": {
+        "message": "У $COUNT$ закладок теперь новый адрес.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryNoTitle": {
+        "message": "Без названия"
+    },
+    "libraryNoTitleIntro": {
+        "message": "Закладки без настоящего названия: без него, с адресом вместо него или с названием вроде Untitled. «Получить названия» спрашивает у каждой страницы её название и сохраняет его и в Diigo."
+    },
+    "libraryFetchTitles": {
+        "message": "Получить названия"
+    },
+    "libraryTitlesFetched": {
+        "message": "Теперь у $COUNT$ закладок есть название.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryTitlesNone": {
+        "message": "$COUNT$ страниц не дали названия.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryTitleFromPage": {
+        "message": "Название со страницы"
+    },
+    "outlinersNewTitle": {
+        "message": "Название нового аутлайнера"
+    },
+    "outlinersNone": {
+        "message": "У вас пока нет аутлайнеров: Добавить → Outliner создаёт новый."
+    },
+    "outlinersTotalOne": {
+        "message": "Аутлайнеров на Diigo: 1"
+    },
+    "outlinersTotal": {
+        "message": "Аутлайнеров на Diigo: $COUNT$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersChangedOn": {
+        "message": "Изменено $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersEmpty": {
+        "message": "Этот аутлайнер пуст: добавьте пункт или элементы из библиотеки."
+    },
+    "outlinersAddItem": {
+        "message": "+ Пункт"
+    },
+    "outlinersAddFromLibrary": {
+        "message": "Из библиотеки"
+    },
+    "outlinersExpandAll": {
+        "message": "Развернуть всё"
+    },
+    "outlinersCollapseAll": {
+        "message": "Свернуть всё"
+    },
+    "outlinersExpand": {
+        "message": "Развернуть"
+    },
+    "outlinersCollapse": {
+        "message": "Свернуть"
+    },
+    "outlinersItemDelete": {
+        "message": "Удалить этот пункт"
+    },
+    "outlinersItemDeleteAsk": {
+        "message": "Удалить этот пункт и $COUNT$ пунктов под ним?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersDescription": {
+        "message": "Заметка"
+    },
+    "outlinersKeys": {
+        "message": "Enter: новый пункт · Tab / Shift+Tab: внутрь / наружу · Shift+Enter: заметка · Alt+Shift+↑↓: переместить · Backspace в пустом пункте: удалить · Ctrl+Shift+Backspace: удалить пункт"
+    },
+    "outlinersReadOnly": {
+        "message": "Открыт вам для чтения: здесь его нельзя изменить."
+    },
+    "outlinersLoading": {
+        "message": "Загрузка с Diigo…"
+    },
+    "outlinersSaving": {
+        "message": "Сохранение…"
+    },
+    "outlinersSaved": {
+        "message": "Сохранено на Diigo"
+    },
+    "outlinersNotSaved": {
+        "message": "Не сохранено на Diigo: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersFailed": {
+        "message": "Diigo не ответил: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersChanged": {
+        "message": "Тем временем изменено в другом месте: загружено заново."
+    },
+    "outlinersNoJson": {
+        "message": "Diigo ответил страницей вместо данных (вы вышли или проверка Cloudflare: ненадолго откройте diigo.com)."
+    },
+    "outlinersLibraryFind": {
+        "message": "Поиск в библиотеке"
+    },
+    "outlinersNoIndex": {
+        "message": "У Swift Library ещё нет индекса: откройте её один раз, чтобы создать его."
+    },
+    "bulkSharedToOutliner": {
+        "message": "Добавлено в «$OUTLINER$»: $COUNT$.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "outliner": {
+                "content": "$2"
+            }
+        }
+    },
+    "outlinersAdd": {
+        "message": "Добавить"
+    },
+    "outlinersAdded": {
+        "message": "Добавлено"
+    }
+}

@@ -1,0 +1,1801 @@
+{
+    "move": {
+        "message": "移動"
+    },
+    "moveTitle": {
+        "message": "Diigo に保存して、このブックマークをブラウザーから削除します"
+    },
+    "syncNotWebPage": {
+        "message": "「$TITLE$」は Diigo に送れません: Web ページではありません ($URL$)。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            },
+            "url": {
+                "content": "$2"
+            }
+        }
+    },
+    "syncFolderEmpty": {
+        "message": "フォルダー「$TITLE$」には Diigo に送れる Web ページのブックマークがありません。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "logHead": {
+        "message": "ログ"
+    },
+    "logIntro": {
+        "message": "最近アドオンで起きた問題: いつ、どこで、なぜ。ログはメモリにのみ保持され、ブラウザーを再起動すると空になります。"
+    },
+    "logReportHead": {
+        "message": "問題を報告"
+    },
+    "logReportText": {
+        "message": "うまく動かないことがありますか？ログを保存し、GitHub の新しい issue にファイルを添付してください。ファイルには下のエラー、アドオンのバージョン、ブラウザー、設定が含まれます（非表示タグ、サイトごとのルール、フォルダーは除く）。フィルターで必要なエラーだけを保存できます。"
+    },
+    "logSave": {
+        "message": "バグ報告用にログを保存"
+    },
+    "logNewIssue": {
+        "message": "GitHub で新しい issue"
+    },
+    "logFilter": {
+        "message": "フィルター"
+    },
+    "logClear": {
+        "message": "ログを消去"
+    },
+    "logClearConfirm": {
+        "message": "ログの $COUNT$ 件のエラーを消去しますか？",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "logEmpty": {
+        "message": "まだエラーはありません。"
+    },
+    "logEmptySince": {
+        "message": "$TIME$ 以降エラーはありません。",
+        "placeholders": {
+            "time": {
+                "content": "$1"
+            }
+        }
+    },
+    "logNoMatch": {
+        "message": "それを含むエラーはありません。"
+    },
+    "extDesc": {
+        "message": "ページやリンクを、タグの候補付きで Diigo にすばやく保存。Diigo 公式アドオンの非公式な代替です。"
+    },
+    "unofficial": {
+        "message": "このアドオンは Diigo が作ったものではなく、Diigo の公式アドオンでもありません。ブックマークのために作られた、Diigo 公式アドオンの代替です。diigo.com のログインを使います。"
+    },
+    "donate": {
+        "message": "このアドオンが役に立ちましたか？ PayPal で作者に差し入れを"
+    },
+    "browserActionDefaultTitle": {
+        "message": "Diigo に保存"
+    },
+    "browserActionOptionsTitle": {
+        "message": "Swift Bookmarks for Diigo のオプション"
+    },
+    "cannotBookmark": {
+        "message": "Diigo はこのページを保存できません"
+    },
+    "commandShowForm": {
+        "message": "このページを Diigo に保存"
+    },
+    "optionsTagsHead": {
+        "message": "非表示のタグ"
+    },
+    "optionsTagsIntro": {
+        "message": "1 行に 1 つのタグ。全部入力しない限りフォームで候補に出ず、そのタグの付いたブックマークは、そのタグを完全に入力して検索するとき以外、Swift Library、アドレスバー、Swift Discover で非表示になります。"
+    },
+    "optionsTagsExample": {
+        "message": "例:\nprivate\n仕事メモ"
+    },
+    "optionsHead": {
+        "message": "diigo.com で"
+    },
+    "optionsIntro": {
+        "message": "このアドオンは diigo.com の見た目や動作をもう変更しません。より良い機能は Swift Library と Swift Discover にあります。diigo.com では上部メニューにそこへの入口を追加するだけです。"
+    },
+    "optionMyLibraryToSwift": {
+        "message": "diigo.com の上部メニューの My Library で Swift Library を開く。Diigo 本来のもの: Ctrl+クリックか中クリック、または Swift Library のメニューの My Library"
+    },
+    "myLibraryToSwiftTitle": {
+        "message": "Swift Library を開きます。Ctrl+クリック: diigo.com の My Library"
+    },
+    "optionSignInToSwift": {
+        "message": "diigo.com にサインインした後、diigo.com のライブラリの代わりに Swift Library を開く"
+    },
+    "toolsAddonIntro": {
+        "message": "このアドオンを含む、ライブラリ用の Diigo のツール: ツールバーボタンと Ctrl+Alt+D のブックマークフォーム、Swift Library、Swift Discover。"
+    },
+    "optionToolsToSwift": {
+        "message": "diigo.com 上部メニューの Tools でアドオンの Tools ページを開く: Google Play と Import kindle highlights なし、このアドオンあり。Diigo 本来のもの: Ctrl+クリックまたは中クリック"
+    },
+    "toolsToSwiftTitle": {
+        "message": "アドオンの Tools ページを開きます。Ctrl+クリック: diigo.com の Tools"
+    },
+    "optionDeadLinks": {
+        "message": "Swift Library で、リンク切れ (404) やサイトが応答しないリンクを表示します。そのためにアドオンは各ページをサイトから直接取得します。ステータスコードをクリックすると、Wayback Machine や archive.is でページを探せます。"
+    },
+    "linkDeadTitle": {
+        "message": "このページはもう存在しません（HTTP $STATUS$）",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkUnreachableTitle": {
+        "message": "サイトが応答しません。ドメインがもう存在しないか、サーバーが接続を拒否しているか、証明書が正しくありません"
+    },
+    "linkArchives": {
+        "message": "このページを Wayback Machine または archive.is で探す"
+    },
+    "archiveWaybackLatest": {
+        "message": "Wayback Machine: 最新版"
+    },
+    "archiveWaybackAll": {
+        "message": "Wayback Machine: すべての版"
+    },
+    "archiveTodayLatest": {
+        "message": "archive.is: 最新版"
+    },
+    "archiveTodayAll": {
+        "message": "archive.is: すべての版"
+    },
+    "optionHideShareToOutliner": {
+        "message": "Share to outliner を隠す: ブックマークフォームと Swift Library（追加、Edit、Bulk edit）"
+    },
+    "optionSplitAdd": {
+        "message": "+ ボタンとメニューの代わりに、サイドバー上部に 4 つのボタン: Bookmark、Image、PDF、Note。ワンクリックで追加できます"
+    },
+    "topMenuHead": {
+        "message": "diigo.com 上部のメニュー"
+    },
+    "topMenuIntro": {
+        "message": "表示する項目とその順番、そして自分のリンク。Swift Library と Swift Discover の上部も同じです。My Library、My Outliners、My Groups、Swift Library はサインイン中のみ表示されます。"
+    },
+    "topMenuAdd": {
+        "message": "リンクを追加"
+    },
+    "topMenuName": {
+        "message": "名前"
+    },
+    "topMenuShow": {
+        "message": "メニューに表示"
+    },
+    "topMenuUp": {
+        "message": "上へ"
+    },
+    "topMenuDown": {
+        "message": "下へ"
+    },
+    "topMenuRemove": {
+        "message": "削除"
+    },
+    "cleanupHead": {
+        "message": "ブックマークの検索と整理"
+    },
+    "cleanupOptionsIntro": {
+        "message": "サイト、タイトル、タグ、説明などでブックマークを検索し、大きなライブラリでもまとめて削除できます。"
+    },
+    "cleanupOpen": {
+        "message": "開く"
+    },
+    "cleanupStop": {
+        "message": "停止"
+    },
+    "cleanupSignedOut": {
+        "message": "Diigo からライブラリを取得できませんでした。先に diigo.com にサインインしてください。"
+    },
+    "cleanupPageFailed": {
+        "message": "Diigo が $PAGE$ ページ目に応答しませんでした。もう一度お試しください。",
+        "placeholders": {
+            "page": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupConfirm": {
+        "message": "$COUNT$ 件のブックマークを Diigo ライブラリから削除しますか? それぞれのコピーが Swift Library のゴミ箱に入ります。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupDeleted": {
+        "message": "$COUNT$ 件のブックマークを Diigo とインデックスから削除しました。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupFailed": {
+        "message": "Diigo は $COUNT$ 件を削除しませんでした: まだ一覧にあります。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryPin": {
+        "message": "フィルターとして固定"
+    },
+    "bulkEdit": {
+        "message": "一括編集"
+    },
+    "bulkSelected": {
+        "message": "$COUNT$ 件選択",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkApplyTags": {
+        "message": "タグを適用"
+    },
+    "bulkTagsHint": {
+        "message": "タグ  -タグで削除"
+    },
+    "bulkPublic": {
+        "message": "公開にする"
+    },
+    "bulkPrivate": {
+        "message": "非公開にする"
+    },
+    "bulkPublicConfirm": {
+        "message": "$COUNT$ 件のブックマークを公開しますか？Diigo の公開ライブラリで誰でも見られるようになります。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkRead": {
+        "message": "既読にする"
+    },
+    "bulkUnread": {
+        "message": "未読にする"
+    },
+    "bulkProgress": {
+        "message": "$COUNT$ 件中 $DONE$ 件",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "bulkDone": {
+        "message": "$COUNT$ 件のブックマークを Diigo とインデックスで変更しました。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkFailed": {
+        "message": "Diigo は $COUNT$ 件を変更しませんでした。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexNone": {
+        "message": "まだ索引がありません。自動で作成されます。アドオンがライブラリをページごとに読み込み、16,000 件のブックマークで約 1 分かかります。"
+    },
+    "indexStatus": {
+        "message": "インデックス: $COUNT$ 件、$WHEN$ に更新",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "when": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexOtherUser": {
+        "message": "このインデックスは $USER$ のものです。あなたのライブラリ用に作り直してください。",
+        "placeholders": {
+            "user": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexBuild": {
+        "message": "インデックスを作成"
+    },
+    "indexRebuild": {
+        "message": "作り直す"
+    },
+    "indexUpdate": {
+        "message": "更新"
+    },
+    "indexBuilding": {
+        "message": "インデックスを作成中: $PAGES$ ページ中 $DONE$ ページ",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "pages": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexUpdating": {
+        "message": "インデックスを更新中: $PAGE$ ページ目",
+        "placeholders": {
+            "page": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexStopped": {
+        "message": "停止しました: インデックスは元のままです。"
+    },
+    "indexDiffers": {
+        "message": "Diigo は $TOTAL$ 件あるとしていますが、索引を自動で作り直した後も $COUNT$ 件しか返しません。残りは diigo.com でしか表示されないのかもしれません。",
+        "placeholders": {
+            "total": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "searchNone": {
+        "message": "$TOTAL$ 件中、一致するものはありません",
+        "placeholders": {
+            "total": {
+                "content": "$2"
+            }
+        }
+    },
+    "searchFieldSite": {
+        "message": "サイト"
+    },
+    "searchFieldUrl": {
+        "message": "URL"
+    },
+    "searchFieldTitle": {
+        "message": "タイトル"
+    },
+    "searchFieldDescription": {
+        "message": "説明"
+    },
+    "searchFieldTag": {
+        "message": "タグ"
+    },
+    "searchFieldPrivate": {
+        "message": "非公開"
+    },
+    "searchFieldUnread": {
+        "message": "未読"
+    },
+    "searchFieldSaved": {
+        "message": "保存日"
+    },
+    "librarySavedAny": {
+        "message": "保存日：すべて"
+    },
+    "librarySavedWeek": {
+        "message": "過去1週間"
+    },
+    "librarySavedMonth": {
+        "message": "過去1か月"
+    },
+    "librarySavedYear": {
+        "message": "過去1年"
+    },
+    "librarySavedOverYear": {
+        "message": "1年以上前"
+    },
+    "librarySavedOver5Years": {
+        "message": "5年以上前"
+    },
+    "libraryLinks": {
+        "message": "リンクの状態"
+    },
+    "libraryLinksAny": {
+        "message": "すべてのリンク"
+    },
+    "libraryLinksDead": {
+        "message": "リンク切れ (404)"
+    },
+    "libraryLinksUnreachable": {
+        "message": "サイトが応答しない"
+    },
+    "libraryLinksWarn": {
+        "message": "その他のエラー"
+    },
+    "libraryLinksOk": {
+        "message": "有効なリンク"
+    },
+    "libraryLinksUnchecked": {
+        "message": "未確認"
+    },
+    "cloudCount": {
+        "message": "ブックマーク $COUNT$ 件",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cloudNoMatch": {
+        "message": "名前にそれを含むタグはありません。"
+    },
+    "libraryMenu": {
+        "message": "Swift Library"
+    },
+    "libraryOptionsIntro": {
+        "message": "このブラウザーのインデックスから Diigo ライブラリ全体を表示: 何千件のブックマークでも検索、並べ替え、タグがすぐに使えます。"
+    },
+    "optionBulkExitAfter": {
+        "message": "操作の後に一括編集を終了する"
+    },
+    "optionBulkClearFilters": {
+        "message": "一括編集の操作の後、表示するものがなくなったら検索とフィルターを解除する"
+    },
+    "optionDeleteDelay": {
+        "message": "Swift Library では確認せずに削除する：すぐにゴミ箱へ移し、Diigo からは 30 秒後に削除"
+    },
+    "libraryAllFields": {
+        "message": "すべてのフィールド"
+    },
+    "libraryQuery": {
+        "message": "検索…"
+    },
+    "libraryField": {
+        "message": "検索対象"
+    },
+    "librarySort": {
+        "message": "並び順"
+    },
+    "librarySortNewest": {
+        "message": "新しい順"
+    },
+    "librarySortOldest": {
+        "message": "古い順"
+    },
+    "librarySortUpdated": {
+        "message": "最終更新"
+    },
+    "librarySortTitle": {
+        "message": "タイトル順（A–Z）"
+    },
+    "librarySortTitleDesc": {
+        "message": "タイトル逆順（Z–A）"
+    },
+    "libraryPrivacy": {
+        "message": "公開設定"
+    },
+    "libraryPrivacyAll": {
+        "message": "公開と非公開"
+    },
+    "libraryPrivacyPublic": {
+        "message": "公開のみ"
+    },
+    "libraryPrivacyPrivate": {
+        "message": "非公開のみ"
+    },
+    "libraryShowHidden": {
+        "message": "非表示も表示"
+    },
+    "libraryAnnotated": {
+        "message": "注釈付き"
+    },
+    "libraryUnread": {
+        "message": "未読"
+    },
+    "libraryCount": {
+        "message": "$TOTAL$ 件中 $COUNT$ 件",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "total": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryNoItems": {
+        "message": "0 件"
+    },
+    "libraryTagFilter": {
+        "message": "タグを検索…"
+    },
+    "libraryOpenDiigo": {
+        "message": "Diigo で開く"
+    },
+    "libraryDelete": {
+        "message": "削除"
+    },
+    "libraryConfirm": {
+        "message": "「$TITLE$」を Diigo ライブラリから削除しますか? コピーが Swift Library のゴミ箱に入ります。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDeleteFailed": {
+        "message": "Diigo は削除しませんでした。"
+    },
+    "libraryMovedToTrash": {
+        "message": "ゴミ箱に移動しました（$COUNT$ 件）",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryNotDeletedYet": {
+        "message": "Diigo ではまだ削除されていません"
+    },
+    "libraryUndo": {
+        "message": "元に戻す"
+    },
+    "libraryRemoveFilter": {
+        "message": "このフィルターを外す"
+    },
+    "libraryHuntIntro": {
+        "message": "リンクをまだ確認していないブックマークからランダムに 20 件: 今そのリンクを確認しています。リンク切れは赤で表示されます。左のリンク切れをもう一度クリックすると、見つかったリンク切れ、または別の 20 件を表示します。"
+    },
+    "libraryHuntNone": {
+        "message": "リンク切れはありません: ブックマークのリンクはすべて最近確認済みです。"
+    },
+    "tagRename": {
+        "message": "タグの名前を変更"
+    },
+    "tagRenamePrompt": {
+        "message": "タグ $TAG$ の新しい名前 (すべての項目に適用):",
+        "placeholders": {
+            "tag": {
+                "content": "$1"
+            }
+        }
+    },
+    "tagRenaming": {
+        "message": "$TAG$ の名前を変更中…",
+        "placeholders": {
+            "tag": {
+                "content": "$1"
+            }
+        }
+    },
+    "tagRenamed": {
+        "message": "$OLD$ は $NEW$ になりました ($COUNT$ 件)。",
+        "placeholders": {
+            "old": {
+                "content": "$1"
+            },
+            "new": {
+                "content": "$2"
+            },
+            "count": {
+                "content": "$3"
+            }
+        }
+    },
+    "libraryImageView": {
+        "message": "画像を表示"
+    },
+    "libraryImageLoading": {
+        "message": "Diigo から画像を読み込み中…"
+    },
+    "libraryImageNone": {
+        "message": "Diigo はこの画像のファイルを返しませんでした。"
+    },
+    "libraryImageOpen": {
+        "message": "画像そのものを新しいタブで"
+    },
+    "libraryRandomIntro": {
+        "message": "ライブラリからランダムに選んだ 10 件のブックマーク（非表示タグ付きは除く）。左の「ランダム」をもう一度押すと別の 10 件を選びます。"
+    },
+    "libraryRandom": {
+        "message": "ランダム"
+    },
+    "libraryHome": {
+        "message": "スタート"
+    },
+    "homeRecent": {
+        "message": "最近保存"
+    },
+    "homeShared": {
+        "message": "最近共有"
+    },
+    "homeTotal": {
+        "message": "Diigo ライブラリに $COUNT$ 件",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeUnread": {
+        "message": "後で読む"
+    },
+    "homeOnThisDay": {
+        "message": "この日"
+    },
+    "homeOnDay": {
+        "message": "$DAY$",
+        "placeholders": {
+            "day": {
+                "content": "$1",
+                "example": "20 November"
+            }
+        }
+    },
+    "homeYesterday": {
+        "message": "昨日"
+    },
+    "homeToday": {
+        "message": "今日"
+    },
+    "homeTomorrow": {
+        "message": "明日"
+    },
+    "homePreviousDay": {
+        "message": "前の日"
+    },
+    "homeNextDay": {
+        "message": "次の日"
+    },
+    "homeNothingOnDay": {
+        "message": "過去の年のこの日に保存したものはありません"
+    },
+    "homeCleanup": {
+        "message": "整理"
+    },
+    "homeMore": {
+        "message": "もっと見る"
+    },
+    "homeOtherRandom": {
+        "message": "別のもの"
+    },
+    "homeNothingToClean": {
+        "message": "整理するものはありません"
+    },
+    "homeEmptyTrash": {
+        "message": "空にする"
+    },
+    "libraryTrash": {
+        "message": "ゴミ箱"
+    },
+    "libraryTrashIntro": {
+        "message": "アドオンで削除し、このブラウザーに保管しているもの。戻すと今日の日付・ハイライトなしで Diigo に作り直します。30 日後に完全に消えます。"
+    },
+    "libraryRestore": {
+        "message": "元に戻す"
+    },
+    "libraryForget": {
+        "message": "完全に削除"
+    },
+    "libraryEmptyTrash": {
+        "message": "ゴミ箱を空にする"
+    },
+    "libraryEmptyConfirm": {
+        "message": "ゴミ箱の $COUNT$ 件を完全に削除しますか?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryEmptying": {
+        "message": "ゴミ箱を空にしています · $DONE$ / $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryEmptied": {
+        "message": "$COUNT$ 件をゴミ箱から完全に削除しました。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDeletedOn": {
+        "message": "$DATE$ に削除",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryRestoreFailed": {
+        "message": "Diigo は保存し直しませんでした: $ERROR$",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryCantRestore": {
+        "message": "Diigo は Kindle からのインポートでしか Kindle の項目を作れません：インポートページを開き、Amazon からハイライトとメモを取り込み直します。"
+    },
+    "libraryReimportKindle": {
+        "message": "Kindle から再インポート"
+    },
+    "libraryNoteText": {
+        "message": "本文"
+    },
+    "noteBold": {
+        "message": "太字"
+    },
+    "noteItalic": {
+        "message": "斜体"
+    },
+    "noteUnderline": {
+        "message": "下線"
+    },
+    "noteBulletList": {
+        "message": "箇条書き"
+    },
+    "noteNumberedList": {
+        "message": "番号付きリスト"
+    },
+    "noteLink": {
+        "message": "リンク"
+    },
+    "noteClearFormat": {
+        "message": "書式をクリア"
+    },
+    "noteLinkPrompt": {
+        "message": "リンクの Web アドレス"
+    },
+    "libraryNoteNotSaved": {
+        "message": "Diigo はメモを保存しませんでした：$WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDuplicates": {
+        "message": "重複"
+    },
+    "libraryDuplicatesIntro": {
+        "message": "書き方以外は同じ Web アドレスのブックマーク：http か https、www.、末尾のスラッシュやトラッキング用パラメーター (utm_…)。同じアドレスのものはまとめて表示されます。"
+    },
+    "libraryTickDuplicates": {
+        "message": "最新以外をすべて選択"
+    },
+    "libraryNoFile": {
+        "message": "ゴミ箱にこのファイルがありません：ファイルを保存する前に削除されたか、Diigo が提供しませんでした。"
+    },
+    "libraryTrashSize": {
+        "message": "$COUNT$ 件、$SIZE$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "size": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryTrashEmpty": {
+        "message": "ゴミ箱は空です。"
+    },
+    "libraryStorage": {
+        "message": "· アドオン全体: $USED$ / $QUOTA$",
+        "placeholders": {
+            "used": {
+                "content": "$1"
+            },
+            "quota": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryNoNoteText": {
+        "message": "インデックスにこのメモの本文がありません：本文を保存する前にゴミ箱に入りました。"
+    },
+    "libraryEdit": {
+        "message": "編集"
+    },
+    "libraryBadUrl": {
+        "message": "URL は http:// または https:// で始めてください。"
+    },
+    "libraryUrlNotSaved": {
+        "message": "Diigo は新しい URL を保存しませんでした。もう一度試すか、Diigo で変更してください。"
+    },
+    "libraryProblem": {
+        "message": "問題が発生しました ($ERROR$)。表示できるものはすべて表示しています。ページを再読み込みすると直ることがあります。",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexUnavailable": {
+        "message": "このブラウザーではインデックスを保存できません ($ERROR$)。プライベートウィンドウなどの場合です。ページを開くたびに作り直します。",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "shortcutsHead": {
+        "message": "ショートカット"
+    },
+    "shortcutsFormHead": {
+        "message": "ブックマークのフォームで"
+    },
+    "shortcutOpenForm": {
+        "message": "フォームを開く・閉じる。このショートカットはブラウザの拡張機能の設定で変更できます。"
+    },
+    "shortcutSaveFromTags": {
+        "message": "保存（タグ欄で）"
+    },
+    "shortcutSave": {
+        "message": "保存（どの欄でも。Alt + S も可）"
+    },
+    "shortcutPickTag": {
+        "message": "候補のタグを選び、Enter か Tab で追加"
+    },
+    "shortcutCloseForm": {
+        "message": "フォームを閉じる（候補のタグの一覧が開いていれば先にそれを閉じる）"
+    },
+    "menuSaveLink": {
+        "message": "リンクを Diigo に保存"
+    },
+    "menuSavePage": {
+        "message": "ページを Diigo に保存"
+    },
+    "optionsMenu": {
+        "message": "Swift オプション",
+        "description": "The item of the add-on in the menu at the top of diigo.com and of its pages: its options page"
+    },
+    "optionsFind": {
+        "message": "オプションを検索"
+    },
+    "optionsFindNone": {
+        "message": "該当するオプションはありません。"
+    },
+    "menuOptions": {
+        "message": "オプション"
+    },
+    "randomBookmark": {
+        "message": "ランダムなブックマーク"
+    },
+    "formTitleNew": {
+        "message": "新しいブックマーク"
+    },
+    "formTitleEdit": {
+        "message": "ブックマークを編集"
+    },
+    "close": {
+        "message": "閉じる (Esc)"
+    },
+    "fieldTitle": {
+        "message": "タイトル"
+    },
+    "fieldUrl": {
+        "message": "URL"
+    },
+    "fieldDescription": {
+        "message": "説明"
+    },
+    "fieldTags": {
+        "message": "タグ"
+    },
+    "yourTags": {
+        "message": "タグを表示"
+    },
+    "tagCloudHead": {
+        "message": "よく使うタグ 100 個"
+    },
+    "editTags": {
+        "message": "タグを管理"
+    },
+    "noTags": {
+        "message": "まだタグがありません。"
+    },
+    "recommended": {
+        "message": "候補:"
+    },
+    "addAll": {
+        "message": "候補のタグをすべて追加"
+    },
+    "private": {
+        "message": "非公開"
+    },
+    "readLater": {
+        "message": "あとで読む"
+    },
+    "shareToGroup": {
+        "message": "グループで共有"
+    },
+    "createGroup": {
+        "message": "グループを作成…"
+    },
+    "shareToOutliner": {
+        "message": "アウトライナーに追加"
+    },
+    "delete": {
+        "message": "削除"
+    },
+    "removeBookmark": {
+        "message": "このブックマークを Diigo のライブラリから削除"
+    },
+    "add": {
+        "message": "保存"
+    },
+    "save": {
+        "message": "更新"
+    },
+    "saving": {
+        "message": "保存中…"
+    },
+    "savedAgo": {
+        "message": "$WHEN$に保存",
+        "placeholders": {
+            "when": {
+                "content": "$1"
+            }
+        }
+    },
+    "savedOn": {
+        "message": "$DATE$に保存",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "clickToRemove": {
+        "message": "$SAVED$。クリックすると Diigo のライブラリから削除します。",
+        "placeholders": {
+            "saved": {
+                "content": "$1"
+            }
+        }
+    },
+    "confirmDelete": {
+        "message": "このページには Diigo のライブラリにハイライトやメモがあります。ブックマークを削除するとそれらも削除されます。削除しますか？"
+    },
+    "errorNoAnswer": {
+        "message": "アドオンが応答しませんでした。もう一度お試しください。"
+    },
+    "errorNoConnection": {
+        "message": "diigo.com に接続できません。接続を確認してもう一度お試しください。"
+    },
+    "errorNotSignedIn": {
+        "message": "Diigo によるとログインしていません。diigo.com でログインしてもう一度お試しください。"
+    },
+    "errorNotSaved": {
+        "message": "Diigo はブックマークを保存しませんでした（HTTP $STATUS$、コード $CODE$）",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            },
+            "code": {
+                "content": "$2"
+            }
+        }
+    },
+    "syncHead": {
+        "message": "このブラウザのブックマークを Diigo へ"
+    },
+    "syncIntro": {
+        "message": "選んだフォルダのブックマークを 1 秒に 1 件ずつ Diigo のライブラリに保存します。すでに Diigo にあるブックマークはそのまま残り、ここで削除したブックマークも Diigo には残ります。"
+    },
+    "syncAllow": {
+        "message": "ブックマークへのアクセスを許可"
+    },
+    "syncFoldersHead": {
+        "message": "フォルダ (サブフォルダを含む)"
+    },
+    "syncFolderTags": {
+        "message": "フォルダ名をタグにする: レシピ › イタリア料理 にあるブックマークにはタグ「レシピ」と「イタリア料理」が付きます"
+    },
+    "syncPrivate": {
+        "message": "非公開で保存"
+    },
+    "syncAuto": {
+        "message": "同期を続ける: これらのフォルダの新しいブックマークは、名前とフォルダが決まった作成 1 分後に Diigo へ送られ、フォルダはブラウザの起動時と 6 時間ごとに再確認されます"
+    },
+    "syncNow": {
+        "message": "今すぐ同期"
+    },
+    "syncStatus": {
+        "message": "保存 $SAVED$ 件、Diigo に既存 $SKIPPED$ 件、失敗 $FAILED$ 件、残り $LEFT$ 件",
+        "placeholders": {
+            "saved": {
+                "content": "$1"
+            },
+            "skipped": {
+                "content": "$2"
+            },
+            "failed": {
+                "content": "$3"
+            },
+            "left": {
+                "content": "$4"
+            }
+        }
+    },
+    "syncNothing": {
+        "message": "Diigo に追加する新しいものはありません。"
+    },
+    "syncNoFolders": {
+        "message": "まずフォルダを 1 つ以上選んでください。"
+    },
+    "syncSignedOut": {
+        "message": "diigo.com にサインインしてください。サインインすると同期が続きます。"
+    },
+    "syncMenuHint": {
+        "message": "ブックマークやフォルダを右クリック: 「Diigo に保存」、または「Diigo へ移動」(Diigo に入った後、このブラウザから削除されます)。"
+    },
+    "menuSaveBookmark": {
+        "message": "Diigo に保存"
+    },
+    "menuMoveBookmark": {
+        "message": "Diigo へ移動"
+    },
+    "omniboxSearch": {
+        "message": "Swift Library でこの語を検索"
+    },
+    "omniboxNoIndex": {
+        "message": "Diigo ライブラリの索引を作るには、Swift Library を一度開いてください"
+    },
+    "libraryAdd": {
+        "message": "追加"
+    },
+    "libraryAddBookmark": {
+        "message": "ブックマーク"
+    },
+    "libraryAddImage": {
+        "message": "画像"
+    },
+    "libraryAddPdf": {
+        "message": "PDF"
+    },
+    "libraryAddOutliner": {
+        "message": "Outliner"
+    },
+    "libraryAddNote": {
+        "message": "メモ"
+    },
+    "libraryDropImages": {
+        "message": "ここに画像をドロップ\nまたはクリックして選択"
+    },
+    "libraryDropPdfs": {
+        "message": "ここに PDF をドロップ\nまたはクリックして選択\n1 つあたり 64 MB まで"
+    },
+    "libraryUpload": {
+        "message": "アップロード"
+    },
+    "libraryRetry": {
+        "message": "再試行"
+    },
+    "libraryRemoveFile": {
+        "message": "取り除く"
+    },
+    "libraryNotImage": {
+        "message": "Diigo が受け付ける画像ではありません（JPEG、PNG、GIF、BMP）"
+    },
+    "libraryNotPdf": {
+        "message": "PDF ではありません"
+    },
+    "libraryPdfTooBig": {
+        "message": "64 MB 以上：Diigo には大きすぎます"
+    },
+    "libraryUploadFailed": {
+        "message": "アップロードされていません"
+    },
+    "libraryUploadLimit": {
+        "message": "Diigo プランのアップロード上限に達しました。"
+    },
+    "libraryPremium": {
+        "message": "Diigo でアップグレード"
+    },
+    "libraryUploadError": {
+        "message": "Diigo が受け付けませんでした: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryAdded": {
+        "message": "ライブラリに追加しました: $COUNT$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryNext": {
+        "message": "次へ"
+    },
+    "libraryNewNote": {
+        "message": "新しいメモ"
+    },
+    "libraryEditBookmark": {
+        "message": "ブックマークを編集"
+    },
+    "libraryEditImage": {
+        "message": "画像を編集"
+    },
+    "libraryEditPdf": {
+        "message": "PDF を編集"
+    },
+    "libraryItemNotSaved": {
+        "message": "Diigo は保存しませんでした: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryEditNote": {
+        "message": "メモを編集"
+    },
+    "libraryAddImageTitle": {
+        "message": "画像を追加"
+    },
+    "libraryAddPdfTitle": {
+        "message": "PDF を追加"
+    },
+    "discoverMenu": {
+        "message": "Swift Discover",
+        "description": "Name of the Swift Discover page (a name, not translated), in the menus"
+    },
+    "discoverQuery": {
+        "message": "Hot Bookmarks を検索",
+        "description": "Swift Discover: placeholder of the search box"
+    },
+    "discoverShows": {
+        "message": "表示するブックマーク",
+        "description": "Swift Discover: label of the menu of which bookmarks to show"
+    },
+    "discoverShowNew": {
+        "message": "あなたにとって新しいもの",
+        "description": "Swift Discover: only bookmarks that are not in your library"
+    },
+    "discoverShowAll": {
+        "message": "すべて（自分のものも）",
+        "description": "Swift Discover: all bookmarks, also those in your library"
+    },
+    "discoverShowSaved": {
+        "message": "ライブラリにあるものだけ",
+        "description": "Swift Discover: only bookmarks in your library"
+    },
+    "discoverSortHot": {
+        "message": "Hot（Diigo の順）",
+        "description": "Swift Discover: the order of Diigo"
+    },
+    "discoverSortForYou": {
+        "message": "あなた向け: 自分のタグ順",
+        "description": "Swift Discover: the order by how many of your own tags are in a bookmark"
+    },
+    "discoverSortPeople": {
+        "message": "保存数の多い順",
+        "description": "Swift Discover: the order by how many people saved it"
+    },
+    "discoverSortNewest": {
+        "message": "新しい順",
+        "description": "Swift Discover: the newest first"
+    },
+    "discoverRefresh": {
+        "message": "更新",
+        "description": "Swift Discover: load the Hot Bookmarks again"
+    },
+    "discoverLoading": {
+        "message": "Diigo から Hot Bookmarks を読み込み中…",
+        "description": "Swift Discover: while loading"
+    },
+    "discoverLoadMore": {
+        "message": "Diigo からさらに読み込む",
+        "description": "Swift Discover: below the list, load the next page"
+    },
+    "discoverChallenge": {
+        "message": "diigo.com はまずブラウザであることを確認したいようです (Cloudflare)。一度 diigo.com で Discover を開いてから、もう一度お試しください。",
+        "description": "Swift Discover: Cloudflare asks to check the browser"
+    },
+    "discoverOpenBuzz": {
+        "message": "diigo.com で Discover を開く",
+        "description": "Swift Discover: link to diigo.com/buzz/hot"
+    },
+    "discoverRetry": {
+        "message": "再試行",
+        "description": "Swift Discover: try loading again"
+    },
+    "discoverFailed": {
+        "message": "Diigo から Hot Bookmarks を取得できませんでした (エラー $STATUS$)。",
+        "description": "Swift Discover: loading failed; STATUS is the HTTP status",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverNoIndex": {
+        "message": "一度 Swift Library を開いてインデックスを作成してください。そうすると Swift Discover は、すでにライブラリにあるものと自分のタグを認識できます。",
+        "description": "Swift Discover: there is no index of the Swift Library yet"
+    },
+    "discoverSaved": {
+        "message": "保存しました: $TITLE$",
+        "description": "Swift Discover: after saving; TITLE is the title of the bookmark",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverPeople": {
+        "message": "Diigo で保存した人: $COUNT$",
+        "description": "Swift Discover: tooltip of the number at the left of a bookmark",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverSavedBy": {
+        "message": "保存:",
+        "description": "Swift Discover: before the name of who saved it"
+    },
+    "discoverFirstSavedBy": {
+        "message": "最初に保存:",
+        "description": "Swift Discover: before the name of who saved it first"
+    },
+    "discoverInteresting": {
+        "message": "あなたにおすすめ"
+    },
+    "discoverInLibrary": {
+        "message": "ライブラリにあり",
+        "description": "Swift Discover: flag of a bookmark that is in your library"
+    },
+    "discoverYourTags": {
+        "message": "自分のタグ:",
+        "description": "Swift Discover: before your tags that are in a bookmark"
+    },
+    "discoverYourTagsHere": {
+        "message": "この中の自分のタグ",
+        "description": "Swift Discover: side bar, your tags in what is shown"
+    },
+    "discoverSites": {
+        "message": "サイト",
+        "description": "Swift Discover: side bar, the sites of what is shown"
+    },
+    "discoverSave": {
+        "message": "保存",
+        "description": "Swift Discover: button that saves a bookmark to your library"
+    },
+    "discoverDismiss": {
+        "message": "興味なし",
+        "description": "Swift Discover: button that hides a bookmark from then on"
+    },
+    "discoverShowDismissed": {
+        "message": "興味なしも表示",
+        "description": "Swift Discover: checkbox, show the hidden ones again"
+    },
+    "discoverLeftOutSaved": {
+        "message": "ライブラリにある $COUNT$ 件を除外",
+        "description": "Swift Discover: after how many are shown",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverLeftOutDismissed": {
+        "message": "興味なしの $COUNT$ 件を除外",
+        "description": "Swift Discover: after how many are shown",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "relatedTags": {
+        "message": "よく一緒に使うタグ:"
+    },
+    "similarSaved": {
+        "message": "このページは別のアドレスで保存済みです:"
+    },
+    "similarEdit": {
+        "message": "そちらを編集"
+    },
+    "formOptionsHead": {
+        "message": "ブックマークフォーム"
+    },
+    "formOptionsIntro": {
+        "message": "新しいブックマークのためにフォームが入力する内容です。保存済みのブックマークは保存したとおりに開きます。"
+    },
+    "optionPageDescription": {
+        "message": "ページで文字を選択していないときは、ページ自身の説明（検索エンジンに表示されるもの）を説明に使う"
+    },
+    "optionCleanUrls": {
+        "message": "新しいブックマークをトラッキング用パラメーター（utm_…、fbclid など）なしで、同じサイト上ならページ自身が示すアドレス（canonical）で保存する"
+    },
+    "siteRulesHead": {
+        "message": "サイトごとのルール"
+    },
+    "siteRulesIntro": {
+        "message": "あるサイトの新しいブックマークにフォームで付けるもの: タグ、非公開か公開か、後で読むかどうか。example.com のルールは blog.example.com などのサブドメインにも適用されます。"
+    },
+    "siteRulesAdd": {
+        "message": "ルールを追加"
+    },
+    "siteRulesSite": {
+        "message": "サイト（例: github.com）"
+    },
+    "siteRulesTags": {
+        "message": "タグ"
+    },
+    "ruleAsUsualPrivacy": {
+        "message": "非公開: いつもどおり"
+    },
+    "rulePublic": {
+        "message": "公開"
+    },
+    "ruleAsUsualUnread": {
+        "message": "後で読む: いつもどおり"
+    },
+    "ruleNotReadLater": {
+        "message": "後で読まない"
+    },
+    "similarTags": {
+        "message": "似ているタグ"
+    },
+    "similarIntro": {
+        "message": "ほぼ同じタグです: ハイフン、スペース、アクセントの有無、または一方がもう一方の複数形。残すタグを選んでください: 「統合」は、ほかのタグが付いたブックマークにそのタグを代わりに付けます（Diigo でも）。"
+    },
+    "similarNone": {
+        "message": "似ているタグはありません。"
+    },
+    "similarMerge": {
+        "message": "統合"
+    },
+    "similarIgnore": {
+        "message": "同じではない"
+    },
+    "similarMerged": {
+        "message": "$COUNT$ 件のブックマークにタグ $TAG$ が付きました。",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            },
+            "tag": {
+                "content": "$2",
+                "example": "recipe"
+            }
+        }
+    },
+    "linksCheckAll": {
+        "message": "すべてのリンクを確認"
+    },
+    "linksCheckAllIntro": {
+        "message": "ライブラリの $COUNT$ 件のリンクが未確認、または最近確認されていません: 「すべてのリンクを確認」でスクロールしない分も含めてすべて確認します。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksAllChecked": {
+        "message": "ライブラリのリンクはすべて最近確認済みです。"
+    },
+    "linksChecking": {
+        "message": "リンクを確認中: $TOTAL$ 件中 $DONE$ 件、これまでにリンク切れ $DEAD$ 件…",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "total": {
+                "content": "$2"
+            },
+            "dead": {
+                "content": "$3"
+            }
+        }
+    },
+    "linksChecked": {
+        "message": "$DONE$ 件のリンクを確認しました: リンク切れ $DEAD$ 件。",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksCheckStopped": {
+        "message": "$DONE$ 件で停止しました: リンク切れ $DEAD$ 件。確認済みの結果は残ります。",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linkBusyTitle": {
+        "message": "サイトから速度を落とすよう求められました (429 Too Many Requests、待機後も同様): エラーではありません。次回あらためて確認します。"
+    },
+    "linkSearchTitle": {
+        "message": "タイトルを Google で検索"
+    },
+    "linkUseWayback": {
+        "message": "Wayback Machine の最新のコピーを使う"
+    },
+    "linkTagDead": {
+        "message": "タグ dead-link を付ける"
+    },
+    "linkWaybackLooking": {
+        "message": "Wayback Machine で「$TITLE$」を検索しています…",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackNoAnswer": {
+        "message": "Wayback Machine から「$TITLE$」の応答がありません。後でもう一度試してください。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackNone": {
+        "message": "Wayback Machine に「$TITLE$」のコピーはありません: ブックマークはそのままです。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackUsed": {
+        "message": "「$TITLE$」は Wayback Machine のコピーを開くようになりました。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeStale": {
+        "message": "3 か月以上読んでいないもの"
+    },
+    "homeMarkRead": {
+        "message": "既読"
+    },
+    "homeAllRead": {
+        "message": "すべて既読"
+    },
+    "homeAllReadConfirm": {
+        "message": "$COUNT$ 件すべてを既読にしますか（Diigo でも）？",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "40"
+            }
+        }
+    },
+    "libraryDeadLinks": {
+        "message": "リンク切れ"
+    },
+    "optionHidePrivateFlag": {
+        "message": "リストの非公開の項目ごとに「非公開」を表示しない（ほとんどが非公開のため）。代わりに公開の項目に「公開」を表示する"
+    },
+    "libraryPublicFlag": {
+        "message": "公開"
+    },
+    "setupBuildingTitle": {
+        "message": "ライブラリを準備しています"
+    },
+    "setupBuildingText": {
+        "message": "Swift Library は Diigo ライブラリを一度だけページごとに読み込み、このブラウザーにコピーを保存します。16,000 件のブックマークで約 1 分です。その後はすぐに開き、変更分だけを Diigo に問い合わせます。"
+    },
+    "setupStarting": {
+        "message": "Diigo にライブラリを問い合わせています…"
+    },
+    "setupProgress": {
+        "message": "$TOTAL$ 件中 $DONE$ 件",
+        "placeholders": {
+            "done": {
+                "content": "$1",
+                "example": "4,800"
+            },
+            "total": {
+                "content": "$2",
+                "example": "16,000"
+            }
+        }
+    },
+    "setupTimeLeft": {
+        "message": "残り約 $TIME$",
+        "placeholders": {
+            "time": {
+                "content": "$1",
+                "example": "40 seconds"
+            }
+        }
+    },
+    "setupFailedTitle": {
+        "message": "ライブラリを読み込めませんでした"
+    },
+    "setupRetry": {
+        "message": "もう一度試す"
+    },
+    "setupStoppedTitle": {
+        "message": "まだ準備ができていません"
+    },
+    "setupSignedOutTitle": {
+        "message": "Diigo にサインイン"
+    },
+    "setupSignedOutText": {
+        "message": "Swift Library は diigo.com のサインインを使って Diigo ライブラリを表示します。そこでサインインすると、このページは自動的に続行します。"
+    },
+    "setupSignIn": {
+        "message": "diigo.com にサインイン"
+    },
+    "linkIgnore": {
+        "message": "リンク切れではない: このリンクを無視"
+    },
+    "linkIgnoreSite": {
+        "message": "リンク切れではない: $SITE$ のすべてのリンクを無視",
+        "placeholders": {
+            "site": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "linkUnignore": {
+        "message": "再びリンク切れとして扱う"
+    },
+    "linkUnignoreSite": {
+        "message": "$SITE$ のリンクを再びリンク切れとして扱う",
+        "placeholders": {
+            "site": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "linkIgnoredTitle": {
+        "message": "リンク切れと判定されましたが、そうではないと指定されています: リンク切れに含めません"
+    },
+    "libraryLinksMoved": {
+        "message": "移動済み"
+    },
+    "libraryLinksBlocked": {
+        "message": "ボット対策でブロック"
+    },
+    "linkGoneHomeTitle": {
+        "message": "このページはサイトのトップページに転送されます。ページ自体はもうありません"
+    },
+    "linkGoneNotFoundTitle": {
+        "message": "サイトは応答しますが、ページが見つからないと表示されます。ページはもうありません"
+    },
+    "linkParkedTitle": {
+        "message": "このドメインはパーキング中か売りに出されています。以前のサイトはもうありません"
+    },
+    "linkMovedTitle": {
+        "message": "$URL$ に移動しました",
+        "placeholders": {
+            "url": {
+                "content": "$1",
+                "example": "https://example.org/new"
+            }
+        }
+    },
+    "linkBlockedTitle": {
+        "message": "サイトがチェックを拒否しました ($STATUS$)。ブラウザーのタブは通すボット対策です。開いて動作を確認してください。",
+        "placeholders": {
+            "status": {
+                "content": "$1",
+                "example": "403"
+            }
+        }
+    },
+    "linkUseNewUrl": {
+        "message": "新しいアドレスを使う"
+    },
+    "linkUseNewUrlAll": {
+        "message": "すべて新しいアドレスへ"
+    },
+    "linkUseNewUrlConfirm": {
+        "message": "$COUNT$ 件のブックマークを移動先のアドレスに変更しますか（Diigo でも）？",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "linkNewUrlUsed": {
+        "message": "$COUNT$ 件のブックマークが新しいアドレスになりました。",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryNoTitle": {
+        "message": "タイトルなし"
+    },
+    "libraryNoTitleIntro": {
+        "message": "本当のタイトルがないブックマーク: タイトルなし、アドレスのまま、または Untitled など。「タイトルを取得」は各ページに自身のタイトルを問い合わせ、Diigo にも保存します。"
+    },
+    "libraryFetchTitles": {
+        "message": "タイトルを取得"
+    },
+    "libraryTitlesFetched": {
+        "message": "$COUNT$ 件のブックマークにタイトルが付きました。",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryTitlesNone": {
+        "message": "$COUNT$ ページはタイトルを返しませんでした。",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryTitleFromPage": {
+        "message": "ページのタイトル"
+    },
+    "outlinersNewTitle": {
+        "message": "新しいアウトライナーのタイトル"
+    },
+    "outlinersNone": {
+        "message": "まだアウトライナーがありません: 「追加」→「Outliner」で作成します。"
+    },
+    "outlinersTotalOne": {
+        "message": "Diigo のアウトライナー: 1"
+    },
+    "outlinersTotal": {
+        "message": "Diigo のアウトライナー: $COUNT$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersChangedOn": {
+        "message": "$DATE$ に変更",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersEmpty": {
+        "message": "このアウトライナーは空です: 項目、またはライブラリの項目を追加してください。"
+    },
+    "outlinersAddItem": {
+        "message": "+ 項目"
+    },
+    "outlinersAddFromLibrary": {
+        "message": "ライブラリから"
+    },
+    "outlinersExpandAll": {
+        "message": "すべて展開"
+    },
+    "outlinersCollapseAll": {
+        "message": "すべて折りたたむ"
+    },
+    "outlinersExpand": {
+        "message": "展開"
+    },
+    "outlinersCollapse": {
+        "message": "折りたたむ"
+    },
+    "outlinersItemDelete": {
+        "message": "この項目を削除"
+    },
+    "outlinersItemDeleteAsk": {
+        "message": "この項目とその下の $COUNT$ 件の項目を削除しますか?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersDescription": {
+        "message": "メモ"
+    },
+    "outlinersKeys": {
+        "message": "Enter: 新しい項目 · Tab / Shift+Tab: 字下げ / 字上げ · Shift+Enter: メモ · Alt+Shift+↑↓: 移動 · 空の項目で Backspace: 削除 · Ctrl+Shift+Backspace: 項目を削除"
+    },
+    "outlinersReadOnly": {
+        "message": "閲覧用に共有されています: ここでは変更できません。"
+    },
+    "outlinersLoading": {
+        "message": "Diigo から読み込み中…"
+    },
+    "outlinersSaving": {
+        "message": "保存中…"
+    },
+    "outlinersSaved": {
+        "message": "Diigo に保存しました"
+    },
+    "outlinersNotSaved": {
+        "message": "Diigo に保存されませんでした: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersFailed": {
+        "message": "Diigo が応答しませんでした: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersChanged": {
+        "message": "その間に別の場所で変更されたため、読み込み直しました。"
+    },
+    "outlinersNoJson": {
+        "message": "Diigo がデータではなくページで応答しました (サインアウト、または Cloudflare の確認: diigo.com を一度開いてください)。"
+    },
+    "outlinersLibraryFind": {
+        "message": "ライブラリを検索"
+    },
+    "outlinersNoIndex": {
+        "message": "Swift Library にまだインデックスがありません: 一度開いて作成してください。"
+    },
+    "bulkSharedToOutliner": {
+        "message": "「$OUTLINER$」に $COUNT$ 件追加しました。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "outliner": {
+                "content": "$2"
+            }
+        }
+    },
+    "outlinersAdd": {
+        "message": "追加"
+    },
+    "outlinersAdded": {
+        "message": "追加済み"
+    }
+}

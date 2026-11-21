@@ -1,0 +1,368 @@
+/* Outliners in the Swift Library (library-outliners.js): after library.css, whose look it has; here only what is
+   their own */
+
+/* in the place of the list, as Start has its blocks (library-list.js: show) */
+.list:not(.outliners-mode) > #outliners,
+.list.outliners-mode > :not(#outliners) {
+  display: none !important;
+}
+
+/* the green icon of an outliner (outlinerPart.icon): a list with items under each other, as a note has its green one */
+.c-icon.item-type.outliner {
+  background-position: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2369c37b' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='5' cy='6' r='1.2' fill='%2369c37b'/%3E%3Cpath d='M9 6h11'/%3E%3Ccircle cx='9' cy='12' r='1.2' fill='%2369c37b'/%3E%3Cpath d='M13 12h7'/%3E%3Ccircle cx='9' cy='18' r='1.2' fill='%2369c37b'/%3E%3Cpath d='M13 18h7'/%3E%3C/svg%3E");
+}
+
+/* Outliners in the side bar, which Diigo has no icon for: the same list, grey, blue when chosen, as the bin */
+.c-icon.outliners {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b8b8b8' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='5' cy='6' r='1.2' fill='%23b8b8b8'/%3E%3Cpath d='M9 6h11'/%3E%3Ccircle cx='9' cy='12' r='1.2' fill='%23b8b8b8'/%3E%3Cpath d='M13 12h7'/%3E%3Ccircle cx='9' cy='18' r='1.2' fill='%23b8b8b8'/%3E%3Cpath d='M13 18h7'/%3E%3C/svg%3E") center / 20px no-repeat;
+}
+
+.sub .c-icon.outliners {
+  background-size: 16px;
+}
+
+a.selected .c-icon.outliners,
+.selected > a .c-icon.outliners {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233f98e5' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='5' cy='6' r='1.2' fill='%233f98e5'/%3E%3Cpath d='M9 6h11'/%3E%3Ccircle cx='9' cy='12' r='1.2' fill='%233f98e5'/%3E%3Cpath d='M13 12h7'/%3E%3Ccircle cx='9' cy='18' r='1.2' fill='%233f98e5'/%3E%3Cpath d='M13 18h7'/%3E%3C/svg%3E");
+}
+
+/* Add → Outliner: a round button in the green of an outliner, with the list in white (as Diigo's own: .add-types) */
+.add-types .add[data-add="outliner"] { --kind: #69c37b; }
+
+.add-types .add[data-add="outliner"]::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='5' cy='6' r='1.2' fill='%23fff'/%3E%3Cpath d='M9 6h11'/%3E%3Ccircle cx='9' cy='12' r='1.2' fill='%23fff'/%3E%3Cpath d='M13 12h7'/%3E%3Ccircle cx='9' cy='18' r='1.2' fill='%23fff'/%3E%3Cpath d='M13 18h7'/%3E%3C/svg%3E") center / 19px no-repeat content-box, var(--kind);
+}
+
+.outliner-none {
+  margin: 16px 12px;
+  color: var(--grey);
+}
+
+/* the list of them, as the bookmarks of the Swift Library (.items, .item), without the room for the box of Bulk edit */
+#outlinerList .item {
+  padding-left: 12px;
+}
+
+
+/* ---- the outliner: its title, what to do with it, and its items ---- */
+
+.outliner-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 20px;
+  margin: 6px 0 4px;
+}
+
+.outliner-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.outliner-title.editable {
+  cursor: text;
+}
+
+/* the name, written in the page (saveMeta): a line below it while it's written */
+.outliner-title.editable {
+  border-bottom: 1px solid transparent;
+  outline: none;
+}
+
+.outliner-title.editable:hover {
+  border-bottom-color: var(--line);
+}
+
+.outliner-title.editable:focus {
+  border-bottom-color: var(--blue);
+}
+
+.outliner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-left: auto;
+  font-size: 14px;
+}
+
+.outliner-actions :is(button, a) {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.outliner-actions :is(button, a):hover {
+  text-decoration: underline;
+}
+
+.outliner-actions .danger {
+  color: var(--red);
+}
+
+.outliner-note {
+  margin: 4px 0 14px;
+  color: var(--grey);
+  font-size: 13px;
+}
+
+.tree,
+.bullet-children {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bullet-children {
+  margin-left: 11px;
+  padding-left: 18px;
+  border-left: 1px solid var(--line);
+}
+
+.bullet-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  min-height: 30px;
+  padding: 3px 0;
+}
+
+.bullet-toggle {
+  flex: none;
+  width: 16px;
+  color: var(--grey);
+  font-size: 12px;
+  line-height: 24px;
+}
+
+.bullet-toggle:disabled {
+  cursor: default;
+}
+
+/* the dot of Diigo's outliner; a ring around it while items under it are hidden */
+.bullet-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  margin: 9px 8px 0 2px;
+  border-radius: 50%;
+  background: var(--grey);
+}
+
+.bullet.collapsed.parent > .bullet-row .bullet-dot {
+  box-shadow: 0 0 0 4px var(--box);
+}
+
+.bullet-content,
+.bullet-description {
+  flex: 1;
+  min-width: 0;
+  min-height: 24px;
+  line-height: 24px;
+  overflow-wrap: anywhere;
+  outline: none;
+}
+
+.bullet-description {
+  margin: -2px 0 4px 37px;
+  color: var(--grey);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.bullet-description:empty::before {
+  content: attr(data-placeholder);
+  opacity: .6;
+}
+
+.bullet-content:focus,
+.bullet-description:focus {
+  border-radius: 2px;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 18%, transparent);
+}
+
+.bullet-content a,
+.bullet-description a {
+  color: var(--link);
+}
+
+/* Diigo's own marks in the text */
+.text-bold {
+  font-weight: 600;
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-strikethrough,
+.text-through {
+  text-decoration: line-through;
+}
+
+/* an item of your library: a link in a thin box, with the colour of its kind as in the Swift Library */
+.bullet-content a.diigo-item {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0 8px;
+  border: 1px solid var(--box);
+  border-radius: 3px;
+  line-height: 22px;
+  text-decoration: none;
+  vertical-align: top;
+}
+
+.bullet-content a.diigo-item:hover {
+  border-color: var(--blue);
+}
+
+.bullet-content a.diigo-item:not(.bookmark)::before {
+  content: '◆ ';
+  color: var(--grey);
+  font-size: 11px;
+}
+
+.bullet-remove {
+  flex: none;
+  width: 22px;
+  color: var(--grey);
+  font-size: 18px;
+  line-height: 24px;
+  /* always there, faint, so it can be found; clearer on the item you point at or write in */
+  opacity: .35;
+}
+
+.bullet-row:hover .bullet-remove,
+.bullet-row:focus-within .bullet-remove {
+  opacity: 1;
+}
+
+.bullet-remove:hover {
+  color: var(--red);
+}
+
+@media (hover: none) {
+  .bullet-remove {
+    opacity: 1;
+  }
+}
+
+
+/* ---- From your library: a popup with a box and the items it finds ---- */
+
+.popup.outliner-library {
+  width: 640px;
+  padding: 0 0 12px;
+  border-radius: 4px;
+  background: var(--page);
+  color: var(--text);
+}
+
+.outliner-library-head {
+  display: flex;
+  gap: 8px;
+  padding: 14px 16px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.outliner-library-head input {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 4px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  outline: none;
+}
+
+.outliner-library-head .close {
+  width: 28px;
+  color: var(--grey);
+  font-size: 22px;
+}
+
+.outliner-library .outliner-note {
+  padding: 0 16px;
+}
+
+.outliner-library-items {
+  max-height: min(60vh, 520px);
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+
+.outliner-library-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.outliner-library-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.outliner-library-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.outliner-library-url {
+  overflow: hidden;
+  color: var(--grey);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* its description, two lines at most, and its tags, as in the list of the Swift Library (.tag) */
+.outliner-library-description {
+  display: -webkit-box;
+  margin-top: 2px;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.outliner-library-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin-top: 4px;
+}
+
+.outliner-library-tags .tag {
+  padding: 0 7px;
+  border: 1px solid var(--box);
+  border-radius: 2px;
+  color: var(--grey);
+  font-size: 11px;
+  line-height: 18px;
+}
+
+.outliner-library-add {
+  flex: none;
+  color: var(--link);
+}
+
+.outliner-library-add:disabled {
+  color: var(--grey);
+  cursor: default;
+}

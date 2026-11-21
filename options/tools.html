@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tools</title>
+  <!-- the icon of the add-on (icons/icon.svg) -->
+  <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+  <!-- in the look of the Swift Library, with what is the Tools page's own after it -->
+  <link rel="stylesheet" href="swift-nav.css">
+  <link rel="stylesheet" href="library.css">
+  <link rel="stylesheet" href="tools.css">
+</head>
+<body>
+  <!-- tools.js: Diigo's Tools (diigo.com/tools) as a page of the add-on: its tools by their names on diigo.com (in
+       English, like the site), without Google Play and Import kindle highlights, and with this add-on first among the
+       browser tools -->
+  <nav class="MainNav">
+    <div class="nav-inner">
+      <a class="logo" href="https://www.diigo.com/index" aria-label="Diigo"></a>
+      <ul id="mainNav"></ul>
+      <!-- your name and its menu, as on diigo.com (user-menu.js) -->
+      <span class="user-menu" id="userMenu" hidden>
+        <button type="button" class="user" id="userLink" aria-haspopup="true" aria-expanded="false"><img src="https://www.diigo.com/asset/images/default_avatar.jpg" alt=""><span id="userName"></span><span class="user-caret"></span></button>
+        <span class="user-menu-items" id="userMenuItems" role="menu"></span>
+      </span>
+    </div>
+  </nav>
+
+  <header class="bar">
+    <div class="inner">
+      <h1>Tools</h1>
+    </div>
+  </header>
+
+  <main class="inner tools">
+    <section class="tool-category">
+      <h2>Browser Tools</h2>
+      <div class="tool-cards">
+        <div class="tool-card own">
+          <img class="tool-icon" src="../icons/icon.svg" alt="">
+          <h3>Swift Bookmarks for Diigo</h3>
+          <p data-i18n="toolsAddonIntro"></p>
+          <p class="tool-links">
+            <a href="https://addons.mozilla.org/firefox/addon/swift-bookmarks-for-diigo/" target="_blank" rel="noopener"><span class="browser-icon firefox" aria-hidden="true"></span>Firefox</a>
+            <a href="https://chromewebstore.google.com/search/Swift%20Bookmarks%20for%20Diigo" target="_blank" rel="noopener"><span class="browser-icon chrome" aria-hidden="true"></span>Chrome</a>
+            <a href="https://microsoftedge.microsoft.com/addons/search/Swift%20Bookmarks%20for%20Diigo" target="_blank" rel="noopener">Edge</a>
+          </p>
+        </div>
+        <div class="tool-card">
+          <span class="tool-sprite diigo" aria-hidden="true"></span>
+          <h3>Diigo Extension</h3>
+          <p>Diigo's own: highlights and sticky notes on pages.</p>
+          <p class="tool-links">
+            <a href="https://chrome.google.com/webstore/detail/pnhplgjpclknigjpccbcnmicgcieojbh" target="_blank" rel="noopener"><span class="browser-icon chrome" aria-hidden="true"></span>Chrome</a>
+            <a href="https://addons.mozilla.org/en-US/firefox/addon/diigo-web-collector/" target="_blank" rel="noopener"><span class="browser-icon firefox" aria-hidden="true"></span>Firefox</a>
+          </p>
+        </div>
+        <div class="tool-card">
+          <span class="tool-sprite diigolet" aria-hidden="true"></span>
+          <h3>Diigolet</h3>
+          <p>All browsers supported: a button for the bookmarks bar.</p>
+          <p class="tool-links"><a href="https://www.diigo.com/tools" target="_blank" rel="noopener">Install on diigo.com</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-category">
+      <h2>Mobile Apps</h2>
+      <div class="tool-cards">
+        <div class="tool-card">
+          <span class="tool-sprite diigo" aria-hidden="true"></span>
+          <h3>Diigo For iOS</h3>
+          <p>Use diigo everywhere</p>
+          <p class="tool-links"><a class="app-store" href="https://itunes.apple.com/us/app/diigo-annotator-for-safari/id933773981?mt=8" target="_blank" rel="noopener" aria-label="App Store"></a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-category">
+      <h2>Web Services</h2>
+      <div class="tool-cards">
+        <div class="tool-card">
+          <span class="service-icon save" aria-hidden="true"></span>
+          <p class="tool-links column">
+            <a href="https://www.diigo.com/aggregation" target="_blank" rel="noopener">Save favorite items from social media</a>
+          </p>
+        </div>
+        <div class="tool-card">
+          <span class="service-icon import-export" aria-hidden="true"></span>
+          <p class="tool-links column">
+            <a href="https://www.diigo.com/tools/import_all" target="_blank" rel="noopener">Import bookmarks</a>
+            <a href="https://www.diigo.com/tools/export" target="_blank" rel="noopener">Export your library</a>
+            <a href="https://www.diigo.com/tools/pdf_export" target="_blank" rel="noopener">Export PDF</a>
+          </p>
+        </div>
+        <div class="tool-card">
+          <span class="service-icon publish" aria-hidden="true"></span>
+          <p class="tool-links column">
+            <a href="https://www.diigo.com/blog_this/daily_blog" target="_blank" rel="noopener">Auto publish to blog</a>
+            <a href="https://www.diigo.com/blog_this/config" target="_blank" rel="noopener">Manage blogs</a>
+            <a href="https://www.diigo.com/tools/tagroll" target="_blank" rel="noopener">Tagrolls</a>
+            <a href="https://www.diigo.com/tools/linkrolls" target="_blank" rel="noopener">Linkrolls</a>
+          </p>
+        </div>
+        <div class="tool-card">
+          <span class="service-icon api" aria-hidden="true"></span>
+          <p class="tool-links column">
+            <a href="https://www.diigo.com/api_dev" target="_blank" rel="noopener">Diigo API</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="settings.js"></script>
+  <script src="index-item.js"></script>
+  <script src="user-menu.js"></script>
+  <script src="tools.js"></script>
+</body>
+</html>

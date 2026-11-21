@@ -1,0 +1,184 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="optionsMenu">Swift Options</title>
+  <!-- the icon of the add-on (icons/icon.svg) -->
+  <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="swift-nav.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <!-- Swift Options, one of the pages of the add-on: the menu at the top of diigo.com as on the others (swift-nav.css),
+       with Swift Options as the page you're on and your name, then the blue bar with a box to find an option -->
+  <nav class="MainNav">
+    <div class="nav-inner">
+      <a class="logo" href="https://www.diigo.com/index" aria-label="Diigo"></a>
+      <ul id="mainNav"></ul>
+      <!-- your name and its menu, as on diigo.com (user-menu.js) -->
+      <span class="user-menu" id="userMenu" hidden>
+        <button type="button" class="user" id="userLink" aria-haspopup="true" aria-expanded="false"><img src="https://www.diigo.com/asset/images/default_avatar.jpg" alt=""><span id="userName"></span><span class="user-caret"></span></button>
+        <span class="user-menu-items" id="userMenuItems" role="menu"></span>
+      </span>
+    </div>
+  </nav>
+
+  <header class="bar">
+    <div class="bar-inner">
+      <h1 data-i18n="optionsMenu">Swift Options</h1>
+      <!-- options.js: findOption, the sections and options with what is typed in their text -->
+      <form class="search" role="search" id="findForm">
+        <input type="search" id="find" spellcheck="false" autocomplete="off" data-i18n-label="optionsFind">
+      </form>
+    </div>
+  </header>
+
+  <div class="page">
+    <!-- to each section, the one in view marked, as the side bar of the Swift Library; gone on a narrow window -->
+    <nav class="side" id="side">
+      <a href="#library" data-i18n="libraryMenu">Swift Library</a>
+      <a href="#form" data-i18n="formOptionsHead">The bookmark form</a>
+      <a href="#site" data-i18n="optionsHead">On diigo.com</a>
+      <a href="#menu" data-i18n="topMenuHead">The menu at the top of diigo.com</a>
+      <a href="#sync" id="navSync" data-i18n="syncHead">Bookmarks of this browser to Diigo</a>
+      <a href="#tags" data-i18n="optionsTagsHead">Hidden tags</a>
+      <a href="#shortcuts" data-i18n="shortcutsHead">Shortcuts</a>
+      <a href="#log" data-i18n="logHead">Log</a>
+    </nav>
+
+    <main>
+      <!-- options/library.html, a page of its own; filters and Bulk edit are a part of it -->
+      <section class="card" id="library">
+        <h1 data-i18n="libraryMenu">Swift Library</h1>
+        <p class="intro" data-i18n="libraryOptionsIntro"></p>
+        <!-- the index of the Swift Library (library-index.js), brought up to date or built again here (options.js:
+             updateFromOptions, buildFromOptions), with how far and Stop -->
+        <div class="index-box">
+          <p class="index-status" id="indexStatus" role="status"></p>
+          <p class="actions">
+            <button type="button" class="button primary" id="indexUpdate" data-i18n="indexUpdate">Update</button>
+            <button type="button" class="button" id="indexBuild" data-i18n="indexRebuild">Build again</button>
+            <button type="button" class="button" id="indexStop" data-i18n="cleanupStop" hidden>Stop</button>
+          </p>
+        </div>
+        <div class="options">
+          <label class="option"><span data-i18n="optionBulkExitAfter"></span><input type="checkbox" id="bulkExitAfter"></label>
+          <label class="option"><span data-i18n="optionBulkClearFilters"></span><input type="checkbox" id="bulkClearFilters"></label>
+          <label class="option"><span data-i18n="optionDeleteDelay"></span><input type="checkbox" id="deleteDelay"></label>
+          <label class="option"><span data-i18n="optionDeadLinks"></span><input type="checkbox" id="deadLinks"></label>
+          <label class="option"><span data-i18n="optionSplitAdd"></span><input type="checkbox" id="splitAdd"></label>
+          <label class="option"><span data-i18n="optionHidePrivateFlag"></span><input type="checkbox" id="hidePrivateFlag"></label>
+          <label class="option"><span data-i18n="optionHideShareToOutliner"></span><input type="checkbox" id="hideShareToOutliner"></label>
+        </div>
+        <h2 data-i18n="cleanupHead">Delete the bookmarks of a site</h2>
+        <p class="intro" data-i18n="cleanupOptionsIntro"></p>
+        <p class="actions"><a href="library.html#view=all&amp;bulk=1" class="button" data-i18n="cleanupOpen"></a></p>
+      </section>
+
+      <!-- what the bookmark form (form/form.js) fills in for a new bookmark; siteRules of options/settings.js, filled in
+           by options.js: a row per rule -->
+      <section class="card" id="form">
+        <h1 data-i18n="formOptionsHead">The bookmark form</h1>
+        <p class="intro" data-i18n="formOptionsIntro"></p>
+        <div class="options">
+          <label class="option"><span data-i18n="optionPageDescription"></span><input type="checkbox" id="pageDescription"></label>
+          <label class="option"><span data-i18n="optionCleanUrls"></span><input type="checkbox" id="cleanUrls"></label>
+        </div>
+        <h2 data-i18n="siteRulesHead">Rules per site</h2>
+        <p class="intro" data-i18n="siteRulesIntro"></p>
+        <ol id="siteRules" class="top-menu site-rules"></ol>
+        <p class="actions"><button type="button" id="siteRulesAdd" data-i18n="siteRulesAdd"></button></p>
+      </section>
+
+      <!-- what the add-on still adds to diigo.com itself (diigo-site/); the id of each field is its key in
+           options/settings.js, with a switch at the right of each (.option) -->
+      <section class="card" id="site">
+        <h1 data-i18n="optionsHead">On diigo.com</h1>
+        <p class="intro" data-i18n="optionsIntro"></p>
+        <div class="options">
+          <label class="option"><span data-i18n="optionMyLibraryToSwift"></span><input type="checkbox" id="myLibraryToSwift"></label>
+          <label class="option"><span data-i18n="optionToolsToSwift"></span><input type="checkbox" id="toolsToSwift"></label>
+          <label class="option"><span data-i18n="optionSignInToSwift"></span><input type="checkbox" id="signInToSwift"></label>
+        </div>
+      </section>
+
+      <!-- menuItems of options/settings.js, filled in by options.js: a row per item, in the order of the menu -->
+      <section class="card" id="menu">
+        <h1 data-i18n="topMenuHead">The menu at the top of diigo.com</h1>
+        <p class="intro" data-i18n="topMenuIntro"></p>
+        <ol id="topMenu" class="top-menu"></ol>
+        <p class="actions"><button type="button" id="topMenuAdd" data-i18n="topMenuAdd"></button></p>
+      </section>
+
+      <!-- bookmarks of the browser to Diigo (background/sync.js); hidden on Firefox for Android, which has no bookmarks for add-ons -->
+      <section class="card" id="sync">
+        <h1 data-i18n="syncHead">Bookmarks of this browser to Diigo</h1>
+        <p class="intro" data-i18n="syncIntro"></p>
+        <p class="actions"><button type="button" id="syncAllow" class="primary" data-i18n="syncAllow" hidden></button></p>
+        <div id="syncSettings" hidden>
+          <h2 data-i18n="syncFoldersHead">Folders</h2>
+          <ul id="syncTree" class="tree"></ul>
+          <div class="options">
+            <label class="option"><span data-i18n="syncFolderTags"></span><input type="checkbox" id="syncFolderTags"></label>
+            <label class="option"><span data-i18n="syncPrivate"></span><input type="checkbox" id="syncPrivate"></label>
+            <label class="option"><span data-i18n="syncAuto"></span><input type="checkbox" id="syncAuto"></label>
+          </div>
+          <p class="sync-now"><button type="button" id="syncNow" class="primary" data-i18n="syncNow"></button> <span id="syncStatus" role="status"></span></p>
+          <p class="intro" id="syncMenuHint" data-i18n="syncMenuHint" hidden></p>
+        </div>
+      </section>
+
+      <!-- closed, so the hidden tags don't show each time the page opens -->
+      <section class="card" id="tags">
+        <details>
+          <summary><h1 data-i18n="optionsTagsHead">Hidden tags</h1></summary>
+          <p class="intro" data-i18n="optionsTagsIntro"></p>
+          <textarea id="hiddenTags" rows="4" spellcheck="false"></textarea>
+        </details>
+      </section>
+
+      <!-- filled in by options.js -->
+      <section class="card" id="shortcuts">
+        <h1 data-i18n="shortcutsHead">Shortcuts</h1>
+        <h2 data-i18n="shortcutsFormHead">In the bookmark form</h2>
+        <table class="shortcuts" id="formShortcuts"></table>
+      </section>
+
+      <!-- the errors of the add-on, kept in memory by background.js (addLogEntry), as the log of Neat URL (log.js) -->
+      <section class="card" id="log">
+        <h1><span data-i18n="logHead">Log</span> <span class="log-count" id="logCount"></span></h1>
+        <p class="intro" data-i18n="logIntro"></p>
+        <div class="log-report">
+          <h2 data-i18n="logReportHead">Report a problem</h2>
+          <p class="intro" data-i18n="logReportText"></p>
+          <p class="log-buttons">
+            <button type="button" id="logSave" class="primary" data-i18n="logSave">Save log for a bug report</button>
+            <a class="button" href="https://github.com/Smile4ever/Swift-Bookmarks-for-Diigo/issues/new" target="_blank" rel="noopener" data-i18n="logNewIssue">New issue on GitHub</a>
+          </p>
+        </div>
+        <p class="log-tools">
+          <input type="search" id="logFilter" spellcheck="false" autocomplete="off" data-i18n-label="logFilter">
+          <button type="button" id="logClear" data-i18n="logClear">Clear log</button>
+        </p>
+        <p class="log-empty" id="logEmpty"></p>
+        <ol class="log-list" id="logList" hidden></ol>
+      </section>
+
+      <p class="find-none" id="findNone" data-i18n="optionsFindNone" hidden></p>
+
+      <footer>
+        <p data-i18n="unofficial"></p>
+        <p><a href="https://paypal.me/Smile4ever/10" target="_blank" rel="noopener" data-i18n="donate"></a></p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="settings.js"></script>
+  <script src="index-item.js"></script>
+  <script src="library-index.js"></script>
+  <script src="user-menu.js"></script>
+  <script src="options.js"></script>
+  <script src="log.js"></script>
+</body>
+</html>

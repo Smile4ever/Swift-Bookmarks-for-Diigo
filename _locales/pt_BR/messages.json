@@ -1,0 +1,1801 @@
+{
+    "move": {
+        "message": "Mover"
+    },
+    "moveTitle": {
+        "message": "Salvar no Diigo e remover este favorito do navegador"
+    },
+    "syncNotWebPage": {
+        "message": "“$TITLE$” não pode ir para o Diigo: não é uma página web ($URL$).",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            },
+            "url": {
+                "content": "$2"
+            }
+        }
+    },
+    "syncFolderEmpty": {
+        "message": "A pasta “$TITLE$” não tem favoritos de páginas web para o Diigo.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "logHead": {
+        "message": "Registro"
+    },
+    "logIntro": {
+        "message": "O que deu errado recentemente na extensão: quando, onde e por quê. O registro fica só na memória e está vazio após reiniciar o navegador."
+    },
+    "logReportHead": {
+        "message": "Relatar um problema"
+    },
+    "logReportText": {
+        "message": "Algo não funciona? Salve o registro e anexe o arquivo a um novo issue no GitHub. O arquivo contém os erros abaixo, a versão da extensão, seu navegador e suas configurações, sem suas tags ocultas, regras por site e pastas; use o filtro para salvar só os erros que importam."
+    },
+    "logSave": {
+        "message": "Salvar o registro para um relatório de erro"
+    },
+    "logNewIssue": {
+        "message": "Novo issue no GitHub"
+    },
+    "logFilter": {
+        "message": "Filtrar"
+    },
+    "logClear": {
+        "message": "Limpar o registro"
+    },
+    "logClearConfirm": {
+        "message": "Apagar os $COUNT$ erros do registro?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "logEmpty": {
+        "message": "Nenhum erro até agora."
+    },
+    "logEmptySince": {
+        "message": "Nenhum erro desde $TIME$.",
+        "placeholders": {
+            "time": {
+                "content": "$1"
+            }
+        }
+    },
+    "logNoMatch": {
+        "message": "Nenhum erro contém isso."
+    },
+    "extDesc": {
+        "message": "Salve páginas e links no Diigo num instante, com tags sugeridas. Uma alternativa não oficial à extensão do Diigo."
+    },
+    "unofficial": {
+        "message": "Esta extensão não é feita pelo Diigo e não é uma extensão oficial do Diigo: é uma alternativa à extensão do próprio Diigo, feita para favoritos. Ela usa o seu login no diigo.com."
+    },
+    "donate": {
+        "message": "Achou esta extensão útil? Pague um agrado ao autor pelo PayPal"
+    },
+    "browserActionDefaultTitle": {
+        "message": "Salvar no Diigo"
+    },
+    "browserActionOptionsTitle": {
+        "message": "Opções do Swift Bookmarks for Diigo"
+    },
+    "cannotBookmark": {
+        "message": "O Diigo não pode salvar esta página"
+    },
+    "commandShowForm": {
+        "message": "Salvar esta página no Diigo"
+    },
+    "optionsTagsHead": {
+        "message": "Tags ocultas"
+    },
+    "optionsTagsIntro": {
+        "message": "Uma tag por linha. Elas não são sugeridas no formulário a menos que você as digite por completo, e os favoritos com elas ficam ocultos na Swift Library, na barra de endereços e no Swift Discover, a não ser quando você pesquisa essa tag por completo."
+    },
+    "optionsTagsExample": {
+        "message": "ex.\nprivado\nnotas de trabalho"
+    },
+    "optionsHead": {
+        "message": "No diigo.com"
+    },
+    "optionsIntro": {
+        "message": "A extensão não muda mais a aparência e o funcionamento do diigo.com: o que ela faz melhor está na Swift Library e no Swift Discover. No diigo.com ela só adiciona o caminho até eles, no menu do topo."
+    },
+    "optionMyLibraryToSwift": {
+        "message": "My Library no menu do topo do diigo.com abre a Swift Library. A do próprio Diigo: Ctrl+clique ou um clique do meio, ou My Library no menu da Swift Library"
+    },
+    "myLibraryToSwiftTitle": {
+        "message": "Abre a Swift Library. Ctrl+clique: My Library no diigo.com"
+    },
+    "optionSignInToSwift": {
+        "message": "Ao entrar no diigo.com, abre a Swift Library em vez da sua biblioteca no diigo.com"
+    },
+    "toolsAddonIntro": {
+        "message": "As ferramentas do Diigo para sua biblioteca, com esta extensão: o formulário de favoritos com o botão da barra e Ctrl+Alt+D, a Swift Library e o Swift Discover."
+    },
+    "optionToolsToSwift": {
+        "message": "Tools no menu do topo do diigo.com abre a página Tools da extensão: sem Google Play e Import kindle highlights, com esta extensão. A do Diigo: Ctrl+clique ou clique do meio"
+    },
+    "toolsToSwiftTitle": {
+        "message": "Abre a página Tools da extensão. Ctrl+clique: Tools no diigo.com"
+    },
+    "optionDeadLinks": {
+        "message": "Mostrar na Swift Library quais links estão mortos (404) ou cujo site não responde. Para isso a extensão pede cada página ao próprio site. Clique no código de status para procurar a página na Wayback Machine ou no archive.is."
+    },
+    "linkDeadTitle": {
+        "message": "Esta página não existe mais (HTTP $STATUS$)",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkUnreachableTitle": {
+        "message": "O site não responde: o domínio não existe mais, o servidor recusa a conexão ou o certificado é inválido"
+    },
+    "linkArchives": {
+        "message": "Procurar esta página na Wayback Machine ou no archive.is"
+    },
+    "archiveWaybackLatest": {
+        "message": "Wayback Machine: versão mais recente"
+    },
+    "archiveWaybackAll": {
+        "message": "Wayback Machine: todas as versões"
+    },
+    "archiveTodayLatest": {
+        "message": "archive.is: versão mais recente"
+    },
+    "archiveTodayAll": {
+        "message": "archive.is: todas as versões"
+    },
+    "optionHideShareToOutliner": {
+        "message": "Ocultar Share to outliner: no formulário de favorito e na Swift Library (adicionar, Edit, Bulk edit)"
+    },
+    "optionSplitAdd": {
+        "message": "Quatro botões no topo da barra lateral em vez do botão + com um menu: Bookmark, Image, PDF e Note, para adicionar com um clique"
+    },
+    "topMenuHead": {
+        "message": "O menu no topo do diigo.com"
+    },
+    "topMenuIntro": {
+        "message": "Quais itens ele mostra, em que ordem, e links seus; o mesmo no topo da Swift Library e do Swift Discover. My Library, My Outliners, My Groups e Swift Library só aparecem quando você está conectado."
+    },
+    "topMenuAdd": {
+        "message": "Adicionar um link"
+    },
+    "topMenuName": {
+        "message": "Nome"
+    },
+    "topMenuShow": {
+        "message": "Mostrar no menu"
+    },
+    "topMenuUp": {
+        "message": "Mover para cima"
+    },
+    "topMenuDown": {
+        "message": "Mover para baixo"
+    },
+    "topMenuRemove": {
+        "message": "Remover"
+    },
+    "cleanupHead": {
+        "message": "Procurar e limpar seus favoritos"
+    },
+    "cleanupOptionsIntro": {
+        "message": "Encontre favoritos por site, título, tag, descrição e mais, também numa biblioteca grande, e exclua-os de uma vez."
+    },
+    "cleanupOpen": {
+        "message": "Abrir"
+    },
+    "cleanupStop": {
+        "message": "Parar"
+    },
+    "cleanupSignedOut": {
+        "message": "O Diigo não forneceu sua biblioteca. Entre no diigo.com primeiro."
+    },
+    "cleanupPageFailed": {
+        "message": "O Diigo não respondeu para a página $PAGE$. Tente de novo.",
+        "placeholders": {
+            "page": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupConfirm": {
+        "message": "Excluir $COUNT$ favoritos da sua biblioteca do Diigo? Uma cópia de cada vai para a lixeira da Swift Library.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupDeleted": {
+        "message": "$COUNT$ favoritos excluídos, no Diigo e no índice.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cleanupFailed": {
+        "message": "O Diigo não excluiu $COUNT$ deles: ainda estão na lista.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryPin": {
+        "message": "Manter como filtro"
+    },
+    "bulkEdit": {
+        "message": "Edição em massa"
+    },
+    "bulkSelected": {
+        "message": "$COUNT$ selecionados",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkApplyTags": {
+        "message": "Aplicar tags"
+    },
+    "bulkTagsHint": {
+        "message": "tag  -tag para remover"
+    },
+    "bulkPublic": {
+        "message": "Tornar público"
+    },
+    "bulkPrivate": {
+        "message": "Tornar privado"
+    },
+    "bulkPublicConfirm": {
+        "message": "Tornar públicos $COUNT$ favoritos? Qualquer pessoa poderá vê-los, na sua biblioteca pública no Diigo.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkRead": {
+        "message": "Marcar como lido"
+    },
+    "bulkUnread": {
+        "message": "Marcar como não lido"
+    },
+    "bulkProgress": {
+        "message": "$DONE$ de $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "bulkDone": {
+        "message": "$COUNT$ favoritos alterados, no Diigo e no índice.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkFailed": {
+        "message": "O Diigo não alterou $COUNT$ deles.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexNone": {
+        "message": "Ainda não há índice. Ele é criado sozinho: a extensão percorre sua biblioteca página por página, cerca de um minuto para 16.000 favoritos."
+    },
+    "indexStatus": {
+        "message": "Índice: $COUNT$ itens, atualizado $WHEN$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "when": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexOtherUser": {
+        "message": "O índice é de $USER$. Crie-o de novo para a sua biblioteca.",
+        "placeholders": {
+            "user": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexBuild": {
+        "message": "Criar índice"
+    },
+    "indexRebuild": {
+        "message": "Criar de novo"
+    },
+    "indexUpdate": {
+        "message": "Atualizar"
+    },
+    "indexBuilding": {
+        "message": "Criando o índice: página $DONE$ de $PAGES$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "pages": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexUpdating": {
+        "message": "Atualizando o índice: página $PAGE$",
+        "placeholders": {
+            "page": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexStopped": {
+        "message": "Parado: o índice está como estava."
+    },
+    "indexDiffers": {
+        "message": "O Diigo diz ter $TOTAL$ itens, mas dá $COUNT$, mesmo depois de o índice ser refeito sozinho. Os outros talvez só apareçam no diigo.com.",
+        "placeholders": {
+            "total": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "searchNone": {
+        "message": "Nada corresponde, em $TOTAL$ itens",
+        "placeholders": {
+            "total": {
+                "content": "$2"
+            }
+        }
+    },
+    "searchFieldSite": {
+        "message": "Site"
+    },
+    "searchFieldUrl": {
+        "message": "URL"
+    },
+    "searchFieldTitle": {
+        "message": "Título"
+    },
+    "searchFieldDescription": {
+        "message": "Descrição"
+    },
+    "searchFieldTag": {
+        "message": "Tag"
+    },
+    "searchFieldPrivate": {
+        "message": "Privado"
+    },
+    "searchFieldUnread": {
+        "message": "Não lido"
+    },
+    "searchFieldSaved": {
+        "message": "Salvo"
+    },
+    "librarySavedAny": {
+        "message": "Salvo a qualquer momento"
+    },
+    "librarySavedWeek": {
+        "message": "Última semana"
+    },
+    "librarySavedMonth": {
+        "message": "Último mês"
+    },
+    "librarySavedYear": {
+        "message": "Último ano"
+    },
+    "librarySavedOverYear": {
+        "message": "Há mais de um ano"
+    },
+    "librarySavedOver5Years": {
+        "message": "Há mais de 5 anos"
+    },
+    "libraryLinks": {
+        "message": "Status do link"
+    },
+    "libraryLinksAny": {
+        "message": "Todos os links"
+    },
+    "libraryLinksDead": {
+        "message": "Links quebrados (404)"
+    },
+    "libraryLinksUnreachable": {
+        "message": "O site não responde"
+    },
+    "libraryLinksWarn": {
+        "message": "Outros erros"
+    },
+    "libraryLinksOk": {
+        "message": "Links que funcionam"
+    },
+    "libraryLinksUnchecked": {
+        "message": "Ainda não verificados"
+    },
+    "cloudCount": {
+        "message": "$COUNT$ favoritos",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "cloudNoMatch": {
+        "message": "Nenhuma tag tem isso no nome."
+    },
+    "libraryMenu": {
+        "message": "Swift Library"
+    },
+    "libraryOptionsIntro": {
+        "message": "Toda a sua biblioteca do Diigo a partir do índice deste navegador: procurar, ordenar e as tags na hora, também com milhares de favoritos."
+    },
+    "optionBulkExitAfter": {
+        "message": "Sair da edição em massa após uma ação"
+    },
+    "optionBulkClearFilters": {
+        "message": "Após uma ação da edição em massa, limpar a busca e os filtros quando não restar nada para mostrar"
+    },
+    "optionDeleteDelay": {
+        "message": "Excluir na Swift Library sem perguntar: para a lixeira na hora, excluído no Diigo só depois de 30 segundos"
+    },
+    "libraryAllFields": {
+        "message": "Todos os campos"
+    },
+    "libraryQuery": {
+        "message": "Procurar…"
+    },
+    "libraryField": {
+        "message": "Procurar em"
+    },
+    "librarySort": {
+        "message": "Ordem"
+    },
+    "librarySortNewest": {
+        "message": "Mais novos primeiro"
+    },
+    "librarySortOldest": {
+        "message": "Mais antigos primeiro"
+    },
+    "librarySortUpdated": {
+        "message": "Última alteração"
+    },
+    "librarySortTitle": {
+        "message": "Título A–Z"
+    },
+    "librarySortTitleDesc": {
+        "message": "Título Z–A"
+    },
+    "libraryPrivacy": {
+        "message": "Privacidade"
+    },
+    "libraryPrivacyAll": {
+        "message": "Públicos e privados"
+    },
+    "libraryPrivacyPublic": {
+        "message": "Só públicos"
+    },
+    "libraryPrivacyPrivate": {
+        "message": "Só privados"
+    },
+    "libraryShowHidden": {
+        "message": "Mostrar ocultos"
+    },
+    "libraryAnnotated": {
+        "message": "Anotados"
+    },
+    "libraryUnread": {
+        "message": "Não lidos"
+    },
+    "libraryCount": {
+        "message": "$COUNT$ de $TOTAL$ itens",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "total": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryNoItems": {
+        "message": "0 itens"
+    },
+    "libraryTagFilter": {
+        "message": "Encontrar uma tag…"
+    },
+    "libraryOpenDiigo": {
+        "message": "No Diigo"
+    },
+    "libraryDelete": {
+        "message": "Excluir"
+    },
+    "libraryConfirm": {
+        "message": "Excluir “$TITLE$” da sua biblioteca do Diigo? Uma cópia vai para a lixeira da Swift Library.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDeleteFailed": {
+        "message": "O Diigo não o excluiu."
+    },
+    "libraryMovedToTrash": {
+        "message": "Movido para a lixeira ($COUNT$)",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryNotDeletedYet": {
+        "message": "Ainda não excluído no Diigo"
+    },
+    "libraryUndo": {
+        "message": "Desfazer"
+    },
+    "libraryRemoveFilter": {
+        "message": "Remover este filtro"
+    },
+    "libraryHuntIntro": {
+        "message": "20 dos seus favoritos cujo link ainda não foi verificado, ao acaso: os links estão sendo verificados agora, um quebrado em vermelho. Clique de novo em Links quebrados à esquerda para ver os encontrados, ou outros 20."
+    },
+    "libraryHuntNone": {
+        "message": "Nenhum link quebrado: todos os links dos seus favoritos foram verificados recentemente."
+    },
+    "tagRename": {
+        "message": "Renomear tag"
+    },
+    "tagRenamePrompt": {
+        "message": "Novo nome para a tag $TAG$, em todos os seus itens:",
+        "placeholders": {
+            "tag": {
+                "content": "$1"
+            }
+        }
+    },
+    "tagRenaming": {
+        "message": "Renomeando $TAG$…",
+        "placeholders": {
+            "tag": {
+                "content": "$1"
+            }
+        }
+    },
+    "tagRenamed": {
+        "message": "$OLD$ agora é $NEW$, em $COUNT$ itens.",
+        "placeholders": {
+            "old": {
+                "content": "$1"
+            },
+            "new": {
+                "content": "$2"
+            },
+            "count": {
+                "content": "$3"
+            }
+        }
+    },
+    "libraryImageView": {
+        "message": "Mostrar a imagem"
+    },
+    "libraryImageLoading": {
+        "message": "Carregando a imagem do Diigo…"
+    },
+    "libraryImageNone": {
+        "message": "O Diigo não deu nenhum arquivo para esta imagem."
+    },
+    "libraryImageOpen": {
+        "message": "A própria imagem, numa nova aba"
+    },
+    "libraryRandomIntro": {
+        "message": "10 dos seus favoritos ao acaso, nenhum com uma tag oculta. Clique de novo à esquerda em Aleatório para outros 10."
+    },
+    "libraryRandom": {
+        "message": "Aleatório"
+    },
+    "libraryHome": {
+        "message": "Início"
+    },
+    "homeRecent": {
+        "message": "Salvos recentemente"
+    },
+    "homeShared": {
+        "message": "Compartilhados recentemente"
+    },
+    "homeTotal": {
+        "message": "$COUNT$ itens na sua biblioteca do Diigo",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeUnread": {
+        "message": "Para ler"
+    },
+    "homeOnThisDay": {
+        "message": "Neste dia"
+    },
+    "homeOnDay": {
+        "message": "Em $DAY$",
+        "placeholders": {
+            "day": {
+                "content": "$1",
+                "example": "20 November"
+            }
+        }
+    },
+    "homeYesterday": {
+        "message": "Ontem"
+    },
+    "homeToday": {
+        "message": "Hoje"
+    },
+    "homeTomorrow": {
+        "message": "Amanhã"
+    },
+    "homePreviousDay": {
+        "message": "Dia anterior"
+    },
+    "homeNextDay": {
+        "message": "Próximo dia"
+    },
+    "homeNothingOnDay": {
+        "message": "Nada salvo neste dia em anos anteriores"
+    },
+    "homeCleanup": {
+        "message": "Limpar"
+    },
+    "homeMore": {
+        "message": "Mais"
+    },
+    "homeOtherRandom": {
+        "message": "Outros"
+    },
+    "homeNothingToClean": {
+        "message": "Nada para limpar"
+    },
+    "homeEmptyTrash": {
+        "message": "Esvaziar"
+    },
+    "libraryTrash": {
+        "message": "Lixeira"
+    },
+    "libraryTrashIntro": {
+        "message": "Excluído com a extensão, guardado neste navegador. Restaurar o cria de novo no Diigo, com a data de hoje e sem destaques. Some para sempre após 30 dias."
+    },
+    "libraryRestore": {
+        "message": "Restaurar"
+    },
+    "libraryForget": {
+        "message": "Excluir de vez"
+    },
+    "libraryEmptyTrash": {
+        "message": "Esvaziar a lixeira"
+    },
+    "libraryEmptyConfirm": {
+        "message": "Excluir de vez os $COUNT$ itens da lixeira?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryEmptying": {
+        "message": "Esvaziando a lixeira · $DONE$ de $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryEmptied": {
+        "message": "$COUNT$ itens removidos da lixeira para sempre.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDeletedOn": {
+        "message": "Excluído $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryRestoreFailed": {
+        "message": "O Diigo não o salvou de novo: $ERROR$",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryCantRestore": {
+        "message": "O Diigo só cria itens do Kindle importando-os do Kindle: isto abre a página de importação, que busca de novo seus destaques e notas na Amazon."
+    },
+    "libraryReimportKindle": {
+        "message": "Importar do Kindle de novo"
+    },
+    "libraryNoteText": {
+        "message": "Texto"
+    },
+    "noteBold": {
+        "message": "Negrito"
+    },
+    "noteItalic": {
+        "message": "Itálico"
+    },
+    "noteUnderline": {
+        "message": "Sublinhado"
+    },
+    "noteBulletList": {
+        "message": "Lista com marcadores"
+    },
+    "noteNumberedList": {
+        "message": "Lista numerada"
+    },
+    "noteLink": {
+        "message": "Link"
+    },
+    "noteClearFormat": {
+        "message": "Limpar formatação"
+    },
+    "noteLinkPrompt": {
+        "message": "Endereço web do link"
+    },
+    "libraryNoteNotSaved": {
+        "message": "O Diigo não salvou a nota: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryDuplicates": {
+        "message": "Duplicados"
+    },
+    "libraryDuplicatesIntro": {
+        "message": "Favoritos com o mesmo endereço web, exceto pela escrita: http ou https, www., uma barra no final ou parâmetros de rastreamento (utm_…). Os de um mesmo endereço ficam juntos."
+    },
+    "libraryTickDuplicates": {
+        "message": "Marcar todos menos o mais recente"
+    },
+    "libraryNoFile": {
+        "message": "A lixeira não tem o arquivo dele: foi excluído antes de a lixeira guardar arquivos, ou o Diigo não o forneceu."
+    },
+    "libraryTrashSize": {
+        "message": "$COUNT$ itens, $SIZE$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "size": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryTrashEmpty": {
+        "message": "A lixeira está vazia."
+    },
+    "libraryStorage": {
+        "message": "· a extensão no total: $USED$ de $QUOTA$",
+        "placeholders": {
+            "used": {
+                "content": "$1"
+            },
+            "quota": {
+                "content": "$2"
+            }
+        }
+    },
+    "libraryNoNoteText": {
+        "message": "O índice não tem o texto desta nota: ela foi para a lixeira antes de o índice guardá-lo."
+    },
+    "libraryEdit": {
+        "message": "Editar"
+    },
+    "libraryBadUrl": {
+        "message": "A URL precisa começar com http:// ou https://."
+    },
+    "libraryUrlNotSaved": {
+        "message": "O Diigo não salvou a nova URL. Tente de novo, ou mude-a no Diigo."
+    },
+    "libraryProblem": {
+        "message": "Algo deu errado ($ERROR$). Tudo o que pôde ser mostrado está aqui; recarregar a página pode ajudar.",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexUnavailable": {
+        "message": "O índice não pode ser guardado neste navegador ($ERROR$), como numa janela privada: ele é criado de novo cada vez que a página abre.",
+        "placeholders": {
+            "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "shortcutsHead": {
+        "message": "Atalhos"
+    },
+    "shortcutsFormHead": {
+        "message": "No formulário"
+    },
+    "shortcutOpenForm": {
+        "message": "Abrir ou fechar o formulário. Você pode mudar este atalho nas configurações de extensões do navegador."
+    },
+    "shortcutSaveFromTags": {
+        "message": "Salvar, no campo Tags"
+    },
+    "shortcutSave": {
+        "message": "Salvar, em qualquer campo (também Alt + S)"
+    },
+    "shortcutPickTag": {
+        "message": "Escolher uma tag sugerida, depois Enter ou Tab para adicioná-la"
+    },
+    "shortcutCloseForm": {
+        "message": "Fechar o formulário (ou antes a lista de tags sugeridas)"
+    },
+    "menuSaveLink": {
+        "message": "Salvar link no Diigo"
+    },
+    "menuSavePage": {
+        "message": "Salvar página no Diigo"
+    },
+    "optionsMenu": {
+        "message": "Swift Opções",
+        "description": "The item of the add-on in the menu at the top of diigo.com and of its pages: its options page"
+    },
+    "optionsFind": {
+        "message": "Encontrar uma opção"
+    },
+    "optionsFindNone": {
+        "message": "Nenhuma opção contém isso."
+    },
+    "menuOptions": {
+        "message": "Opções"
+    },
+    "randomBookmark": {
+        "message": "Favorito aleatório"
+    },
+    "formTitleNew": {
+        "message": "Novo favorito"
+    },
+    "formTitleEdit": {
+        "message": "Editar favorito"
+    },
+    "close": {
+        "message": "Fechar (Esc)"
+    },
+    "fieldTitle": {
+        "message": "Título"
+    },
+    "fieldUrl": {
+        "message": "URL"
+    },
+    "fieldDescription": {
+        "message": "Descrição"
+    },
+    "fieldTags": {
+        "message": "Tags"
+    },
+    "yourTags": {
+        "message": "Mostrar suas tags"
+    },
+    "tagCloudHead": {
+        "message": "Suas 100 tags mais usadas"
+    },
+    "editTags": {
+        "message": "Gerenciar tags"
+    },
+    "noTags": {
+        "message": "Você ainda não tem tags."
+    },
+    "recommended": {
+        "message": "Sugeridas:"
+    },
+    "addAll": {
+        "message": "Adicionar todas as tags sugeridas"
+    },
+    "private": {
+        "message": "Privado"
+    },
+    "readLater": {
+        "message": "Ler depois"
+    },
+    "shareToGroup": {
+        "message": "Compartilhar em um grupo"
+    },
+    "createGroup": {
+        "message": "Criar um grupo…"
+    },
+    "shareToOutliner": {
+        "message": "Adicionar a um outliner"
+    },
+    "delete": {
+        "message": "Excluir"
+    },
+    "removeBookmark": {
+        "message": "Excluir este favorito da sua biblioteca do Diigo"
+    },
+    "add": {
+        "message": "Salvar"
+    },
+    "save": {
+        "message": "Atualizar"
+    },
+    "saving": {
+        "message": "Salvando…"
+    },
+    "savedAgo": {
+        "message": "Salvo $WHEN$",
+        "placeholders": {
+            "when": {
+                "content": "$1"
+            }
+        }
+    },
+    "savedOn": {
+        "message": "Salvo em $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "clickToRemove": {
+        "message": "$SAVED$. Clique para excluí-lo da sua biblioteca do Diigo.",
+        "placeholders": {
+            "saved": {
+                "content": "$1"
+            }
+        }
+    },
+    "confirmDelete": {
+        "message": "Esta página tem destaques ou notas na sua biblioteca do Diigo. Excluir o favorito também os exclui. Excluir mesmo assim?"
+    },
+    "errorNoAnswer": {
+        "message": "A extensão não respondeu. Tente de novo."
+    },
+    "errorNoConnection": {
+        "message": "Não foi possível acessar o diigo.com. Verifique sua conexão e tente de novo."
+    },
+    "errorNotSignedIn": {
+        "message": "Segundo o Diigo, você não está conectado. Entre no diigo.com e tente de novo."
+    },
+    "errorNotSaved": {
+        "message": "O Diigo não salvou o favorito (HTTP $STATUS$, código $CODE$)",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            },
+            "code": {
+                "content": "$2"
+            }
+        }
+    },
+    "syncHead": {
+        "message": "Favoritos deste navegador para o Diigo"
+    },
+    "syncIntro": {
+        "message": "Coloca os favoritos das pastas que você escolher na sua biblioteca do Diigo, um por segundo. Um favorito que já está no Diigo fica lá como está, e um favorito que você remover aqui continua no Diigo."
+    },
+    "syncAllow": {
+        "message": "Permitir acesso aos seus favoritos"
+    },
+    "syncFoldersHead": {
+        "message": "Pastas, com suas subpastas"
+    },
+    "syncFolderTags": {
+        "message": "Nomes das pastas como tags: um favorito em Receitas › Comida Italiana recebe as tags receitas e comida-italiana"
+    },
+    "syncPrivate": {
+        "message": "Salvá-los como privados"
+    },
+    "syncAuto": {
+        "message": "Manter sincronizado: um novo favorito nessas pastas vai para o Diigo um minuto depois de criado, quando já tem seu nome e pasta, e as pastas são verificadas de novo quando o navegador inicia e a cada 6 horas"
+    },
+    "syncNow": {
+        "message": "Sincronizar agora"
+    },
+    "syncStatus": {
+        "message": "$SAVED$ salvos, $SKIPPED$ já no Diigo, $FAILED$ com falha, $LEFT$ restantes",
+        "placeholders": {
+            "saved": {
+                "content": "$1"
+            },
+            "skipped": {
+                "content": "$2"
+            },
+            "failed": {
+                "content": "$3"
+            },
+            "left": {
+                "content": "$4"
+            }
+        }
+    },
+    "syncNothing": {
+        "message": "Nada de novo para colocar no Diigo."
+    },
+    "syncNoFolders": {
+        "message": "Escolha primeiro uma ou mais pastas."
+    },
+    "syncSignedOut": {
+        "message": "Entre no diigo.com: a sincronização continua assim que você entrar."
+    },
+    "syncMenuHint": {
+        "message": "Clique com o botão direito em um favorito ou pasta: Salvar no Diigo, ou Mover para o Diigo, que o remove deste navegador assim que estiver no Diigo."
+    },
+    "menuSaveBookmark": {
+        "message": "Salvar no Diigo"
+    },
+    "menuMoveBookmark": {
+        "message": "Mover para o Diigo"
+    },
+    "omniboxSearch": {
+        "message": "Buscar estas palavras na Swift Library"
+    },
+    "omniboxNoIndex": {
+        "message": "Abra a Swift Library uma vez para criar o índice da sua biblioteca do Diigo"
+    },
+    "libraryAdd": {
+        "message": "Adicionar"
+    },
+    "libraryAddBookmark": {
+        "message": "Favorito"
+    },
+    "libraryAddImage": {
+        "message": "Imagem"
+    },
+    "libraryAddPdf": {
+        "message": "PDF"
+    },
+    "libraryAddOutliner": {
+        "message": "Outliner"
+    },
+    "libraryAddNote": {
+        "message": "Nota"
+    },
+    "libraryDropImages": {
+        "message": "Solte imagens aqui,\nou clique para escolhê-las"
+    },
+    "libraryDropPdfs": {
+        "message": "Solte PDFs aqui,\nou clique para escolhê-los\nAté 64 MB cada"
+    },
+    "libraryUpload": {
+        "message": "Enviar"
+    },
+    "libraryRetry": {
+        "message": "Tentar de novo"
+    },
+    "libraryRemoveFile": {
+        "message": "Remover"
+    },
+    "libraryNotImage": {
+        "message": "Não é uma imagem que o Diigo aceite (JPEG, PNG, GIF ou BMP)"
+    },
+    "libraryNotPdf": {
+        "message": "Não é um PDF"
+    },
+    "libraryPdfTooBig": {
+        "message": "64 MB ou mais: grande demais para o Diigo"
+    },
+    "libraryUploadFailed": {
+        "message": "Não enviado"
+    },
+    "libraryUploadLimit": {
+        "message": "Você atingiu o limite de envio do seu plano do Diigo."
+    },
+    "libraryPremium": {
+        "message": "Fazer upgrade no Diigo"
+    },
+    "libraryUploadError": {
+        "message": "O Diigo não aceitou: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryAdded": {
+        "message": "Adicionado à sua biblioteca: $COUNT$",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryNext": {
+        "message": "Próximo"
+    },
+    "libraryNewNote": {
+        "message": "Nova nota"
+    },
+    "libraryEditBookmark": {
+        "message": "Editar favorito"
+    },
+    "libraryEditImage": {
+        "message": "Editar imagem"
+    },
+    "libraryEditPdf": {
+        "message": "Editar PDF"
+    },
+    "libraryItemNotSaved": {
+        "message": "O Diigo não salvou: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryEditNote": {
+        "message": "Editar nota"
+    },
+    "libraryAddImageTitle": {
+        "message": "Adicionar imagens"
+    },
+    "libraryAddPdfTitle": {
+        "message": "Adicionar PDFs"
+    },
+    "discoverMenu": {
+        "message": "Swift Discover",
+        "description": "Name of the Swift Discover page (a name, not translated), in the menus"
+    },
+    "discoverQuery": {
+        "message": "Buscar nos Hot Bookmarks",
+        "description": "Swift Discover: placeholder of the search box"
+    },
+    "discoverShows": {
+        "message": "Quais favoritos",
+        "description": "Swift Discover: label of the menu of which bookmarks to show"
+    },
+    "discoverShowNew": {
+        "message": "Novos para você",
+        "description": "Swift Discover: only bookmarks that are not in your library"
+    },
+    "discoverShowAll": {
+        "message": "Todos, também os seus",
+        "description": "Swift Discover: all bookmarks, also those in your library"
+    },
+    "discoverShowSaved": {
+        "message": "Só os da sua biblioteca",
+        "description": "Swift Discover: only bookmarks in your library"
+    },
+    "discoverSortHot": {
+        "message": "Hot, como no Diigo",
+        "description": "Swift Discover: the order of Diigo"
+    },
+    "discoverSortForYou": {
+        "message": "Para você: pelas suas tags",
+        "description": "Swift Discover: the order by how many of your own tags are in a bookmark"
+    },
+    "discoverSortPeople": {
+        "message": "Mais salvos",
+        "description": "Swift Discover: the order by how many people saved it"
+    },
+    "discoverSortNewest": {
+        "message": "Mais novos primeiro",
+        "description": "Swift Discover: the newest first"
+    },
+    "discoverRefresh": {
+        "message": "Atualizar",
+        "description": "Swift Discover: load the Hot Bookmarks again"
+    },
+    "discoverLoading": {
+        "message": "Carregando os Hot Bookmarks do Diigo…",
+        "description": "Swift Discover: while loading"
+    },
+    "discoverLoadMore": {
+        "message": "Mais do Diigo",
+        "description": "Swift Discover: below the list, load the next page"
+    },
+    "discoverChallenge": {
+        "message": "O diigo.com quer primeiro verificar que isto é um navegador (Cloudflare). Abra o Discover uma vez no diigo.com e tente de novo.",
+        "description": "Swift Discover: Cloudflare asks to check the browser"
+    },
+    "discoverOpenBuzz": {
+        "message": "Abrir o Discover no diigo.com",
+        "description": "Swift Discover: link to diigo.com/buzz/hot"
+    },
+    "discoverRetry": {
+        "message": "Tentar de novo",
+        "description": "Swift Discover: try loading again"
+    },
+    "discoverFailed": {
+        "message": "O Diigo não deu os Hot Bookmarks (erro $STATUS$).",
+        "description": "Swift Discover: loading failed; STATUS is the HTTP status",
+        "placeholders": {
+            "status": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverNoIndex": {
+        "message": "Abra a Swift Library uma vez para criar o índice dela: assim o Swift Discover sabe o que já está na sua biblioteca e quais tags são suas.",
+        "description": "Swift Discover: there is no index of the Swift Library yet"
+    },
+    "discoverSaved": {
+        "message": "Salvo: $TITLE$",
+        "description": "Swift Discover: after saving; TITLE is the title of the bookmark",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverPeople": {
+        "message": "Pessoas que salvaram no Diigo: $COUNT$",
+        "description": "Swift Discover: tooltip of the number at the left of a bookmark",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverSavedBy": {
+        "message": "salvo por",
+        "description": "Swift Discover: before the name of who saved it"
+    },
+    "discoverFirstSavedBy": {
+        "message": "salvo primeiro por",
+        "description": "Swift Discover: before the name of who saved it first"
+    },
+    "discoverInteresting": {
+        "message": "Interessante para você"
+    },
+    "discoverInLibrary": {
+        "message": "Na sua biblioteca",
+        "description": "Swift Discover: flag of a bookmark that is in your library"
+    },
+    "discoverYourTags": {
+        "message": "Suas tags:",
+        "description": "Swift Discover: before your tags that are in a bookmark"
+    },
+    "discoverYourTagsHere": {
+        "message": "Suas tags aqui",
+        "description": "Swift Discover: side bar, your tags in what is shown"
+    },
+    "discoverSites": {
+        "message": "Sites",
+        "description": "Swift Discover: side bar, the sites of what is shown"
+    },
+    "discoverSave": {
+        "message": "Salvar",
+        "description": "Swift Discover: button that saves a bookmark to your library"
+    },
+    "discoverDismiss": {
+        "message": "Não tenho interesse",
+        "description": "Swift Discover: button that hides a bookmark from then on"
+    },
+    "discoverShowDismissed": {
+        "message": "Mostrar descartados",
+        "description": "Swift Discover: checkbox, show the hidden ones again"
+    },
+    "discoverLeftOutSaved": {
+        "message": "$COUNT$ da sua biblioteca deixados de fora",
+        "description": "Swift Discover: after how many are shown",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "discoverLeftOutDismissed": {
+        "message": "$COUNT$ descartados deixados de fora",
+        "description": "Swift Discover: after how many are shown",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "relatedTags": {
+        "message": "Muitas vezes com estas:"
+    },
+    "similarSaved": {
+        "message": "Você já salvou esta página em outro endereço web:"
+    },
+    "similarEdit": {
+        "message": "Editar esse"
+    },
+    "formOptionsHead": {
+        "message": "O formulário de favorito"
+    },
+    "formOptionsIntro": {
+        "message": "O que o formulário preenche para um novo favorito. Um favorito já salvo abre como você o salvou."
+    },
+    "optionPageDescription": {
+        "message": "Sem texto selecionado na página, a descrição que a página dá de si mesma (como os buscadores a mostram) como descrição"
+    },
+    "optionCleanUrls": {
+        "message": "Um novo favorito sem parâmetros de rastreamento (utm_…, fbclid e afins), e no endereço web que a página diz ser o seu (canonical) quando está no mesmo site"
+    },
+    "siteRulesHead": {
+        "message": "Regras por site"
+    },
+    "siteRulesIntro": {
+        "message": "O que um novo favorito de um site recebe no formulário: tags, privado ou público, ler depois ou não. Uma regra para example.com vale também para seus subdomínios, como blog.example.com."
+    },
+    "siteRulesAdd": {
+        "message": "Adicionar uma regra"
+    },
+    "siteRulesSite": {
+        "message": "Site, ex. github.com"
+    },
+    "siteRulesTags": {
+        "message": "Tags"
+    },
+    "ruleAsUsualPrivacy": {
+        "message": "Privado: como sempre"
+    },
+    "rulePublic": {
+        "message": "Público"
+    },
+    "ruleAsUsualUnread": {
+        "message": "Ler depois: como sempre"
+    },
+    "ruleNotReadLater": {
+        "message": "Não ler depois"
+    },
+    "similarTags": {
+        "message": "Tags parecidas"
+    },
+    "similarIntro": {
+        "message": "Tags quase iguais: com ou sem hífen, espaço ou acento, ou uma o plural da outra. Escolha a que fica: Mesclar a dá aos favoritos com as outras no lugar delas, também no Diigo."
+    },
+    "similarNone": {
+        "message": "Nenhuma tag parecida."
+    },
+    "similarMerge": {
+        "message": "Mesclar"
+    },
+    "similarIgnore": {
+        "message": "Não são iguais"
+    },
+    "similarMerged": {
+        "message": "$COUNT$ favoritos têm agora a tag $TAG$.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            },
+            "tag": {
+                "content": "$2",
+                "example": "recipe"
+            }
+        }
+    },
+    "linksCheckAll": {
+        "message": "Verificar todos os links"
+    },
+    "linksCheckAllIntro": {
+        "message": "$COUNT$ links da sua biblioteca não foram verificados, ou não recentemente: Verificar todos os links verifica todos, também os que você não rola até ver.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksAllChecked": {
+        "message": "Todos os links da sua biblioteca foram verificados recentemente."
+    },
+    "linksChecking": {
+        "message": "Verificando links: $DONE$ de $TOTAL$, $DEAD$ quebrados até agora…",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "total": {
+                "content": "$2"
+            },
+            "dead": {
+                "content": "$3"
+            }
+        }
+    },
+    "linksChecked": {
+        "message": "$DONE$ links verificados: $DEAD$ quebrados.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksCheckStopped": {
+        "message": "Parado após $DONE$ links: $DEAD$ quebrados. O que foi verificado continua verificado.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linkBusyTitle": {
+        "message": "O site pediu para ir mais devagar (429, Too Many Requests), mesmo após esperar: não é um erro. Será verificado de novo na próxima vez."
+    },
+    "linkSearchTitle": {
+        "message": "Pesquisar o título no Google"
+    },
+    "linkUseWayback": {
+        "message": "Usar a última cópia da Wayback Machine"
+    },
+    "linkTagDead": {
+        "message": "Dar a tag dead-link"
+    },
+    "linkWaybackLooking": {
+        "message": "Procurando “$TITLE$” na Wayback Machine…",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackNoAnswer": {
+        "message": "A Wayback Machine não respondeu para “$TITLE$”. Tente de novo mais tarde.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackNone": {
+        "message": "A Wayback Machine não tem cópia de “$TITLE$”: o favorito continua como está.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "linkWaybackUsed": {
+        "message": "“$TITLE$” agora leva à cópia na Wayback Machine.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeStale": {
+        "message": "Para ler há mais de 3 meses"
+    },
+    "homeMarkRead": {
+        "message": "Lido"
+    },
+    "homeAllRead": {
+        "message": "Todos lidos"
+    },
+    "homeAllReadConfirm": {
+        "message": "Marcar todos os $COUNT$ como lidos, também no Diigo?",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "40"
+            }
+        }
+    },
+    "libraryDeadLinks": {
+        "message": "Links quebrados"
+    },
+    "optionHidePrivateFlag": {
+        "message": "Sem Privado ao lado de cada item privado da lista, já que a maioria é; em vez disso, Público ao lado de um público"
+    },
+    "libraryPublicFlag": {
+        "message": "Público"
+    },
+    "setupBuildingTitle": {
+        "message": "Preparando sua biblioteca"
+    },
+    "setupBuildingText": {
+        "message": "A Swift Library percorre sua biblioteca do Diigo uma vez, página por página, e guarda uma cópia neste navegador: cerca de um minuto para 16.000 favoritos. Depois ela abre na hora e só pede ao Diigo o que mudou."
+    },
+    "setupStarting": {
+        "message": "Pedindo sua biblioteca ao Diigo…"
+    },
+    "setupProgress": {
+        "message": "$DONE$ de $TOTAL$ itens",
+        "placeholders": {
+            "done": {
+                "content": "$1",
+                "example": "4,800"
+            },
+            "total": {
+                "content": "$2",
+                "example": "16,000"
+            }
+        }
+    },
+    "setupTimeLeft": {
+        "message": "faltam cerca de $TIME$",
+        "placeholders": {
+            "time": {
+                "content": "$1",
+                "example": "40 seconds"
+            }
+        }
+    },
+    "setupFailedTitle": {
+        "message": "Não foi possível carregar sua biblioteca"
+    },
+    "setupRetry": {
+        "message": "Tentar de novo"
+    },
+    "setupStoppedTitle": {
+        "message": "Ainda não está pronta"
+    },
+    "setupSignedOutTitle": {
+        "message": "Entre no Diigo"
+    },
+    "setupSignedOutText": {
+        "message": "A Swift Library mostra sua biblioteca do Diigo, com o login que você tem no diigo.com. Entre lá: esta página continua sozinha."
+    },
+    "setupSignIn": {
+        "message": "Entrar no diigo.com"
+    },
+    "linkIgnore": {
+        "message": "Não está quebrado: ignorar este link"
+    },
+    "linkIgnoreSite": {
+        "message": "Não está quebrado: ignorar todos os links de $SITE$",
+        "placeholders": {
+            "site": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "linkUnignore": {
+        "message": "Contar de novo como quebrado"
+    },
+    "linkUnignoreSite": {
+        "message": "Contar de novo os links de $SITE$ como quebrados",
+        "placeholders": {
+            "site": {
+                "content": "$1",
+                "example": "example.com"
+            }
+        }
+    },
+    "linkIgnoredTitle": {
+        "message": "Detectado como quebrado, mas você disse que não está: fora de Links quebrados"
+    },
+    "libraryLinksMoved": {
+        "message": "Movidos"
+    },
+    "libraryLinksBlocked": {
+        "message": "Bloqueados por proteção contra bots"
+    },
+    "linkGoneHomeTitle": {
+        "message": "Esta página agora leva à página inicial do site: a página em si não existe mais"
+    },
+    "linkGoneNotFoundTitle": {
+        "message": "O site responde, mas a página diz que não foi encontrada: a página não existe mais"
+    },
+    "linkParkedTitle": {
+        "message": "Este domínio está estacionado ou à venda: o site que existia não existe mais"
+    },
+    "linkMovedTitle": {
+        "message": "Movida para $URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1",
+                "example": "https://example.org/new"
+            }
+        }
+    },
+    "linkBlockedTitle": {
+        "message": "O site recusou a verificação ($STATUS$): uma proteção contra bots, que deixa passar uma aba do navegador. Abra-o para ver se funciona.",
+        "placeholders": {
+            "status": {
+                "content": "$1",
+                "example": "403"
+            }
+        }
+    },
+    "linkUseNewUrl": {
+        "message": "Usar o novo endereço web"
+    },
+    "linkUseNewUrlAll": {
+        "message": "Todos para o novo endereço"
+    },
+    "linkUseNewUrlConfirm": {
+        "message": "Dar a $COUNT$ favoritos o endereço web para onde foram movidos, também no Diigo?",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "linkNewUrlUsed": {
+        "message": "$COUNT$ favoritos têm o novo endereço web.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryNoTitle": {
+        "message": "Sem título"
+    },
+    "libraryNoTitleIntro": {
+        "message": "Favoritos sem título de verdade: nenhum, o endereço web ou um como Untitled. Buscar títulos pede a cada página o próprio título e o salva também no Diigo."
+    },
+    "libraryFetchTitles": {
+        "message": "Buscar títulos"
+    },
+    "libraryTitlesFetched": {
+        "message": "$COUNT$ favoritos agora têm título.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryTitlesNone": {
+        "message": "$COUNT$ páginas não deram título.",
+        "placeholders": {
+            "count": {
+                "content": "$1",
+                "example": "12"
+            }
+        }
+    },
+    "libraryTitleFromPage": {
+        "message": "Título da página"
+    },
+    "outlinersNewTitle": {
+        "message": "Título de um novo outliner"
+    },
+    "outlinersNone": {
+        "message": "Você ainda não tem outliners: Adicionar → Outliner cria um novo."
+    },
+    "outlinersTotalOne": {
+        "message": "1 outliner no Diigo"
+    },
+    "outlinersTotal": {
+        "message": "$COUNT$ outliners no Diigo",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersChangedOn": {
+        "message": "Alterado em $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersEmpty": {
+        "message": "Este outliner está vazio: adicione um item, ou itens da sua biblioteca."
+    },
+    "outlinersAddItem": {
+        "message": "+ Item"
+    },
+    "outlinersAddFromLibrary": {
+        "message": "Da sua biblioteca"
+    },
+    "outlinersExpandAll": {
+        "message": "Expandir tudo"
+    },
+    "outlinersCollapseAll": {
+        "message": "Recolher tudo"
+    },
+    "outlinersExpand": {
+        "message": "Expandir"
+    },
+    "outlinersCollapse": {
+        "message": "Recolher"
+    },
+    "outlinersItemDelete": {
+        "message": "Excluir este item"
+    },
+    "outlinersItemDeleteAsk": {
+        "message": "Excluir este item e os $COUNT$ itens abaixo dele?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersDescription": {
+        "message": "Nota"
+    },
+    "outlinersKeys": {
+        "message": "Enter: novo item · Tab / Shift+Tab: para dentro / fora · Shift+Enter: a nota · Alt+Shift+↑↓: mover · Backspace num item vazio: excluir · Ctrl+Shift+Backspace: excluir o item"
+    },
+    "outlinersReadOnly": {
+        "message": "Compartilhado com você para leitura: não pode ser alterado aqui."
+    },
+    "outlinersLoading": {
+        "message": "Carregando do Diigo…"
+    },
+    "outlinersSaving": {
+        "message": "Salvando…"
+    },
+    "outlinersSaved": {
+        "message": "Salvo no Diigo"
+    },
+    "outlinersNotSaved": {
+        "message": "Não salvo no Diigo: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersFailed": {
+        "message": "O Diigo não respondeu: $WHY$",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
+    },
+    "outlinersChanged": {
+        "message": "Alterado em outro lugar enquanto isso: carregado de novo."
+    },
+    "outlinersNoJson": {
+        "message": "O Diigo respondeu com uma página em vez de dados (sessão encerrada, ou uma verificação do Cloudflare: abra o diigo.com um instante)."
+    },
+    "outlinersLibraryFind": {
+        "message": "Pesquisar na sua biblioteca"
+    },
+    "outlinersNoIndex": {
+        "message": "A Swift Library ainda não tem índice: abra-a uma vez para criá-lo."
+    },
+    "bulkSharedToOutliner": {
+        "message": "$COUNT$ adicionados a “$OUTLINER$”.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "outliner": {
+                "content": "$2"
+            }
+        }
+    },
+    "outlinersAdd": {
+        "message": "Adicionar"
+    },
+    "outlinersAdded": {
+        "message": "Adicionado"
+    }
+}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="discoverMenu">Swift Discover</title>
+  <!-- the icon of the add-on (icons/icon.svg) -->
+  <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+  <!-- in the look of the Swift Library, with what is Discover's own after it -->
+  <link rel="stylesheet" href="swift-nav.css">
+  <link rel="stylesheet" href="library.css">
+  <link rel="stylesheet" href="discover.css">
+</head>
+<body>
+  <!-- discover.js: the Hot Bookmarks of the Diigo community (diigo.com/buzz/hot), with what you have and what you like -->
+  <!-- the menu at the top of diigo.com, as in the Swift Library, with the items of the options page -->
+  <nav class="MainNav">
+    <div class="nav-inner">
+      <a class="logo" href="https://www.diigo.com/index" aria-label="Diigo"></a>
+      <ul id="mainNav"></ul>
+      <!-- your name and its menu, as on diigo.com (user-menu.js) -->
+      <span class="user-menu" id="userMenu" hidden>
+        <button type="button" class="user" id="userLink" aria-haspopup="true" aria-expanded="false"><img src="https://www.diigo.com/asset/images/default_avatar.jpg" alt=""><span id="userName"></span><span class="user-caret"></span></button>
+        <span class="user-menu-items" id="userMenuItems" role="menu"></span>
+      </span>
+    </div>
+  </nav>
+
+  <header class="bar">
+    <div class="inner">
+      <h1 data-i18n="discoverMenu">Swift Discover</h1>
+      <form id="searchForm" class="search" role="search">
+        <input type="search" id="query" spellcheck="false" autocomplete="off" data-i18n-label="discoverQuery" autofocus>
+      </form>
+      <select id="sort" data-i18n-label="librarySort"></select>
+      <!-- new to you, all, or only those in your library (discover.js: SHOWS) -->
+      <select id="shows" data-i18n-label="discoverShows"></select>
+      <button type="button" id="refresh" class="refresh" data-i18n="discoverRefresh">Refresh</button>
+    </div>
+  </header>
+
+  <!-- only when there is something to say: loading, what went wrong (with what to do about it), or that there is no
+       index of the Swift Library yet -->
+  <div id="notice" class="notice" hidden>
+    <div class="inner">
+      <span id="status" class="status" role="status"></span>
+      <span class="buttons">
+        <!-- without an index of the Swift Library, nothing can be marked as yours -->
+        <a id="openLibrary" href="library.html" data-i18n="libraryMenu" hidden>Swift Library</a>
+        <a id="openBuzz" href="https://www.diigo.com/buzz/hot" target="_blank" rel="noopener" data-i18n="discoverOpenBuzz" hidden>Open Discover on diigo.com</a>
+        <button type="button" id="retry" data-i18n="discoverRetry" hidden>Try again</button>
+      </span>
+    </div>
+  </div>
+
+  <main class="inner main" id="main">
+    <aside class="side SideBar" id="side"></aside>
+    <section class="list" id="list">
+      <!-- the filters: tags, a site, one of your tags (discover.js: showFilters) -->
+      <div id="filters" class="filters"></div>
+      <p class="list-count">
+        <span id="count"></span>
+        <!-- what you said Not interested to; out of the way, as Show hidden in the Swift Library -->
+        <label class="show-hidden"><input type="checkbox" id="showDismissed"><span data-i18n="discoverShowDismissed">Show dismissed</span></label>
+      </p>
+      <ol id="items" class="items"></ol>
+      <!-- the next page of Diigo's Hot Bookmarks, only when there is one -->
+      <p class="load-more"><button type="button" id="loadMore" data-i18n="discoverLoadMore" hidden>More from Diigo</button></p>
+    </section>
+  </main>
+
+  <!-- saving one: the bookmark form of the toolbar button, as Add Bookmark in the Swift Library -->
+  <dialog id="popup" class="popup framed"></dialog>
+
+  <script src="settings.js"></script>
+  <script src="index-item.js"></script>
+  <script src="library-index.js"></script>
+  <script src="user-menu.js"></script>
+  <script src="discover.js"></script>
+</body>
+</html>

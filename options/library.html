@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="libraryMenu">Swift Library</title>
+  <!-- the icon of the add-on (icons/icon.svg) -->
+  <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="swift-nav.css">
+  <link rel="stylesheet" href="library.css">
+  <!-- Outliners (library-outliners.js): their list and the tree of one -->
+  <link rel="stylesheet" href="outliners.css">
+</head>
+<body>
+  <!-- library.js: your Diigo library from the index of library-index.js, in the look of the new Diigo library -->
+  <!-- the menu at the top of diigo.com, as Diigo draws it (.MainNav), with the items of the options page -->
+  <nav class="MainNav">
+    <div class="nav-inner">
+      <a class="logo" href="https://www.diigo.com/index" aria-label="Diigo"></a>
+      <ul id="mainNav"></ul>
+      <!-- your name and its menu, as on diigo.com (user-menu.js) -->
+      <span class="user-menu" id="userMenu" hidden>
+        <button type="button" class="user" id="userLink" aria-haspopup="true" aria-expanded="false"><img src="https://www.diigo.com/asset/images/default_avatar.jpg" alt=""><span id="userName"></span><span class="user-caret"></span></button>
+        <span class="user-menu-items" id="userMenuItems" role="menu"></span>
+      </span>
+    </div>
+  </nav>
+
+  <header class="bar">
+    <div class="inner">
+      <h1 data-i18n="libraryMenu">Swift Library</h1>
+      <form id="searchForm" class="search" role="search">
+        <!-- a field and what to search there, -word for what isn't (library-search.js: searchTest); + keeps it as a filter -->
+        <select id="field" data-i18n-label="libraryField"></select>
+        <input type="search" id="query" spellcheck="false" autocomplete="off" autofocus>
+        <button type="button" id="pin" class="pin">+</button>
+      </form>
+      <select id="sort" data-i18n-label="librarySort"></select>
+      <select id="privacy" data-i18n-label="libraryPrivacy"></select>
+      <select id="saved" data-i18n-label="searchFieldSaved"></select>
+      <!-- what to add, as Diigo's + and its menu (AddHandler); four buttons with splitAdd, at the top of the side bar as on
+           diigo.com (library-add.js: addItem, placeAddTypes). Hidden until the settings say where, so the + doesn't
+           show for a moment before the four buttons take its place -->
+      <span id="addMenu" class="add-menu" hidden>
+        <button type="button" id="add" class="add" aria-haspopup="true" aria-expanded="false" data-i18n="libraryAdd">Add</button>
+        <span class="add-types" id="addTypes">
+          <button type="button" class="add" data-add="bookmark" data-i18n="libraryAddBookmark" data-i18n-title="libraryAddBookmark">Bookmark</button>
+          <button type="button" class="add" data-add="image" data-i18n="libraryAddImage" data-i18n-title="libraryAddImage">Image</button>
+          <button type="button" class="add" data-add="pdf" data-i18n="libraryAddPdf" data-i18n-title="libraryAddPdf">PDF</button>
+          <button type="button" class="add" data-add="note" data-i18n="libraryAddNote" data-i18n-title="libraryAddNote">Note</button>
+          <button type="button" class="add" data-add="outliner" data-i18n="libraryAddOutliner" data-i18n-title="libraryAddOutliner">Outliner</button>
+        </span>
+      </span>
+    </div>
+  </header>
+
+  <!-- only when there is something to say (library.js: showNotice): no index yet (with Build index), building or
+       updating it (with Stop), or what was just done or went wrong -->
+  <div id="notice" class="notice" hidden>
+    <div class="inner">
+      <!-- how many items your Diigo library has, while there is nothing else to say (library.js: showTotal) -->
+      <span id="libraryTotal" class="library-total"></span>
+      <span id="indexStatus" role="status"></span>
+      <span id="status" class="status" role="status"></span>
+      <span class="buttons">
+        <button type="button" id="indexBuildNow" data-i18n="indexBuild" hidden>Build index</button>
+        <button type="button" id="stop" data-i18n="cleanupStop" hidden>Stop</button>
+        <button type="button" id="noticeClose" class="notice-close" aria-label="×" hidden>×</button>
+      </span>
+    </div>
+  </div>
+
+  <!-- what went wrong, when something did (library.js: reportProblem) -->
+  <div id="problem" class="problem" role="alert" hidden></div>
+
+  <!-- while there is no index to show: building it the first time, with how far, or why it can't (signed out, it
+       failed, stopped), in the place of the library (library.js: showSetup) -->
+  <section id="setup" class="setup" hidden>
+    <div class="setup-card">
+      <img class="setup-icon" src="../icons/icon.svg" alt="">
+      <h2 id="setupTitle"></h2>
+      <p id="setupText" class="setup-text"></p>
+      <div id="setupProgressBox" class="setup-progress" hidden>
+        <progress id="setupProgress" max="1"></progress>
+        <p id="setupCount" class="setup-count" role="status"></p>
+      </div>
+      <p id="setupError" class="setup-error" role="alert" hidden></p>
+      <p class="setup-buttons">
+        <button type="button" id="setupBuild" class="primary" hidden></button>
+        <a id="setupSignIn" class="button primary" href="https://www.diigo.com/sign-in" target="_blank" rel="noopener" data-i18n="setupSignIn" hidden>Sign in on diigo.com</a>
+        <button type="button" id="setupStop" data-i18n="cleanupStop" hidden>Stop</button>
+      </p>
+    </div>
+  </section>
+
+  <!-- the tags at the left, as in Diigo's library -->
+  <main class="inner main" id="main" hidden>
+    <aside class="side SideBar" id="side"></aside>
+    <section class="list" id="list">
+      <!-- Start: blocks instead of the list (library-home.js); the rest of this section is hidden then (.home-mode) -->
+      <div id="home"></div>
+      <!-- Outliners, instead of the list (library-outliners.js); the rest of this section is hidden then
+           (.outliners-mode): all of them as a list, or one as a tree -->
+      <div id="outliners">
+        <div id="outlinerAll">
+          <ol id="outlinerList" class="items"></ol>
+          <p id="outlinerNone" class="outliner-none" data-i18n="outlinersNone" hidden></p>
+        </div>
+        <div id="outlinerOpen" hidden>
+          <div class="outliner-head">
+            <!-- the name, written in the page (saveMeta) -->
+            <h2 id="outlinerTitle" class="outliner-title" spellcheck="false"></h2>
+            <span class="outliner-actions">
+              <button type="button" id="outlinerDelete" class="danger" data-i18n="libraryDelete">Delete</button>
+              <button type="button" id="outlinerAddItem" data-i18n="outlinersAddItem">+ Item</button>
+              <button type="button" id="outlinerFromLibrary" data-i18n="outlinersAddFromLibrary">From your library</button>
+              <button type="button" id="outlinerExpandAll" data-i18n="outlinersExpandAll">Expand all</button>
+              <button type="button" id="outlinerCollapseAll" data-i18n="outlinersCollapseAll">Collapse all</button>
+            </span>
+          </div>
+          <p id="outlinerReadOnly" class="outliner-note" data-i18n="outlinersReadOnly" hidden></p>
+          <p id="outlinerKeys" class="outliner-note" data-i18n="outlinersKeys"></p>
+          <ul id="outlinerTree" class="tree"></ul>
+          <p id="outlinerEmpty" class="outliner-none" data-i18n="outlinersEmpty" hidden></p>
+        </div>
+      </div>
+      <!-- the trash, only when it is shown -->
+      <div id="trashBar" class="trash-bar" hidden>
+        <p data-i18n="libraryTrashIntro"></p>
+        <button type="button" id="emptyTrash" data-i18n="libraryEmptyTrash">Empty trash</button>
+        <!-- how much room it takes, and what the browser lets the add-on keep (library-trash.js: showTrashSize) -->
+        <p id="trashSize" class="trash-size"></p>
+      </div>
+      <!-- the duplicates, only when they are shown (library-trash.js: duplicateKeys) -->
+      <div id="duplicatesBar" class="trash-bar" hidden>
+        <p data-i18n="libraryDuplicatesIntro"></p>
+        <button type="button" id="tickDuplicates" data-i18n="libraryTickDuplicates">Tick all but the newest</button>
+      </div>
+      <!-- the bookmarks without a real title, only when they are shown (library-edit.js: fetchTitles) -->
+      <div id="notitleBar" class="trash-bar notitle-bar" hidden>
+        <p data-i18n="libraryNoTitleIntro"></p>
+        <button type="button" id="fetchTitles" data-i18n="libraryFetchTitles">Fetch titles</button>
+      </div>
+      <!-- Dead links: how many links aren't checked (lately), and Check all links (library-links.js: checkAllLinks) -->
+      <div id="deadBar" class="trash-bar notitle-bar" hidden>
+        <p id="deadIntro"></p>
+        <button type="button" id="checkAllLinks" data-i18n="linksCheckAll">Check all links</button>
+      </div>
+      <!-- the random bookmarks, only when they are shown (library-search.js: showRandom), or those looked at for dead
+           links (showHunt) -->
+      <div id="randomBar" class="trash-bar" hidden>
+        <p id="randomIntro" data-i18n="libraryRandomIntro"></p>
+      </div>
+      <!-- the filters: tags, a site, the conditions kept with + (library-search.js: showFilters) -->
+      <div id="filters" class="filters"></div>
+      <p class="list-count">
+        <span id="count"></span>
+        <!-- the bookmarks with a hidden tag too, without asking for one of their tags (library-search.js: shownItems); out of
+             the way, as the hidden tags themselves -->
+        <label class="show-hidden"><input type="checkbox" id="showHidden"><span data-i18n="libraryShowHidden">Show hidden</span></label>
+        <span class="buttons">
+          <button type="button" id="bulkToggle" data-i18n="bulkEdit" aria-pressed="false">Bulk edit</button>
+        </span>
+      </p>
+      <!-- Bulk edit: what to do with the bookmarks ticked (library-bulk.js) -->
+      <div id="bulkBar" class="bulk-bar" hidden>
+        <label class="bulk-all"><input type="checkbox" id="bulkAll"><span id="bulkCount"></span></label>
+        <!-- tag adds it, -tag takes it away -->
+        <span class="bulk-tags">
+          <input type="text" id="bulkTags" spellcheck="false" autocomplete="off" data-i18n-label="bulkTagsHint">
+          <button type="button" id="bulkApplyTags" data-i18n="bulkApplyTags">Apply tags</button>
+        </span>
+        <!-- each one of two, after what is ticked (library-bulk.js: toggles) -->
+        <button type="button" id="bulkRead"></button>
+        <button type="button" id="bulkPrivacy"></button>
+        <!-- all ticked to an outliner, as links at its end (library-bulk.js: shareTicked) -->
+        <span id="bulkShare" class="bulk-share"></span>
+        <button type="button" id="bulkDelete" class="delete" data-i18n="libraryDelete">Delete</button>
+        <!-- while busy, in place of the rest (library-bulk.js: showProgress) -->
+        <span class="bulk-progress">
+          <span id="bulkProgressText"></span>
+          <progress id="bulkProgressBar" max="1" value="0"></progress>
+          <button type="button" id="bulkStop" data-i18n="cleanupStop">Stop</button>
+        </span>
+      </div>
+      <ol id="items" class="items"></ol>
+      <div id="more" class="more"></div>
+    </section>
+  </main>
+
+  <!-- adding a bookmark, image, PDF or note, as on diigo.com (library-add.js: addItem) -->
+  <dialog id="popup" class="popup"></dialog>
+
+  <!-- All tags of the side bar: the 300 most used, or all with what is typed in the box -->
+  <dialog id="cloudDialog" class="cloud-dialog">
+    <div class="cloud-head"><span>All tags</span><button type="button" id="cloudClose" aria-label="×">×</button></div>
+    <input type="search" id="cloudFind" class="cloud-find" spellcheck="false" autocomplete="off" data-i18n-label="libraryTagFilter">
+    <p id="cloudNone" class="cloud-none" data-i18n="cloudNoMatch" hidden>No tag has that in its name.</p>
+    <div id="cloud" class="tag-cloud"></div>
+  </dialog>
+
+  <!-- Similar tags of Clean up on Start: groups of tags that are nearly the same, to make one (library-tags.js) -->
+  <dialog id="similarDialog" class="cloud-dialog similar-dialog">
+    <div class="cloud-head"><span data-i18n="similarTags">Similar tags</span><button type="button" id="similarClose" aria-label="×">×</button></div>
+    <p class="similar-intro" data-i18n="similarIntro"></p>
+    <p id="similarNone" class="cloud-none" data-i18n="similarNone" hidden>No similar tags.</p>
+    <ol id="similarGroups" class="similar-groups"></ol>
+  </dialog>
+
+  <!-- From your library, in an outliner: the items of the index, to add to it (library-outliners.js) -->
+  <dialog id="outlinerLibraryDialog" class="popup outliner-library">
+    <form method="dialog" class="outliner-library-head">
+      <input type="search" id="outlinerLibraryFind" spellcheck="false" autocomplete="off" data-i18n-label="outlinersLibraryFind">
+      <button type="submit" class="close" data-i18n-title="close" data-i18n-label="close">×</button>
+    </form>
+    <p id="outlinerLibraryNote" class="outliner-note" hidden></p>
+    <ul id="outlinerLibraryItems" class="outliner-library-items"></ul>
+  </dialog>
+
+  <!-- suggestions while typing a tag or a site, below the search box or the tags of Bulk edit (library-search.js: autocomplete) -->
+  <ul id="suggest" class="suggest" hidden></ul>
+
+  <!-- that what was deleted is in the trash, for a moment, with Undo and a way there (library-delete.js: showToast) -->
+  <div id="toast" class="toast" role="status" hidden>
+    <span id="toastText"></span>
+    <button type="button" id="toastUndo" data-i18n="libraryUndo">Undo</button>
+    <button type="button" id="toastTrash" data-i18n="libraryTrash">Trash</button>
+  </div>
+
+  <script src="settings.js"></script>
+  <script src="index-item.js"></script>
+  <script src="library-index.js"></script>
+  <!-- in this order: library.js has what the others share, library-page.js puts them to work -->
+  <script src="library.js"></script>
+  <script src="library-search.js"></script>
+  <script src="library-list.js"></script>
+  <script src="library-links.js"></script>
+  <script src="library-trash.js"></script>
+  <script src="library-code.js"></script>
+  <script src="library-edit.js"></script>
+  <script src="library-add.js"></script>
+  <script src="library-bulk.js"></script>
+  <script src="library-delete.js"></script>
+  <script src="library-side.js"></script>
+  <script src="library-tags.js"></script>
+  <script src="library-home.js"></script>
+  <script src="md5.js"></script>
+  <script src="library-outliners.js"></script>
+  <script src="user-menu.js"></script>
+  <script src="library-page.js"></script>
+</body>
+</html>

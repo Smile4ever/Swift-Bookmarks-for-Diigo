@@ -1,0 +1,163 @@
+/* The menu at the top of every page of the add-on, as Diigo's own .MainNav (main.<hash>.css of diigo.com), and the menu
+   of your name in it (user-menu.js): one look for the Swift Library, Swift Discover, Swift Outliners, Tools and Swift
+   Options. Loaded before the page's own CSS (library.css, options.css), whose colours (--page, --hover...) it uses. */
+
+/* room for the scroll bar on every page, also a short one: going from one page to another, nothing moves sideways */
+html {
+  scrollbar-gutter: stable;
+}
+
+.MainNav {
+  background: #3f98e5;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 50px 8px;
+}
+
+.MainNav .logo {
+  flex: none;
+  width: 68px;
+  height: 32px;
+  margin-left: 10px;
+  background: url("https://www.diigo.com/asset/images/logo_s2@2x.png") no-repeat;
+  background-size: 68px auto;
+}
+
+.MainNav ul {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  margin: 0 0 0 25px;
+  padding: 0;
+  list-style: none;
+}
+
+.MainNav li {
+  margin-right: 30px;
+}
+
+.MainNav li a {
+  color: #a7deff;
+  font-size: 14px;
+  line-height: 32px;
+  text-decoration: none;
+}
+
+.MainNav li.active a {
+  color: #fff;
+}
+
+/* your name is a button: without the browser's own border, padding and font, also on a page whose CSS doesn't take
+   those away from all buttons (options.css), so the menu is the same everywhere */
+.MainNav .user {
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  color: #fff;
+  font-size: 12px;
+  line-height: 26px;
+  text-decoration: none;
+}
+
+.MainNav .user img {
+  width: 26px;
+  height: 26px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+@media (max-width: 880px) {
+  .nav-inner {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 770px) {
+  .nav-inner {
+    padding: 5px 10px 0;
+  }
+
+  .MainNav .user span {
+    display: none;
+  }
+}
+
+/* your name at the top right and its menu, as on diigo.com (user-menu.js): a ▴ after the name, the menu below it */
+.user-menu {
+  position: relative;
+}
+
+.user-menu[hidden] {
+  display: none;
+}
+
+.MainNav .user {
+  cursor: pointer;
+}
+
+.MainNav .user:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  border-radius: 14px;
+}
+
+.user-caret {
+  width: 0;
+  height: 0;
+  margin-left: 8px;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  border-bottom: 5px solid #fff;
+  transform: rotate(180deg);
+  transition: transform .15s;
+}
+
+.user-menu.open .user-caret {
+  transform: none;
+}
+
+.user-menu-items {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 20;
+  flex-direction: column;
+  min-width: 170px;
+  padding: 6px 0;
+  border-radius: 4px;
+  background: var(--page);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .25);
+}
+
+.user-menu.open .user-menu-items {
+  display: flex;
+}
+
+.user-menu-items a {
+  padding: 7px 20px;
+  color: var(--grey);
+  font-size: 14px;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.user-menu-items a:is(:hover, :focus-visible) {
+  background: var(--hover);
+  color: var(--link);
+  outline: none;
+}
+
+.user-menu-items a[aria-current] {
+  color: var(--text);
+}

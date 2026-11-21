@@ -1,0 +1,149 @@
+/* tools.html, Diigo's Tools as a page of the add-on: after library.css, whose look it has; here only what is its own */
+
+.tools {
+  padding-top: 10px;
+  padding-bottom: 80px;
+}
+
+.tool-category h2 {
+  margin: 28px 0 12px 10px;
+  color: var(--grey);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.tool-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.tool-card {
+  position: relative;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+/* this add-on: in the blue of the Swift Library */
+.tool-card.own {
+  border-color: color-mix(in srgb, var(--blue) 45%, var(--line));
+}
+
+.tool-icon {
+  float: right;
+  width: 40px;
+  height: 40px;
+  margin: 0 0 8px 12px;
+}
+
+.tool-card h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.tool-card p {
+  margin: 0 0 8px;
+  color: var(--grey);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.tool-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.tool-links.column {
+  flex-direction: column;
+}
+
+.tool-card .tool-links a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.tool-card .tool-links a:hover {
+  text-decoration: underline;
+}
+
+
+/* ---- the icons of Diigo's Tools page: its own two images (tools_new.png and tools_icons_small.png of diigo.com, in
+   the add-on itself), at the places its CSS (common.<hash>.css: .d_icon.tools) takes them from ---- */
+
+/* the blue d of Diigo's app (100px, .d_diigo_mobile) and the Diigolet (80 x 102px), at the top right of a card, at
+   half their size: the whole image at half its size too (300 x 282px) */
+.tool-sprite {
+  float: right;
+  margin: 0 0 8px 12px;
+  background: url("images/tools_new.png") no-repeat;
+  background-size: 150px 141px;
+}
+
+.tool-sprite.diigo {
+  width: 50px;
+  height: 50px;
+  background-position: -100px 0;
+}
+
+.tool-sprite.diigolet {
+  width: 40px;
+  height: 51px;
+  background-position: 0 -89px;
+}
+
+/* Chrome and Firefox before their link (.d_extension.sm: 32 x 33px), at 20px */
+.browser-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  vertical-align: -4px;
+  background: url("images/tools_new.png") no-repeat;
+  background-size: 187.5px 176.25px;
+}
+
+.browser-icon.firefox {
+  background-position: 0 -62.5px;
+}
+
+.browser-icon.chrome {
+  background-position: -20px -62.5px;
+}
+
+/* Download on the App Store (.download.iOS, 150 x 45px) */
+.tool-card .app-store {
+  display: block;
+  width: 150px;
+  height: 45px;
+  background: url("images/tools_new.png") no-repeat 0 -133px;
+}
+
+/* the round icons of the web services (tools_icons_small.png, 31px each) */
+.service-icon {
+  float: right;
+  width: 31px;
+  height: 31px;
+  margin: 0 0 8px 12px;
+  background: url("images/tools_icons_small.png") no-repeat;
+}
+
+.service-icon.save {
+  background-position: 0 0;
+}
+
+.service-icon.import-export {
+  background-position: -31px 0;
+}
+
+.service-icon.publish {
+  background-position: -62px 0;
+}
+
+.service-icon.api {
+  background-position: -93px 0;
+}

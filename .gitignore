@@ -1,0 +1,6 @@
+node_modules/
+dist/
+# Built by npm run build; every release has its zips on GitHub (Releases)
+web-ext-artifacts/
+# Diigo's own images for npm run screenshots, saved from a browser (scripts/screenshots.mjs)
+scripts/screenshot-assets/

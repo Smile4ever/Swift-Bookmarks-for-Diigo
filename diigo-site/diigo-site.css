@@ -1,0 +1,7 @@
+/* The looks of what the add-on adds to diigo.com: the menu at the top */
+
+/* the menu at the top, as on the options page: the items of Diigo you switched off there (header.js puts them in order) */
+
+:is(li, nav > a)[data-dqa-menu-off] {
+  display: none !important;
+}

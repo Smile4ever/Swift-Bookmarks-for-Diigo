@@ -1,0 +1,704 @@
+/* options.html: in the look of the Swift Library (library.css): its blue bar and font, the sections as white cards on
+   a light grey page, an on/off option as a switch; also dark when the system is */
+
+:root {
+  color-scheme: light;
+  --text: #222;
+  --grey: #777;
+  --line: #e8ecef;
+  --box: #d5dadf;
+  --blue: #3f98e5;
+  --link: #1e70c1;
+  --page: #f4f6f8;
+  --card: #fff;
+  --hover: #eaf3fc;
+  --switch-off: #c4c9ce;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --text: #eee;
+    --grey: #aaa;
+    --line: #2c3136;
+    --box: #444a50;
+    --link: #8ab8ff;
+    --page: #121416;
+    --card: #1b1e21;
+    --hover: #1b2a3a;
+    --switch-off: #50575e;
+  }
+}
+
+/* the fonts of the Diigo library, in the add-on itself (as library.css) */
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: 400;
+  src: url("fonts/OpenSans-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  src: url("fonts/OpenSans-Semibold.woff") format("woff");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* the sections below the bar when a link of the side goes there */
+  scroll-padding-top: 16px;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+  font: 15px "Open Sans", "Segoe UI", system-ui, sans-serif;
+}
+
+a {
+  color: var(--link);
+}
+
+
+/* ---- the blue bar below the menu at the top, as in the Swift Library (library.css: .bar): the name of the page and a
+   box to find an option ---- */
+
+.bar {
+  padding: 20px 0 18px;
+  background: var(--blue);
+  color: #fff;
+}
+
+/* as wide as the menu at the top (swift-nav.css: .nav-inner), so all starts under its logo, as on the other pages */
+.bar-inner,
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+
+.bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.bar h1 {
+  margin: 0 0 0 10px;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.search {
+  display: flex;
+  flex: 1 1 360px;
+  border-bottom: 1px solid rgba(255, 255, 255, .7);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 4px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  outline: none;
+}
+
+.search input::placeholder {
+  color: rgba(255, 255, 255, .75);
+}
+
+/* the menu of your name: on the cards' colour, as the page is grey here (swift-nav.css takes --page) */
+.user-menu-items {
+  background: var(--card);
+}
+
+
+/* ---- the page: the side bar at the left, as that of the Swift Library (.SideBar), the cards at the right ---- */
+
+.page {
+  display: flex;
+  gap: 32px;
+  padding-top: 24px;
+  padding-bottom: 64px;
+}
+
+.side {
+  position: sticky;
+  top: 16px;
+  align-self: flex-start;
+  display: flex;
+  flex: 0 0 240px;
+  flex-direction: column;
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+}
+
+/* as Diigo's sideBarNavigate: grey, blue on hover, the one in view blue and bold */
+.side a {
+  padding: 11px 0 11px 20px;
+  color: #616161;
+  font-size: 15px;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.side a:hover {
+  color: #49a4f6;
+}
+
+.side a.selected {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .side a {
+    color: var(--grey);
+  }
+}
+
+main {
+  flex: 1;
+  min-width: 0;
+}
+
+.find-none {
+  color: var(--grey);
+}
+
+@media (max-width: 880px) {
+  .bar-inner,
+  .page {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+@media (max-width: 860px) {
+  .side {
+    display: none;
+  }
+
+  .page {
+    padding-top: 16px;
+    padding-bottom: 48px;
+  }
+}
+
+.card {
+  margin-bottom: 20px;
+  padding: 22px 24px;
+  border-radius: 8px;
+  background: var(--card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .04);
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+h2 {
+  margin: 22px 0 6px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.intro {
+  margin: 0 0 14px;
+  color: var(--grey);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.actions {
+  margin: 0 0 14px;
+}
+
+/* an empty one (Allow access, once access is there) takes no room */
+.actions:not(:has(> :not([hidden]))) {
+  display: none;
+}
+
+/* hidden tags: the heading of the card opens it, with ▸ / ▾ before it */
+summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary h1 {
+  display: inline;
+}
+
+summary::before {
+  content: "▸";
+  display: inline-block;
+  width: 1.2em;
+  color: var(--grey);
+}
+
+details[open] summary {
+  margin-bottom: 8px;
+}
+
+details[open] summary::before {
+  content: "▾";
+}
+
+
+/* ---- an option: its text at the left, a switch at the right, a line between them ---- */
+
+.options {
+  margin: 0 -24px;
+  border-top: 1px solid var(--line);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: color-mix(in srgb, var(--hover) 50%, transparent);
+}
+
+.option span {
+  flex: 1;
+}
+
+.options:last-child {
+  margin-bottom: -22px;
+}
+
+.options:last-child .option:last-child {
+  border-bottom: 0;
+  border-radius: 0 0 8px 8px;
+}
+
+/* the checkbox as a switch */
+.option input {
+  flex: none;
+  position: relative;
+  width: 36px;
+  height: 20px;
+  margin: 0;
+  border-radius: 10px;
+  background: var(--switch-off);
+  cursor: pointer;
+  transition: background .15s;
+  appearance: none;
+}
+
+.option input::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+  transition: transform .15s;
+}
+
+.option input:checked {
+  background: var(--blue);
+}
+
+.option input:checked::before {
+  transform: translateX(16px);
+}
+
+.option input:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+
+/* ---- buttons, and links that look like them ---- */
+
+button,
+.button {
+  display: inline-block;
+  padding: 7px 16px;
+  border: 1px solid var(--box);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled),
+.button:hover {
+  border-color: var(--blue);
+  color: var(--link);
+}
+
+button.primary,
+.button.primary {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+
+button.primary:hover:not(:disabled),
+.button.primary:hover {
+  filter: brightness(1.08);
+  color: #fff;
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+input[type=checkbox] {
+  accent-color: var(--blue);
+}
+
+textarea,
+.top-menu :is(.top-menu-label, .top-menu-url) {
+  border: 1px solid var(--box);
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+:is(textarea, .top-menu input):focus {
+  border-color: var(--blue);
+  outline: none;
+}
+
+
+/* ---- the menu at the top of diigo.com: a row per item, with ↑ ↓ (and ✕ for a link of your own) at the right ---- */
+
+.top-menu {
+  margin: 0 0 14px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  list-style: none;
+}
+
+.top-menu li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+}
+
+.top-menu li + li {
+  border-top: 1px solid var(--line);
+}
+
+.top-menu label {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.top-menu input[type=checkbox] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.top-menu :is(.top-menu-label, .top-menu-url) {
+  min-width: 0;
+  padding: 4px 8px;
+}
+
+.top-menu .top-menu-label {
+  flex: 1;
+}
+
+.top-menu .top-menu-url {
+  flex: 2;
+}
+
+.top-menu button {
+  padding: 2px 9px;
+}
+
+.top-menu button:disabled {
+  visibility: hidden;
+}
+
+/* the rules per site: a site, its tags, private and read later, and ✕; two lines on a narrow window */
+
+.site-rules:empty {
+  display: none;
+}
+
+.site-rules li {
+  flex-wrap: wrap;
+}
+
+.site-rules :is(input, select) {
+  min-width: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--box);
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.site-rules select option {
+  background: var(--card, #fff);
+}
+
+.site-rules .rule-site {
+  flex: 1 1 140px;
+}
+
+.site-rules .rule-tags {
+  flex: 2 1 180px;
+}
+
+.site-rules :is(input, select):focus {
+  border-color: var(--blue);
+  outline: none;
+}
+
+
+/* ---- bookmarks of the browser: the folders as a tree, a checked folder takes its subfolders along ---- */
+
+.tree {
+  max-height: 320px;
+  margin: 0 0 14px;
+  padding: 8px 12px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  list-style: none;
+}
+
+.tree ul {
+  margin: 0;
+  padding-left: 22px;
+  list-style: none;
+}
+
+.tree label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+  cursor: pointer;
+}
+
+.tree input {
+  margin: 0;
+}
+
+.tree .count {
+  color: var(--grey);
+}
+
+#syncSettings .options {
+  margin-bottom: 14px;
+}
+
+.sync-now {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+}
+
+#syncStatus {
+  color: var(--grey);
+  font-size: 13px;
+}
+
+
+/* ---- shortcuts ---- */
+
+.shortcuts {
+  border-collapse: collapse;
+  margin-bottom: 4px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.shortcuts td {
+  padding: 5px 20px 5px 0;
+  vertical-align: top;
+}
+
+.shortcuts td:first-child {
+  white-space: nowrap;
+}
+
+/* a narrow window: the keys may take two lines, so what they do keeps room */
+@media (max-width: 600px) {
+  .shortcuts td:first-child {
+    white-space: normal;
+  }
+}
+
+kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  margin: 0 1px;
+  padding: 0 6px;
+  border: 1px solid var(--box);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--page);
+  color: var(--text);
+  font: 12px/1.6 "Open Sans", "Segoe UI", system-ui, sans-serif;
+  text-align: center;
+}
+
+
+footer {
+  padding: 4px 4px 0;
+  color: var(--grey);
+  font-size: 13px;
+}
+
+footer p {
+  margin: 0 0 6px;
+}
+
+
+/* the index of the Swift Library, in its section (options.js: showIndexState): how many items and since when, or how
+   far it is, with Update, Build again and Stop */
+.index-box .index-status {
+  margin: 0 0 12px;
+  color: var(--grey);
+  font-size: 13px;
+}
+
+.index-box .index-status.error {
+  color: #d32f2f;
+}
+
+
+/* ---- Log (log.js): the errors of the add-on, the newest first ---- */
+
+.log-count {
+  color: var(--grey);
+  font-weight: 400;
+}
+
+.log-report {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--box);
+  border-radius: 6px;
+}
+
+.log-report h2 {
+  margin-top: 0;
+}
+
+.log-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 0;
+}
+
+.log-tools {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.log-tools input {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid var(--box);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+}
+
+.log-empty {
+  color: var(--grey);
+  font-size: 13px;
+}
+
+.log-list {
+  max-height: 60vh;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+
+.log-list li {
+  padding: 8px 0;
+  border-top: 1px solid var(--box);
+  font-size: 13px;
+}
+
+.log-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  color: var(--grey);
+  font-size: 12px;
+}
+
+.log-where {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.log-what {
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+}
+
+.log-details {
+  margin: 4px 0 0;
+  color: var(--grey);
+  font-size: 11px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

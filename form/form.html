@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title data-i18n="formTitleNew">New bookmark</title>
+  <link rel="stylesheet" href="form.css">
+</head>
+<body>
+<main id="card">
+  <header>
+    <h1 id="heading" data-i18n="formTitleNew">New bookmark</h1>
+    <span id="when"></span>
+    <span id="spinner"></span>
+    <button type="button" id="close" data-i18n-title="close"></button>
+  </header>
+
+  <!-- in your library already at nearly the same web address (form.js: showSimilar) -->
+  <div id="similar" role="status" hidden>
+    <span data-i18n="similarSaved">You saved this page before at another web address:</span>
+    <ul id="similar-list"></ul>
+  </div>
+
+  <section id="fields">
+    <!-- placeholder=" " lets the CSS know when a field is empty, for the labels -->
+    <div class="field">
+      <textarea id="title" rows="1" placeholder=" "></textarea>
+      <label for="title" data-i18n="fieldTitle">Title</label>
+    </div>
+    <div class="field">
+      <input id="url" placeholder=" " spellcheck="false">
+      <label for="url" data-i18n="fieldUrl">URL</label>
+    </div>
+    <div class="field">
+      <textarea id="description" rows="2" placeholder=" "></textarea>
+      <label for="description" data-i18n="fieldDescription">Description</label>
+    </div>
+    <div class="field">
+      <input id="tags" placeholder=" " autocomplete="off" spellcheck="false">
+      <label for="tags" data-i18n="fieldTags">Tags</label>
+      <button type="button" id="cloud-button" data-i18n-title="yourTags"></button>
+    </div>
+    <ul id="matches" hidden></ul>
+
+    <div id="cloud" hidden>
+      <div id="cloud-head">
+        <span data-i18n="tagCloudHead">Your 100 most used tags</span>
+        <a id="edit-tags" target="_blank" data-i18n="editTags">Manage tags</a>
+      </div>
+      <div id="cloud-tags"></div>
+    </div>
+
+    <div id="suggested" hidden>
+      <a href="#" id="add-all" data-i18n="recommended" data-i18n-title="addAll">Suggested:</a>
+    </div>
+
+    <!-- the tags you use most with those in the field (form.js: showRelated) -->
+    <div id="related" hidden>
+      <span data-i18n="relatedTags">Often with these:</span>
+      <span id="related-tags"></span>
+    </div>
+
+    <!-- filled by form.js with your groups and outliners; above the checkboxes, as in Diigo's edit window -->
+    <div id="share">
+      <select id="group" hidden><option value="" data-i18n="shareToGroup">Share to group</option></select>
+      <select id="outliner" hidden><option value="" data-i18n="shareToOutliner">Share to outliner</option></select>
+    </div>
+
+    <div id="options">
+      <label><input type="checkbox" id="private"> <span data-i18n="private">Private</span></label>
+      <label><input type="checkbox" id="unread"> <span data-i18n="readLater">Read later</span></label>
+    </div>
+  </section>
+
+  <p id="error" role="alert" hidden></p>
+
+  <footer>
+    <button type="button" id="delete" hidden data-i18n="delete" data-i18n-title="removeBookmark">Delete</button>
+    <!-- the page is a bookmark of the browser too: saved in Diigo, and then out of the browser (form.js: save) -->
+    <button type="button" id="move" hidden data-i18n="move" data-i18n-title="moveTitle">Move</button>
+    <button type="button" id="save" title="Alt+S" data-i18n="add">Save</button>
+  </footer>
+</main>
+<script src="../options/settings.js"></script>
+<script src="form.js"></script>
+</body>
+</html>

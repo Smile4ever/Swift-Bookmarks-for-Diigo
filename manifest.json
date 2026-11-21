@@ -1,0 +1,69 @@
+{
+  "manifest_version": 3,
+  "name": "Swift Bookmarks for Diigo",
+  "description": "__MSG_extDesc__",
+  "version": "2026.11.21",
+  "homepage_url": "https://github.com/Smile4ever/Swift-Bookmarks-for-Diigo",
+  "default_locale": "en",
+  "icons": {
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": ["alarms", "contextMenus", "cookies", "scripting", "storage", "tabs", "webRequest"],
+  "optional_permissions": ["bookmarks"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "scripts": ["options/settings.js", "options/index-item.js", "background/background.js", "background/sync.js"],
+    "service_worker": "background/chrome-sw.js"
+  },
+  "action": {
+    "default_icon": {"19": "icons/toolbar.png", "38": "icons/toolbar-38.png"},
+    "default_title": "__MSG_browserActionDefaultTitle__"
+  },
+  "commands": {
+    "show-bookmark-form": {
+      "suggested_key": { "default": "Ctrl+Alt+D" },
+      "description": "__MSG_commandShowForm__"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.diigo.com/*", "https://groups.diigo.com/*"],
+      "js": [
+        "options/settings.js",
+        "diigo-site/common.js",
+        "diigo-site/delete-window.js",
+        "diigo-site/header.js",
+        "diigo-site/public-library.js",
+        "diigo-site/diigo-site.js"
+      ],
+      "css": ["diigo-site/diigo-site.css"]
+    }
+  ],
+  "omnibox": {
+    "keyword": "d"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["form/form.html"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "swift-bookmarks-for-diigo@itsafeature.org",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["browsingActivity", "websiteContent"]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "140.0"
+    }
+  },
+  "minimum_chrome_version": "121"
+}
