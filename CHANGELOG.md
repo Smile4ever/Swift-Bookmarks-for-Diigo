@@ -1,7 +1,13 @@
 Next version (number to be decided)
 =====
+* A small picture at each bookmark in the Swift Library: the preview image of its page, as social sites show a link (og:image), or its icon when it has none; read from the page once, together with the check of its link, and kept in this browser for a month, so it costs no room in Diigo. A screenshot goes before it; a click opens the page. Without a picture, the room of one with the first letter of its site, so each item starts at the same place. A switch in Swift Options, on by default.
 * A screenshot keeps the tags of its bookmark: changed in the add-on (the bookmark form, Edit, the ⋯ of an item, Done, Unpin, Bulk edit), its screenshots get them too, so a hidden tag added later hides them as well; a new web address goes along in their description.
 * The description of a screenshot has the title and web address of its page.
+* Also save a screenshot in Edit of the Swift Library too: the page opens in a tab for a moment for it.
+* A screenshot waits until its page is loaded in full: what it still asks over the network after loading, what it draws then (fonts, images in view, content its scripts add), at most 15 seconds for a page opened for it and 5 seconds for the page you're on.
+* Also save a screenshot is no longer remembered: off each time, in the bookmark form and in Edit, so each screenshot is one you choose. Diigo keeps only a limited number of images (a free account only a few dozen), not enough for one of every bookmark.
+* Delete screenshot in the ⋯ of a bookmark that has one (in the list and on Start): its screenshot to the trash, as Delete does it; the bookmark stays.
+* A warning before a screenshot of a page of a bookmark with a hidden tag, in the bookmark form and in Edit.
 * Screenshots out of the Swift Library by default, as with a hidden tag (Show hidden or a search for screenshot shows them), and as a small picture at their bookmark instead; both a switch in Swift Options.
 
 2026.11.22

@@ -79,6 +79,21 @@ function editBookmark(item, li) {
   const [options, privateBox] = cardCheck('private');
   const [unreadOptions, unreadBox] = cardCheck('readLater');
   options.append(...unreadOptions.children);
+  // Also save a screenshot, as in the bookmark form (off each time, as Diigo keeps only so many images): the page opened in a tab
+  // for a moment for it (background.js: screenshotOf); with a warning for a bookmark with a hidden tag
+  const [shotOptions, shotBox] = cardCheck('formScreenshot');
+  const shotWarning = element('p', 'card-warning', message('screenshotHiddenWarn'));
+  shotWarning.setAttribute('role', 'alert');
+  const showShotWarning = () =>
+    shotWarning.hidden = !shotBox.checked || !screenshotOfHidden(settings, splitTags(tags.value));
+  if (kind == 'bookmark') {
+    options.append(...shotOptions.children);
+    shotBox.addEventListener('change', showShotWarning);
+    tags.addEventListener('input', showShotWarning);
+    showShotWarning();
+  } else {
+    shotWarning.hidden = true;
+  }
   privateBox.checked = !!item.private;
   unreadBox.checked = !!item.unread;
   // Title from the page: what the page at the web address in the field says its title is (pageTitleOf)
@@ -104,7 +119,7 @@ function editBookmark(item, li) {
   const share = element('div', 'share');
   share.append(outliner);
   fields.append(...kind == 'bookmark' ? [cardField('fieldUrl', url)] : [], titleField,
-    cardField('fieldDescription', description), cardField('fieldTags', tags), share, options);
+    cardField('fieldDescription', description), cardField('fieldTags', tags), share, options, shotWarning);
   // once it is saved: to the outliner chosen too; when that fails, the popup stays with why
   const shared = async saved => {
     if (!outliner.value || await outlinerPart.addItems(outliner.value, [saved])) return true;
@@ -134,6 +149,16 @@ function editBookmark(item, li) {
     save.disabled = true;
     save.textContent = message('saving');
     error.hidden = true;
+    // a screenshot of its page along: the page in a tab for a moment (background.js: screenshotOf), a link to it in
+    // the description; without one when that fails, saved all the same
+    if (shotBox.checked && /^https?:\/\//i.test(bm.url)) {
+      save.textContent = message('screenshotTaking');
+      const shot = await browser.runtime.sendMessage({type: 'screenshot', url: bm.url, title: bm.title, tags: bm.tags})
+        .catch(() => '');
+      if (shot) bm.description = [bm.description, message('screenshotLine', shot)].filter(Boolean).join('\n\n');
+      else showStatus(message('screenshotFailed'), true);
+      save.textContent = message('saving');
+    }
     if (bm.url != item.url) {
       const saved = await saveWithNewUrl(item, {...bm, tags: joinTags(bm.tags).trim()});
       if (!saved) return fail(message('libraryUrlNotSaved'));

@@ -747,6 +747,33 @@ button {
   cursor: zoom-in;
 }
 
+/* the preview image of the page of a bookmark (library-list.js: previewElement): a click opens the page; its icon,
+   when it has no such image, smaller in the middle of the same place */
+.item-thumb.preview {
+  cursor: pointer;
+}
+
+.item-thumb.icon {
+  box-sizing: border-box;
+  padding: 16px 28px;
+  background: var(--hover);
+  object-fit: contain;
+}
+
+/* the room of one without a picture (library-list.js: placeholderElement), as large as one: the first letter of its
+   site */
+.item-thumb.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hover);
+  color: var(--grey);
+  font-size: 28px;
+  font-weight: 600;
+  cursor: default;
+  user-select: none;
+}
+
 .title {
   display: block;
   color: var(--text);
@@ -2425,6 +2452,12 @@ a.selected .c-icon.kindle { background-position: -360px -50px; }
   color: var(--link);
 }
 
+/* Delete screenshot in the ⋯ of an item (library-home.js: itemMenuButton), as Delete */
+.archive-menu button.danger,
+.archive-menu button.danger:hover {
+  color: var(--red);
+}
+
 /* a note that is code (library-code.js: codeEditor): a text field with the code in colours behind it; both with the
    same font, size and room, so each letter of the field is on its colour */
 :root {
@@ -3007,4 +3040,22 @@ a.selected .c-icon.kindle { background-position: -360px -50px; }
 
 .item-menu:hover {
   color: var(--link);
+}
+
+/* Edit in the Swift Library: a screenshot of a page of a hidden bookmark (library-edit.js: editBookmark) */
+.card .card-warning {
+  margin: 0 0 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: #fff8e1;
+  color: #5d4037;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+@media (prefers-color-scheme: dark) {
+  .card .card-warning {
+    background: #3a3320;
+    color: #f0d27a;
+  }
 }

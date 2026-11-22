@@ -50,7 +50,16 @@ Find it useful? [Donate via PayPal](https://paypal.me/Smile4ever/10).
   Firefox also Save to Diigo and Move to Diigo in the menu of a bookmark or folder. One way only: what you change or
   remove in the browser stays as it is in Diigo.
 
-Highlighting, sticky notes and screenshots are not in this add-on; for those there is Diigo's own add-on.
+* **A screenshot along, when you choose it**: Also save a screenshot in the bookmark form or in Edit of the Swift Library
+  saves what the page shows as an image in your Diigo library, private, with the tags of its bookmark, and as a small
+  picture at the bookmark; it waits until the page is loaded in full. The box is off each time: Diigo keeps only a
+  limited number of images (a free account only a few dozen), so it is not meant for every bookmark. Delete screenshot
+  in the ⋯ of a bookmark deletes it again.
+* **A picture at every bookmark** in the Swift Library all the same: the preview image of its page, as social sites
+  show a link (og:image), or its icon; read from the page once and kept in this browser, so it uses nothing of your
+  Diigo account.
+
+Highlighting and sticky notes are not in this add-on; for those there is Diigo's own add-on.
 
 The add-on doesn't change how diigo.com looks and works: what it does better is in the Swift Library and Swift Discover.
 On diigo.com it only adds the way there: Go to Swift Library at the end of the menu at the top, which Diigo's own items keep as they are. The trash of

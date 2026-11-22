@@ -1,9 +1,21 @@
 {
+    "screenshotHiddenWarn": {
+        "message": "Deze bladwijzer heeft een verborgen tag: een schermafbeelding legt vast wat de pagina toont en gaat naar je Diigo-bibliotheek (privé, met dezelfde tags). Laat ze weg als dat niet bewaard mag worden."
+    },
+    "screenshotTaking": {
+        "message": "Schermafbeelding maken…"
+    },
+    "screenshotFailed": {
+        "message": "De schermafbeelding lukte niet; de bladwijzer is zonder bewaard."
+    },
     "optionHideScreenshots": {
         "message": "Schermafbeeldingen van pagina's buiten de Swift Library houden: ze staan bij hun bladwijzer. Verborgen tonen, of zoeken op screenshot, toont ze."
     },
     "optionScreenshotThumbs": {
         "message": "Een bladwijzer met een schermafbeelding van zijn pagina: die als kleine afbeelding ervoor in de Swift Library. Een klik opent ze."
+    },
+    "optionPreviewThumbs": {
+        "message": "Een bladwijzer zonder screenshot: de voorbeeldafbeelding van zijn pagina (zoals sociale sites een link tonen), of zijn pictogram, als kleine afbeelding ervoor. Eén keer van de pagina gelezen (de site ziet een verzoek van deze browser) en in deze browser bewaard; een klik opent de pagina."
     },
     "screenshotDescription": {
         "message": "Schermafbeelding van de pagina $TITLE$\n$URL$",
@@ -49,6 +61,17 @@
     },
     "itemUnhide": {
         "message": "Weer tonen (verborgen tag weg)"
+    },
+    "itemDeleteScreenshot": {
+        "message": "Screenshot verwijderen"
+    },
+    "screenshotDeleteConfirm": {
+        "message": "De screenshot van “$TITLE$” uit je Diigo-library verwijderen? Er gaat een kopie naar de prullenbak van de Swift Library; de bladwijzer blijft.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
     },
     "homeChanged": {
         "message": "Onlangs gewijzigd"

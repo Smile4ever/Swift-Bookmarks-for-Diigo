@@ -1,9 +1,21 @@
 {
+    "screenshotHiddenWarn": {
+        "message": "This bookmark has a hidden tag: a screenshot records what the page shows and goes to your Diigo library (private, with the same tags). Leave it out if that shouldn't be stored."
+    },
+    "screenshotTaking": {
+        "message": "Taking a screenshot…"
+    },
+    "screenshotFailed": {
+        "message": "The screenshot didn't work; the bookmark was saved without it."
+    },
     "optionHideScreenshots": {
         "message": "Keep screenshots of pages out of the Swift Library: they are at their bookmark. Show hidden, or a search for screenshot, shows them."
     },
     "optionScreenshotThumbs": {
         "message": "A bookmark with a screenshot of its page: that as a small picture before it in the Swift Library. A click opens it."
+    },
+    "optionPreviewThumbs": {
+        "message": "A bookmark without a screenshot: the preview image of its page (as social sites show a link), or its icon, as a small picture before it. Read once from the page (the site sees a request from this browser) and kept in this browser; a click opens the page."
     },
     "screenshotDescription": {
         "message": "Screenshot of the page $TITLE$\n$URL$",
@@ -49,6 +61,17 @@
     },
     "itemUnhide": {
         "message": "Show again (hidden tag away)"
+    },
+    "itemDeleteScreenshot": {
+        "message": "Delete screenshot"
+    },
+    "screenshotDeleteConfirm": {
+        "message": "Delete the screenshot of “$TITLE$” from your Diigo library? A copy goes to the trash of the Swift Library; the bookmark stays.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
     },
     "homeChanged": {
         "message": "Recently changed"

@@ -463,3 +463,14 @@ footer {
   opacity: .7;
   cursor: default;
 }
+
+/* a screenshot of a page of a hidden bookmark (form.js: showScreenshotWarning) */
+#screenshotWarning {
+  margin: 0 0 8px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: #fff8e1;
+  color: #5d4037;
+  font-size: 13px;
+  line-height: 1.4;
+}

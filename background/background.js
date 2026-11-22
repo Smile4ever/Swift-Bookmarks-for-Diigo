@@ -466,6 +466,115 @@ async function saveBookmark(bm, tab) {
   };
 }
 
+// A screenshot of a page that isn't open (Edit in the Swift Library: options/library-edit.js), as the bookmark form
+// takes one (pageScreenshot): the page in a new tab next to the one asking, the tab you see for a moment, till it
+// has loaded (not longer than SCREENSHOT_WAIT) and a moment more for what it draws then (SCREENSHOT_SETTLE); closed
+// after, and the tab that asked shown again. The answer is the web address of the screenshot on Diigo, or ''.
+const SCREENSHOT_WAIT = 15000;
+
+// The requests of a tab while a screenshot waits for it (webRequest): how long none has been on its way, 0 while one
+// is. A request that never ends (a stream, a socket) is bounded by the time pageReady takes at most.
+function trackRequests(tabId) {
+  const going = new Set();
+  let changed = Date.now();
+  const filter = {urls: ['<all_urls>'], tabId};
+  const start = details => {
+    going.add(details.requestId);
+    changed = Date.now();
+  };
+  const end = details => going.delete(details.requestId) && (changed = Date.now());
+  const events = [[browser.webRequest?.onBeforeRequest, start], [browser.webRequest?.onCompleted, end],
+    [browser.webRequest?.onErrorOccurred, end]];
+  for (const [event, listener] of events) event?.addListener(listener, filter);
+  return {
+    quietFor: () => going.size ? 0 : Date.now() - changed,
+    stop: () => events.forEach(([event, listener]) => event?.removeListener(listener)),
+  };
+}
+
+// till no request of the tab has been on its way for quietMs (trackRequests), or until
+async function networkQuiet(requests, quietMs, until) {
+  while (Date.now() < until && requests.quietFor() < quietMs) await new Promise(resolve => setTimeout(resolve, 100));
+}
+
+// Whether a page is drawn in full, asked in the page itself (scripting): loaded (load), its fonts ready (so its text
+// doesn't move after), the images in view loaded, then quiet for quietMs (no change of the page: what its scripts
+// draw after loading), and drawn twice more. Not longer than maxMs, as some pages never stop moving (ads,
+// animations). A page the add-on can't look into: a moment (1.5 s) instead.
+async function pageReady(tabId, {quietMs, maxMs}) {
+  await browser.scripting.executeScript({target: {tabId}, args: [quietMs, maxMs], func: async (quietMs, maxMs) => {
+    const until = Date.now() + maxMs;
+    const atMost = promise => Promise.race([promise, new Promise(resolve => setTimeout(resolve, Math.max(0, until - Date.now())))]);
+    if (document.readyState != 'complete') await atMost(new Promise(resolve => addEventListener('load', resolve, {once: true})));
+    await atMost(document.fonts?.ready);
+    const loading = [...document.images].filter(image => !image.complete && image.getBoundingClientRect().top < innerHeight);
+    await atMost(Promise.all(loading.map(image => new Promise(resolve => {
+      image.addEventListener('load', resolve, {once: true});
+      image.addEventListener('error', resolve, {once: true});
+    }))));
+    await new Promise(resolve => {
+      let quiet = 0;
+      const observer = new MutationObserver(() => {
+        clearTimeout(quiet);
+        quiet = setTimeout(finish, quietMs);
+      });
+      const hard = setTimeout(finish, Math.max(0, until - Date.now()));
+      function finish() {
+        observer.disconnect();
+        clearTimeout(quiet);
+        clearTimeout(hard);
+        resolve();
+      }
+      observer.observe(document.documentElement, {childList: true, subtree: true, attributes: true, characterData: true});
+      quiet = setTimeout(finish, quietMs);
+    });
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    return true;
+  }}).catch(() => new Promise(resolve => setTimeout(resolve, 1500)));
+}
+
+async function screenshotOf({url, title, tags}, opener) {
+  if (!/^https?:\/\//i.test(url || '')) return '';
+  const tab = await browser.tabs.create({url, active: true, windowId: opener?.windowId,
+    index: opener ? opener.index + 1 : undefined});
+  const requests = trackRequests(tab.id);
+  const until = Date.now() + SCREENSHOT_WAIT;
+  try {
+    await new Promise(resolve => {
+      let over = false;
+      const done = () => {
+        if (over) return;
+        over = true;
+        browser.tabs.onUpdated.removeListener(listener);
+        clearTimeout(timer);
+        resolve();
+      };
+      // loaded at its own web address: a new tab is about:blank first, complete before it goes there
+      const loaded = now => now.status == 'complete' && /^https?:/i.test(now.url || '');
+      const listener = (id, change, now) => id == tab.id && change.status == 'complete' && loaded(now) && done();
+      const timer = setTimeout(done, SCREENSHOT_WAIT);
+      browser.tabs.onUpdated.addListener(listener);
+      browser.tabs.get(tab.id).then(now => loaded(now) && done()).catch(() => {});
+    });
+    // loaded is not drawn in full yet: what it asks after loading (networkQuiet), what it draws then (pageReady), and
+    // what that asks again; all within SCREENSHOT_WAIT
+    await networkQuiet(requests, 700, until);
+    await pageReady(tab.id, {quietMs: 1000, maxMs: Math.max(0, until - Date.now())});
+    await networkQuiet(requests, 700, until);
+    return await pageScreenshot(tab, {url, title, tags: tags || []}, {ready: false});
+  } finally {
+    requests.stop();
+    await browser.tabs.remove(tab.id).catch(() => {});
+    if (opener?.id != null) browser.tabs.update(opener.id, {active: true}).catch(() => {});
+  }
+}
+
+// the request of Edit in the Swift Library (requests: screenshot)
+const screenshotRequest = (request, tab) => screenshotOf(request, tab).catch(e => {
+  logError('Screenshot', e);
+  return '';
+});
+
 // A bookmark saved as Diigo's own edit window saves one (options/library-index.js: saveWithNewUrl): by its link_id, at
 // its web address (url, or new_url when the field of the form has another one now), the rest as the form has it. The
 // answer as diigoSave's, for saveBookmark.
@@ -496,7 +605,19 @@ async function saveByLinkId(bm) {
 // title. The answer is the web address of the image on Diigo, or '' when Diigo didn't take it.
 const IMAGE_SAVE_URL = 'https://www.diigo.com/item/save/image';
 
-async function pageScreenshot(tab, bm) {
+async function pageScreenshot(tab, bm, {ready = true} = {}) {
+  // the page you're on, drawn in full (networkQuiet, pageReady): mostly at once; saved while it still loads, a
+  // moment more, not longer than 5 seconds
+  if (ready) {
+    const requests = trackRequests(tab.id);
+    const until = Date.now() + 5000;
+    try {
+      await networkQuiet(requests, 500, until);
+      await pageReady(tab.id, {quietMs: 500, maxMs: Math.max(0, until - Date.now())});
+    } finally {
+      requests.stop();
+    }
+  }
   const visible = shown => browser.tabs.sendMessage(tab.id, {type: 'formVisible', visible: shown}).catch(() => {});
   await visible(false);
   let shot;
@@ -1047,9 +1168,9 @@ const LINK_CHECKS_AT_ONCE = 4;
 let linkChecksRunning = 0;
 
 // The page of a link as a browser would get it, without your cookies: its status, where it ended after redirects, the
-// headers that tell a bot protection, and the start of an HTML page up to its <title> (PAGE_START at most: enough
-// for its title, without loading whole pages)
-const PAGE_START = 32 * 1024;
+// headers that tell a bot protection, and the start of an HTML page up to the end of its head (PAGE_START at most:
+// enough for its title and its preview image, pagePreviewOf, without loading whole pages)
+const PAGE_START = 192 * 1024;
 
 async function fetchPage(url) {
   const response = await fetch(url, {
@@ -1061,7 +1182,7 @@ async function fetchPage(url) {
   if (reader) {
     const decoder = new TextDecoder();
     try {
-      while (start.length < PAGE_START && !/<\/title>/i.test(start)) {
+      while (start.length < PAGE_START && !/<\/head>|<body[\s>]/i.test(start)) {
         const {done, value} = await reader.read();
         if (done) break;
         start += decoder.decode(value, {stream: true});
@@ -1078,7 +1199,36 @@ async function fetchPage(url) {
     server: response.headers.get('server') || '', mitigated: response.headers.get('cf-mitigated') || '',
     retryAfter: response.headers.get('retry-after') || '',
     title: decodeEntities(start.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '').replace(/\s+/g, ' ').trim(),
+    preview: response.ok ? pagePreviewOf(start, response.url || url) : {image: '', icon: ''},
   };
+}
+
+// The preview image a page gives of itself, as social sites show it when you share a link (og:image, twitter:image,
+// image_src), and its own icon as large as it has one (apple-touch-icon, else an icon of 32 pixels or more, else an
+// SVG one), for when it has no such image: web addresses, '' for none. Only http(s), from the start of its HTML.
+function pagePreviewOf(html, base) {
+  const address = value => {
+    try {
+      const url = value ? new URL(value.trim(), base) : null;
+      return url && /^https?:$/.test(url.protocol) ? url.href : '';
+    } catch (e) {
+      return '';
+    }
+  };
+  const head = html.split(/<body[\s>]/i)[0];
+  const metas = [...head.matchAll(/<meta\b[^>]*>/gi)].map(match => attributesOf(match[0]));
+  const content = name => address(metas.find(meta => (meta.property || meta.name || '').toLowerCase() == name)?.content);
+  const links = [...head.matchAll(/<link\b[^>]*>/gi)].map(match => attributesOf(match[0]))
+    .map(link => ({...link, rels: (link.rel || '').toLowerCase().split(/\s+/)}));
+  const image = content('og:image:secure_url') || content('og:image') || content('og:image:url') ||
+    content('twitter:image') || content('twitter:image:src') ||
+    address(links.find(link => link.rels.includes('image_src'))?.href);
+  const size = link => Math.max(0, ...(link.sizes || '').split(/\s+/).map(each => parseInt(each, 10) || 0));
+  const icons = links.filter(link => link.rels.includes('icon') && link.href);
+  const touch = links.find(link => link.rels.some(rel => rel.startsWith('apple-touch-icon')) && link.href);
+  const large = icons.filter(link => size(link) >= 32).sort((a, b) => size(b) - size(a))[0];
+  const svg = icons.find(link => /svg/i.test(link.type || '') || /\.svg(\?|$)/i.test(link.href));
+  return {image, icon: address((touch || large || svg)?.href)};
 }
 
 // What a page answer says of its link (classifyLink):
@@ -1123,11 +1273,12 @@ function classifyLink(url, {status, finalUrl = url, redirected = false, server =
 }
 
 // state: as classifyLink says; 'unreachable' when the site doesn't answer at all (no such domain, refused, bad
-// certificate), 'unknown' when it takes too long
+// certificate), 'unknown' when it takes too long. With the preview image of the page (pagePreviewOf), kept apart
+// (keepPreview).
 async function linkState(url) {
   try {
     const page = await fetchPage(url);
-    const result = classifyLink(url, page);
+    const result = {...classifyLink(url, page), preview: page.preview};
     return result.state == 'busy' ? {...result, retryAfter: page.retryAfter} : result;
   } catch (e) {
     return {state: e.name == 'TimeoutError' || e.name == 'AbortError' ? 'unknown' : 'unreachable', status: 0};
@@ -1197,13 +1348,14 @@ const fresh = entry => !!entry && entry.v == LINK_CHECK && Date.now() - entry.ti
 
 function openLinks() {
   linksDb ||= openIndexDb().then(db => {
-    const store = db.transaction('links', 'readwrite').objectStore('links');
-    store.openCursor().onsuccess = e => {
-      const cursor = e.target.result;
-      if (!cursor) return;
-      if (!fresh(cursor.value)) cursor.delete();
-      cursor.continue();
-    };
+    for (const [name, keep] of [['links', fresh], ['previews', previewFresh]]) {
+      db.transaction(name, 'readwrite').objectStore(name).openCursor().onsuccess = e => {
+        const cursor = e.target.result;
+        if (!cursor) return;
+        if (!keep(cursor.value)) cursor.delete();
+        cursor.continue();
+      };
+    }
     return db;
   }).catch(() => null);
   return linksDb;
@@ -1230,9 +1382,13 @@ async function keepLink(url, {state, status, why, to}) {
   }
 }
 
-async function checkLink({url}) {
+const checkLink = ({url}) => linkCheck(url);
+
+// again: asked again, also when what was found is fresh still (pagePreview); not twice while it's on its way, nor
+// twice while the background script runs
+async function linkCheck(url, again = false) {
   if (!/^https?:/i.test(url)) return {state: 'unknown', status: 0};
-  const entry = await keptLink(url);
+  const entry = again ? null : await keptLink(url);
   if (fresh(entry)) return {state: entry.state, status: entry.status, why: entry.why, to: entry.to};
   if (!linkChecks.has(url)) {
     linkChecks.set(url, new Promise(resolve => {
@@ -1248,6 +1404,8 @@ async function checkLink({url}) {
         }
         if (result.state == 'unknown') linkChecks.delete(url);
         else keepLink(url, result);
+        // the preview image too, also none (the site doesn't answer: so it isn't asked for it each time)
+        if (result.state != 'unknown') keepPreview(url, result.preview || {image: '', icon: ''});
         resolve(result);
       })};
       linkCheckQueue.push(task);
@@ -1255,6 +1413,43 @@ async function checkLink({url}) {
     }));
   }
   return linkChecks.get(url);
+}
+
+// The preview image of the page of a bookmark (pagePreviewOf), for its small picture in the Swift Library (previewThumbs,
+// options/library-list.js): as kept (the store previews, as links), else from the page, with its link check
+// (linkCheck), so it is asked once for both. Kept PREVIEW_KEEP; none found, PREVIEW_NONE_KEEP, as a site that doesn't
+// answer may come back.
+const PREVIEW_KEEP = 30 * DAY_MS;
+const PREVIEW_NONE_KEEP = 7 * DAY_MS;
+const previewFresh = entry => !!entry &&
+  Date.now() - entry.time <= (entry.image || entry.icon ? PREVIEW_KEEP : PREVIEW_NONE_KEEP);
+
+async function keptPreview(url) {
+  try {
+    const db = await openLinks();
+    return db && await idbDone(db.transaction('previews').objectStore('previews').get(url));
+  } catch (e) {
+    linksDb = null;
+    return null;
+  }
+}
+
+async function keepPreview(url, {image = '', icon = ''}) {
+  try {
+    const db = await openLinks();
+    db?.transaction('previews', 'readwrite').objectStore('previews').put({url, image, icon, time: Date.now()});
+  } catch (e) {
+    linksDb = null;
+  }
+}
+
+async function pagePreview({url}) {
+  const none = {image: '', icon: ''};
+  if (!/^https?:/i.test(url || '')) return none;
+  const kept = await keptPreview(url);
+  if (previewFresh(kept)) return {image: kept.image, icon: kept.icon};
+  const result = await linkCheck(url, true);
+  return result.preview || none;
 }
 
 // your groups and outliners, for Add PDF and Add Image of the Swift Library (options/library-add.js), loaded first when
@@ -1288,8 +1483,8 @@ globalThis.addEventListener?.('unhandledrejection', e => logError('Background', 
 const requests = {
   logError: ({entry}) => entry && addLogEntry({...entry, where: String(entry.where || '?')}),
   removeBrowserBookmarks,
-  open: openBookmark, save: saveBookmark, delete: deleteBookmark, user: signedInUser, checkLink, openLibrary,
-  openDiscover, openTools, openOptions, openGuide, title: ({url}) => pageTitle(url), pageInfo: ({url}) => pageInfo(url), trash: trashItems, keepFiles, sharing: sharingLists,
+  open: openBookmark, save: saveBookmark, delete: deleteBookmark, user: signedInUser, checkLink, preview: pagePreview, openLibrary,
+  openDiscover, openTools, openOptions, openGuide, screenshot: screenshotRequest, title: ({url}) => pageTitle(url), pageInfo: ({url}) => pageInfo(url), trash: trashItems, keepFiles, sharing: sharingLists,
 };
 
 // The answer goes back with sendResponse: Chrome doesn't take a Promise as the answer. After a restart of the background

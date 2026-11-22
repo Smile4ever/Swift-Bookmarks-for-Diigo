@@ -29,7 +29,7 @@ test('options.html has a switch for each setting that is on or off, but those se
   const context = vm.createContext({});
   new vm.Script(fs.readFileSync(path.join(OPTIONS, 'settings.js'), 'utf8')).runInContext(context);
   const html = fs.readFileSync(path.join(OPTIONS, 'options.html'), 'utf8');
-  const elsewhere = ['formScreenshot'];
+  const elsewhere = [];
   const booleans = new vm.Script('Object.entries(DEFAULT_SETTINGS).filter(([, value]) => typeof value == "boolean")' +
     '.map(([key]) => key)').runInContext(context);
   const missing = [...booleans].filter(key => !elsewhere.includes(key) && !html.includes(`id="${key}"`));

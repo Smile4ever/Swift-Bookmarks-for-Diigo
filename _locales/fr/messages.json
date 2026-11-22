@@ -1,9 +1,21 @@
 {
+    "screenshotHiddenWarn": {
+        "message": "Ce marque-page a un tag masqué : une capture d'écran enregistre ce que montre la page et va dans votre bibliothèque Diigo (privée, avec les mêmes tags). Ne la faites pas si cela ne doit pas être conservé."
+    },
+    "screenshotTaking": {
+        "message": "Capture en cours…"
+    },
+    "screenshotFailed": {
+        "message": "La capture n'a pas fonctionné ; le marque-page a été enregistré sans elle."
+    },
     "optionHideScreenshots": {
         "message": "Garder les captures d'écran des pages hors de la Swift Library : elles sont à leur marque-page. Afficher les masqués, ou une recherche de screenshot, les montre."
     },
     "optionScreenshotThumbs": {
         "message": "Un marque-page avec une capture d'écran de sa page : celle-ci en petite image devant lui dans la Swift Library. Un clic l'ouvre."
+    },
+    "optionPreviewThumbs": {
+        "message": "Un signet sans capture d’écran : l’image d’aperçu de sa page (comme les réseaux sociaux montrent un lien), ou son icône, en petite image devant lui. Lue une fois sur la page (le site voit une requête de ce navigateur) et gardée dans ce navigateur ; un clic ouvre la page."
     },
     "screenshotDescription": {
         "message": "Capture d'écran de la page $TITLE$\n$URL$",
@@ -49,6 +61,17 @@
     },
     "itemUnhide": {
         "message": "Réafficher (tag masqué retiré)"
+    },
+    "itemDeleteScreenshot": {
+        "message": "Supprimer la capture d’écran"
+    },
+    "screenshotDeleteConfirm": {
+        "message": "Supprimer la capture d’écran de « $TITLE$ » de votre bibliothèque Diigo ? Une copie va dans la corbeille de la Swift Library ; le signet reste.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
     },
     "homeChanged": {
         "message": "Modifiés récemment"

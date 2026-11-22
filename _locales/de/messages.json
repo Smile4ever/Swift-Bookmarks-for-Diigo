@@ -1,9 +1,21 @@
 {
+    "screenshotHiddenWarn": {
+        "message": "Dieses Lesezeichen hat einen versteckten Tag: ein Screenshot hält fest, was die Seite zeigt, und kommt in deine Diigo-Bibliothek (privat, mit denselben Tags). Lass ihn weg, wenn das nicht gespeichert werden soll."
+    },
+    "screenshotTaking": {
+        "message": "Screenshot wird erstellt…"
+    },
+    "screenshotFailed": {
+        "message": "Der Screenshot hat nicht geklappt; das Lesezeichen wurde ohne ihn gespeichert."
+    },
     "optionHideScreenshots": {
         "message": "Screenshots von Seiten aus der Swift Library heraushalten: sie stehen bei ihrem Lesezeichen. Verborgene zeigen oder eine Suche nach screenshot zeigt sie."
     },
     "optionScreenshotThumbs": {
         "message": "Ein Lesezeichen mit einem Screenshot seiner Seite: dieser als kleines Bild davor in der Swift Library. Ein Klick öffnet ihn."
+    },
+    "optionPreviewThumbs": {
+        "message": "Ein Lesezeichen ohne Screenshot: das Vorschaubild seiner Seite (wie soziale Netzwerke einen Link zeigen) oder sein Symbol, als kleines Bild davor. Einmal von der Seite gelesen (die Website sieht eine Anfrage dieses Browsers) und in diesem Browser gespeichert; ein Klick öffnet die Seite."
     },
     "screenshotDescription": {
         "message": "Screenshot der Seite $TITLE$\n$URL$",
@@ -49,6 +61,17 @@
     },
     "itemUnhide": {
         "message": "Wieder zeigen (versteckter Tag weg)"
+    },
+    "itemDeleteScreenshot": {
+        "message": "Screenshot löschen"
+    },
+    "screenshotDeleteConfirm": {
+        "message": "Den Screenshot von „$TITLE$“ aus deiner Diigo-Bibliothek löschen? Eine Kopie kommt in den Papierkorb der Swift Library; das Lesezeichen bleibt.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
     },
     "homeChanged": {
         "message": "Zuletzt geändert"

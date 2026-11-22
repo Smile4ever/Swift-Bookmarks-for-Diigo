@@ -89,7 +89,7 @@ The add-on doesn't change diigo.com itself: it only adds the way there, Go to Sw
 
 **Not in this add-on**
 
-Highlighting, sticky notes and screenshots: for those there is Diigo's own add-on.
+Highlighting and sticky notes: for those there is Diigo's own add-on.
 
 **Privacy**
 
@@ -141,7 +141,7 @@ SWIFT LIBRARY AND SWIFT DISCOVER
 The add-on doesn't change diigo.com itself: it only adds the way there, Go to Swift Library in the menu at the top.
 
 NOT IN THIS ADD-ON
-Highlighting, sticky notes and screenshots: for those there is Diigo's own add-on.
+Highlighting and sticky notes: for those there is Diigo's own add-on.
 
 PRIVACY
 The add-on sends nothing to its maker. It talks to diigo.com for you: while you're signed in it asks Diigo whether each page you open is in your library, and it sends Diigo the bookmarks you save. With the option for dead links on (the default), it requests the page of each bookmark in the Swift Library from its own site. Swift Discover loads the Hot Bookmarks from diigo.com. It only reads your browser bookmarks when you allow it on the options page, and only sends Diigo those of the folders you choose.

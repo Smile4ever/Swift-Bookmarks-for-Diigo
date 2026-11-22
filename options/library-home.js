@@ -224,6 +224,19 @@ function itemMenuButton(item) {
     const hidden = item.tags.filter(tag => settings.hiddenTags.some(other => lower(other) == lower(tag)));
     if (hidden.length) choice('itemUnhide', {type: 'removeTags', tags: hidden});
     else if (settings.hiddenTags.length) choice('itemHide', {type: 'addTags', tags: [settings.hiddenTags[0]]});
+    // Delete screenshot: the screenshots of a bookmark (index-item.js: screenshotsOf), as Delete does it (to the trash,
+    // so Put back brings them back); its description keeps the link, for Put back
+    const shots = item.type == 'bookmark' && !item.deletedAt
+      ? screenshotsOf(item, liveItems()) : [];
+    if (shots.length) {
+      const b = element('button', 'danger', message('itemDeleteScreenshot'));
+      b.type = 'button';
+      b.addEventListener('click', () => {
+        closeArchiveMenu();
+        deleteScreenshots(item, shots);
+      });
+      archiveMenu.append(b);
+    }
     const box = button.getBoundingClientRect();
     archiveMenu.style.left = Math.max(8, box.right + scrollX - 220) + 'px';
     archiveMenu.style.top = box.bottom + scrollY + 4 + 'px';

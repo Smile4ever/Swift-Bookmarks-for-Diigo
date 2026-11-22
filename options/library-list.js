@@ -241,37 +241,105 @@ const THUMB_SIZE = 160;
 let screenshotMap = {version: -1, byUrl: new Map()};
 
 function screenshotFor(item) {
-  if (screenshotMap.version != indexVersion) {
+  // not one deleted in a moment (library-delete.js: pending)
+  const version = indexVersion + '/' + pendingVersion;
+  if (screenshotMap.version != version) {
     const byUrl = new Map();
-    for (const shot of index.values()) {
+    for (const shot of liveItems()) {
       if (shot.type != 'image' || !shot.thumb || !shot.tags.some(tag => lower(tag) == SCREENSHOT_TAG)) continue;
       for (const line of String(shot.description || '').split('\n').map(line => line.trim())) {
         if (/^https?:\/\//.test(line) && !(byUrl.get(line)?.created > shot.created)) byUrl.set(line, shot);
       }
     }
-    screenshotMap = {version: indexVersion, byUrl};
+    screenshotMap = {version, byUrl};
   }
   // or one its description links to (index-item.js: screenshotLinks): by its own web address on Diigo, or its link_id
   if (screenshotMap.byUrl.has(item.url)) return screenshotMap.byUrl.get(item.url);
   if (!/https?:\/\//.test(item.description || '')) return null;
   const {urls, ids} = screenshotLinks(item);
-  return [...ids].map(id => index.get(id)).find(shot => shot?.thumb) ||
-    screenshotsOf(item, [...index.values()]).filter(shot => shot.thumb && urls.has(shot.url))
+  return [...ids].filter(id => !pending.has(id)).map(id => index.get(id)).find(shot => shot?.thumb) ||
+    screenshotsOf(item, liveItems()).filter(shot => shot.thumb && urls.has(shot.url))
       .sort((a, b) => b.created - a.created)[0] || null;
 }
 
-function thumbElement(item) {
+// The preview image of the page of a bookmark (previewThumbs), as social sites show it when you share a link (og:image),
+// or its icon when it has none: as found before (previews, the store previews of the database of the index), else
+// asked of the background script (background.js: pagePreview), which reads it from the page once, with the check of
+// its link, and keeps it; put before the bookmark once it comes, when it is still in the list. A click opens the page.
+let previews = new Map();  // url -> {image, icon}
+
+async function loadPreviews() {
+  try {
+    const kept = db ? await done(db.transaction('previews').objectStore('previews').getAll()) : [];
+    previews = new Map(kept.map(entry => [entry.url, {image: entry.image, icon: entry.icon}]));
+  } catch (e) {
+    // an index of before the store previews: none yet
+  }
+}
+
+// the picture, or its room while it comes, which it takes when it does (in the list still); none: the room stays
+function previewThumb(item) {
+  const picture = found => found.image || found.icon ? previewElement(item, found) : null;
+  const known = previews.get(item.url);
+  if (known) return picture(known) || placeholderElement(item);
+  const room = placeholderElement(item);
+  browser.runtime.sendMessage({type: 'preview', url: item.url}).then(found => {
+    if (!found) return;
+    previews.set(item.url, found);
+    const shown = picture(found);
+    if (shown && room.isConnected) room.replaceWith(shown);
+  }).catch(() => {});
+  return room;
+}
+
+// The room of a small picture, so each item of the list starts at the same place, also without one (none found, not
+// loaded, a note): as large as a picture, with the first letter of its site (or of its title) in it. Only while the
+// list has small pictures (previewThumbs, screenshotThumbs).
+const thumbRoom = () => settings.previewThumbs !== false || settings.screenshotThumbs !== false;
+
+function placeholderElement(item) {
+  const site = isWebPage(item) ? hostOf(item.url) : '';
+  const room = element('div', 'item-thumb placeholder', (site || item.title || '').trim().charAt(0).toUpperCase());
+  room.setAttribute('aria-hidden', 'true');
+  return room;
+}
+
+// a picture that doesn't load: its room instead, with small pictures; else nothing
+const thumbFailed = (picture, item) => thumbRoom() ? picture.replaceWith(placeholderElement(item)) : picture.remove();
+
+// the image, else (none, or it doesn't load) the icon, smaller in the same place; neither: the room (thumbFailed)
+function previewElement(item, {image, icon}) {
+  const picture = element('img', 'item-thumb preview' + (image ? '' : ' icon'));
+  picture.alt = '';
+  picture.loading = 'lazy';
+  picture.referrerPolicy = 'no-referrer';
+  picture.src = image || icon;
+  picture.addEventListener('error', () => {
+    if (!image || !icon || picture.classList.contains('icon')) return thumbFailed(picture, item);
+    picture.classList.add('icon');
+    picture.src = icon;
+  });
+  picture.title = item.url;
+  picture.addEventListener('click', e => {
+    e.stopPropagation();
+    window.open(titleUrl(item), '_blank', 'noopener,noreferrer');
+  });
+  return picture;
+}
+
+// owner: the item it is shown at (a bookmark, for its screenshot), for its room when it doesn't load
+function thumbElement(item, owner = item) {
   const image = element('img', 'item-thumb');
   image.alt = '';
   image.loading = 'lazy';
   image.src = item.thumb.replace(/([?&]image_size=)[^&#;]*/i, '$1' + THUMB_SIZE);
   image.addEventListener('error', async () => {
-    if (image.dataset.fetched) return image.remove();
+    if (image.dataset.fetched) return thumbFailed(image, owner);
     image.dataset.fetched = '1';
     const file = await fetch(image.src, {credentials: 'include', signal: timeLimit(null, FILE_TIME)})
       .then(answer => answer.ok ? answer.blob() : null)
       .catch(() => null);
-    if (!file?.size) return image.remove();
+    if (!file?.size) return thumbFailed(image, owner);
     image.src = URL.createObjectURL(file);
     image.addEventListener('load', () => URL.revokeObjectURL(image.src), {once: true});
   });
@@ -320,10 +388,14 @@ function itemElement(item) {
   li.dataset.id = item.id;
   li.redraw = itemElement;
   if (item.thumb && item.type && item.type != 'bookmark') li.append(thumbElement(item));
-  // a bookmark with a screenshot of its page (screenshotThumbs): that, a click opens it as an image
-  else if (settings.screenshotThumbs !== false && (!item.type || item.type == 'bookmark')) {
-    const shot = screenshotFor(item);
-    if (shot) li.append(thumbElement(shot));
+  // a bookmark with a screenshot of its page (screenshotThumbs): that, a click opens it as an image; else the preview
+  // image of its page (previewThumbs); else, with small pictures, the room of one (placeholderElement)
+  else if ((!item.type || item.type == 'bookmark') && settings.screenshotThumbs !== false && screenshotFor(item)) {
+    li.append(thumbElement(screenshotFor(item), item));
+  } else if (settings.previewThumbs !== false && isWebPage(item)) {
+    li.append(previewThumb(item));
+  } else if (thumbRoom()) {
+    li.append(placeholderElement(item));
   }
   if (picking()) {
     li.append(pickBox(item));
@@ -438,6 +510,27 @@ function notePreview(item) {
   const preview = element('p', 'note-preview' + (codeLanguage(item.title) ? ' code' : ''), shown.join('\n'));
   if (lines.length > NOTE_LINES) preview.append(element('span', 'note-more', '\n…'));
   return preview;
+}
+
+// Delete screenshot in the menu of a bookmark (library-home.js: itemMenuButton): its screenshots, as Delete does it
+// (with deleteDelay to the trash at once, with Undo), the bookmark drawn again without its small picture
+async function deleteScreenshots(item, shots) {
+  const ids = shots.map(shot => shot.id);
+  if (settings.deleteDelay) {
+    deleteLater(ids);
+    return show({keepScroll: true});
+  }
+  if (controller || !confirm(message('screenshotDeleteConfirm', item.title || item.url))) return;
+  const signal = start();
+  try {
+    const {deleted} = await deleteItems(ids, signal, () => {});
+    if (deleted < ids.length) showStatus(message('libraryDeleteFailed'), true);
+  } catch (e) {
+    reportProblem(e, 'delete');
+  } finally {
+    stop();
+    show({keepScroll: true});
+  }
 }
 
 async function deleteOne(item, li) {

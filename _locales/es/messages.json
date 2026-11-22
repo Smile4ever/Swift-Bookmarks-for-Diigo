@@ -1,9 +1,21 @@
 {
+    "screenshotHiddenWarn": {
+        "message": "Este marcador tiene una etiqueta oculta: una captura guarda lo que muestra la página y va a tu biblioteca de Diigo (privada, con las mismas etiquetas). No la hagas si eso no debe guardarse."
+    },
+    "screenshotTaking": {
+        "message": "Haciendo la captura…"
+    },
+    "screenshotFailed": {
+        "message": "La captura no funcionó; el marcador se guardó sin ella."
+    },
     "optionHideScreenshots": {
         "message": "Mantener las capturas de páginas fuera de la Swift Library: están en su marcador. Mostrar ocultos, o buscar screenshot, las muestra."
     },
     "optionScreenshotThumbs": {
         "message": "Un marcador con una captura de su página: esta como imagen pequeña delante en la Swift Library. Un clic la abre."
+    },
+    "optionPreviewThumbs": {
+        "message": "Un marcador sin captura de pantalla: la imagen de vista previa de su página (como las redes sociales muestran un enlace), o su icono, como imagen pequeña delante. Se lee una vez de la página (el sitio ve una solicitud de este navegador) y se guarda en este navegador; un clic abre la página."
     },
     "screenshotDescription": {
         "message": "Captura de la página $TITLE$\n$URL$",
@@ -49,6 +61,17 @@
     },
     "itemUnhide": {
         "message": "Mostrar de nuevo (sin etiqueta oculta)"
+    },
+    "itemDeleteScreenshot": {
+        "message": "Eliminar captura de pantalla"
+    },
+    "screenshotDeleteConfirm": {
+        "message": "¿Eliminar la captura de pantalla de «$TITLE$» de tu biblioteca de Diigo? Una copia va a la papelera de la Swift Library; el marcador se queda.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
     },
     "homeChanged": {
         "message": "Cambiados recientemente"

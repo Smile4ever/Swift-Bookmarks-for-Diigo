@@ -10,8 +10,9 @@ const INDEX_VERSION = 4;
 // alike: all of them at the same version, as one at an older one can't open it once another has upgraded it.
 // 2: the trash; 3: links, the status of the page of each web address (background.js: checkLink), {url, state, status,
 // time}, kept apart from the items, as an update of the index or building it again would lose it there, and diigo.com
-// shows links also without an index.
-const INDEX_DB_VERSION = 3;
+// shows links also without an index. 4: previews, the preview image of the page of each web address (background.js:
+// pagePreview), {url, image, icon, time}, for the small picture of a bookmark in the Swift Library.
+const INDEX_DB_VERSION = 4;
 
 function openIndexDb() {
   const request = indexedDB.open('library-index', INDEX_DB_VERSION);
@@ -21,6 +22,7 @@ function openIndexDb() {
     if (!stores.contains('meta')) request.result.createObjectStore('meta');
     if (!stores.contains('trash')) request.result.createObjectStore('trash', {keyPath: 'id'});
     if (!stores.contains('links')) request.result.createObjectStore('links', {keyPath: 'url'});
+    if (!stores.contains('previews')) request.result.createObjectStore('previews', {keyPath: 'url'});
   };
   return new Promise((resolve, reject) => {
     request.onsuccess = () => {

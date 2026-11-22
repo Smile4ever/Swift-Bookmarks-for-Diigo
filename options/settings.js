@@ -52,7 +52,6 @@ const DEFAULT_SETTINGS = {
   pageDescription: true,
   // the bookmark form, saving the page you're on: also a screenshot of it, as an image in your library, with a link
   // to it in the description of the bookmark (background.js: pageScreenshot); the box of the form remembers it
-  formScreenshot: false,
   // a new bookmark without tracking parameters (index-item.js: cleanUrl), at the web address the page says is its own
   // (rel=canonical) when that is on the same site (background.js: preferredUrl)
   cleanUrls: true,
@@ -71,6 +70,10 @@ const DEFAULT_SETTINGS = {
   hideScreenshots: true,
   // a bookmark with a screenshot of its page: that as a small picture before it in the list (options/library-list.js)
   screenshotThumbs: true,
+  // a bookmark without one: the preview image of its page (og:image, as social sites show a link), else its icon, as a
+  // small picture before it; read from the page once (the site sees a request from this browser, as autoCheckLinks)
+  // and kept in this browser (options/library-list.js: previewThumb)
+  previewThumbs: true,
   // Start of the Swift Library (options/library-home.js: homeLayout), as you made it with Customize Start: its blocks
   // in this order, shown: false leaves one out; and blocks of your own, {id: 'own-…', title, field, value, sort,
   // count, shown}: what a search (field and value, as the search box has them) finds, newest, oldest, last changed or
@@ -150,6 +153,11 @@ function isHiddenTag(settings, tag) {
   return settings.hiddenTags.some(hidden => hidden.toLowerCase() == name) || !!settings.alsoHiddenTags?.includes(name) ||
     settings.hideScreenshots !== false && name == SCREENSHOT_TAG;
 }
+
+// A screenshot of a page whose bookmark has a hidden tag (but screenshot itself): what the page shows goes to Diigo,
+// so the bookmark form and the Swift Library warn before (screenshotHiddenWarn)
+const screenshotOfHidden = (settings, tags) =>
+  tags.some(tag => tag.toLowerCase() != SCREENSHOT_TAG && isHiddenTag(settings, tag));
 
 // ' machine learning ': the words of a text in lower case, between spaces, so a tag is found as whole words
 const mentionWords = s => ' ' + s.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(Boolean).join(' ') + ' ';

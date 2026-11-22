@@ -1,9 +1,21 @@
 {
+    "screenshotHiddenWarn": {
+        "message": "Este favorito tem uma tag oculta: uma captura de tela registra o que a página mostra e vai para a sua biblioteca do Diigo (privada, com as mesmas tags). Deixe de lado se isso não deve ser guardado."
+    },
+    "screenshotTaking": {
+        "message": "Fazendo a captura…"
+    },
+    "screenshotFailed": {
+        "message": "A captura de tela não funcionou; o favorito foi salvo sem ela."
+    },
     "optionHideScreenshots": {
         "message": "Manter as capturas de tela das páginas fora da Swift Library: elas ficam no favorito. Mostrar ocultos, ou pesquisar screenshot, as mostra."
     },
     "optionScreenshotThumbs": {
         "message": "Um favorito com uma captura de tela da página: ela como imagem pequena à frente na Swift Library. Um clique a abre."
+    },
+    "optionPreviewThumbs": {
+        "message": "Um favorito sem captura de tela: a imagem de prévia da página (como as redes sociais mostram um link), ou o ícone dela, como uma imagem pequena antes dele. Lida uma vez da página (o site vê uma solicitação deste navegador) e guardada neste navegador; um clique abre a página."
     },
     "screenshotDescription": {
         "message": "Captura de tela da página $TITLE$\n$URL$",
@@ -49,6 +61,17 @@
     },
     "itemUnhide": {
         "message": "Mostrar de novo (sem tag oculta)"
+    },
+    "itemDeleteScreenshot": {
+        "message": "Excluir captura de tela"
+    },
+    "screenshotDeleteConfirm": {
+        "message": "Excluir a captura de tela de “$TITLE$” da sua biblioteca do Diigo? Uma cópia vai para a lixeira da Swift Library; o favorito continua.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
     },
     "homeChanged": {
         "message": "Alterados recentemente"

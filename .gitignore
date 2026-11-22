@@ -4,3 +4,5 @@ dist/
 web-ext-artifacts/
 # Diigo's own images for npm run screenshots, saved from a browser (scripts/screenshots.mjs)
 scripts/screenshot-assets/
+# Personal notes, not part of the add-on
+TODO.md

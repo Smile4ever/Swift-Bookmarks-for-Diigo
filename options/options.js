@@ -232,7 +232,7 @@ loadSettings().then(settings => {
 
   for (const [key, value] of Object.entries(settings)) {
     if (typeof value != 'boolean') continue;
-    // a setting set elsewhere has no switch here (formScreenshot: the box of the bookmark form)
+    // a setting set elsewhere has no switch here
     const box = document.getElementById(key);
     if (!box) continue;
     box.checked = value;

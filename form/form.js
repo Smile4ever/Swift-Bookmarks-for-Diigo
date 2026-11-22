@@ -113,8 +113,15 @@ function joinTags(tags) {
 
 const chosenTags = () => splitTags(tagInput.value);
 
+// a screenshot along of a bookmark with a hidden tag: a warning under the boxes (settings.js: screenshotOfHidden)
+function showScreenshotWarning() {
+  $('screenshotWarning').hidden = $('screenshotOption').hidden || !$('screenshot').checked ||
+    !screenshotOfHidden(settings, chosenTags());
+}
+
 function setTagText(text) {
   tagInput.value = text;
+  showScreenshotWarning();
   tagInput.focus();
   tagInput.setSelectionRange(text.length, text.length);
   markChosenTags();
@@ -280,6 +287,7 @@ function pick(tag) {
 tagInput.addEventListener('input', () => {
   showMatches();
   markChosenTags();
+  showScreenshotWarning();
 });
 tagInput.addEventListener('blur', () => matchList.hidden = true);
 tagInput.addEventListener('keydown', e => {
@@ -346,8 +354,10 @@ async function save({move = false} = {}) {
   logError('Bookmark form', error.textContent, $('url')?.value || '');
 }
 
-// the box remembered for the next time (settings.js: formScreenshot)
-$('screenshot').addEventListener('change', () => saveSettings({formScreenshot: $('screenshot').checked}).catch(() => {}));
+// the box not remembered: each screenshot one you choose, as Diigo keeps only so many images (a free account few)
+$('screenshot').addEventListener('change', () => {
+  showScreenshotWarning();
+});
 $('save').addEventListener('click', () => asking ? askUrl() : save());
 $('move').addEventListener('click', () => save({move: true}));
 $('close').addEventListener('click', close);
@@ -476,10 +486,11 @@ function show(answer, loaded) {
   }
   data = answer;
   settings = loaded;
-  // a screenshot of the page you're on along: only for the page itself, not a link or from the Swift Library; as
-  // last time (formScreenshot)
+  // a screenshot of the page you're on along: only for the page itself, not a link or from the Swift Library; off
+  // each time
   $('screenshotOption').hidden = query.get('page') != '1';
-  $('screenshot').checked = !!settings.formScreenshot;
+  $('screenshot').checked = false;
+  showScreenshotWarning();
   const bm = data.bookmark;
   allTags = [...data.userTags].sort((a, b) => b.count - a.count).map(tag => tag.name);
   $('spinner').hidden = true;

@@ -1,9 +1,21 @@
 {
+    "screenshotHiddenWarn": {
+        "message": "Questo segnalibro ha un tag nascosto: uno screenshot registra ciò che mostra la pagina e va nella tua libreria Diigo (privato, con gli stessi tag). Lascialo perdere se non va conservato."
+    },
+    "screenshotTaking": {
+        "message": "Screenshot in corso…"
+    },
+    "screenshotFailed": {
+        "message": "Lo screenshot non è riuscito; il segnalibro è stato salvato senza."
+    },
     "optionHideScreenshots": {
         "message": "Tenere gli screenshot delle pagine fuori dalla Swift Library: sono al loro segnalibro. Mostra nascosti, o una ricerca di screenshot, li mostra."
     },
     "optionScreenshotThumbs": {
         "message": "Un segnalibro con uno screenshot della sua pagina: questo come immagine piccola davanti nella Swift Library. Un clic lo apre."
+    },
+    "optionPreviewThumbs": {
+        "message": "Un segnalibro senza screenshot: l’immagine di anteprima della sua pagina (come i social mostrano un link), o la sua icona, come piccola immagine davanti. Letta una volta dalla pagina (il sito vede una richiesta da questo browser) e conservata in questo browser; un clic apre la pagina."
     },
     "screenshotDescription": {
         "message": "Screenshot della pagina $TITLE$\n$URL$",
@@ -49,6 +61,17 @@
     },
     "itemUnhide": {
         "message": "Mostra di nuovo (tag nascosto tolto)"
+    },
+    "itemDeleteScreenshot": {
+        "message": "Elimina screenshot"
+    },
+    "screenshotDeleteConfirm": {
+        "message": "Eliminare lo screenshot di «$TITLE$» dalla tua libreria Diigo? Una copia va nel cestino della Swift Library; il segnalibro resta.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
     },
     "homeChanged": {
         "message": "Modificati di recente"

@@ -1,9 +1,21 @@
 {
+    "screenshotHiddenWarn": {
+        "message": "Ta zakładka ma ukryty tag: zrzut ekranu zapisuje to, co pokazuje strona, i trafia do Twojej biblioteki Diigo (prywatnie, z tymi samymi tagami). Pomiń go, jeśli nie powinno to być przechowywane."
+    },
+    "screenshotTaking": {
+        "message": "Robienie zrzutu…"
+    },
+    "screenshotFailed": {
+        "message": "Zrzut ekranu się nie udał; zakładka została zapisana bez niego."
+    },
     "optionHideScreenshots": {
         "message": "Trzymaj zrzuty ekranu stron poza Swift Library: są przy swojej zakładce. Pokaż ukryte lub wyszukanie screenshot je pokazuje."
     },
     "optionScreenshotThumbs": {
         "message": "Zakładka ze zrzutem ekranu swojej strony: zrzut jako mały obrazek przed nią w Swift Library. Kliknięcie go otwiera."
+    },
+    "optionPreviewThumbs": {
+        "message": "Zakładka bez zrzutu ekranu: obraz podglądu jej strony (tak jak serwisy społecznościowe pokazują link) lub jej ikona, jako mały obrazek przed nią. Odczytany raz ze strony (witryna widzi żądanie z tej przeglądarki) i przechowywany w tej przeglądarce; kliknięcie otwiera stronę."
     },
     "screenshotDescription": {
         "message": "Zrzut ekranu strony $TITLE$\n$URL$",
@@ -49,6 +61,17 @@
     },
     "itemUnhide": {
         "message": "Pokaż ponownie (bez ukrytego tagu)"
+    },
+    "itemDeleteScreenshot": {
+        "message": "Usuń zrzut ekranu"
+    },
+    "screenshotDeleteConfirm": {
+        "message": "Usunąć zrzut ekranu „$TITLE$” z biblioteki Diigo? Kopia trafi do kosza Swift Library; zakładka zostaje.",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
     },
     "homeChanged": {
         "message": "Ostatnio zmienione"

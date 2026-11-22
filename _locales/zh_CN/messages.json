@@ -1,9 +1,21 @@
 {
+    "screenshotHiddenWarn": {
+        "message": "此书签带有隐藏标签：屏幕截图会记录页面显示的内容并保存到你的 Diigo 书签库（私密，带相同标签）。如果不应保存，请不要勾选。"
+    },
+    "screenshotTaking": {
+        "message": "正在截图…"
+    },
+    "screenshotFailed": {
+        "message": "截图失败；书签已在没有截图的情况下保存。"
+    },
     "optionHideScreenshots": {
         "message": "不在 Swift Library 中显示页面的屏幕截图：它们在各自的书签旁。“显示隐藏的”或搜索 screenshot 可以显示它们。"
     },
     "optionScreenshotThumbs": {
         "message": "带有页面屏幕截图的书签：在 Swift Library 中以小图显示在其前面。点击即可打开。"
+    },
+    "optionPreviewThumbs": {
+        "message": "没有截图的书签：显示其页面的预览图（就像社交网站显示链接那样）或其图标，作为前面的小图。从页面读取一次（网站会看到来自此浏览器的请求）并保存在此浏览器中；点击可打开页面。"
     },
     "screenshotDescription": {
         "message": "页面“$TITLE$”的屏幕截图\n$URL$",
@@ -49,6 +61,17 @@
     },
     "itemUnhide": {
         "message": "重新显示（移除隐藏标签）"
+    },
+    "itemDeleteScreenshot": {
+        "message": "删除截图"
+    },
+    "screenshotDeleteConfirm": {
+        "message": "要从你的 Diigo 资料库中删除“$TITLE$”的截图吗？副本会放入 Swift Library 的回收站；书签保留。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
     },
     "homeChanged": {
         "message": "最近修改"

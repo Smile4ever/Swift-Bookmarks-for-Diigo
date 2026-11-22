@@ -88,6 +88,22 @@ test('the title of a page from its HTML', () => {
   assert.strictEqual(context.decodeEntities('&#xFFFFFFF;'), '&#xFFFFFFF;');
 });
 
+test('the preview image of a page from its HTML: og:image first, else its largest icon, only http(s)', () => {
+  const {context} = loadBackground();
+  const of = html => ({...context.pagePreviewOf(html, 'https://site.example/a/page')});
+  assert.deepStrictEqual(of(`<head><meta property="og:image" content="/img/cover.jpg?w=1&amp;h=2">
+    <link rel="icon" href="/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="touch.png"></head>`),
+  {image: 'https://site.example/img/cover.jpg?w=1&h=2', icon: 'https://site.example/a/touch.png'});
+  assert.deepStrictEqual(of(`<meta name="twitter:image" content="https://cdn.example/t.png">
+    <link rel="icon" sizes="16x16" href="/16.png"><link rel="icon" sizes="32x32 64x64" href="/64.png">`),
+  {image: 'https://cdn.example/t.png', icon: 'https://site.example/64.png'});
+  // a small icon only: none; an image after the head (in the page itself): not the page's preview
+  assert.deepStrictEqual(of(`<link rel="shortcut icon" href="/favicon.ico"></head><body><meta property="og:image" content="/x.jpg">`),
+    {image: '', icon: ''});
+  assert.deepStrictEqual(of(`<meta property="og:image" content="javascript:alert(1)"><link rel="icon" href="/i.svg">`),
+    {image: '', icon: 'https://site.example/i.svg'});
+});
+
 test('menus and listeners are set up when the script starts', () => {
   const {listeners} = loadBackground();
   for (const event of ['runtime.onMessage', 'runtime.onInstalled', 'runtime.onStartup', 'contextMenus.onClicked',

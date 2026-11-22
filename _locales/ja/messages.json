@@ -1,9 +1,21 @@
 {
+    "screenshotHiddenWarn": {
+        "message": "このブックマークには非表示のタグがあります。スクリーンショットはページの表示内容を記録し、Diigo ライブラリに保存されます (非公開、同じタグ付き)。保存すべきでない場合は外してください。"
+    },
+    "screenshotTaking": {
+        "message": "スクリーンショットを撮影中…"
+    },
+    "screenshotFailed": {
+        "message": "スクリーンショットを撮れませんでした。ブックマークはスクリーンショットなしで保存されました。"
+    },
     "optionHideScreenshots": {
         "message": "ページのスクリーンショットを Swift Library に出さない: ブックマークの横にあります。「非表示も表示」か screenshot の検索で表示されます。"
     },
     "optionScreenshotThumbs": {
         "message": "ページのスクリーンショットがあるブックマーク: Swift Library でその前に小さな画像として表示します。クリックで開きます。"
+    },
+    "optionPreviewThumbs": {
+        "message": "スクリーンショットのないブックマーク：ページのプレビュー画像（SNS がリンクを表示するときのもの）、またはそのアイコンを小さな画像として前に表示。ページから一度だけ読み込み（サイトにはこのブラウザーからのリクエストが届きます）、このブラウザーに保存。クリックでページを開きます。"
     },
     "screenshotDescription": {
         "message": "ページ「$TITLE$」のスクリーンショット\n$URL$",
@@ -49,6 +61,17 @@
     },
     "itemUnhide": {
         "message": "再表示 (非表示のタグを外す)"
+    },
+    "itemDeleteScreenshot": {
+        "message": "スクリーンショットを削除"
+    },
+    "screenshotDeleteConfirm": {
+        "message": "「$TITLE$」のスクリーンショットを Diigo ライブラリから削除しますか？コピーは Swift Library のゴミ箱に入ります。ブックマークは残ります。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
     },
     "homeChanged": {
         "message": "最近変更"
