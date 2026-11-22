@@ -1,4 +1,10 @@
 {
+    "optionHideScreenshots": {
+        "message": "Garder les captures d'écran des pages hors de la Swift Library : elles sont à leur marque-page. Afficher les masqués, ou une recherche de screenshot, les montre."
+    },
+    "optionScreenshotThumbs": {
+        "message": "Un marque-page avec une capture d'écran de sa page : celle-ci en petite image devant lui dans la Swift Library. Un clic l'ouvre."
+    },
     "screenshotDescription": {
         "message": "Capture d'écran de la page $TITLE$\n$URL$",
         "placeholders": {

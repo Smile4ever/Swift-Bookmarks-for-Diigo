@@ -1,4 +1,10 @@
 {
+    "optionHideScreenshots": {
+        "message": "Tenere gli screenshot delle pagine fuori dalla Swift Library: sono al loro segnalibro. Mostra nascosti, o una ricerca di screenshot, li mostra."
+    },
+    "optionScreenshotThumbs": {
+        "message": "Un segnalibro con uno screenshot della sua pagina: questo come immagine piccola davanti nella Swift Library. Un clic lo apre."
+    },
     "screenshotDescription": {
         "message": "Screenshot della pagina $TITLE$\n$URL$",
         "placeholders": {

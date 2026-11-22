@@ -236,6 +236,30 @@ function noteTitle(title, item, li) {
 // for it, fetched with it, as the image itself is.
 const THUMB_SIZE = 160;
 
+// The screenshot of a bookmark with a picture (thumb), the newest; as index-item.js: screenshotsOf finds them, but from
+// a map worked out again only when the index changed (indexVersion), as the list asks it for each bookmark it draws
+let screenshotMap = {version: -1, byUrl: new Map()};
+
+function screenshotFor(item) {
+  if (screenshotMap.version != indexVersion) {
+    const byUrl = new Map();
+    for (const shot of index.values()) {
+      if (shot.type != 'image' || !shot.thumb || !shot.tags.some(tag => lower(tag) == SCREENSHOT_TAG)) continue;
+      for (const line of String(shot.description || '').split('\n').map(line => line.trim())) {
+        if (/^https?:\/\//.test(line) && !(byUrl.get(line)?.created > shot.created)) byUrl.set(line, shot);
+      }
+    }
+    screenshotMap = {version: indexVersion, byUrl};
+  }
+  // or one its description links to (index-item.js: screenshotLinks): by its own web address on Diigo, or its link_id
+  if (screenshotMap.byUrl.has(item.url)) return screenshotMap.byUrl.get(item.url);
+  if (!/https?:\/\//.test(item.description || '')) return null;
+  const {urls, ids} = screenshotLinks(item);
+  return [...ids].map(id => index.get(id)).find(shot => shot?.thumb) ||
+    screenshotsOf(item, [...index.values()]).filter(shot => shot.thumb && urls.has(shot.url))
+      .sort((a, b) => b.created - a.created)[0] || null;
+}
+
 function thumbElement(item) {
   const image = element('img', 'item-thumb');
   image.alt = '';
@@ -296,6 +320,11 @@ function itemElement(item) {
   li.dataset.id = item.id;
   li.redraw = itemElement;
   if (item.thumb && item.type && item.type != 'bookmark') li.append(thumbElement(item));
+  // a bookmark with a screenshot of its page (screenshotThumbs): that, a click opens it as an image
+  else if (settings.screenshotThumbs !== false && (!item.type || item.type == 'bookmark')) {
+    const shot = screenshotFor(item);
+    if (shot) li.append(thumbElement(shot));
+  }
   if (picking()) {
     li.append(pickBox(item));
     pickOnClick(li, item);

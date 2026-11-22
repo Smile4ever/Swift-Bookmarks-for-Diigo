@@ -305,6 +305,17 @@ test('the screenshots of a bookmark: by the web address in their description, or
     ['hidden', 'work', 'screenshot']);
 });
 
+test('a screenshot made before it had the address of its page: found by its own web address in the bookmark', () => {
+  const {context} = loadBackground();
+  const page = {id: '1', url: 'https://example.com/a', tags: [],
+    description: 'About A.\n\nScreenshot: https://www.diigo.com/item/image/2k9xq7/abc-screenshot.'};
+  const items = [
+    {id: '1037', type: 'image', url: 'https://www.diigo.com/item/image/2k9xq7/abc-screenshot', tags: ['screenshot'], description: ''},
+    {id: '1038', type: 'image', url: 'https://www.diigo.com/item/image/other', tags: ['screenshot'], description: ''},
+  ];
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(context.screenshotsOf(page, items).map(item => item.id))), ['1037']);
+});
+
 test('saving a bookmark gives its screenshots its tags, a hidden one too', async () => {
   const {context, special} = loadBackground();
   special['cookies.get'] = () => Promise.resolve({value: 'x-.-me'});

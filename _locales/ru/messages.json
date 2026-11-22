@@ -1,4 +1,10 @@
 {
+    "optionHideScreenshots": {
+        "message": "Не показывать снимки экрана страниц в Swift Library: они есть у своей закладки. «Показывать скрытые» или поиск screenshot показывает их."
+    },
+    "optionScreenshotThumbs": {
+        "message": "Закладка со снимком экрана своей страницы: снимок маленькой картинкой перед ней в Swift Library. Щелчок открывает его."
+    },
     "screenshotDescription": {
         "message": "Снимок экрана страницы $TITLE$\n$URL$",
         "placeholders": {

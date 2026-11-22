@@ -188,7 +188,7 @@ browser.storage.onChanged.addListener(async (changes, area) => {
 });
 
 browser.storage.onChanged.addListener(async (changes, area) => {
-  const keys = ['hiddenTags', 'todoRandom', 'homeLayout', 'splitAdd', 'bulkExitAfter', 'bulkClearFilters', 'deleteDelay', 'deadLinks',
+  const keys = ['hiddenTags', 'todoRandom', 'homeLayout', 'hideScreenshots', 'screenshotThumbs', 'splitAdd', 'bulkExitAfter', 'bulkClearFilters', 'deleteDelay', 'deadLinks',
     'hidePrivateFlag', 'hideShareToOutliner', 'autoCheckLinks'];
   if (!settingsArea(area) || !keys.some(key => changes[key])) return;
   settings = await loadSettings().catch(() => settings);
@@ -197,7 +197,8 @@ browser.storage.onChanged.addListener(async (changes, area) => {
   safely('menu', showMainNav);
   document.documentElement.classList.toggle('split-add', !!settings.splitAdd);
   placeAddTypes();
-  if ((changes.hiddenTags || changes.deadLinks || changes.hidePrivateFlag || changes.todoRandom || changes.homeLayout) && meta?.user == user) show({keepScroll: true});
+  if ((changes.hiddenTags || changes.deadLinks || changes.hidePrivateFlag || changes.todoRandom || changes.homeLayout ||
+    changes.hideScreenshots || changes.screenshotThumbs) && meta?.user == user) show({keepScroll: true});
 });
 
 // with an index of who is signed in: shown at once, then updated, which mostly takes one request

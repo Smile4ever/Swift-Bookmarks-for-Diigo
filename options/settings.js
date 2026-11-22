@@ -3,6 +3,9 @@
 // Loaded first in those pages, so it also gives Chrome and Edge, which only have chrome.*, the browser.* of Firefox.
 globalThis.browser = globalThis.browser || globalThis.chrome;
 
+// the tag of a screenshot of a page (background.js: pageScreenshot; options/index-item.js: screenshotsOf)
+const SCREENSHOT_TAG = 'screenshot';
+
 // the blocks of Start in the Swift Library (options/library-home.js), in their order by default
 const HOME_BLOCKS = ['pinned', 'recent', 'changed', 'shared', 'unread', 'stale', 'todo', 'random', 'day', 'trash', 'cleanup'];
 
@@ -63,6 +66,11 @@ const DEFAULT_SETTINGS = {
   bulkClearFilters: true,
   // To do on Start (options/library-home.js: todoBlock): some of them at random, with Other, instead of the oldest
   todoRandom: false,
+  // the screenshots of pages (images with the tag screenshot) out of the Swift Library, as with a hidden tag
+  // (isHiddenTag): Show hidden or a search for screenshot shows them; they are at their bookmark (screenshotThumbs)
+  hideScreenshots: true,
+  // a bookmark with a screenshot of its page: that as a small picture before it in the list (options/library-list.js)
+  screenshotThumbs: true,
   // Start of the Swift Library (options/library-home.js: homeLayout), as you made it with Customize Start: its blocks
   // in this order, shown: false leaves one out; and blocks of your own, {id: 'own-…', title, field, value, sort,
   // count, shown}: what a search (field and value, as the search box has them) finds, newest, oldest, last changed or
@@ -135,10 +143,12 @@ const settingsArea = area => area == 'local' || area == 'sync';
 const SWIFT_PAGES = ['fastLibrary', 'discover', 'options', 'tools', 'learnMore'];
 const swiftNavItems = () => SWIFT_PAGES.map(id => ({id, shown: true}));
 
-// whether a tag is in the hiddenTags of settings, or in alsoHiddenTags; tags are compared without case, like Diigo does
+// whether a tag is in the hiddenTags of settings, or in alsoHiddenTags, or screenshot with hideScreenshots; tags are
+// compared without case, like Diigo does
 function isHiddenTag(settings, tag) {
   const name = tag.toLowerCase();
-  return settings.hiddenTags.some(hidden => hidden.toLowerCase() == name) || !!settings.alsoHiddenTags?.includes(name);
+  return settings.hiddenTags.some(hidden => hidden.toLowerCase() == name) || !!settings.alsoHiddenTags?.includes(name) ||
+    settings.hideScreenshots !== false && name == SCREENSHOT_TAG;
 }
 
 // ' machine learning ': the words of a text in lower case, between spaces, so a tag is found as whole words

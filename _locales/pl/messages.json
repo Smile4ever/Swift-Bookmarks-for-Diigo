@@ -1,4 +1,10 @@
 {
+    "optionHideScreenshots": {
+        "message": "Trzymaj zrzuty ekranu stron poza Swift Library: są przy swojej zakładce. Pokaż ukryte lub wyszukanie screenshot je pokazuje."
+    },
+    "optionScreenshotThumbs": {
+        "message": "Zakładka ze zrzutem ekranu swojej strony: zrzut jako mały obrazek przed nią w Swift Library. Kliknięcie go otwiera."
+    },
     "screenshotDescription": {
         "message": "Zrzut ekranu strony $TITLE$\n$URL$",
         "placeholders": {

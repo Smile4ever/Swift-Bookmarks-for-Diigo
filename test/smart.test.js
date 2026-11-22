@@ -389,3 +389,12 @@ test('hiding a bookmark in the Swift Library hides its screenshot too, and takin
   assert.ok(posts.some(post => /"2"/.test(post.params.infos || '')));
 });
 
+test('screenshots are hidden as with a hidden tag, by default, unless switched off', () => {
+  const context = load('options/settings.js');
+  const hidden = (settings, tag) => vm.runInContext(`isHiddenTag(${JSON.stringify(settings)}, ${JSON.stringify(tag)})`, context);
+  assert.strictEqual(vm.runInContext('DEFAULT_SETTINGS.hideScreenshots && DEFAULT_SETTINGS.screenshotThumbs', context), true);
+  assert.strictEqual(hidden({hiddenTags: [], hideScreenshots: true}, 'Screenshot'), true);
+  assert.strictEqual(hidden({hiddenTags: [], hideScreenshots: false}, 'screenshot'), false);
+  assert.strictEqual(hidden({hiddenTags: [], hideScreenshots: true}, 'photo'), false);
+});
+

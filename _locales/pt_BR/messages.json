@@ -1,4 +1,10 @@
 {
+    "optionHideScreenshots": {
+        "message": "Manter as capturas de tela das páginas fora da Swift Library: elas ficam no favorito. Mostrar ocultos, ou pesquisar screenshot, as mostra."
+    },
+    "optionScreenshotThumbs": {
+        "message": "Um favorito com uma captura de tela da página: ela como imagem pequena à frente na Swift Library. Um clique a abre."
+    },
     "screenshotDescription": {
         "message": "Captura de tela da página $TITLE$\n$URL$",
         "placeholders": {

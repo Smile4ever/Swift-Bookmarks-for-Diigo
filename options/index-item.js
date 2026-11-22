@@ -168,16 +168,22 @@ async function itemFile(linkId, signal) {
 // description; so the bookmark of that page knows its screenshots, also one in its description by a link (as before
 // the description had the web address). Its tags are those of the bookmark, and screenshot (screenshotTags): hidden
 // with it, found with it; kept so when the add-on changes the tags of the bookmark (background.js: syncScreenshots,
-// options/library-index.js: editItems).
-const SCREENSHOT_TAG = 'screenshot';
-
+// options/library-index.js: editItems). SCREENSHOT_TAG: in settings.js.
 function screenshotsOf(bookmark, items) {
   if (!bookmark?.url || bookmark.type == 'image') return [];
-  const linked = new Set([...String(bookmark.description || '').matchAll(/diigo\.com\/item\/image\/([\w-]+)/g)]
-    .map(match => match[1]));
+  const linked = screenshotLinks(bookmark);
   return items.filter(item => item?.type == 'image' && item.id != bookmark.id &&
     (item.tags || []).some(tag => tag.toLowerCase() == SCREENSHOT_TAG) &&
-    (linked.has(item.id) || String(item.description || '').split('\n').some(line => line.trim() == bookmark.url)));
+    (linked.ids.has(item.id) || linked.urls.has(item.url) ||
+      String(item.description || '').split('\n').some(line => line.trim() == bookmark.url)));
+}
+
+// what the description of a bookmark links to: web addresses (an image's own on Diigo, as its upload answered it:
+// background.js, pageScreenshot), and link_ids in those of the form diigo.com/item/image/<link_id>
+function screenshotLinks(bookmark) {
+  const urls = new Set(String(bookmark.description || '').match(/https?:\/\/[^\s<>"']+/g)?.map(url => url.replace(/[.,;)]+$/, '')) || []);
+  const ids = new Set([...urls].map(url => url.match(/diigo\.com\/item\/image\/([\w-]+)/)?.[1]).filter(Boolean));
+  return {urls, ids};
 }
 
 const screenshotTags = tags => [...new Set([...tags.filter(tag => tag.toLowerCase() != SCREENSHOT_TAG), SCREENSHOT_TAG])];

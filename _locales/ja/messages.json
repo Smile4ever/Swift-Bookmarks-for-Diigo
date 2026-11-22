@@ -1,4 +1,10 @@
 {
+    "optionHideScreenshots": {
+        "message": "ページのスクリーンショットを Swift Library に出さない: ブックマークの横にあります。「非表示も表示」か screenshot の検索で表示されます。"
+    },
+    "optionScreenshotThumbs": {
+        "message": "ページのスクリーンショットがあるブックマーク: Swift Library でその前に小さな画像として表示します。クリックで開きます。"
+    },
     "screenshotDescription": {
         "message": "ページ「$TITLE$」のスクリーンショット\n$URL$",
         "placeholders": {

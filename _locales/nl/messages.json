@@ -1,4 +1,10 @@
 {
+    "optionHideScreenshots": {
+        "message": "Schermafbeeldingen van pagina's buiten de Swift Library houden: ze staan bij hun bladwijzer. Verborgen tonen, of zoeken op screenshot, toont ze."
+    },
+    "optionScreenshotThumbs": {
+        "message": "Een bladwijzer met een schermafbeelding van zijn pagina: die als kleine afbeelding ervoor in de Swift Library. Een klik opent ze."
+    },
     "screenshotDescription": {
         "message": "Schermafbeelding van de pagina $TITLE$\n$URL$",
         "placeholders": {

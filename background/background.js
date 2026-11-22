@@ -553,7 +553,12 @@ async function syncScreenshots(bm) {
   if (!items) return;
   const tags = screenshotTags(bm.tags || []);
   for (const shot of screenshotsOf({url: bm.url, description: bm.description}, items)) {
-    if (!sameTagSet(shot.tags, tags)) await saveImage(shot, tags).catch(e => logError('Screenshot: tags', e));
+    // one made before it had the title and web address of its page in its description (found by a link): them too
+    const known = String(shot.description || '').split('\n').some(line => line.trim() == bm.url);
+    const description = known ? shot.description : [shot.description,
+      browser.i18n.getMessage('screenshotDescription', [bm.title || bm.url, bm.url])].filter(Boolean).join('\n\n');
+    if (sameTagSet(shot.tags, tags) && known) continue;
+    await saveImage({...shot, description}, tags).catch(e => logError('Screenshot: tags', e));
   }
 }
 

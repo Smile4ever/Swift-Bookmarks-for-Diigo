@@ -2,6 +2,7 @@ Next version (number to be decided)
 =====
 * A screenshot keeps the tags of its bookmark: changed in the add-on (the bookmark form, Edit, the ⋯ of an item, Done, Unpin, Bulk edit), its screenshots get them too, so a hidden tag added later hides them as well; a new web address goes along in their description.
 * The description of a screenshot has the title and web address of its page.
+* Screenshots out of the Swift Library by default, as with a hidden tag (Show hidden or a search for screenshot shows them), and as a small picture at their bookmark instead; both a switch in Swift Options.
 
 2026.11.22
 =====

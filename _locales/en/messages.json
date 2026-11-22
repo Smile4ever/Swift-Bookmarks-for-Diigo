@@ -1,4 +1,10 @@
 {
+    "optionHideScreenshots": {
+        "message": "Keep screenshots of pages out of the Swift Library: they are at their bookmark. Show hidden, or a search for screenshot, shows them."
+    },
+    "optionScreenshotThumbs": {
+        "message": "A bookmark with a screenshot of its page: that as a small picture before it in the Swift Library. A click opens it."
+    },
     "screenshotDescription": {
         "message": "Screenshot of the page $TITLE$\n$URL$",
         "placeholders": {
