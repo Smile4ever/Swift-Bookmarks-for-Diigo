@@ -1,3 +1,8 @@
+Next version (number to be decided)
+=====
+* A screenshot keeps the tags of its bookmark: changed in the add-on (the bookmark form, Edit, the ⋯ of an item, Done, Unpin, Bulk edit), its screenshots get them too, so a hidden tag added later hides them as well; a new web address goes along in their description.
+* The description of a screenshot has the title and web address of its page.
+
 2026.11.22
 =====
 * Empty trash also clears the filters of the trash (tags, site, search).

@@ -363,3 +363,29 @@ test('an index is kept when Diigo gives far fewer items, unless that is allowed'
   assert.strictEqual(vm.runInContext('index.size', context), 5);
   assert.strictEqual(vm.runInContext('trash.size', context), 30);
 });
+
+test('hiding a bookmark in the Swift Library hides its screenshot too, and taking the tag away shows it again', async () => {
+  const context = load('options/settings.js', 'options/index-item.js', 'options/library-index.js');
+  const posts = [];
+  context.fetch = async (url, options) => {
+    posts.push({url: String(url), params: Object.fromEntries(options.body)});
+    return {ok: true, status: 200, text: async () => JSON.stringify({code: 1})};
+  };
+  vm.runInContext(`index = new Map([
+    ['1', {id: '1', type: 'bookmark', url: 'https://example.com/a', title: 'A', description: '', tags: ['work']}],
+    ['2', {id: '2', type: 'image', url: 'https://www.diigo.com/item/image/2', title: 'Shot', tags: ['work', 'screenshot'],
+      description: 'Screenshot of the page A\\nhttps://example.com/a'}],
+    ['3', {id: '3', type: 'image', url: 'https://www.diigo.com/item/image/3', title: 'Other', tags: ['work'], description: ''}],
+  ]);`, context);
+  const edit = change => vm.runInContext(`editItems(['1'], ${JSON.stringify(change)}, new AbortController().signal, () => {})`, context);
+  const tags = id => plain(vm.runInContext(`index.get('${id}').tags`, context));
+  await edit({type: 'addTags', tags: ['hidden']});
+  assert.deepStrictEqual(tags('1'), ['work', 'hidden']);
+  assert.deepStrictEqual(tags('2'), ['work', 'screenshot', 'hidden']);
+  assert.deepStrictEqual(tags('3'), ['work']);
+  await edit({type: 'removeTags', tags: ['hidden']});
+  assert.deepStrictEqual(tags('2'), ['work', 'screenshot']);
+  // the request for the screenshot: its own, by its link_id
+  assert.ok(posts.some(post => /"2"/.test(post.params.infos || '')));
+});
+

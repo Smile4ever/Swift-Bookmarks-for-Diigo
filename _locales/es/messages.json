@@ -1,4 +1,15 @@
 {
+    "screenshotDescription": {
+        "message": "Captura de la página $TITLE$\n$URL$",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            },
+            "url": {
+                "content": "$2"
+            }
+        }
+    },
     "userMenuHead": {
         "message": "Tu cuenta en diigo.com"
     },

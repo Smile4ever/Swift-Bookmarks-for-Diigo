@@ -446,6 +446,8 @@ async function saveBookmark(bm, tab) {
 
   if (ok) {
     setLastTags(bm.tags, bm.url);
+    // its screenshots with its tags (hidden along with it, and so on)
+    await syncScreenshots(bm).catch(e => logError('Screenshot: tags', e));
     // in the index of the Swift Library too
     refreshIndexSoon();
   } else {
@@ -506,12 +508,12 @@ async function pageScreenshot(tab, bm) {
   const blob = await (await fetch(shot)).blob();
   const name = (browser.i18n.getMessage('screenshotName', (bm.title || bm.url).slice(0, 80)) || 'Screenshot')
     .replace(/[\\/:*?"<>|]+/g, ' ').trim() + '.jpg';
-  const tags = [...new Set([...bm.tags || [], 'screenshot'])];
+  const tags = screenshotTags(bm.tags || []);
   const form = new FormData();
   form.append('qqfile', blob, name);
   form.append('qqfilename', name + '_1');
   form.append('private', true);
-  form.append('tags', tags.map(tag => /\s/.test(tag) ? `"${tag}"` : tag).join(' '));
+  form.append('tags', quotedTags(tags));
   form.append('lists', '');
   form.append('groups', '');
   const response = await fetch(IMAGE_SAVE_URL, {method: 'POST', credentials: 'include', body: form,
@@ -526,7 +528,33 @@ async function pageScreenshot(tab, bm) {
     logError('Screenshot', `Diigo did not save the screenshot (${response.status})`, answer.slice(0, 300));
     return '';
   }
+  // its description: the title and web address of its page, for you, and so its bookmark knows it (screenshotsOf);
+  // saved after, as Diigo's Add Image takes none (as options/library-index.js: addFile)
+  const description = browser.i18n.getMessage('screenshotDescription', [bm.title || bm.url, bm.url]) ||
+    `${bm.title || bm.url}\n${bm.url}`;
+  await saveImage({id: saved.link_id, title: name.replace(/\.jpg$/, ''), description, private: true}, tags)
+    .catch(e => logError('Screenshot: description', e));
   return /^https?:/.test(saved.url || '') ? saved.url : `https://www.diigo.com/item/image/${saved.link_id}`;
+}
+
+// an image of your library saved again, as Diigo's edit window saves one (options/library-index.js: singleSave)
+async function saveImage(image, tags) {
+  const body = new URLSearchParams({link_id: image.id, title: image.title || '', description: image.description || '',
+    tags: quotedTags(tags), private: image.private !== false});
+  const response = await fetch(IMAGE_SAVE_URL, {method: 'POST', credentials: 'include',
+    headers: {'X-Requested-With': 'XMLHttpRequest'}, body, signal: timeLimit()});
+  if (!response.ok) throw new Error(`Diigo did not save the image (${response.status})`);
+}
+
+// The screenshots of a bookmark just saved (screenshotsOf) with its tags too, and screenshot, when they differ: hidden
+// when it is hidden, and so on. From the index, which knows them; one being made now has them already.
+async function syncScreenshots(bm) {
+  const {items} = await userIndex();
+  if (!items) return;
+  const tags = screenshotTags(bm.tags || []);
+  for (const shot of screenshotsOf({url: bm.url, description: bm.description}, items)) {
+    if (!sameTagSet(shot.tags, tags)) await saveImage(shot, tags).catch(e => logError('Screenshot: tags', e));
+  }
 }
 
 async function deleteBookmark({url, urlId}, tab) {

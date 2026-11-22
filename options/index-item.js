@@ -161,3 +161,32 @@ async function itemFile(linkId, signal) {
     return null;
   }
 }
+
+// ---- screenshots of a page (background.js: pageScreenshot) ----
+
+// A screenshot is an image of your library with the tag screenshot and the title and web address of its page in its
+// description; so the bookmark of that page knows its screenshots, also one in its description by a link (as before
+// the description had the web address). Its tags are those of the bookmark, and screenshot (screenshotTags): hidden
+// with it, found with it; kept so when the add-on changes the tags of the bookmark (background.js: syncScreenshots,
+// options/library-index.js: editItems).
+const SCREENSHOT_TAG = 'screenshot';
+
+function screenshotsOf(bookmark, items) {
+  if (!bookmark?.url || bookmark.type == 'image') return [];
+  const linked = new Set([...String(bookmark.description || '').matchAll(/diigo\.com\/item\/image\/([\w-]+)/g)]
+    .map(match => match[1]));
+  return items.filter(item => item?.type == 'image' && item.id != bookmark.id &&
+    (item.tags || []).some(tag => tag.toLowerCase() == SCREENSHOT_TAG) &&
+    (linked.has(item.id) || String(item.description || '').split('\n').some(line => line.trim() == bookmark.url)));
+}
+
+const screenshotTags = tags => [...new Set([...tags.filter(tag => tag.toLowerCase() != SCREENSHOT_TAG), SCREENSHOT_TAG])];
+
+// the same tags, whatever their order and case
+const sameTagSet = (a, b) => {
+  const set = tags => [...new Set(tags.map(tag => tag.toLowerCase()))].sort().join('\n');
+  return set(a) == set(b);
+};
+
+// tags as Diigo takes them in a form: separated by spaces, "between quotes" with a space in one
+const quotedTags = tags => tags.map(tag => /\s/.test(tag) ? `"${tag}"` : tag).join(' ');

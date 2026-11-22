@@ -1,4 +1,15 @@
 {
+    "screenshotDescription": {
+        "message": "页面“$TITLE$”的屏幕截图\n$URL$",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            },
+            "url": {
+                "content": "$2"
+            }
+        }
+    },
     "userMenuHead": {
         "message": "你在 diigo.com 的账户"
     },

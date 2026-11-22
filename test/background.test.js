@@ -273,6 +273,62 @@ test('a bookmark the toolbar API of Diigo does not find is saved again by its li
     title: 'Q', description: 'kill -2\n\nScreenshot: x', tags: 'linux "how to"', private: 'true', unread: 'false'});
 });
 
+test('a screenshot gets all tags of its bookmark, so a hidden one is hidden too', async () => {
+  const {context, special} = loadBackground();
+  special['tabs.captureVisibleTab'] = () => Promise.resolve('data:image/jpeg;base64,AAAA');
+  Object.assign(context, {FormData, Blob});
+  let sent = null;
+  context.fetch = async (url, options) => {
+    if (String(url).startsWith('data:')) return {blob: async () => new Blob(['x'], {type: 'image/jpeg'})};
+    sent = options.body;
+    return {ok: true, status: 200, text: async () => JSON.stringify({items: [{link_id: 'shot1'}]})};
+  };
+  const url = await context.pageScreenshot({id: 3, windowId: 1}, {title: 'Secret', url: 'https://example.com/',
+    tags: ['hidden', 'work notes']});
+  assert.strictEqual(url, 'https://www.diigo.com/item/image/shot1');
+  assert.strictEqual(sent.get('tags'), 'hidden "work notes" screenshot');
+  assert.strictEqual(sent.get('private'), 'true');
+});
+
+test('the screenshots of a bookmark: by the web address in their description, or a link to them', () => {
+  const {context} = loadBackground();
+  const page = {id: '1', url: 'https://example.com/a', description: 'see https://www.diigo.com/item/image/old7', tags: []};
+  const items = [
+    {id: '2', type: 'image', tags: ['screenshot'], description: 'Screenshot of the page A\nhttps://example.com/a'},
+    {id: 'old7', type: 'image', tags: ['Screenshot'], description: ''},
+    {id: '3', type: 'image', tags: ['photo'], description: 'Screenshot of the page A\nhttps://example.com/a'},
+    {id: '4', type: 'image', tags: ['screenshot'], description: 'Screenshot of the page B\nhttps://example.com/b'},
+  ];
+  const ids = JSON.parse(JSON.stringify(context.screenshotsOf(page, items).map(item => item.id)));
+  assert.deepStrictEqual(ids, ['2', 'old7']);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(vm.runInContext("screenshotTags(['hidden', 'Screenshot', 'work'])", context))),
+    ['hidden', 'work', 'screenshot']);
+});
+
+test('saving a bookmark gives its screenshots its tags, a hidden one too', async () => {
+  const {context, special} = loadBackground();
+  special['cookies.get'] = () => Promise.resolve({value: 'x-.-me'});
+  await new Promise(resolve => setTimeout(resolve));
+  await context.readCookie();
+  const shot = {id: '2', type: 'image', title: 'Screenshot', tags: ['work', 'screenshot'], private: true,
+    description: 'Screenshot of the page A\nhttps://example.com/a'};
+  vm.runInContext(`indexCache = {items: ${JSON.stringify([shot])}, time: Date.now()}`, context);
+  const sent = [];
+  context.fetch = async (url, options) => {
+    sent.push({url: String(url), body: options?.body instanceof URLSearchParams ? Object.fromEntries(options.body) : null});
+    return {ok: true, status: 200, text: async () => JSON.stringify({items: [{link_id: '1'}]})};
+  };
+  await context.saveBookmark({linkId: '1', url: 'https://example.com/a', title: 'A', tags: ['work', 'hidden']}, {id: 3});
+  const image = sent.find(request => request.url == 'https://www.diigo.com/item/save/image');
+  assert.deepStrictEqual(image?.body, {link_id: '2', title: 'Screenshot', description: shot.description,
+    tags: 'work hidden screenshot', private: 'true'});
+  // the same tags already: nothing to save
+  sent.length = 0;
+  vm.runInContext(`indexCache.items[0].tags = ['hidden', 'screenshot', 'work']`, context);
+  await context.saveBookmark({linkId: '1', url: 'https://example.com/a', title: 'A', tags: ['work', 'hidden']}, {id: 3});
+  assert.ok(!sent.some(request => request.url == 'https://www.diigo.com/item/save/image'));
+});
+
 test('the toolbar icon shows a page saved at nearly the same web address as saved', async () => {
   const {context, callArgs, special} = loadBackground();
   // signed in as me

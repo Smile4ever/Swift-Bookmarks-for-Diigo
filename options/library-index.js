@@ -267,9 +267,28 @@ async function saveWithNewUrl(item, {url, title, description, tags, private: isP
     index.delete(item.id);
     index.set(fresh.id, fresh);
     await saveIndex({put: [fresh], remove: fresh.id == item.id ? [] : [item.id]});
+    // its screenshots, found by the web address it had: its tags, and its new web address in their description
+    await syncScreenshotsHere(item, fresh).catch(e => logError('Screenshot: tags', e));
     return fresh;
   } catch (e) {
     return null;
+  }
+}
+
+// The screenshots of a bookmark changed here (index-item.js: screenshotsOf, by before: its web address and
+// description as they were) with its tags as they are now, and screenshot, and its web address in their description
+// when that changed; saved as Diigo's edit window saves an image (singleSave), in the index too
+async function syncScreenshotsHere(before, after) {
+  const tags = screenshotTags(after.tags);
+  for (const shot of screenshotsOf(before, [...index.values()])) {
+    const description = before.url == after.url ? shot.description
+      : String(shot.description || '').split('\n').map(line => line.trim() == before.url ? after.url : line).join('\n');
+    if (sameTagSet(shot.tags, tags) && description == shot.description) continue;
+    const changed = {...shot, description};
+    const edit = singleSave(changed, tags);
+    if (!await postSave(edit.url, new URLSearchParams(edit.params)).catch(() => null)) continue;
+    Object.assign(shot, {description, tags});
+    await saveIndex({put: [shot]});
   }
 }
 
@@ -631,6 +650,15 @@ async function editItems(ids, change, signal, progress) {
     changedIds.push(...done.map(item => item.id));
     if (done.length) await saveIndex({put: done});
     progress(changed + failed, total);
+  }
+  // the same change of tags for the screenshots of those changed (index-item.js: screenshotsOf), so they have the
+  // tags of their bookmark: hidden with it, and so on; screenshot stays
+  if (['addTags', 'removeTags'].includes(change.type) && !signal.aborted) {
+    const all = [...index.values()];
+    const shots = [...new Set(changedIds.flatMap(id => screenshotsOf(index.get(id), all).map(shot => shot.id)))]
+      .filter(id => !ids.includes(id));
+    const tags = change.type == 'removeTags' ? change.tags.filter(tag => tag.toLowerCase() != SCREENSHOT_TAG) : change.tags;
+    if (shots.length && tags.length) await editItems(shots, {...change, tags}, signal, () => {}).catch(() => {});
   }
   return {changed, failed, untouched: items.length - total, ids: changedIds, failedIds};
 }
