@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Swift Bookmarks for Diigo",
   "description": "__MSG_extDesc__",
-  "version": "2026.11.21",
+  "version": "2026.11.22",
   "homepage_url": "https://github.com/Smile4ever/Swift-Bookmarks-for-Diigo",
   "default_locale": "en",
   "icons": {

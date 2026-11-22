@@ -36,8 +36,12 @@ const SIDE_TAGS = 15;
 const SIDE_SITES = 10;
 // how many of your tags are shown under a bookmark
 const MATCHES_SHOWN = 5;
-// how many pages of Diigo are loaded at once, so there is more to choose from
+// how many pages of Diigo are loaded at once, so there is more to choose from: BUZZ_PAGES_AT_ONCE, and more till
+// SHOWN_TARGET of them are shown (with what is in your library and Not interested left out, often few of a page are
+// new), but not more than BUZZ_PAGES_MAX at once
 const BUZZ_PAGES_AT_ONCE = 3;
+const BUZZ_PAGES_MAX = 10;
+const SHOWN_TARGET = 500;
 // Interesting for you: a bookmark with one of your INTERESTING_TAGS most used tags in it, or with two of your tags
 const INTERESTING_TAGS = 30;
 // titles that are a web address: how many pages are asked for their own title at once (fixTitles)
@@ -322,7 +326,8 @@ function saveCache() {
   browser.storage.local.set({discoverCache: {time: loadedAt, nextPage, items}}).catch(() => {});
 }
 
-// pageNum 0: anew, in place of what was there; BUZZ_PAGES_AT_ONCE pages from there, each shown as it comes
+// pageNum 0: anew, in place of what was there; BUZZ_PAGES_AT_ONCE pages from there, or more till SHOWN_TARGET are
+// shown, each shown as it comes
 async function load(pageNum) {
   if (loading) return;
   loading = true;
@@ -331,7 +336,9 @@ async function load(pageNum) {
   showStatus(message('discoverLoading'));
   const first = pageNum;
   try {
-    for (; pageNum < first + BUZZ_PAGES_AT_ONCE; pageNum++) {
+    const enough = () => pageNum + 1 >= first + BUZZ_PAGES_MAX ||
+      pageNum + 1 >= first + BUZZ_PAGES_AT_ONCE && shownItems(fitting()).length >= SHOWN_TARGET;
+    for (; ; pageNum++) {
       const page = await buzzPage(pageNum);
       const have = new Set(pageNum ? found.map(item => item.key) : []);
       page.items.forEach(match);
@@ -341,7 +348,7 @@ async function load(pageNum) {
       loadedAt = pageNum ? loadedAt : Date.now();
       saveCache();
       show({keepScroll: pageNum > 0});
-      if (nextPage < 0) break;
+      if (nextPage < 0 || enough()) break;
     }
     showStatus('');
     fixTitles();
@@ -378,7 +385,8 @@ function dismiss(item, gone) {
   dismissed.delete(item.key);
   if (gone) dismissed.add(item.key);
   dismissed = new Set([...dismissed].slice(-DISMISSED_KEEP));
-  browser.storage.local.set({discoverDismissed: [...dismissed]}).catch(() => {});
+  // with the account of the browser too, while it fits (settings.js: SYNCED_LISTS)
+  saveSettings({discoverDismissed: [...dismissed]}).catch(() => {});
   show({keepScroll: true});
 }
 
@@ -574,7 +582,7 @@ function showSide(shown) {
   const chosen = state.tags.map(lower);
   const tags = tagCounts(shown).filter(tag => !hiddenTag(tag.name) && !chosen.includes(lower(tag.name)))
     .slice(0, SIDE_TAGS);
-  if (tags.length) wrapper.append(sideTitle('Tags'), ...tags.map(tag => sideLine(tag, () => addTag(tag.name))));
+  if (tags.length) wrapper.append(sideTitle(message('sideTags')), ...tags.map(tag => sideLine(tag, () => addTag(tag.name))));
   const sites = new Map();
   shown.forEach(item => {
     const host = hostOf(item.url);
@@ -597,22 +605,24 @@ function showTitle() {
 // ---- the menu at the top, as in the Swift Library (library-side.js: showMainNav) ----
 
 const MENU_LINKS = {
-  library: () => ({label: 'My Library', url: `https://www.diigo.com/user/${encodeURIComponent(user)}`}),
+  // Diigo's own, also with myLibraryToSwift (settings.js: DIIGO_OWN)
+  library: () => ({label: message('diigoMyLibrary'), url: `https://www.diigo.com/user/${encodeURIComponent(user)}${DIIGO_OWN}`}),
   // Diigo's own outliners (yours are in the Swift Library, Outliners in its side bar)
-  outliners: () => ({label: 'My Outliners', url: 'https://www.diigo.com/outliner'}),
-  groups: () => ({label: 'My Groups', url: 'https://groups.diigo.com'}),
+  outliners: () => ({label: message('diigoMyOutliners'), url: 'https://www.diigo.com/outliner'}),
+  groups: () => ({label: message('diigoMyGroups'), url: 'https://groups.diigo.com'}),
   // Diigo's Tools as a page of the add-on (tools.html)
-  tools: () => ({label: 'Tools', url: 'tools.html'}),
-  learnMore: () => ({label: 'Learn more', url: 'https://www.diigo.com/learn_more'}),
-  premium: () => ({label: 'Go Premium', url: 'https://www.diigo.com/premium'}),
-  fastLibrary: () => ({label: message('libraryMenu'), url: 'library.html'}),
+  tools: () => ({label: menuName('toolsMenu'), url: 'tools.html'}),
+  // Swift Guide, the guide of the add-on, in the place of Diigo's Learn more (guide.html)
+  learnMore: () => ({label: menuName('guideMenu'), url: 'guide.html'}),
+  premium: () => ({label: message('diigoPremium'), url: 'https://www.diigo.com/premium'}),
+  fastLibrary: () => ({label: menuName('libraryMenu'), url: 'library.html'}),
   // this page itself
-  discover: () => ({label: message('discoverMenu'), url: location.pathname, here: true}),
-  options: () => ({label: message('optionsMenu'), url: 'options.html'}),
+  discover: () => ({label: menuName('discoverMenu'), url: location.pathname, here: true}),
+  options: () => ({label: menuName('optionsMenu'), url: 'options.html'}),
 };
 
 function showMainNav() {
-  $('mainNav').replaceChildren(...menuItemsOf(settings).filter(item => item.shown).map(item => {
+  $('mainNav').replaceChildren(...swiftNavItems().map(item => {
     // a link of your own, once it has a web address
     const link = MENU_LINKS[item.id]?.() ||
       (/^https?:\/\/./i.test(item.url || '') && {label: item.label.trim() || hostOf(item.url), url: item.url});
@@ -697,7 +707,7 @@ browser.runtime.onMessage.addListener(request => {
 
 // hidden tags or the menu changed on the options page
 browser.storage.onChanged.addListener(async (changes, area) => {
-  if (area != 'local' || !changes.hiddenTags && !changes.alsoHiddenTags && !changes.menuItems) return;
+  if (!settingsArea(area) || !changes.hiddenTags && !changes.alsoHiddenTags) return;
   settings = await loadSettings().catch(() => settings);
   showMainNav();
   loadYours();
@@ -708,7 +718,7 @@ browser.storage.onChanged.addListener(async (changes, area) => {
 // first page of Diigo. The Hot Bookmarks are there for everyone: signed out, the page works, but marks nothing.
 Promise.allSettled([
   openIndex(), browser.runtime.sendMessage({type: 'user'}), loadSettings(),
-  browser.storage.local.get(['discoverCache', 'discoverDismissed']),
+  browser.storage.local.get('discoverCache').then(async kept => ({...kept, ...await loadKept(['discoverDismissed'])})),
 ]).then(([, name, loaded, kept]) => {
   user = name.value || '';
   settings = loaded.value || DEFAULT_SETTINGS;

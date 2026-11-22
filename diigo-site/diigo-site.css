@@ -1,7 +1,31 @@
 /* The looks of what the add-on adds to diigo.com: the menu at the top */
 
-/* the menu at the top, as on the options page: the items of Diigo you switched off there (header.js puts them in order) */
+/* Go to Swift Library, at the end of the menu at the top (header.js: swiftButton): a white pill with the add-on's
+   icon and a blue edge, which stands out on the blue menu of the library and on the white one of other pages */
+a.dqa-swift-button {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  padding: 3px 12px 3px 5px !important;
+  border: 1px solid #3f98e5;
+  border-radius: 16px;
+  background: #fff !important;
+  color: #1f74d0 !important;
+  font-weight: 600;
+  line-height: 20px !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+  vertical-align: middle;
+}
 
-:is(li, nav > a)[data-dqa-menu-off] {
-  display: none !important;
+a.dqa-swift-button:hover {
+  background: #eaf3fc !important;
+}
+
+a.dqa-swift-button svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
 }

@@ -85,8 +85,9 @@ test('the sync listens to alarms, settings, permissions and the menu, and answer
   for (const event of ['alarms.onAlarm', 'permissions.onAdded', 'permissions.onRemoved', 'bookmarks.onCreated']) {
     assert.strictEqual(listeners[event]?.length, 1, event);
   }
-  // one for the hidden tags in background.js (updateAlsoHidden), one for the settings of the sync
-  assert.strictEqual(listeners['storage.onChanged']?.length, 2);
+  // in background.js one for what the toolbar button opens (buttonOpens) and one for the hidden tags
+  // (updateAlsoHidden); one for the settings of the sync
+  assert.strictEqual(listeners['storage.onChanged']?.length, 3);
   // one for the page and link items of background.js, one for the bookmark items
   assert.strictEqual(listeners['contextMenus.onClicked']?.length, 2);
   assert.strictEqual(typeof vm.runInContext('requests.syncNow', context), 'function');

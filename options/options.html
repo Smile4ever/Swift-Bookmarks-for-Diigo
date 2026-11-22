@@ -14,9 +14,11 @@
        with Swift Options as the page you're on and your name, then the blue bar with a box to find an option -->
   <nav class="MainNav">
     <div class="nav-inner">
-      <a class="logo" href="https://www.diigo.com/index" aria-label="Diigo"></a>
+      <a class="logo" href="library.html" aria-label="Swift Library" title="Swift Library"></a>
       <ul id="mainNav"></ul>
       <!-- your name and its menu, as on diigo.com (user-menu.js) -->
+      <!-- the way back to diigo.com: your library there, or its home page signed out (user-menu.js) -->
+      <a class="to-diigo" id="toDiigo" href="https://www.diigo.com/"></a>
       <span class="user-menu" id="userMenu" hidden>
         <button type="button" class="user" id="userLink" aria-haspopup="true" aria-expanded="false"><img src="https://www.diigo.com/asset/images/default_avatar.jpg" alt=""><span id="userName"></span><span class="user-caret"></span></button>
         <span class="user-menu-items" id="userMenuItems" role="menu"></span>
@@ -40,14 +42,19 @@
       <a href="#library" data-i18n="libraryMenu">Swift Library</a>
       <a href="#form" data-i18n="formOptionsHead">The bookmark form</a>
       <a href="#site" data-i18n="optionsHead">On diigo.com</a>
-      <a href="#menu" data-i18n="topMenuHead">The menu at the top of diigo.com</a>
       <a href="#sync" id="navSync" data-i18n="syncHead">Bookmarks of this browser to Diigo</a>
       <a href="#tags" data-i18n="optionsTagsHead">Hidden tags</a>
+      <a href="#privacy" data-i18n="privacyHead">Privacy</a>
       <a href="#shortcuts" data-i18n="shortcutsHead">Shortcuts</a>
       <a href="#log" data-i18n="logHead">Log</a>
     </nav>
 
     <main>
+      <!-- the way to Swift Guide (guide.html): what the add-on does more than Diigo -->
+      <section class="card guide-card" id="guide">
+        <p><span data-i18n="optionsGuideText"></span> <a href="guide.html" class="button" data-i18n="guideMenu">Swift Guide</a></p>
+      </section>
+
       <!-- options/library.html, a page of its own; filters and Bulk edit are a part of it -->
       <section class="card" id="library">
         <h1 data-i18n="libraryMenu">Swift Library</h1>
@@ -66,7 +73,7 @@
           <label class="option"><span data-i18n="optionBulkExitAfter"></span><input type="checkbox" id="bulkExitAfter"></label>
           <label class="option"><span data-i18n="optionBulkClearFilters"></span><input type="checkbox" id="bulkClearFilters"></label>
           <label class="option"><span data-i18n="optionDeleteDelay"></span><input type="checkbox" id="deleteDelay"></label>
-          <label class="option"><span data-i18n="optionDeadLinks"></span><input type="checkbox" id="deadLinks"></label>
+          <label class="option"><span data-i18n="optionTodoRandom"></span><input type="checkbox" id="todoRandom"></label>
           <label class="option"><span data-i18n="optionSplitAdd"></span><input type="checkbox" id="splitAdd"></label>
           <label class="option"><span data-i18n="optionHidePrivateFlag"></span><input type="checkbox" id="hidePrivateFlag"></label>
           <label class="option"><span data-i18n="optionHideShareToOutliner"></span><input type="checkbox" id="hideShareToOutliner"></label>
@@ -82,6 +89,13 @@
         <h1 data-i18n="formOptionsHead">The bookmark form</h1>
         <p class="intro" data-i18n="formOptionsIntro"></p>
         <div class="options">
+          <!-- what the toolbar button opens (settings.js: toolbarButton; options.js) -->
+          <label class="option choice"><span data-i18n="optionToolbarButton"></span>
+            <select id="toolbarButton">
+              <option value="form" data-i18n="toolbarButtonForm"></option>
+              <option value="library" data-i18n="toolbarButtonLibrary"></option>
+            </select>
+          </label>
           <label class="option"><span data-i18n="optionPageDescription"></span><input type="checkbox" id="pageDescription"></label>
           <label class="option"><span data-i18n="optionCleanUrls"></span><input type="checkbox" id="cleanUrls"></label>
         </div>
@@ -101,14 +115,6 @@
           <label class="option"><span data-i18n="optionToolsToSwift"></span><input type="checkbox" id="toolsToSwift"></label>
           <label class="option"><span data-i18n="optionSignInToSwift"></span><input type="checkbox" id="signInToSwift"></label>
         </div>
-      </section>
-
-      <!-- menuItems of options/settings.js, filled in by options.js: a row per item, in the order of the menu -->
-      <section class="card" id="menu">
-        <h1 data-i18n="topMenuHead">The menu at the top of diigo.com</h1>
-        <p class="intro" data-i18n="topMenuIntro"></p>
-        <ol id="topMenu" class="top-menu"></ol>
-        <p class="actions"><button type="button" id="topMenuAdd" data-i18n="topMenuAdd"></button></p>
       </section>
 
       <!-- bookmarks of the browser to Diigo (background/sync.js); hidden on Firefox for Android, which has no bookmarks for add-ons -->
@@ -131,11 +137,26 @@
 
       <!-- closed, so the hidden tags don't show each time the page opens -->
       <section class="card" id="tags">
-        <details>
+        <details open>
           <summary><h1 data-i18n="optionsTagsHead">Hidden tags</h1></summary>
           <p class="intro" data-i18n="optionsTagsIntro"></p>
+          <!-- that hidden isn't private (guide.html: #hidden) -->
+          <p class="intro" data-i18n="guideHiddenWarn"></p>
           <textarea id="hiddenTags" rows="4" spellcheck="false"></textarea>
         </details>
+      </section>
+
+      <!-- what goes where: the status of links (library-links.js; autoCheckLinks: only when you ask for it), and where
+           the settings are kept (settings.js: saveSettings) -->
+      <section class="card" id="privacy">
+        <h1 data-i18n="privacyHead">Privacy</h1>
+        <p class="intro" data-i18n="privacyIntro"></p>
+        <!-- Firefox syncs the data of add-ons only with Add-ons ticked in Firefox Sync (options.js) -->
+        <p class="intro" id="privacyFirefoxSync" data-i18n="privacyFirefoxSync" hidden></p>
+        <div class="options">
+          <label class="option"><span data-i18n="optionDeadLinks"></span><input type="checkbox" id="deadLinks"></label>
+          <label class="option"><span data-i18n="optionAutoCheckLinks"></span><input type="checkbox" id="autoCheckLinks"></label>
+        </div>
       </section>
 
       <!-- filled in by options.js -->

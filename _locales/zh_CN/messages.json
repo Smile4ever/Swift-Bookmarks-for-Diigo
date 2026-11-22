@@ -1,4 +1,462 @@
 {
+    "userMenuHead": {
+        "message": "你在 diigo.com 的账户"
+    },
+    "formScreenshot": {
+        "message": "同时保存屏幕截图"
+    },
+    "screenshotLine": {
+        "message": "屏幕截图：$URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1"
+            }
+        }
+    },
+    "screenshotName": {
+        "message": "$TITLE$ 的屏幕截图",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMenu": {
+        "message": "此项目的更多操作"
+    },
+    "itemPin": {
+        "message": "置顶到开始页"
+    },
+    "itemHide": {
+        "message": "隐藏（隐藏标签）"
+    },
+    "itemUnhide": {
+        "message": "重新显示（移除隐藏标签）"
+    },
+    "homeChanged": {
+        "message": "最近修改"
+    },
+    "homePinned": {
+        "message": "已置顶"
+    },
+    "homeUnpin": {
+        "message": "取消置顶"
+    },
+    "homeUnpinTitle": {
+        "message": "移除标签 pinned（Diigo 中也会移除）"
+    },
+    "homeEditStart": {
+        "message": "自定义开始页"
+    },
+    "homeEditIntro": {
+        "message": "移动区块、去掉不需要的，或添加你自己的区块：显示某个搜索找到的内容。带有标签 pinned 的书签会出现在“已置顶”中。"
+    },
+    "homeAddBlock": {
+        "message": "添加区块"
+    },
+    "homeBlockChange": {
+        "message": "修改区块"
+    },
+    "homeResetLayout": {
+        "message": "默认区块"
+    },
+    "homeResetConfirm": {
+        "message": "恢复开始页的默认区块吗？你自己的区块将被删除。"
+    },
+    "homeBlockUp": {
+        "message": "上移"
+    },
+    "homeBlockDown": {
+        "message": "下移"
+    },
+    "homeBlockHide": {
+        "message": "从开始页移除"
+    },
+    "homeBlockShow": {
+        "message": "在开始页显示"
+    },
+    "homeBlockEmpty": {
+        "message": "暂无内容。"
+    },
+    "homeBlockRemoveConfirm": {
+        "message": "删除区块“$NAME$”？",
+        "placeholders": {
+            "name": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeBlockName": {
+        "message": "名称"
+    },
+    "homeBlockSearch": {
+        "message": "显示内容"
+    },
+    "homeBlockSearchHint": {
+        "message": "与搜索框相同：词语，用 -词 排除，用 标签* 表示以此开头的标签（todo*），在下方所选字段中查找。"
+    },
+    "homeBlockNeedsSearch": {
+        "message": "请输入区块显示的内容。"
+    },
+    "homeBlockCount": {
+        "message": "数量"
+    },
+    "homeBlockCountOf": {
+        "message": "$COUNT$ 个",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreStart": {
+        "message": "你自己的开始页：“自定义开始页”（右上角）可以移动区块、隐藏区块，并添加显示搜索结果的自定义区块。给书签加上标签 pinned，它就会出现在顶部的“已置顶”中。"
+    },
+    "optionTodoRandom": {
+        "message": "“开始”中的“待办”：随机显示几个，并可用“换一批”查看其他，而不总是最旧的。待办很多时很方便。"
+    },
+    "goToSwiftLibrary": {
+        "message": "前往 Swift Library"
+    },
+    "optionToolbarButton": {
+        "message": "工具栏按钮打开"
+    },
+    "toolbarButtonForm": {
+        "message": "书签表单"
+    },
+    "toolbarButtonLibrary": {
+        "message": "Swift Library"
+    },
+    "browserActionLibraryTitle": {
+        "message": "打开 Swift Library"
+    },
+    "homeTodo": {
+        "message": "待办"
+    },
+    "homeTodoDone": {
+        "message": "完成"
+    },
+    "homeTodoDoneTitle": {
+        "message": "移除 $TAGS$（Diigo 中也会移除）",
+        "placeholders": {
+            "tags": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreTodo": {
+        "message": "待办：给书签加上以 todo 开头的标签（todo、todo-工作…），它就会按从旧到新的顺序出现在“开始”的“待办”中，点“完成”即可移除该标签。"
+    },
+    "menuLibrary": {
+        "message": "书签库"
+    },
+    "menuDiscover": {
+        "message": "发现"
+    },
+    "menuTools": {
+        "message": "工具"
+    },
+    "diigoMyLibrary": {
+        "message": "我的书签库"
+    },
+    "diigoMyOutliners": {
+        "message": "我的大纲"
+    },
+    "diigoMyGroups": {
+        "message": "我的群组"
+    },
+    "diigoPremium": {
+        "message": "升级到 Premium"
+    },
+    "userPublicLibrary": {
+        "message": "公开书签库"
+    },
+    "userSettings": {
+        "message": "Diigo 设置"
+    },
+    "userSignOut": {
+        "message": "退出登录"
+    },
+    "viewAll": {
+        "message": "全部"
+    },
+    "viewBookmarks": {
+        "message": "书签"
+    },
+    "viewPdfs": {
+        "message": "PDF"
+    },
+    "viewImages": {
+        "message": "图片"
+    },
+    "viewNotes": {
+        "message": "笔记"
+    },
+    "viewOutliners": {
+        "message": "大纲"
+    },
+    "viewUntagged": {
+        "message": "无标签"
+    },
+    "sideTags": {
+        "message": "标签"
+    },
+    "sideTop": {
+        "message": "常用"
+    },
+    "sideRecent": {
+        "message": "最近"
+    },
+    "sideAllTags": {
+        "message": "全部标签"
+    },
+    "sideRelatedTags": {
+        "message": "相关标签"
+    },
+    "toDiigo": {
+        "message": "前往 diigo.com"
+    },
+    "guideTypesHead": {
+        "message": "不只是书签"
+    },
+    "guideTypesIntro": {
+        "message": "Diigo 书签库不只有网页。Swift Library 在标题前用图标显示每个项目的类型，在侧边栏的 全部 下可以选择一种类型。侧边栏顶部的添加按钮可以创建除 Kindle 外的每一种。"
+    },
+    "guideTypeBookmark": {
+        "message": "书签：用书签表单保存或在这里添加的网页，标题前显示其页面状态。"
+    },
+    "guideTypeNote": {
+        "message": "笔记：你自己的文字，纯文本或带格式，在这里撰写和编辑，点击标题即可在页面中查看。标题以 .py、.css、.html 等结尾的笔记是代码，以彩色显示。笔记在 Diigo 上始终是私密的。"
+    },
+    "guideTypeFile": {
+        "message": "图片和 PDF：在这里上传，并附上标题、描述和标签（PDF 最大 64 MB）；图片会在页面中显示。在这里删除后，其文件会保留在回收站中，因此可以还原。"
+    },
+    "guideTypeKindle": {
+        "message": "Kindle：在 diigo.com 上导入的 Kindle 标注。不能在这里创建或编辑；从回收站恢复需要重新导入。"
+    },
+    "guideTypeAnnotated": {
+        "message": "已批注：用 Diigo 自己的浏览器扩展在页面上做了高亮或便签的书签。Swift Library 会显示哪些书签有这些内容；高亮本身在 diigo.com 上。"
+    },
+    "linksCheckChoice": {
+        "message": "你的书签库中有 $COUNT$ 个链接未检查或近期未检查。可以全部检查（包括你没有滚动到的），或者只检查到找到前 $FOUND$ 个失效链接为止。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "found": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntButton": {
+        "message": "查找前 $COUNT$ 个失效链接",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHuntIntro": {
+        "message": "正在尚未检查的链接中查找失效链接，直到找到 $COUNT$ 个；找到的每一个都会立即显示在这里。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHunting": {
+        "message": "正在查找失效链接：已检查 $DONE$ 个，找到 $DEAD$ 个",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHunted": {
+        "message": "在已检查的 $DONE$ 个链接中找到 $DEAD$ 个失效链接。",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntedNone": {
+        "message": "在已检查的 $DONE$ 个链接中没有失效链接。",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            }
+        }
+    },
+    "toolsMenu": {
+        "message": "Swift Tools"
+    },
+    "guideSyncHead": {
+        "message": "将浏览器书签同步到 Diigo"
+    },
+    "guideSyncText": {
+        "message": "在 Swift 选项中选择此浏览器的文件夹，其中的书签就会进入你的 Diigo 书签库：用“立即同步”同步一次，或保持同步，这样在其中新建的书签会在一分钟后发送到 Diigo。文件夹名可作为标签（食谱 › 意大利菜 会得到 食谱 和 意大利菜），书签也可以保存为私密。每台电脑分别选择文件夹。"
+    },
+    "guideSyncOneWay": {
+        "message": "同步是单向的，从此浏览器到 Diigo：已在 Diigo 中的书签保持原样，从此浏览器删除的书签仍保留在 Diigo 中。你的 Diigo 书签库不会进入浏览器书签；要查看它们，请用 Swift Library 和地址栏中的 d。"
+    },
+    "guideSyncChoose": {
+        "message": "选择文件夹"
+    },
+    "libraryGoneOn": {
+        "message": "自 $DATE$ 起不在 Diigo 上",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexGoneToTrash": {
+        "message": "索引已重新建立：有 $COUNT$ 个项目已不在 Diigo 上，已移到回收站，30 天内可以还原。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptShrunk": {
+        "message": "Diigo 只返回了 $COUNT$ 个项目，远少于索引中的 $BEFORE$ 个，因此保留原有索引。请稍后再试；如果你的书签库确实少了这么多，请在 Swift 选项中选择“重新建立”。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexShrinkConfirm": {
+        "message": "Diigo 只返回了 $COUNT$ 个项目，远少于索引中的 $BEFORE$ 个。这通常说明 Diigo 没有正常加载。仍要用这 $COUNT$ 个项目替换索引吗？",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "guideNews": {
+        "message": "新功能：介绍扩展比 Diigo 多做的一切的指南，例如用标签 hidden 隐藏书签。"
+    },
+    "privacyFirefoxSync": {
+        "message": "在 Firefox 中，只有在 Firefox Sync 的设置里勾选了“附加组件”（设置，同步）时，这些设置才会同步到你的其他电脑。"
+    },
+    "guideMenu": {
+        "message": "Swift 指南"
+    },
+    "guideIntro": {
+        "message": "Swift Bookmarks for Diigo 借助你在 diigo.com 的登录，让 Diigo 更快、更好用。它不是 Diigo 官方出品。这里介绍它增加了什么，以及在哪里找到。"
+    },
+    "guideAgain": {
+        "message": "你可以随时重新打开本指南：Swift 页面顶部菜单或工具栏按钮菜单中的“指南”。"
+    },
+    "guideFormHead": {
+        "message": "一秒保存页面"
+    },
+    "guideFormText": {
+        "message": "点击工具栏按钮，或右键点击页面或链接。表单会推荐标签：出现在标题或网址中的你自己的标签、你在同一网站上最近一个书签的标签，以及你常一起使用的标签。新书签会去掉跟踪参数再保存，表单会告诉你以前是否保存过该页面，按钮会显示页面是否已在你的书签库中。"
+    },
+    "guideShortcut": {
+        "message": "快捷键：$KEYS$",
+        "placeholders": {
+            "keys": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideHiddenHead": {
+        "message": "用标签 hidden 隐藏书签"
+    },
+    "guideHiddenText": {
+        "message": "给书签加上标签 hidden，它就不会出现在 Swift Library、地址栏、Swift Discover 和表单的推荐中：适合那些你不想在别人从背后看屏幕时冒出来的内容。要查看它们，请完整搜索该标签 (hidden)，或勾选列表上方的“显示隐藏的”。你可以在 Swift 选项中选择自己的隐藏标签；只有隐藏书签才有的标签也会被隐藏，以免暴露它们。"
+    },
+    "guideHiddenWarn": {
+        "message": "隐藏不等于私密：在 diigo.com 上，以及书签公开时对其他人，它仍然可见。如果不希望别人看到，请同时设为私密。"
+    },
+    "guideHiddenChoose": {
+        "message": "选择隐藏的标签"
+    },
+    "guideLibraryHead": {
+        "message": "Swift Library：一次看全整个书签库"
+    },
+    "guideLibraryText": {
+        "message": "书签库的副本就在此浏览器中，因此即使有成千上万个书签，搜索、排序和筛选也能立即完成。可搜索所有字段或某个字段（标题、网址、标签、描述…），用 -词 排除内容，用 + 把搜索保留为筛选条件，点击标签或网站即可按其筛选。“开始”显示你最近保存的、等待阅读的，以及往年今天保存的内容。"
+    },
+    "guideBulkText": {
+        "message": "批量编辑：勾选书签（也可用 Shift+点击和 Shift+方向键），即可添加或移除标签、设为私密或公开、已读或未读、分享到大纲，或一次全部删除。"
+    },
+    "guideTrashHead": {
+        "message": "可以反悔的回收站"
+    },
+    "guideTrashText": {
+        "message": "你在这里或 diigo.com 上删除的内容会在回收站保留 30 天（图片和 PDF 连同文件），可以从那里逐个或批量还原。Diigo 本身没有回收站。"
+    },
+    "guideLinksHead": {
+        "message": "失效链接与 Wayback Machine"
+    },
+    "guideLinksText": {
+        "message": "每个标题前显示其页面的状态：200、404、BOT、PARKED，页面搬迁则显示 →。点击它可在 Wayback Machine 或 archive.is 上查找该页面，使用最新副本或新网址。“开始”中的“清理”还能找到重复书签、没有标签或标题的书签，以及可以合并的相似标签。"
+    },
+    "guideLinksPrivacy": {
+        "message": "为此，扩展会从你的浏览器向每个页面所在的网站请求该页面。不想这样？在 Swift 选项的“隐私”中，可设为仅在你要求时检查链接。"
+    },
+    "guideTagsHead": {
+        "message": "标签和大纲"
+    },
+    "guideTagsText": {
+        "message": "所有标签及搜索框、最常用的 300 个标签云、一次在所有地方重命名标签，以及把几乎相同的标签（recipe 和 recipes）合并为一个。"
+    },
+    "guideOutlinersText": {
+        "message": "你在 Diigo 的大纲也在 Swift Library 的侧边栏中：可用键盘书写的树，并可加入书签库中的项目。"
+    },
+    "guideDiscoverText": {
+        "message": "Diigo 社区的 Hot Bookmarks，去掉你已有的，按“为你推荐”（按你的标签）排序，带搜索和筛选。点一下即可保存，或用“不感兴趣”排除。"
+    },
+    "guideMoreHead": {
+        "message": "更多"
+    },
+    "guideMoreAddress": {
+        "message": "在地址栏中：输入 d、一个空格和几个词即可找到你的书签。"
+    },
+    "guideMoreDiigo": {
+        "message": "在 diigo.com 上：顶部菜单末尾有“前往 Swift Library”，登录后会进入 Swift Library。diigo.com 的其余部分保持原样；你可以在 Swift 选项中让 My Library 和 Tools 打开 Swift 页面。"
+    },
+    "guideMoreSettings": {
+        "message": "你的设置会随浏览器账户同步到你的其他电脑。"
+    },
+    "guidePrivacyText": {
+        "message": "扩展不会向作者发送任何内容。它使用你在 diigo.com 的登录代你与 diigo.com 通信，书签库的副本保留在此浏览器中。其他数据去向及相关选项，请见 Swift 选项中的“隐私”。"
+    },
+    "guideDiigoTour": {
+        "message": "Diigo 自己对 Diigo 功能的介绍：diigo.com 上的 Learn more"
+    },
+    "privacyHead": {
+        "message": "隐私"
+    },
+    "privacyIntro": {
+        "message": "扩展不会向作者发送任何内容。它使用你在 diigo.com 的登录代你与 diigo.com 通信，书签库的副本（索引）保留在此浏览器中。浏览器同步时，这些设置会保存在浏览器账户中（Firefox Sync、Google 或 Microsoft），你的其他电脑也会获得；要同步的文件夹保留在这台电脑上。"
+    },
+    "optionAutoCheckLinks": {
+        "message": "链接一出现在列表中就自动检查。关闭：只有在你要求时才检查链接（点击它的 ·、“检查所有链接”，或在侧边栏中查找失效链接）；以前检查过的结果仍会显示。"
+    },
+    "optionsGuideText": {
+        "message": "初来乍到，或想知道扩展比 Diigo 多做了什么？"
+    },
+    "linkNotCheckedTitle": {
+        "message": "尚未检查：点击检查此链接"
+    },
     "move": {
         "message": "移动"
     },
@@ -86,7 +544,7 @@
         "message": "Swift Bookmarks for Diigo 的选项"
     },
     "cannotBookmark": {
-        "message": "Diigo 无法保存此页面"
+        "message": "此页面无法保存到 Diigo：打开 Swift Library"
     },
     "commandShowForm": {
         "message": "将此页面保存到 Diigo"
@@ -104,13 +562,10 @@
         "message": "在 diigo.com 上"
     },
     "optionsIntro": {
-        "message": "本扩展不再改变 diigo.com 的外观和功能：它做得更好的部分在 Swift Library 和 Swift Discover 中。在 diigo.com 上，它只在顶部菜单中添加通往它们的入口。"
+        "message": "扩展几乎不改动 diigo.com：它做得更好的部分在 Swift Library 和 Swift Discover 中。在 diigo.com 上，它只在顶部菜单添加通往那里的入口——“前往 Swift Library”。"
     },
     "optionMyLibraryToSwift": {
-        "message": "diigo.com 顶部菜单中的 My Library 打开 Swift Library。Diigo 自己的：Ctrl+单击或中键单击，或 Swift Library 菜单中的 My Library"
-    },
-    "myLibraryToSwiftTitle": {
-        "message": "打开 Swift Library。Ctrl+单击：diigo.com 上的 My Library"
+        "message": "前往 diigo.com 上你的书签库时会打开 Swift Library：链接、书签、输入网址。diigo.com 顶部菜单中的 My Library 仍是 Diigo 自己的，网址后加 ?swift=false 也一样"
     },
     "optionSignInToSwift": {
         "message": "在 diigo.com 登录后，打开 Swift Library，而不是 diigo.com 上的书签库"
@@ -119,10 +574,10 @@
         "message": "用于书签库的 Diigo 工具，含本扩展：工具栏按钮和 Ctrl+Alt+D 的书签表单、Swift Library 和 Swift Discover。"
     },
     "optionToolsToSwift": {
-        "message": "diigo.com 顶部菜单中的 Tools 打开扩展的 Tools 页面：不含 Google Play 和 Import kindle highlights，含本扩展。Diigo 自己的：Ctrl+单击或中键单击"
+        "message": "diigo.com 顶部菜单中的 Tools 打开 Swift Tools：不含 Google Play 和 Import kindle highlights，含本扩展。Diigo 自己的：Ctrl+单击或中键单击"
     },
     "toolsToSwiftTitle": {
-        "message": "打开扩展的 Tools 页面。Ctrl+单击：diigo.com 上的 Tools"
+        "message": "打开 Swift Tools。Ctrl+单击：diigo.com 上的 Tools"
     },
     "optionDeadLinks": {
         "message": "在 Swift Library 中显示哪些链接已失效 (404) 或其网站没有响应。为此，扩展会向网站本身请求每个页面。点击状态码可在 Wayback Machine 或 archive.is 上查找该页面。"
@@ -158,27 +613,6 @@
     },
     "optionSplitAdd": {
         "message": "在侧边栏顶部用四个按钮代替带菜单的 + 按钮：Bookmark、Image、PDF 和 Note，一键添加"
-    },
-    "topMenuHead": {
-        "message": "diigo.com 顶部的菜单"
-    },
-    "topMenuIntro": {
-        "message": "显示哪些项目、按什么顺序，以及你自己的链接；Swift Library 和 Swift Discover 的顶部也一样。My Library、My Outliners、My Groups 和 Swift Library 仅在登录后显示。"
-    },
-    "topMenuAdd": {
-        "message": "添加链接"
-    },
-    "topMenuName": {
-        "message": "名称"
-    },
-    "topMenuShow": {
-        "message": "在菜单中显示"
-    },
-    "topMenuUp": {
-        "message": "上移"
-    },
-    "topMenuDown": {
-        "message": "下移"
     },
     "topMenuRemove": {
         "message": "移除"
@@ -557,9 +991,6 @@
     "libraryRemoveFilter": {
         "message": "移除此筛选"
     },
-    "libraryHuntIntro": {
-        "message": "随机显示 20 个链接尚未检查的书签：正在检查它们的链接，失效的显示为红色。再次点击左侧的失效链接，查看找到的失效链接，或另外 20 个。"
-    },
     "libraryHuntNone": {
         "message": "没有失效链接：书签的所有链接最近都已检查过。"
     },
@@ -684,6 +1115,30 @@
     },
     "libraryTrashIntro": {
         "message": "用附加组件删除、保存在此浏览器中的内容。还原会在 Diigo 中重新创建，日期为今天，不含高亮。30 天后永久删除。"
+    },
+    "bulkRestored": {
+        "message": "已恢复 $COUNT$ 个项目。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkNotRestored": {
+        "message": "有 $COUNT$ 个无法恢复：",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkForgetConfirm": {
+        "message": "要从回收站中永久删除所选的 $COUNT$ 个项目吗？",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
     },
     "libraryRestore": {
         "message": "还原"
@@ -831,6 +1286,14 @@
         "message": "出现问题（$ERROR$）。能显示的内容都已显示；重新加载页面可能会有帮助。",
         "placeholders": {
             "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptEmpty": {
+        "message": "Diigo 没有返回任何项目，因此保留原有的 $COUNT$ 个项目的索引。请稍后再试。",
+        "placeholders": {
+            "count": {
                 "content": "$1"
             }
         }
@@ -1331,7 +1794,7 @@
         "message": "书签表单"
     },
     "formOptionsIntro": {
-        "message": "表单为新书签填写的内容。已保存的书签按你保存时的样子打开。"
+        "message": "表单为新书签填写的内容。已保存的书签按你保存时的样子打开。 快捷键始终打开书签表单；在无法保存的页面上则打开 Swift Library。"
     },
     "optionPageDescription": {
         "message": "页面上没有选中文字时，用页面对自身的描述（搜索引擎显示的那段）作为描述"
@@ -1396,14 +1859,6 @@
     },
     "linksCheckAll": {
         "message": "检查所有链接"
-    },
-    "linksCheckAllIntro": {
-        "message": "书签库中有 $COUNT$ 个链接尚未检查或最近未检查：“检查所有链接”会检查全部，包括你没有滚动到的。",
-        "placeholders": {
-            "count": {
-                "content": "$1"
-            }
-        }
     },
     "linksAllChecked": {
         "message": "书签库中的所有链接最近都已检查过。"
@@ -1626,9 +2081,6 @@
     },
     "linkUseNewUrl": {
         "message": "使用新网址"
-    },
-    "linkUseNewUrlAll": {
-        "message": "全部改为新网址"
     },
     "linkUseNewUrlConfirm": {
         "message": "将 $COUNT$ 个书签改为它们迁移到的网址（Diigo 中也一样）？",

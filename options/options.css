@@ -175,6 +175,16 @@ main {
   min-width: 0;
 }
 
+/* the way to Swift Guide, at the top: one line */
+.guide-card p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0;
+}
+
 .find-none {
   color: var(--grey);
 }
@@ -701,4 +711,26 @@ footer p {
   font-size: 11px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+/* an option that only counts with another one on (autoCheckLinks with deadLinks) */
+.option:has(input:disabled) {
+  opacity: .5;
+}
+
+/* an option that is a choice of a few (toolbarButton): a menu at the right, in place of the switch */
+.option.choice select {
+  flex: none;
+  max-width: 50%;
+  padding: 4px 8px;
+  border: 1px solid var(--box);
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.option.choice select option {
+  background: var(--card, #fff);
 }

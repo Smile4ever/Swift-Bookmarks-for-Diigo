@@ -1,4 +1,462 @@
 {
+    "userMenuHead": {
+        "message": "Your account on diigo.com"
+    },
+    "formScreenshot": {
+        "message": "Also save a screenshot"
+    },
+    "screenshotLine": {
+        "message": "Screenshot: $URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1"
+            }
+        }
+    },
+    "screenshotName": {
+        "message": "Screenshot of $TITLE$",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMenu": {
+        "message": "More for this item"
+    },
+    "itemPin": {
+        "message": "Pin to Start"
+    },
+    "itemHide": {
+        "message": "Hide (hidden tag)"
+    },
+    "itemUnhide": {
+        "message": "Show again (hidden tag away)"
+    },
+    "homeChanged": {
+        "message": "Recently changed"
+    },
+    "homePinned": {
+        "message": "Pinned"
+    },
+    "homeUnpin": {
+        "message": "Unpin"
+    },
+    "homeUnpinTitle": {
+        "message": "Takes the tag pinned away, in Diigo too"
+    },
+    "homeEditStart": {
+        "message": "Customize Start"
+    },
+    "homeEditIntro": {
+        "message": "Move the blocks, leave out what you don't need, or add blocks of your own: what a search finds. A tag pinned puts a bookmark in Pinned."
+    },
+    "homeAddBlock": {
+        "message": "Add a block"
+    },
+    "homeBlockChange": {
+        "message": "Change the block"
+    },
+    "homeResetLayout": {
+        "message": "Default blocks"
+    },
+    "homeResetConfirm": {
+        "message": "Back to the default blocks of Start? Blocks of your own go."
+    },
+    "homeBlockUp": {
+        "message": "Move up"
+    },
+    "homeBlockDown": {
+        "message": "Move down"
+    },
+    "homeBlockHide": {
+        "message": "Leave out of Start"
+    },
+    "homeBlockShow": {
+        "message": "Show on Start"
+    },
+    "homeBlockEmpty": {
+        "message": "Nothing now."
+    },
+    "homeBlockRemoveConfirm": {
+        "message": "Remove the block $NAME$?",
+        "placeholders": {
+            "name": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeBlockName": {
+        "message": "Name"
+    },
+    "homeBlockSearch": {
+        "message": "What it shows"
+    },
+    "homeBlockSearchHint": {
+        "message": "As in the search box: words, -word to leave out, tag* for tags that start so (todo*), in the field chosen below."
+    },
+    "homeBlockNeedsSearch": {
+        "message": "Type what the block shows."
+    },
+    "homeBlockCount": {
+        "message": "How many"
+    },
+    "homeBlockCountOf": {
+        "message": "$COUNT$ items",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreStart": {
+        "message": "Start your own: Customize Start (at the top right of Start) moves blocks, leaves them out, and adds blocks of your own, what a search finds. Give a bookmark the tag pinned and it's in Pinned, at the top."
+    },
+    "optionTodoRandom": {
+        "message": "To do on Start: some of them at random, with Others for others, instead of always the oldest. Handy with many."
+    },
+    "goToSwiftLibrary": {
+        "message": "Go to Swift Library"
+    },
+    "optionToolbarButton": {
+        "message": "The toolbar button opens"
+    },
+    "toolbarButtonForm": {
+        "message": "The bookmark form"
+    },
+    "toolbarButtonLibrary": {
+        "message": "The Swift Library"
+    },
+    "browserActionLibraryTitle": {
+        "message": "Open the Swift Library"
+    },
+    "homeTodo": {
+        "message": "To do"
+    },
+    "homeTodoDone": {
+        "message": "Done"
+    },
+    "homeTodoDoneTitle": {
+        "message": "Takes $TAGS$ away, in Diigo too",
+        "placeholders": {
+            "tags": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreTodo": {
+        "message": "To do: give a bookmark a tag that starts with todo (todo, todo-work…) and it shows in To do on Start, the oldest first, with Done to take the tag away."
+    },
+    "menuLibrary": {
+        "message": "Library"
+    },
+    "menuDiscover": {
+        "message": "Discover"
+    },
+    "menuTools": {
+        "message": "Tools"
+    },
+    "diigoMyLibrary": {
+        "message": "My Library"
+    },
+    "diigoMyOutliners": {
+        "message": "My Outliners"
+    },
+    "diigoMyGroups": {
+        "message": "My Groups"
+    },
+    "diigoPremium": {
+        "message": "Go Premium"
+    },
+    "userPublicLibrary": {
+        "message": "Public Library"
+    },
+    "userSettings": {
+        "message": "Settings on Diigo"
+    },
+    "userSignOut": {
+        "message": "Sign Out"
+    },
+    "viewAll": {
+        "message": "All"
+    },
+    "viewBookmarks": {
+        "message": "Bookmarks"
+    },
+    "viewPdfs": {
+        "message": "PDFs"
+    },
+    "viewImages": {
+        "message": "Images"
+    },
+    "viewNotes": {
+        "message": "Notes"
+    },
+    "viewOutliners": {
+        "message": "Outliners"
+    },
+    "viewUntagged": {
+        "message": "Untagged"
+    },
+    "sideTags": {
+        "message": "Tags"
+    },
+    "sideTop": {
+        "message": "Top"
+    },
+    "sideRecent": {
+        "message": "Recent"
+    },
+    "sideAllTags": {
+        "message": "All tags"
+    },
+    "sideRelatedTags": {
+        "message": "Related Tags"
+    },
+    "toDiigo": {
+        "message": "To diigo.com"
+    },
+    "guideTypesHead": {
+        "message": "Not only bookmarks"
+    },
+    "guideTypesIntro": {
+        "message": "A Diigo library holds more than web pages. The Swift Library shows what kind each item is with an icon before its title, and under All in the side bar you choose one kind. The add buttons at the top of the side bar make each of them, except Kindle."
+    },
+    "guideTypeBookmark": {
+        "message": "Bookmarks: web pages, saved with the bookmark form or added here, with the status of their page before the title."
+    },
+    "guideTypeNote": {
+        "message": "Notes: text of your own, plain or with formatting, written and edited here and shown in the page with a click on its title. A note whose title ends in .py, .css, .html or the like is code, shown in colours. Notes are always private on Diigo."
+    },
+    "guideTypeFile": {
+        "message": "Images and PDFs: uploaded here with a title, description and tags (a PDF up to 64 MB); an image shows in the page. Deleted here, their file stays in the trash, so they can be put back."
+    },
+    "guideTypeKindle": {
+        "message": "Kindle: your Kindle highlights, imported on diigo.com. They can't be made or edited here; from the trash they come back by importing them again."
+    },
+    "guideTypeAnnotated": {
+        "message": "Annotated: bookmarks with highlights or sticky notes on their page, made with Diigo's own browser extension. The Swift Library shows which ones have them; the highlights themselves are on diigo.com."
+    },
+    "linksCheckChoice": {
+        "message": "$COUNT$ links of your library are not checked, or not lately. Check them all, also those you don't scroll to, or only until the first $FOUND$ dead ones are found.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "found": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntButton": {
+        "message": "Find the first $COUNT$ dead links",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHuntIntro": {
+        "message": "Looking for dead links among the links not checked yet, until $COUNT$ are found; each one found shows here at once.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHunting": {
+        "message": "Looking for dead links: $DONE$ checked, $DEAD$ found",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHunted": {
+        "message": "$DEAD$ dead links found among $DONE$ links checked.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntedNone": {
+        "message": "No dead links among the $DONE$ links checked.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            }
+        }
+    },
+    "toolsMenu": {
+        "message": "Swift Tools"
+    },
+    "guideSyncHead": {
+        "message": "Your browser bookmarks to Diigo"
+    },
+    "guideSyncText": {
+        "message": "Choose folders of this browser in Swift Options, and their bookmarks go to your Diigo library: once with Sync now, or kept in sync, so a new bookmark in them goes to Diigo a minute after you make it. The folder names can become tags (Recipes › Italian Food gives recipes and italian-food), and the bookmarks can be saved as private. The folders are chosen on each computer."
+    },
+    "guideSyncOneWay": {
+        "message": "It goes one way, from this browser to Diigo: a bookmark that is already in Diigo stays as it is there, and one you remove from this browser stays in Diigo. Your Diigo library doesn't come into the bookmarks of the browser; for that there is the Swift Library and d in the address bar."
+    },
+    "guideSyncChoose": {
+        "message": "Choose folders"
+    },
+    "libraryGoneOn": {
+        "message": "No longer on Diigo $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexGoneToTrash": {
+        "message": "Index built again: $COUNT$ items are no longer on Diigo and were moved to the trash, where you can put them back for 30 days.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptShrunk": {
+        "message": "Diigo gave only $COUNT$ items, far fewer than the $BEFORE$ in the index, so the index is kept as it was. Try again later, or choose Build again on Swift Options if your library really is that much smaller.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexShrinkConfirm": {
+        "message": "Diigo gave only $COUNT$ items, far fewer than the $BEFORE$ in the index. That usually means Diigo didn't load well. Replace the index with these $COUNT$ items anyway?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "guideNews": {
+        "message": "New: a guide to everything the add-on does more than Diigo, such as hiding bookmarks with the tag hidden."
+    },
+    "privacyFirefoxSync": {
+        "message": "In Firefox the settings only go to your other computers when Add-ons is ticked in the settings of Firefox Sync (Settings, Sync)."
+    },
+    "guideMenu": {
+        "message": "Swift Guide"
+    },
+    "guideIntro": {
+        "message": "Swift Bookmarks for Diigo makes Diigo faster and easier to use, with your sign-in on diigo.com. It isn't made by Diigo. Here is what it adds, and where to find it."
+    },
+    "guideAgain": {
+        "message": "You can open this guide again at any time: Guide in the menu at the top of the Swift pages, or in the menu of the toolbar button."
+    },
+    "guideFormHead": {
+        "message": "Save a page in a second"
+    },
+    "guideFormText": {
+        "message": "Click the toolbar button, or right-click a page or a link. The form suggests tags: your own tags that are in the title or the web address, those of your last bookmark on the same site, and tags you often use together. A new bookmark is saved without tracking parameters, the form tells you when you saved the page before, and the toolbar button shows whether a page is in your library already."
+    },
+    "guideShortcut": {
+        "message": "Shortcut: $KEYS$",
+        "placeholders": {
+            "keys": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideHiddenHead": {
+        "message": "Hide bookmarks with the tag hidden"
+    },
+    "guideHiddenText": {
+        "message": "Give a bookmark the tag hidden and it is left out of the Swift Library, the address bar, Swift Discover and the suggestions of the form: handy for what you'd rather not see pop up when someone looks over your shoulder. To see them, search for the tag in full (hidden) or tick Show hidden above the list. Choose your own hidden tags in Swift Options; tags that only hidden bookmarks have are hidden too, so they don't give them away."
+    },
+    "guideHiddenWarn": {
+        "message": "Hidden is not private: on diigo.com itself, and for others when the bookmark is public, it stays visible. Make it private too if no one else should see it."
+    },
+    "guideHiddenChoose": {
+        "message": "Choose hidden tags"
+    },
+    "guideLibraryHead": {
+        "message": "The Swift Library: your whole library at once"
+    },
+    "guideLibraryText": {
+        "message": "A copy of your library in this browser, so searching, sorting and filtering are instant, also with thousands of bookmarks. Search all fields or one (title, web address, tags, description…), leave out what has -word, keep a search as a filter with +, and click a tag or a site to filter on it. Start shows what you saved recently, what is waiting to be read, and what you saved on this day in years before."
+    },
+    "guideBulkText": {
+        "message": "Bulk edit: tick bookmarks (also with Shift+click and Shift+arrow keys) to add or remove tags, make them private or public, read or unread, share them to an outliner, or delete them all at once."
+    },
+    "guideTrashHead": {
+        "message": "A trash to change your mind"
+    },
+    "guideTrashText": {
+        "message": "What you delete, here or on diigo.com, goes to the trash for 30 days, images and PDFs with their file, and can be put back from there, one by one or with Bulk edit. Diigo itself has no trash."
+    },
+    "guideLinksHead": {
+        "message": "Dead links, and the Wayback Machine"
+    },
+    "guideLinksText": {
+        "message": "Before each title is the status of its page: 200, 404, BOT, PARKED, or → when it moved. Click it to look the page up in the Wayback Machine or on archive.is, to use the latest copy or the new web address. Clean up on Start also finds duplicates, bookmarks without tags or without a title, and similar tags to merge."
+    },
+    "guideLinksPrivacy": {
+        "message": "For this the add-on requests each page from its own site, from your browser. Rather not? In Swift Options, under Privacy, links are then only checked when you ask for it."
+    },
+    "guideTagsHead": {
+        "message": "Tags and outliners"
+    },
+    "guideTagsText": {
+        "message": "All your tags with a box to find one, the 300 most used as a cloud, a tag renamed everywhere at once, and tags that are nearly the same (recipe and recipes) merged into one."
+    },
+    "guideOutlinersText": {
+        "message": "Your outliners of Diigo are in the side bar of the Swift Library too: a tree to write in with the keyboard, with items from your library."
+    },
+    "guideDiscoverText": {
+        "message": "The Hot Bookmarks of the Diigo community without what you have already, in the order For you (by your tags), with a search box and filters. Save one with a click, or leave it out with Not interested."
+    },
+    "guideMoreHead": {
+        "message": "And more"
+    },
+    "guideMoreAddress": {
+        "message": "In the address bar: type d, a space and some words to find your bookmarks."
+    },
+    "guideMoreDiigo": {
+        "message": "On diigo.com: Go to Swift Library at the end of the menu at the top, and the Swift Library after you sign in. The rest of diigo.com stays as Diigo has it; in Swift Options you can let My Library and Tools open the Swift pages."
+    },
+    "guideMoreSettings": {
+        "message": "Your settings go along to your other computers with the account of your browser."
+    },
+    "guidePrivacyText": {
+        "message": "The add-on sends nothing to its maker. It talks to diigo.com for you, with your sign-in there, and the copy of your library stays in this browser. What else goes where, and the choices about it, are in Swift Options under Privacy."
+    },
+    "guideDiigoTour": {
+        "message": "Diigo's own tour of what Diigo does: Learn more on diigo.com"
+    },
+    "privacyHead": {
+        "message": "Privacy"
+    },
+    "privacyIntro": {
+        "message": "The add-on sends nothing to its maker. It talks to diigo.com for you, with your sign-in there, and the copy of your library (the index) stays in this browser. These settings are kept with the account of your browser (Firefox Sync, Google or Microsoft) when it syncs, so your other computers get them too; the folders to sync stay on this computer."
+    },
+    "optionAutoCheckLinks": {
+        "message": "Check each link by itself as it shows in the list. Off: a link is only checked when you ask for it, with a click on its ·, Check all links, or looking for dead links in the side bar; what was checked before still shows."
+    },
+    "optionsGuideText": {
+        "message": "New here, or wondering what the add-on does more than Diigo?"
+    },
+    "linkNotCheckedTitle": {
+        "message": "Not checked yet: click to check this link"
+    },
     "move": {
         "message": "Move"
     },
@@ -90,7 +548,7 @@
         "message": "Options of Swift Bookmarks for Diigo"
     },
     "cannotBookmark": {
-        "message": "Diigo can't save this page",
+        "message": "This page can't be saved in Diigo: open the Swift Library",
         "description": "Tooltip of the grey toolbar button on pages like about: and addons.mozilla.org"
     },
     "commandShowForm": {
@@ -111,13 +569,10 @@
         "message": "On diigo.com"
     },
     "optionsIntro": {
-        "message": "The add-on no longer changes how diigo.com looks and works: what it does better is in the Swift Library and Swift Discover. On diigo.com it only adds the way there, in the menu at the top."
+        "message": "The add-on hardly changes diigo.com: what it does better is in the Swift Library and Swift Discover. On diigo.com it only adds the way there, Go to Swift Library in the menu at the top."
     },
     "optionMyLibraryToSwift": {
-        "message": "My Library in the menu at the top of diigo.com opens the Swift Library. Diigo's own: Ctrl+click or a middle click, or My Library in the menu of the Swift Library"
-    },
-    "myLibraryToSwiftTitle": {
-        "message": "Opens the Swift Library. Ctrl+click: My Library on diigo.com"
+        "message": "Going to your library on diigo.com opens the Swift Library: a link to it, a bookmark, its address typed. My Library in the menu at the top of diigo.com stays Diigo's own, as does its address with ?swift=false after it"
     },
     "optionSignInToSwift": {
         "message": "Signed in on diigo.com, the Swift Library opens instead of your library on diigo.com"
@@ -126,10 +581,10 @@
         "message": "The tools of Diigo for your library, with this add-on: the bookmark form with the toolbar button and Ctrl+Alt+D, the Swift Library and Swift Discover."
     },
     "optionToolsToSwift": {
-        "message": "Tools in the menu at the top of diigo.com opens the Tools page of the add-on: without Google Play and Import kindle highlights, with this add-on. Diigo's own: Ctrl+click or a middle click"
+        "message": "Tools in the menu at the top of diigo.com opens Swift Tools: without Google Play and Import kindle highlights, with this add-on. Diigo's own: Ctrl+click or a middle click"
     },
     "toolsToSwiftTitle": {
-        "message": "Opens the Tools page of the add-on. Ctrl+click: Tools on diigo.com"
+        "message": "Opens Swift Tools. Ctrl+click: Tools on diigo.com"
     },
     "optionDeadLinks": {
         "message": "Show in the Swift Library which links are dead (404) or whose site doesn't answer. For this the add-on requests each page from the site itself. Click the status code to look up the page in the Wayback Machine or on archive.is."
@@ -168,27 +623,6 @@
     },
     "optionSplitAdd": {
         "message": "Four buttons at the top of the side bar instead of the + button with a menu: Bookmark, Image, PDF and Note, so you add with one click"
-    },
-    "topMenuHead": {
-        "message": "The menu at the top of diigo.com"
-    },
-    "topMenuIntro": {
-        "message": "Which items it shows, in which order, and links of your own; the same at the top of the Swift Library and Swift Discover. My Library, My Outliners, My Groups and Swift Library only show while you're signed in."
-    },
-    "topMenuAdd": {
-        "message": "Add a link"
-    },
-    "topMenuName": {
-        "message": "Name"
-    },
-    "topMenuShow": {
-        "message": "Show in the menu"
-    },
-    "topMenuUp": {
-        "message": "Move up"
-    },
-    "topMenuDown": {
-        "message": "Move down"
     },
     "topMenuRemove": {
         "message": "Remove"
@@ -567,9 +1001,6 @@
     "libraryRemoveFilter": {
         "message": "Remove this filter"
     },
-    "libraryHuntIntro": {
-        "message": "20 of your bookmarks whose link isn't checked yet, at random: their links are checked now, a dead one in red. Click Dead links at the left again for the dead ones found, or 20 others."
-    },
     "libraryHuntNone": {
         "message": "No dead links: all links of your bookmarks have been checked lately."
     },
@@ -694,6 +1125,30 @@
     },
     "libraryTrashIntro": {
         "message": "Deleted with the add-on, kept in this browser. Put back adds it to Diigo again, dated today and without highlights. Gone for good after 30 days."
+    },
+    "bulkRestored": {
+        "message": "$COUNT$ items put back.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkNotRestored": {
+        "message": "$COUNT$ couldn't be put back:",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkForgetConfirm": {
+        "message": "Remove the $COUNT$ selected items from the trash for good?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
     },
     "libraryRestore": {
         "message": "Put back"
@@ -841,6 +1296,14 @@
         "message": "Something went wrong ($ERROR$). Everything that could be shown is shown; reloading the page may help.",
         "placeholders": {
             "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptEmpty": {
+        "message": "Diigo gave no items, so the index of $COUNT$ items is kept as it was. Try again later.",
+        "placeholders": {
+            "count": {
                 "content": "$1"
             }
         }
@@ -1391,7 +1854,7 @@
         "message": "The bookmark form"
     },
     "formOptionsIntro": {
-        "message": "What the form fills in for a new bookmark. A bookmark you saved before opens as you saved it."
+        "message": "What the form fills in for a new bookmark. A bookmark you saved before opens as you saved it. The shortcut always opens the bookmark form, on a page that can't be saved the Swift Library."
     },
     "optionPageDescription": {
         "message": "Without text selected on the page, the description the page gives of itself (as search engines show it) as the description"
@@ -1456,14 +1919,6 @@
     },
     "linksCheckAll": {
         "message": "Check all links"
-    },
-    "linksCheckAllIntro": {
-        "message": "$COUNT$ links of your library are not checked, or not lately: Check all links checks them all, also those you don't scroll to.",
-        "placeholders": {
-            "count": {
-                "content": "$1"
-            }
-        }
     },
     "linksAllChecked": {
         "message": "All links of your library are checked lately."
@@ -1687,9 +2142,6 @@
     },
     "linkUseNewUrl": {
         "message": "Use the new web address"
-    },
-    "linkUseNewUrlAll": {
-        "message": "All to the new address"
     },
     "linkUseNewUrlConfirm": {
         "message": "Give $COUNT$ bookmarks the web address they moved to, in Diigo too?",

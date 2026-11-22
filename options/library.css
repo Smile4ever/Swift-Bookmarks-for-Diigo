@@ -395,6 +395,37 @@ button {
   overflow-wrap: anywhere;
 }
 
+/* that there is Swift Guide, once after the update (library-page.js: showGuideNews) */
+.guide-news {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  background: #e8f2fc;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.guide-news a {
+  font-weight: 600;
+}
+
+.guide-news button {
+  border: 0;
+  background: none;
+  color: var(--grey);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  .guide-news {
+    background: #1b2a3a;
+  }
+}
+
 
 /* ---- the bar below the blue one: only when there is something to say (library.js: showNotice) ---- */
 
@@ -674,6 +705,14 @@ button {
   margin: 0;
 }
 
+/* how many with a hidden tag match, after Show hidden (library-list.js: showCount), as the counts of the side bar */
+.hidden-count {
+  padding: 0 5px;
+  border-radius: 8px;
+  background: var(--line);
+  font-size: 11px;
+}
+
 .items {
   margin: 0;
   padding: 0;
@@ -779,6 +818,14 @@ button {
     background: #31274a;
     color: #c5b3f0;
   }
+}
+
+/* not checked yet, with autoCheckLinks off: a click checks it (library-links.js: linkStatus) */
+.link-status[data-state="unchecked"] {
+  background: transparent;
+  outline: 1px dashed currentColor;
+  outline-offset: -1px;
+  cursor: pointer;
 }
 
 /* found dead, but you said it isn't (library-links.js: ignoreLink): grey and struck through, its title as any other */
@@ -2006,9 +2053,75 @@ a.selected .c-icon.kindle { background-position: -360px -50px; }
   }
 }
 
-/* the last one alone on its row: as wide as both */
-.home-block:last-child:nth-child(odd) {
+/* the last one alone on its row: as wide as both (the first child is the bar of Customize Start) */
+.home-block:last-child:nth-child(even) {
   grid-column: 1 / -1;
+}
+
+/* Pinned with a long note in it (library-home.js: pinnedBlock): as wide as both */
+.home-block.wide {
+  grid-column: 1 / -1;
+}
+
+/* Pinned: what you chose to keep in sight, in a warm tint with a pin before its name, and More as a button, the way
+   to all of them */
+.home-block.pinned {
+  border-color: #f3e2b3;
+  border-left: 3px solid #f0c75e;
+  background: #fffdf6;
+}
+
+.home-block.pinned .home-item {
+  border-top-color: #f5ecd2;
+}
+
+.home-block.pinned h2::before {
+  content: "";
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+  background: #f0c75e;
+  vertical-align: -1px;
+  /* a pin: its head, its body and its point */
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 1h6v1.5L9.8 3.6v3.2l2.7 2.4V11H9v4l-1 1-1-1v-4H3.5V9.2l2.7-2.4V3.6L5 2.5z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.home-block.pinned .more {
+  /* not the 1px of .more, the end of the list that loads more of it */
+  height: auto;
+  padding: 2px 12px;
+  border: 1px solid #f0c75e;
+  border-radius: 12px;
+  background: transparent;
+  color: #8a6400;
+  font-weight: 600;
+}
+
+.home-block.pinned .more:hover {
+  background: #fcefc7;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .home-block.pinned {
+    border-color: #3f3826;
+    border-left-color: #b8902e;
+    background: #1f1d17;
+  }
+
+  .home-block.pinned .home-item {
+    border-top-color: #34302a;
+  }
+
+  .home-block.pinned .more {
+    border-color: #8a6d2a;
+    color: #e2c172;
+  }
+
+  .home-block.pinned .more:hover {
+    background: #2f2a1c;
+  }
 }
 
 .home-block {
@@ -2761,5 +2874,137 @@ a.selected .c-icon.kindle { background-position: -360px -50px; }
 /* Fetch titles in the bar of Without a title: blue, not red as Empty trash */
 .notitle-bar button {
   border-color: var(--link);
+  color: var(--link);
+}
+
+/* Dead links: how far checking or looking is (library-links.js: showDeadBar) */
+#deadProgress {
+  flex: 0 1 160px;
+  min-width: 80px;
+  accent-color: var(--blue);
+}
+
+/* To do on Start: its todo tags in the row (library-home.js: todoBlock) */
+.home-item .todo-tag {
+  padding: 0 6px;
+  border-radius: 3px;
+  background: #fff3cd;
+  color: #8a6d00;
+  font-size: 11px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .home-item .todo-tag {
+    background: #4a3f15;
+    color: #f0d27a;
+  }
+}
+
+/* ---- customizing Start (library-home.js: homeToolbar, editableBlock) ---- */
+
+.home-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: -10px;
+}
+
+.home-toolbar button {
+  padding: 4px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--link);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.home-toolbar button:hover {
+  border-color: var(--blue);
+}
+
+.home-toolbar .edit-start {
+  border-color: transparent;
+}
+
+.home-toolbar button.primary {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #fff;
+}
+
+.home-toolbar.editing {
+  margin-bottom: 0;
+}
+
+.home-editing-intro {
+  flex: 1;
+  color: var(--grey);
+  font-size: 13px;
+}
+
+.home-block.customizing {
+  border-style: dashed;
+  border-color: var(--blue);
+}
+
+/* left out of Start: faint, to show it again */
+.home-block.left-out {
+  opacity: .45;
+}
+
+.block-tools {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.block-tools button {
+  min-width: 26px;
+  padding: 1px 4px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.block-tools button:hover:not(:disabled) {
+  border-color: var(--blue);
+  color: var(--link);
+}
+
+.block-tools button:disabled {
+  opacity: .35;
+  cursor: default;
+}
+
+.home-empty {
+  margin: 6px 0;
+  color: var(--grey);
+  font-size: 13px;
+}
+
+/* a block of your own, in the popup: how to write what it shows */
+.card .card-hint {
+  margin: -4px 0 4px;
+  color: var(--grey);
+  font-size: 12px;
+}
+
+/* ⋯ of an item: pin to Start, hide (library-home.js: itemMenuButton) */
+.item-menu {
+  padding: 0 6px;
+  color: var(--grey);
+  font-size: 16px;
+  line-height: 1;
+}
+
+.item-menu:hover {
   color: var(--link);
 }

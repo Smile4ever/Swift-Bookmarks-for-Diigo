@@ -54,15 +54,12 @@ async function loadLog() {
   showLog();
 }
 
-// What helps with a bug report; your own lists (hidden tags, rules per site, folders, links of your own) stay out
+// What helps with a bug report; your own lists (hidden tags, rules per site, folders) stay out
 const PRIVATE_SETTINGS = ['hiddenTags', 'alsoHiddenTags', 'siteRules', 'syncFolders'];
 
 async function technicalDetails() {
   const settings = await loadSettings().catch(() => ({}));
   for (const key of PRIVATE_SETTINGS) delete settings[key];
-  if (Array.isArray(settings.menuItems)) {
-    settings.menuItems = settings.menuItems.map(item => 'url' in item ? {id: 'own link', shown: item.shown} : item);
-  }
   return {
     version: browser.runtime.getManifest().version,
     browser: await browser.runtime.getBrowserInfo?.().catch(() => null) || null,

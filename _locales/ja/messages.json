@@ -1,4 +1,462 @@
 {
+    "userMenuHead": {
+        "message": "diigo.com のアカウント"
+    },
+    "formScreenshot": {
+        "message": "スクリーンショットも保存"
+    },
+    "screenshotLine": {
+        "message": "スクリーンショット: $URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1"
+            }
+        }
+    },
+    "screenshotName": {
+        "message": "$TITLE$ のスクリーンショット",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMenu": {
+        "message": "この項目の操作"
+    },
+    "itemPin": {
+        "message": "スタートにピン留め"
+    },
+    "itemHide": {
+        "message": "非表示にする (非表示のタグ)"
+    },
+    "itemUnhide": {
+        "message": "再表示 (非表示のタグを外す)"
+    },
+    "homeChanged": {
+        "message": "最近変更"
+    },
+    "homePinned": {
+        "message": "ピン留め"
+    },
+    "homeUnpin": {
+        "message": "ピン留めを外す"
+    },
+    "homeUnpinTitle": {
+        "message": "タグ pinned を外します (Diigo でも)"
+    },
+    "homeEditStart": {
+        "message": "スタートをカスタマイズ"
+    },
+    "homeEditIntro": {
+        "message": "ブロックを並べ替えたり、不要なものを外したり、検索で見つかるものを表示する自分のブロックを追加したりできます。タグ pinned を付けたブックマークは「ピン留め」に入ります。"
+    },
+    "homeAddBlock": {
+        "message": "ブロックを追加"
+    },
+    "homeBlockChange": {
+        "message": "ブロックを変更"
+    },
+    "homeResetLayout": {
+        "message": "既定のブロック"
+    },
+    "homeResetConfirm": {
+        "message": "スタートを既定のブロックに戻しますか? 自分のブロックは消えます。"
+    },
+    "homeBlockUp": {
+        "message": "上へ"
+    },
+    "homeBlockDown": {
+        "message": "下へ"
+    },
+    "homeBlockHide": {
+        "message": "スタートから外す"
+    },
+    "homeBlockShow": {
+        "message": "スタートに表示"
+    },
+    "homeBlockEmpty": {
+        "message": "今は何もありません。"
+    },
+    "homeBlockRemoveConfirm": {
+        "message": "ブロック「$NAME$」を削除しますか?",
+        "placeholders": {
+            "name": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeBlockName": {
+        "message": "名前"
+    },
+    "homeBlockSearch": {
+        "message": "表示するもの"
+    },
+    "homeBlockSearchHint": {
+        "message": "検索ボックスと同じ: 語、除外するには -語、そう始まるタグには tag* (todo*)。下で選んだ項目で探します。"
+    },
+    "homeBlockNeedsSearch": {
+        "message": "ブロックに表示するものを入力してください。"
+    },
+    "homeBlockCount": {
+        "message": "件数"
+    },
+    "homeBlockCountOf": {
+        "message": "$COUNT$ 件",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreStart": {
+        "message": "自分だけのスタート: 「スタートをカスタマイズ」(右上) でブロックを並べ替えたり外したり、検索で見つかるものを表示する自分のブロックを追加したりできます。ブックマークにタグ pinned を付けると、一番上の「ピン留め」に入ります。"
+    },
+    "optionTodoRandom": {
+        "message": "スタートの「やること」: いつも古いものではなく、いくつかをランダムに表示し、「別のもの」で入れ替えます。数が多いときに便利です。"
+    },
+    "goToSwiftLibrary": {
+        "message": "Swift Library へ"
+    },
+    "optionToolbarButton": {
+        "message": "ツールバーのボタンで開くもの"
+    },
+    "toolbarButtonForm": {
+        "message": "ブックマークのフォーム"
+    },
+    "toolbarButtonLibrary": {
+        "message": "Swift Library"
+    },
+    "browserActionLibraryTitle": {
+        "message": "Swift Library を開く"
+    },
+    "homeTodo": {
+        "message": "やること"
+    },
+    "homeTodoDone": {
+        "message": "完了"
+    },
+    "homeTodoDoneTitle": {
+        "message": "$TAGS$ を外します (Diigo でも)",
+        "placeholders": {
+            "tags": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreTodo": {
+        "message": "やること: ブックマークに todo で始まるタグ (todo、todo-仕事…) を付けると、スタートの「やること」に古い順で表示され、「完了」でタグを外せます。"
+    },
+    "menuLibrary": {
+        "message": "ライブラリ"
+    },
+    "menuDiscover": {
+        "message": "発見"
+    },
+    "menuTools": {
+        "message": "ツール"
+    },
+    "diigoMyLibrary": {
+        "message": "マイライブラリ"
+    },
+    "diigoMyOutliners": {
+        "message": "マイアウトライナー"
+    },
+    "diigoMyGroups": {
+        "message": "マイグループ"
+    },
+    "diigoPremium": {
+        "message": "プレミアムにする"
+    },
+    "userPublicLibrary": {
+        "message": "公開ライブラリ"
+    },
+    "userSettings": {
+        "message": "Diigo の設定"
+    },
+    "userSignOut": {
+        "message": "サインアウト"
+    },
+    "viewAll": {
+        "message": "すべて"
+    },
+    "viewBookmarks": {
+        "message": "ブックマーク"
+    },
+    "viewPdfs": {
+        "message": "PDF"
+    },
+    "viewImages": {
+        "message": "画像"
+    },
+    "viewNotes": {
+        "message": "ノート"
+    },
+    "viewOutliners": {
+        "message": "アウトライナー"
+    },
+    "viewUntagged": {
+        "message": "タグなし"
+    },
+    "sideTags": {
+        "message": "タグ"
+    },
+    "sideTop": {
+        "message": "よく使う"
+    },
+    "sideRecent": {
+        "message": "最近"
+    },
+    "sideAllTags": {
+        "message": "すべてのタグ"
+    },
+    "sideRelatedTags": {
+        "message": "関連タグ"
+    },
+    "toDiigo": {
+        "message": "diigo.com へ"
+    },
+    "guideTypesHead": {
+        "message": "ブックマークだけではありません"
+    },
+    "guideTypesIntro": {
+        "message": "Diigo ライブラリにはウェブページ以外のものも入っています。Swift Library では各項目の種類がタイトルの前のアイコンで示され、サイドバーの すべて の下で種類を一つ選べます。サイドバー上部の追加ボタンで、Kindle 以外のどれでも作れます。"
+    },
+    "guideTypeBookmark": {
+        "message": "ブックマーク: フォームで保存した、またはここで追加したウェブページ。タイトルの前にページの状態が表示されます。"
+    },
+    "guideTypeNote": {
+        "message": "ノート: 自分で書くテキスト (プレーンまたは書式付き)。ここで書いて編集し、タイトルをクリックするとページ内に表示されます。タイトルが .py、.css、.html などで終わるノートはコードとして色付きで表示されます。ノートは Diigo では常に非公開です。"
+    },
+    "guideTypeFile": {
+        "message": "画像と PDF: タイトル、説明、タグを付けてここからアップロードします (PDF は 64 MB まで)。画像はページ内に表示されます。ここで削除してもファイルはゴミ箱に残るので、元に戻せます。"
+    },
+    "guideTypeKindle": {
+        "message": "Kindle: diigo.com でインポートした Kindle のハイライト。ここでは作成も編集もできません。ゴミ箱からは再インポートで元に戻ります。"
+    },
+    "guideTypeAnnotated": {
+        "message": "注釈付き: Diigo 自身のブラウザー拡張機能で、ページにハイライトや付箋を付けたブックマーク。どれに付いているかは Swift Library に表示され、ハイライト自体は diigo.com にあります。"
+    },
+    "linksCheckChoice": {
+        "message": "ライブラリの $COUNT$ 件のリンクが未確認、または最近確認されていません。スクロールしない分も含めてすべて確認するか、最初の $FOUND$ 件のリンク切れが見つかるまでだけ確認できます。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "found": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntButton": {
+        "message": "最初の $COUNT$ 件のリンク切れを探す",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHuntIntro": {
+        "message": "未確認のリンクから、$COUNT$ 件見つかるまでリンク切れを探しています。見つかったものはすぐここに表示されます。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHunting": {
+        "message": "リンク切れを検索中: $DONE$ 件確認、$DEAD$ 件発見",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHunted": {
+        "message": "確認した $DONE$ 件のリンクのうち、$DEAD$ 件のリンク切れが見つかりました。",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntedNone": {
+        "message": "確認した $DONE$ 件のリンクにリンク切れはありませんでした。",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            }
+        }
+    },
+    "toolsMenu": {
+        "message": "Swift Tools"
+    },
+    "guideSyncHead": {
+        "message": "ブラウザーのブックマークを Diigo へ"
+    },
+    "guideSyncText": {
+        "message": "Swift オプションでこのブラウザーのフォルダーを選ぶと、そのブックマークが Diigo ライブラリに入ります。「今すぐ同期」で一度だけ、または同期し続ければ、そこに作った新しいブックマークが 1 分後に Diigo へ送られます。フォルダー名をタグにでき (レシピ › イタリア料理 なら レシピ と イタリア料理)、非公開で保存することもできます。フォルダーはコンピューターごとに選びます。"
+    },
+    "guideSyncOneWay": {
+        "message": "同期は一方向で、このブラウザーから Diigo へです。すでに Diigo にあるブックマークはそのまま残り、このブラウザーから削除したブックマークも Diigo には残ります。Diigo ライブラリがブラウザーのブックマークに入ることはありません。そのためには Swift Library とアドレスバーの d があります。"
+    },
+    "guideSyncChoose": {
+        "message": "フォルダーを選ぶ"
+    },
+    "libraryGoneOn": {
+        "message": "$DATE$ から Diigo にありません",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexGoneToTrash": {
+        "message": "インデックスを作り直しました: $COUNT$ 件の項目が Diigo になくなっていたため、ゴミ箱に移しました。30 日間は元に戻せます。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptShrunk": {
+        "message": "Diigo から返された項目は $COUNT$ 件だけで、インデックスの $BEFORE$ 件よりはるかに少ないため、インデックスはそのまま保持されます。後でもう一度試すか、ライブラリが本当にそれだけ小さくなった場合は Swift オプションで「作り直す」を選んでください。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexShrinkConfirm": {
+        "message": "Diigo から返された項目は $COUNT$ 件だけで、インデックスの $BEFORE$ 件よりはるかに少なくなっています。たいていは Diigo の読み込みがうまくいかなかったことを意味します。それでもインデックスをこの $COUNT$ 件で置き換えますか?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "guideNews": {
+        "message": "新機能: アドオンが Diigo より多くできることのガイドです。たとえばタグ hidden でブックマークを隠す方法など。"
+    },
+    "privacyFirefoxSync": {
+        "message": "Firefox では、Firefox Sync の設定で「アドオン」にチェックが入っている場合だけ、設定が他のコンピューターに届きます (設定、同期)。"
+    },
+    "guideMenu": {
+        "message": "Swift ガイド"
+    },
+    "guideIntro": {
+        "message": "Swift Bookmarks for Diigo は、diigo.com へのサインインを使って Diigo をより速く、使いやすくします。Diigo 自身が作ったものではありません。ここでは追加される機能と、その場所を紹介します。"
+    },
+    "guideAgain": {
+        "message": "このガイドはいつでも開き直せます: Swift のページの上部メニュー、またはツールバーのボタンのメニューの「ガイド」から。"
+    },
+    "guideFormHead": {
+        "message": "ページを一瞬で保存"
+    },
+    "guideFormText": {
+        "message": "ツールバーのボタンをクリックするか、ページやリンクを右クリックします。フォームはタグを提案します: タイトルや URL に含まれる自分のタグ、同じサイトで最後に保存したブックマークのタグ、よく一緒に使うタグ。新しいブックマークはトラッキングパラメーターなしで保存され、以前に保存したことがあればフォームが知らせ、ボタンはそのページがすでにライブラリにあるかを示します。"
+    },
+    "guideShortcut": {
+        "message": "ショートカット: $KEYS$",
+        "placeholders": {
+            "keys": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideHiddenHead": {
+        "message": "タグ hidden でブックマークを隠す"
+    },
+    "guideHiddenText": {
+        "message": "ブックマークにタグ hidden を付けると、Swift Library、アドレスバー、Swift Discover、フォームの提案に出なくなります。誰かに画面をのぞかれたときに出てほしくないものに便利です。見るには、タグを完全な形 (hidden) で検索するか、一覧の上の「非表示も表示」にチェックを入れます。自分の非表示タグは Swift オプションで選べます。非表示のブックマークだけが持つタグも、それらを明かさないよう非表示になります。"
+    },
+    "guideHiddenWarn": {
+        "message": "非表示は非公開ではありません: diigo.com 自体では、またブックマークが公開なら他の人にも、見えたままです。誰にも見られたくないなら、非公開にもしてください。"
+    },
+    "guideHiddenChoose": {
+        "message": "非表示のタグを選ぶ"
+    },
+    "guideLibraryHead": {
+        "message": "Swift Library: ライブラリ全体を一度に"
+    },
+    "guideLibraryText": {
+        "message": "このブラウザーにあるライブラリのコピーなので、何千件のブックマークがあっても検索、並べ替え、絞り込みがすぐに終わります。すべての項目か一つの項目 (タイトル、URL、タグ、説明…) で検索し、-語 で除外し、+ で検索を絞り込みとして残し、タグやサイトをクリックしてそれで絞り込みます。「スタート」には最近保存したもの、読むのを待っているもの、過去の同じ日に保存したものが表示されます。"
+    },
+    "guideBulkText": {
+        "message": "一括編集: ブックマークにチェックを入れて (Shift+クリックや Shift+矢印キーも使えます)、タグの追加や削除、非公開・公開、既読・未読の切り替え、アウトライナーへの共有、まとめての削除ができます。"
+    },
+    "guideTrashHead": {
+        "message": "気が変わったときのゴミ箱"
+    },
+    "guideTrashText": {
+        "message": "ここや diigo.com で削除したものは 30 日間ゴミ箱に入り (画像と PDF はファイルごと)、そこから一つずつ、または一括編集で元に戻せます。Diigo 自体にはゴミ箱がありません。"
+    },
+    "guideLinksHead": {
+        "message": "リンク切れと Wayback Machine"
+    },
+    "guideLinksText": {
+        "message": "各タイトルの前にそのページの状態が表示されます: 200、404、BOT、PARKED、移転した場合は →。クリックすると Wayback Machine や archive.is でページを探し、最新のコピーや新しい URL を使えます。「スタート」の「整理」では、重複、タグやタイトルのないブックマーク、統合できる似たタグも見つかります。"
+    },
+    "guideLinksPrivacy": {
+        "message": "このため、アドオンはあなたのブラウザーから各ページをそのサイトに要求します。避けたい場合は、Swift オプションの「プライバシー」で、頼んだときだけリンクを確認するようにできます。"
+    },
+    "guideTagsHead": {
+        "message": "タグとアウトライナー"
+    },
+    "guideTagsText": {
+        "message": "すべてのタグと検索ボックス、よく使う 300 個のタグクラウド、タグを一度に全体で名前変更、ほぼ同じタグ (recipe と recipes) を一つに統合。"
+    },
+    "guideOutlinersText": {
+        "message": "Diigo のアウトライナーも Swift Library のサイドバーにあります: キーボードで書けるツリーで、ライブラリの項目も入れられます。"
+    },
+    "guideDiscoverText": {
+        "message": "Diigo コミュニティの Hot Bookmarks から手持ちのものを除き、「あなた向け」(自分のタグ順) で、検索と絞り込み付き。クリック一つで保存、または「興味なし」で除外できます。"
+    },
+    "guideMoreHead": {
+        "message": "その他"
+    },
+    "guideMoreAddress": {
+        "message": "アドレスバーで: d、スペース、いくつかの語を入力するとブックマークが見つかります。"
+    },
+    "guideMoreDiigo": {
+        "message": "diigo.com では: 上部メニューの最後に「Swift Library へ」があり、サインイン後は Swift Library が開きます。それ以外の diigo.com はそのままです。Swift オプションで My Library と Tools で Swift ページを開くようにできます。"
+    },
+    "guideMoreSettings": {
+        "message": "設定はブラウザーのアカウントで他のコンピューターにも引き継がれます。"
+    },
+    "guidePrivacyText": {
+        "message": "アドオンは作者に何も送りません。サインインを使ってあなたの代わりに diigo.com とやり取りし、ライブラリのコピーはこのブラウザーに残ります。ほかに何がどこへ行くか、その選択は Swift オプションの「プライバシー」にあります。"
+    },
+    "guideDiigoTour": {
+        "message": "Diigo 自身による Diigo の紹介: diigo.com の Learn more"
+    },
+    "privacyHead": {
+        "message": "プライバシー"
+    },
+    "privacyIntro": {
+        "message": "アドオンは作者に何も送りません。サインインを使ってあなたの代わりに diigo.com とやり取りし、ライブラリのコピー (インデックス) はこのブラウザーに残ります。これらの設定は、ブラウザーが同期している場合はそのアカウント (Firefox Sync、Google、Microsoft) に保存され、他のコンピューターにも届きます。同期するフォルダーはこのコンピューターに残ります。"
+    },
+    "optionAutoCheckLinks": {
+        "message": "一覧に表示されたリンクを自動で確認します。オフ: リンクは頼んだときだけ確認されます (· のクリック、「すべてのリンクを確認」、サイドバーでのリンク切れ探し)。以前に確認した結果は表示されたままです。"
+    },
+    "optionsGuideText": {
+        "message": "初めての方、または Diigo との違いが気になる方へ"
+    },
+    "linkNotCheckedTitle": {
+        "message": "未確認: クリックするとこのリンクを確認します"
+    },
     "move": {
         "message": "移動"
     },
@@ -86,7 +544,7 @@
         "message": "Swift Bookmarks for Diigo のオプション"
     },
     "cannotBookmark": {
-        "message": "Diigo はこのページを保存できません"
+        "message": "このページは Diigo に保存できません: Swift Library を開く"
     },
     "commandShowForm": {
         "message": "このページを Diigo に保存"
@@ -104,13 +562,10 @@
         "message": "diigo.com で"
     },
     "optionsIntro": {
-        "message": "このアドオンは diigo.com の見た目や動作をもう変更しません。より良い機能は Swift Library と Swift Discover にあります。diigo.com では上部メニューにそこへの入口を追加するだけです。"
+        "message": "アドオンは diigo.com をほとんど変えません。より良くする部分は Swift Library と Swift Discover にあります。diigo.com では、上部メニューに「Swift Library へ」という入り口を加えるだけです。"
     },
     "optionMyLibraryToSwift": {
-        "message": "diigo.com の上部メニューの My Library で Swift Library を開く。Diigo 本来のもの: Ctrl+クリックか中クリック、または Swift Library のメニューの My Library"
-    },
-    "myLibraryToSwiftTitle": {
-        "message": "Swift Library を開きます。Ctrl+クリック: diigo.com の My Library"
+        "message": "diigo.com の自分のライブラリへ行くと Swift Library が開きます: リンク、ブックマーク、アドレスの入力。diigo.com 上部メニューの My Library と、後ろに ?swift=false を付けたアドレスは Diigo 本来のままです"
     },
     "optionSignInToSwift": {
         "message": "diigo.com にサインインした後、diigo.com のライブラリの代わりに Swift Library を開く"
@@ -119,10 +574,10 @@
         "message": "このアドオンを含む、ライブラリ用の Diigo のツール: ツールバーボタンと Ctrl+Alt+D のブックマークフォーム、Swift Library、Swift Discover。"
     },
     "optionToolsToSwift": {
-        "message": "diigo.com 上部メニューの Tools でアドオンの Tools ページを開く: Google Play と Import kindle highlights なし、このアドオンあり。Diigo 本来のもの: Ctrl+クリックまたは中クリック"
+        "message": "diigo.com 上部メニューの Tools でSwift Tools を開く: Google Play と Import kindle highlights なし、このアドオンあり。Diigo 本来のもの: Ctrl+クリックまたは中クリック"
     },
     "toolsToSwiftTitle": {
-        "message": "アドオンの Tools ページを開きます。Ctrl+クリック: diigo.com の Tools"
+        "message": "Swift Tools を開きます。Ctrl+クリック: diigo.com の Tools"
     },
     "optionDeadLinks": {
         "message": "Swift Library で、リンク切れ (404) やサイトが応答しないリンクを表示します。そのためにアドオンは各ページをサイトから直接取得します。ステータスコードをクリックすると、Wayback Machine や archive.is でページを探せます。"
@@ -158,27 +613,6 @@
     },
     "optionSplitAdd": {
         "message": "+ ボタンとメニューの代わりに、サイドバー上部に 4 つのボタン: Bookmark、Image、PDF、Note。ワンクリックで追加できます"
-    },
-    "topMenuHead": {
-        "message": "diigo.com 上部のメニュー"
-    },
-    "topMenuIntro": {
-        "message": "表示する項目とその順番、そして自分のリンク。Swift Library と Swift Discover の上部も同じです。My Library、My Outliners、My Groups、Swift Library はサインイン中のみ表示されます。"
-    },
-    "topMenuAdd": {
-        "message": "リンクを追加"
-    },
-    "topMenuName": {
-        "message": "名前"
-    },
-    "topMenuShow": {
-        "message": "メニューに表示"
-    },
-    "topMenuUp": {
-        "message": "上へ"
-    },
-    "topMenuDown": {
-        "message": "下へ"
     },
     "topMenuRemove": {
         "message": "削除"
@@ -557,9 +991,6 @@
     "libraryRemoveFilter": {
         "message": "このフィルターを外す"
     },
-    "libraryHuntIntro": {
-        "message": "リンクをまだ確認していないブックマークからランダムに 20 件: 今そのリンクを確認しています。リンク切れは赤で表示されます。左のリンク切れをもう一度クリックすると、見つかったリンク切れ、または別の 20 件を表示します。"
-    },
     "libraryHuntNone": {
         "message": "リンク切れはありません: ブックマークのリンクはすべて最近確認済みです。"
     },
@@ -684,6 +1115,30 @@
     },
     "libraryTrashIntro": {
         "message": "アドオンで削除し、このブラウザーに保管しているもの。戻すと今日の日付・ハイライトなしで Diigo に作り直します。30 日後に完全に消えます。"
+    },
+    "bulkRestored": {
+        "message": "$COUNT$ 件の項目を元に戻しました。",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkNotRestored": {
+        "message": "$COUNT$ 件を元に戻せませんでした:",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkForgetConfirm": {
+        "message": "選択した $COUNT$ 件の項目をゴミ箱から完全に削除しますか?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
     },
     "libraryRestore": {
         "message": "元に戻す"
@@ -831,6 +1286,14 @@
         "message": "問題が発生しました ($ERROR$)。表示できるものはすべて表示しています。ページを再読み込みすると直ることがあります。",
         "placeholders": {
             "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptEmpty": {
+        "message": "Diigo から項目が返されなかったため、$COUNT$ 件の項目のインデックスはそのまま保持されます。後でもう一度お試しください。",
+        "placeholders": {
+            "count": {
                 "content": "$1"
             }
         }
@@ -1331,7 +1794,7 @@
         "message": "ブックマークフォーム"
     },
     "formOptionsIntro": {
-        "message": "新しいブックマークのためにフォームが入力する内容です。保存済みのブックマークは保存したとおりに開きます。"
+        "message": "新しいブックマークのためにフォームが入力する内容です。保存済みのブックマークは保存したとおりに開きます。 ショートカットは常にブックマークのフォームを開き、保存できないページでは Swift Library を開きます。"
     },
     "optionPageDescription": {
         "message": "ページで文字を選択していないときは、ページ自身の説明（検索エンジンに表示されるもの）を説明に使う"
@@ -1396,14 +1859,6 @@
     },
     "linksCheckAll": {
         "message": "すべてのリンクを確認"
-    },
-    "linksCheckAllIntro": {
-        "message": "ライブラリの $COUNT$ 件のリンクが未確認、または最近確認されていません: 「すべてのリンクを確認」でスクロールしない分も含めてすべて確認します。",
-        "placeholders": {
-            "count": {
-                "content": "$1"
-            }
-        }
     },
     "linksAllChecked": {
         "message": "ライブラリのリンクはすべて最近確認済みです。"
@@ -1626,9 +2081,6 @@
     },
     "linkUseNewUrl": {
         "message": "新しいアドレスを使う"
-    },
-    "linkUseNewUrlAll": {
-        "message": "すべて新しいアドレスへ"
     },
     "linkUseNewUrlConfirm": {
         "message": "$COUNT$ 件のブックマークを移動先のアドレスに変更しますか（Diigo でも）？",

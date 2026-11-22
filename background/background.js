@@ -15,7 +15,8 @@ const ICON = {
   normal: toolbarIcon('toolbar'),
   saved: toolbarIcon('toolbar-saved'),
   busy: toolbarIcon('toolbar-busy'),
-  blocked: toolbarIcon('toolbar-blocked'),
+  // with books: on a page that can't be bookmarked the button opens the Swift Library (markTab, onButton)
+  library: toolbarIcon('toolbar-library'),
   // on diigo.com: with a gear, as the button opens the options there (onDiigo)
   options: toolbarIcon('toolbar-options'),
 };
@@ -187,10 +188,26 @@ function onDiigo(url) {
   }
 }
 
-// a grey button that does nothing on pages that can't be bookmarked (about:, file:, addons.mozilla.org...); on
-// diigo.com one for the options. False when there is no bookmark to look up for it.
+// what the button opens (settings.js: toolbarButton), known at once for markTab, which can't wait for the settings
+let buttonOpens = DEFAULT_SETTINGS.toolbarButton;
+loadSettings().then(settings => buttonOpens = settings.toolbarButton).catch(() => {});
+browser.storage.onChanged.addListener((changes, area) => {
+  if (settingsArea(area) && changes.toolbarButton) loadSettings().then(settings => buttonOpens = settings.toolbarButton);
+});
+
+// On pages that can't be bookmarked (about:, file:, addons.mozilla.org...) the button opens the Swift Library, with
+// books on its icon and a title that says so; on diigo.com the options. Set to open the Swift Library always
+// (toolbarButton): its title says so, and its icon still shows whether a page is saved, with books where it can't be.
+// False when there is no bookmark to look up.
 function markTab(tab) {
   const action = browser.action;
+  if (buttonOpens == 'library') {
+    const ok = !onDiigo(tab.url) && canBookmark(tab.url);
+    action.enable?.(tab.id)?.catch(() => {});
+    action.setTitle?.({tabId: tab.id, title: browser.i18n.getMessage('browserActionLibraryTitle')}).catch(() => {});
+    setIcon(tab.id, ok ? 'normal' : 'library');
+    return ok;
+  }
   if (onDiigo(tab.url)) {
     action.enable?.(tab.id)?.catch(() => {});
     action.setTitle?.({tabId: tab.id, title: browser.i18n.getMessage('browserActionOptionsTitle')}).catch(() => {});
@@ -198,10 +215,10 @@ function markTab(tab) {
     return false;
   }
   const ok = canBookmark(tab.url);
-  (ok ? action.enable?.(tab.id) : action.disable?.(tab.id))?.catch(() => {});
+  action.enable?.(tab.id)?.catch(() => {});
   // the title in full: Chrome doesn't take null for "the default title"
   action.setTitle?.({tabId: tab.id, title: browser.i18n.getMessage(ok ? 'browserActionDefaultTitle' : 'cannotBookmark')}).catch(() => {});
-  setIcon(tab.id, ok ? 'normal' : 'blocked');
+  setIcon(tab.id, ok ? 'normal' : 'library');
   return ok;
 }
 
@@ -232,6 +249,13 @@ async function onTabLoading(tab) {
     const {ok, answer} = await callDiigo('bm_loadBookmark', {url: clean, what: 'bookmarkInfo'});
     saved = ok && !!answer.result?.saved;
   }
+  // at nearly the same web address in the index (urlKey: http or https, www., tracking parameters…), which the form
+  // then opens to edit (openBookmark: otherAddress); also one Diigo doesn't find at its own web address
+  if (!saved) {
+    const {items} = await userIndex();
+    const key = urlKey(tab.url);
+    saved = !!items?.some(item => item.url && (item.url == tab.url || urlKey(item.url) == key));
+  }
   if (saved && lookups.get(tab.id)?.result == result) setIcon(tab.id, 'saved');
 }
 
@@ -246,8 +270,11 @@ async function findBookmark(url, tab) {
 }
 
 // The bookmark of a page for the form, with your tags, groups and outliners. Not saved at url: with cleanUrls, the
-// bookmark at the web address preferredUrl gives, when that is another one, and else a new one there. Also from the
-// index (when there is one): the tags you use together (relatedTags) and the bookmarks at nearly the same web address
+// bookmark at the web address preferredUrl gives, when that is another one; else the one at nearly the same web address
+// (similarBookmarks: http or https, www., tracking parameters…), the newest, to edit rather than a new one beside it
+// (otherAddress, which the form says); else a new one. Diigo's toolbar API finds a bookmark only at its web address as
+// Diigo wrote it: one it doesn't find but the index has is as the index has it (asFound). Also from the index (when
+// there is one): the tags you use together (relatedTags) and the other bookmarks at nearly the same web address
 // (similar).
 async function openBookmark({url, title, canonical = ''}, tab) {
   const tagsOutdated = user && Date.now() - userTagsTime > 15 * 60 * 1000;
@@ -263,9 +290,31 @@ async function openBookmark({url, title, canonical = ''}, tab) {
       bookmarkUrl = preferred;
     }
   }
+  const items = cached.items || [];
+  if (!found?.saved) {
+    const own = items.find(item => item.url == url || item.url == bookmarkUrl);
+    if (own) {
+      found = asFound(own);
+      bookmarkUrl = own.url;
+    }
+  }
+  let otherAddress = false;
+  if (!found?.saved) {
+    const [other] = similarBookmarks(items, bookmarkUrl);
+    const item = other && items.find(item => item.url == other.url);
+    if (item) {
+      const diigo = await findBookmark(item.url);
+      found = diigo?.saved ? diigo : asFound(item);
+      bookmarkUrl = item.url;
+      otherAddress = true;
+    }
+  }
   const saved = !!found?.saved;
   const info = saved && found.bookmarkInfo || {};
-  const items = cached.items || [];
+  // a saved one the index knows: its link_id, to save it again by that (saveByLinkId), as the toolbar API, by its web
+  // address, can make a new one beside it (one at nearly the same web address, written otherwise by Diigo)
+  const indexed = saved && items.find(item => item.url == (found.url || bookmarkUrl));
+  const linkId = saved ? found.linkId || indexed?.id || '' : '';
   const browserBookmarks = await browserBookmarksOf([url, bookmarkUrl, found?.url]);
   return {
     // bookmarks of the browser of this page: the form has Move then (form.js), which removes them once it is saved
@@ -277,11 +326,14 @@ async function openBookmark({url, title, canonical = ''}, tab) {
     lastTags: await getLastTags(url),
     relatedTags: relatedTagsOf(items, settings),
     similar: similarBookmarks(items, saved ? found.url || bookmarkUrl : bookmarkUrl),
+    otherAddress,
     annotated: !!(found && (found.annotated || found.annotations?.length || found.pageComments?.length)),
     bookmark: {
       saved,
       url: found?.url || bookmarkUrl,
       urlId: found?.urlId || '',
+      // known in the index: saved again by its link_id (saveByLinkId)
+      linkId,
       title: saved ? info.title : title || url,
       description: info.description || '',
       tags: info.tags || [],
@@ -381,7 +433,16 @@ async function saveBookmark(bm, tab) {
   const isPage = tab?.url == bm.url;
   if (isPage) setIcon(tab.id, 'busy');
 
-  const {ok, status, answer} = await diigoSave(bm);
+  // a screenshot of the page along (the box of the form): as an image in your library, a link to it in the description
+  if (bm.screenshot && tab) {
+    const shot = await pageScreenshot(tab, bm).catch(e => logError('Screenshot', e));
+    if (shot) bm = {...bm, description: [bm.description, browser.i18n.getMessage('screenshotLine', shot)].filter(Boolean).join('\n\n')};
+  }
+
+  // a saved one the index knows (openBookmark: linkId) by its link_id, as Diigo's edit window saves one: the toolbar
+  // API, by web address, can make a new one beside it; not when it is shared to a group or an outliner, which only the
+  // toolbar API does
+  const {ok, status, answer} = bm.linkId && !bm.group && !bm.outliner ? await saveByLinkId(bm) : await diigoSave(bm);
 
   if (ok) {
     setLastTags(bm.tags, bm.url);
@@ -390,7 +451,8 @@ async function saveBookmark(bm, tab) {
   } else {
     logError('Bookmark form', `Diigo did not save the bookmark (${status})`, bm.url, answer);
   }
-  if (isPage) {
+  // the page, or one at nearly its web address (opened by the form for it: openBookmark, otherAddress)
+  if (isPage || bm.linkId && tab) {
     forget(tab.id);
     setIcon(tab.id, ok ? 'saved' : 'normal');
   }
@@ -400,6 +462,71 @@ async function saveBookmark(bm, tab) {
     code: answer?.code,
     message: typeof answer?.result == 'string' ? answer.result : answer?.message,
   };
+}
+
+// A bookmark saved as Diigo's own edit window saves one (options/library-index.js: saveWithNewUrl): by its link_id, at
+// its web address (url, or new_url when the field of the form has another one now), the rest as the form has it. The
+// answer as diigoSave's, for saveBookmark.
+const BOOKMARK_SAVE_URL = 'https://www.diigo.com/item/save/bookmark';
+
+async function saveByLinkId(bm) {
+  const tags = (bm.tags || []).map(tag => /\s/.test(tag) ? `"${tag}"` : tag).join(' ');
+  const body = new URLSearchParams({link_id: bm.linkId, url: bm.oldUrl || bm.url, new_url: bm.url, title: bm.title,
+    description: bm.description || '', tags, private: !!bm.private, unread: !!bm.unread});
+  try {
+    const response = await fetch(BOOKMARK_SAVE_URL, {method: 'POST', credentials: 'include',
+      headers: {'X-Requested-With': 'XMLHttpRequest'}, body, signal: timeLimit()});
+    const text = await response.text();
+    let saved = null;
+    try {
+      saved = JSON.parse(text)?.items?.[0];
+    } catch (e) {
+    }
+    const ok = response.ok && !!saved?.link_id;
+    return {ok, status: response.status, answer: ok ? {code: 1} : {code: 0, message: text.slice(0, 200)}};
+  } catch (e) {
+    return {ok: false, status: 0, answer: {message: e.message}};
+  }
+}
+
+// A screenshot of what the tab shows, without the form (content.js: formVisible), as Diigo's Add Image uploads an
+// image (options/library-index.js: uploadFile): private, with the tags of the bookmark and screenshot, named after its
+// title. The answer is the web address of the image on Diigo, or '' when Diigo didn't take it.
+const IMAGE_SAVE_URL = 'https://www.diigo.com/item/save/image';
+
+async function pageScreenshot(tab, bm) {
+  const visible = shown => browser.tabs.sendMessage(tab.id, {type: 'formVisible', visible: shown}).catch(() => {});
+  await visible(false);
+  let shot;
+  try {
+    shot = await browser.tabs.captureVisibleTab(tab.windowId, {format: 'jpeg', quality: 85});
+  } finally {
+    await visible(true);
+  }
+  const blob = await (await fetch(shot)).blob();
+  const name = (browser.i18n.getMessage('screenshotName', (bm.title || bm.url).slice(0, 80)) || 'Screenshot')
+    .replace(/[\\/:*?"<>|]+/g, ' ').trim() + '.jpg';
+  const tags = [...new Set([...bm.tags || [], 'screenshot'])];
+  const form = new FormData();
+  form.append('qqfile', blob, name);
+  form.append('qqfilename', name + '_1');
+  form.append('private', true);
+  form.append('tags', tags.map(tag => /\s/.test(tag) ? `"${tag}"` : tag).join(' '));
+  form.append('lists', '');
+  form.append('groups', '');
+  const response = await fetch(IMAGE_SAVE_URL, {method: 'POST', credentials: 'include', body: form,
+    headers: {'X-Requested-With': 'XMLHttpRequest'}, signal: timeLimit(undefined, FILE_TIME)});
+  const answer = await response.text();
+  let saved = null;
+  try {
+    saved = JSON.parse(answer)?.items?.[0];
+  } catch (e) {
+  }
+  if (!response.ok || !saved?.link_id) {
+    logError('Screenshot', `Diigo did not save the screenshot (${response.status})`, answer.slice(0, 300));
+    return '';
+  }
+  return /^https?:/.test(saved.url || '') ? saved.url : `https://www.diigo.com/item/image/${saved.link_id}`;
 }
 
 async function deleteBookmark({url, urlId}, tab) {
@@ -590,7 +717,7 @@ async function updateAlsoHidden() {
 }
 
 browser.storage.onChanged.addListener((changes, area) => {
-  if (area == 'local' && changes.hiddenTags) updateAlsoHidden();
+  if (settingsArea(area) && changes.hiddenTags) updateAlsoHidden();
 });
 
 // only what diigo.com asks for itself (originUrl in Firefox, initiator in Chrome), not the add-on
@@ -639,14 +766,19 @@ browser.webRequest?.onCompleted.addListener(details => {
 browser.webRequest?.onErrorOccurred.addListener(details => deleting.delete(details.requestId),
   {urls: DIIGO_DELETES, types: ['xmlhttprequest']});
 
-// options/library.html, the library of the add-on, in a new tab next to tab, or in tab itself with here (My Library on
-// diigo.com, diigo-site/header.js: takeOverMyLibrary); view: what it shows (trash), or random: some of your bookmarks
-// at random (options/library-search.js: fillRandom picks them for an id it doesn't know)
-function openLibrary({view, here} = {}, tab) {
+// options/library.html, the library of the add-on: the tab it is open in already in this window (that of tab), with
+// what is asked for in its address, else as it is; or a new tab next to tab; or in tab itself with here (My Library on
+// diigo.com, diigo-site/header.js: takeOverMyLibrary, and after signing in). view: what it shows (trash), or random:
+// some of your bookmarks at random (options/library-search.js: fillRandom picks them for an id it doesn't know)
+async function openLibrary({view, here} = {}, tab) {
   const hash = view == 'random' ? '#random=new' : view ? '#view=' + encodeURIComponent(view) : '';
-  const url = browser.runtime.getURL('options/library.html') + hash;
-  if (here && tab) browser.tabs.update(tab.id, {url});
-  else browser.tabs.create({url, index: tab ? tab.index + 1 : undefined});
+  const page = browser.runtime.getURL('options/library.html');
+  const url = page + hash;
+  if (here && tab) return browser.tabs.update(tab.id, {url});
+  const inWindow = tab?.windowId != null ? {windowId: tab.windowId} : {currentWindow: true};
+  const open = (await browser.tabs.query(inWindow).catch(() => []) || []).find(other => other.url?.split('#')[0] == page);
+  if (open) return browser.tabs.update(open.id, hash ? {active: true, url} : {active: true});
+  return browser.tabs.create({url, index: tab ? tab.index + 1 : undefined});
 }
 
 // options/discover.html, Swift Discover, in a new tab next to tab
@@ -662,49 +794,63 @@ function openPage(page, {here} = {}, tab) {
   else browser.tabs.create({url, index: tab ? tab.index + 1 : undefined});
 }
 const openTools = (request, tab) => openPage('options/tools.html', request, tab);
+// options/guide.html, the guide of the add-on: what it does more than Diigo, in the place of Diigo's Learn more
+const openGuide = (request, tab) => openPage('options/guide.html', request, tab);
 // the options page, as the browser opens it (in a tab of its own: options_ui, open_in_tab)
 const openOptions = () => browser.runtime.openOptionsPage();
 
 // The settings of the improvements of diigo.com that are gone, and the bookmark Random bookmark picked for it: out of
 // storage.local once the add-on is updated (onInstalled, below)
+// menuItems: the menu at the top of diigo.com, set on the options page before 2026.11.22; now one button (header.js)
 const OLD_SETTINGS = ['showSignedIn', 'editDeleteButtons', 'privateNoSharing', 'hideAds', 'compactLibrary',
-  'hideGooglePlay', 'modernDiscover', 'hideClassic', 'hideUpgrade', 'randomBookmark', 'showTrash'];
-const forgetOldSettings = () => browser.storage.local.remove(OLD_SETTINGS).catch(() => {});
+  'hideGooglePlay', 'modernDiscover', 'hideClassic', 'hideUpgrade', 'randomBookmark', 'showTrash', 'menuItems',
+  'myLibraryHidden', 'myGroupsHidden', 'myOutlinersHidden'];
+const forgetOldSettings = () => {
+  browser.storage.local.remove(OLD_SETTINGS).catch(() => {});
+  browser.storage.sync?.remove(OLD_SETTINGS).catch(() => {});
+};
 
 // The tag hidden is one of the hidden tags by default (settings.js); hidden tags saved before that get it once, so
 // taking it out again on the options page lasts (hiddenDefaultAdded, not a setting of the options page)
 async function addHiddenDefault() {
-  const {hiddenTags} = await browser.storage.local.get('hiddenTags');
   const {hiddenDefaultAdded} = await browser.storage.local.get('hiddenDefaultAdded');
   if (hiddenDefaultAdded) return;
+  const {hiddenTags} = await loadSettings();
   if (Array.isArray(hiddenTags) && !hiddenTags.some(tag => tag.toLowerCase() == 'hidden')) {
-    await browser.storage.local.set({hiddenTags: [...hiddenTags, 'hidden']});
+    await saveSettings({hiddenTags: [...hiddenTags, 'hidden']});
   }
   await browser.storage.local.set({hiddenDefaultAdded: true});
 }
 
-// An item hidden in the menu at the top by default (settings.js: menuItems) is hidden once in a menu saved before
-// that, so showing it again on the options page lasts (done: a key of its own, not a setting of the options page)
-async function hideMenuItemOnce(id, done) {
-  const {menuItems, [done]: hidden} = await browser.storage.local.get(['menuItems', done]);
-  if (hidden) return;
-  if (Array.isArray(menuItems) && menuItems.some(item => item.id == id && item.shown)) {
-    await browser.storage.local.set({menuItems: menuItems.map(item => item.id == id ? {...item, shown: false} : item)});
+
+
+// The settings were kept in this browser only (storage.local) before 2026.11.22: once, those of SYNCED_SETTINGS go to
+// storage.sync too (settings.js), unless another computer put them there first, which then win, as they will on each
+// computer (loadSettings). settingsSynced: done, not a setting of the options page.
+async function settingsToSync() {
+  if (!browser.storage.sync) return;
+  const {settingsSynced, listsSynced} = await browser.storage.local.get(['settingsSynced', 'listsSynced']);
+  if (!settingsSynced) {
+    const [here, synced] = await Promise.all([browser.storage.local.get(SYNCED_SETTINGS), browser.storage.sync.get(SYNCED_SETTINGS)]);
+    const missing = Object.fromEntries(Object.entries(here).filter(([key]) => !(key in synced)));
+    await saveSettings(missing);
+    await browser.storage.local.set({settingsSynced: true});
   }
-  await browser.storage.local.set({[done]: true});
+  // the lists of SYNCED_LISTS: what each computer had, together
+  if (!listsSynced) {
+    const [here, synced] = await Promise.all([browser.storage.local.get(SYNCED_LISTS), browser.storage.sync.get(SYNCED_LISTS)]);
+    const both = Object.fromEntries(Object.entries(here).map(([key, value]) => [key, keptTogether(value, synced[key])]));
+    await saveSettings(both);
+    await browser.storage.local.set({listsSynced: true});
+  }
 }
 
-// My Library, as it opens the Swift Library too (myLibraryToSwift)
-function hideMyLibrary() {
-  return hideMenuItemOnce('library', 'myLibraryHidden');
-}
-// My Groups, as groups are mostly old ones with little new in them
-function hideMyGroups() {
-  return hideMenuItemOnce('groups', 'myGroupsHidden');
-}
-// My Outliners, Diigo's own page: your outliners are in the Swift Library (Outliners)
-function hideMyOutliners() {
-  return hideMenuItemOnce('outliners', 'myOutlinersHidden');
+// two of a list of SYNCED_LISTS as one: a list, or {urls, sites} of lists (ignoredLinks)
+function keptTogether(a, b) {
+  if (b == null) return a;
+  if (Array.isArray(a) || Array.isArray(b)) return [...new Set([...[a].flat(), ...[b].flat()].filter(v => v != null))];
+  return Object.fromEntries([...new Set([...Object.keys(a || {}), ...Object.keys(b || {})])]
+    .map(key => [key, keptTogether(a?.[key] || [], b?.[key] || [])]));
 }
 
 // for diigo-site/diigo-site.js (who is signed in)
@@ -767,6 +913,16 @@ function relatedTagsOf(items, settings) {
     if (top.length) related[key] = top.map(([other, count]) => [names.get(other), count]);
   }
   return related;
+}
+
+// a bookmark of the index as Diigo's toolbar API answers one (findBookmark), for the form: when it saves it, Diigo
+// finds it again by its web address
+function asFound(item) {
+  const date = item.created ? 'on ' + new Date(item.created * 1000)
+    .toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : '';
+  return {saved: true, url: item.url, urlId: '', linkId: item.id, bookmarkInfo: {title: item.title,
+    description: item.description || '', tags: item.tags || [], mode: item.private ? 2 : 0, unread: item.unread ? 1 : 0,
+    datetime: date}};
 }
 
 // The bookmarks of the index at the same web address but for how it is written (urlKey: http or https, www.,
@@ -1100,7 +1256,7 @@ const requests = {
   logError: ({entry}) => entry && addLogEntry({...entry, where: String(entry.where || '?')}),
   removeBrowserBookmarks,
   open: openBookmark, save: saveBookmark, delete: deleteBookmark, user: signedInUser, checkLink, openLibrary,
-  openDiscover, openTools, openOptions, title: ({url}) => pageTitle(url), pageInfo: ({url}) => pageInfo(url), trash: trashItems, keepFiles, sharing: sharingLists,
+  openDiscover, openTools, openOptions, openGuide, title: ({url}) => pageTitle(url), pageInfo: ({url}) => pageInfo(url), trash: trashItems, keepFiles, sharing: sharingLists,
 };
 
 // The answer goes back with sendResponse: Chrome doesn't take a Promise as the answer. After a restart of the background
@@ -1226,8 +1382,10 @@ function createMenus() {
     browser.contextMenus.create({id: 'save-page', title: browser.i18n.getMessage('menuSavePage'), contexts: ['page']});
     // the menu of the toolbar button; Chrome and Edge have an Options item there themselves
     browser.contextMenus.create({id: 'random', title: browser.i18n.getMessage('randomBookmark'), contexts: ['action']});
-    browser.contextMenus.create({id: 'library', title: browser.i18n.getMessage('libraryMenu'), contexts: ['action']});
-    browser.contextMenus.create({id: 'discover', title: browser.i18n.getMessage('discoverMenu'), contexts: ['action']});
+    // the pages of the add-on without Swift, as in their own menu (settings.js: menuName): this menu is the add-on's
+    browser.contextMenus.create({id: 'library', title: menuName('libraryMenu'), contexts: ['action']});
+    browser.contextMenus.create({id: 'discover', title: menuName('discoverMenu'), contexts: ['action']});
+    browser.contextMenus.create({id: 'guide', title: menuName('guideMenu'), contexts: ['action']});
     if (browser.runtime.getBrowserInfo) {
       browser.contextMenus.create({id: 'options', title: browser.i18n.getMessage('menuOptions'), contexts: ['action']});
     }
@@ -1254,14 +1412,26 @@ async function showPageMenuOfActiveTab() {
   if (tab) showPageMenu(tab.url);
 }
 
-browser.runtime.onInstalled.addListener(() => {
+browser.runtime.onInstalled.addListener(({reason}) => {
   forgetOldSettings();
-  addHiddenDefault().catch(() => {});
-  hideMyLibrary().catch(() => {});
-  hideMyGroups().catch(() => {});
-  hideMyOutliners().catch(() => {});
+  // to storage.sync first: what comes after reads and saves the settings there
+  settingsToSync().catch(e => logError('Settings: to sync', e)).then(async () => {
+    await addHiddenDefault().catch(() => {});
+  });
   if (browser.contextMenus) createMenus();
+  // installed: the guide of the add-on, what it does more than Diigo's own (options/guide.html); updated from before
+  // it: once a bar in the Swift Library that it's there (guideNews, library-page.js: showGuideNews)
+  if (reason == 'install') {
+    browser.storage.local.set({guideNewsSeen: true}).catch(() => {});
+    openGuide();
+  }
+  if (reason == 'update') guideNewsOnce().catch(() => {});
 });
+
+async function guideNewsOnce() {
+  const {guideNewsSeen} = await browser.storage.local.get('guideNewsSeen');
+  if (!guideNewsSeen) await browser.storage.local.set({guideNews: true});
+}
 
 // Firefox for Android has no right-click menu and no shortcuts, only the button
 if (browser.contextMenus) {
@@ -1276,6 +1446,7 @@ if (browser.contextMenus) {
     if (info.menuItemId == 'random') await openRandomBookmark(tab);
     if (info.menuItemId == 'library') openLibrary({}, tab);
     if (info.menuItemId == 'discover') openDiscover({}, tab);
+    if (info.menuItemId == 'guide') openGuide({}, tab);
     if (info.menuItemId == 'options') browser.runtime.openOptionsPage();
   });
 
@@ -1292,16 +1463,20 @@ if (browser.contextMenus) {
   }
 }
 
-// the button and its shortcut: the bookmark form, or on diigo.com the options (markTab); Save link to Diigo of the menu
-// still works there, as a link on Diigo can lead anywhere
-const onButton = tab => onDiigo(tab.url) ? browser.runtime.openOptionsPage() : showForm(tab);
+// the shortcut, and the button as it is by default: the bookmark form, or on diigo.com the options, or on a page that
+// can't be bookmarked the Swift Library (markTab); Save link to Diigo of the menu still works on diigo.com, as a link
+// there can lead anywhere
+const onShortcut = tab => onDiigo(tab.url) ? browser.runtime.openOptionsPage()
+  : canBookmark(tab.url) ? showForm(tab) : openLibrary({}, tab);
+// the button: so, or always the Swift Library (toolbarButton)
+const onButton = tab => buttonOpens == 'library' ? openLibrary({}, tab) : onShortcut(tab);
 
 browser.action.onClicked.addListener(onButton);
 
 browser.commands?.onCommand.addListener(async command => {
   if (command != 'show-bookmark-form') return;
   const [tab] = await browser.tabs.query({active: true, currentWindow: true});
-  onButton(tab);
+  onShortcut(tab);
 });
 
 // Just signed in on diigo.com (the cookie came while signed out, above), Diigo leads to your library there,
@@ -1309,20 +1484,44 @@ browser.commands?.onCommand.addListener(async command => {
 // Diigo's own stays where it was: My Library in the menu of the Swift Library, or Ctrl+click on diigo.com.
 async function afterSignIn(tab, url) {
   if (!signedIn?.name || Date.now() - signedIn.time > 60000) return;
+  // Diigo's own asked for (?swift=false: My Library in the menu of diigo.com, the Swift pages)
+  if (new URL(url).searchParams.get('swift') == 'false') return;
   const match = /^https:\/\/www\.diigo\.com\/user\/([^/?#]+)\/?(?:[?#]|$)/.exec(url);
   if (!match || decodeURIComponent(match[1]).toLowerCase() != signedIn.name.toLowerCase()) return;
   signedIn = null;
   if ((await loadSettings()).signInToSwift) openLibrary({here: true}, tab);
 }
 
+// With myLibraryToSwift, your library on diigo.com (/user/<name>, yours) opens the Swift Library in that tab, however
+// you get there: a link, a bookmark, the address typed, Diigo's own pages leading there. Not with ?swift=false
+// (DIIGO_OWN, settings.js), the way to Diigo's own; nor the library of someone else.
+// A tab once at ?swift=false stays Diigo's own while it is on diigo.com (diigoOwnTabs): going to My Library there
+// after that is going to Diigo's own (diigo-site/header.js knows it too, sessionStorage).
+const diigoOwnTabs = new Set();
+
+async function libraryToSwift(tab, url) {
+  if (!/^https:\/\/([\w-]+\.)*diigo\.com\//i.test(url)) return diigoOwnTabs.delete(tab.id);
+  const match = /^https:\/\/www\.diigo\.com\/user\/([^/?#]+)\/?(?:[?#]|$)/.exec(url);
+  if (new URL(url).searchParams.get('swift') == 'false') return diigoOwnTabs.add(tab.id);
+  if (!match || diigoOwnTabs.has(tab.id)) return;
+  if (!user) await readCookie();
+  if (!user || decodeURIComponent(match[1]).toLowerCase() != user.toLowerCase()) return;
+  if ((await loadSettings()).myLibraryToSwift) openLibrary({here: true}, tab);
+}
+
 browser.tabs.onUpdated.addListener((tabId, change, tab) => {
   if (change.url) afterSignIn(tab, change.url).catch(() => {});
+  if (change.url) libraryToSwift(tab, change.url).catch(() => {});
   if (change.status == 'complete') formForRandom(tab).catch(e => logError('Random bookmark: the form', e));
   if (change.status == 'loading') onTabLoading(tab);
   if (change.url && tab.active && browser.contextMenus && !browser.contextMenus.onShown) showPageMenu(tab.url);
 });
 
-browser.tabs.onRemoved.addListener(forget);
+browser.tabs.onRemoved.addListener(tabId => {
+  forget(tabId);
+  diigoOwnTabs.delete(tabId);
+});
+
 
 readCookie();
 browser.tabs.query({}).then(tabs => tabs.forEach(markTab));

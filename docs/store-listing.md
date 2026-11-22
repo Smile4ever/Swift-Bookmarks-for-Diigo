@@ -85,7 +85,7 @@ Diigo's own add-on does a lot more than bookmarking, but it didn't help me add b
 - The status of each link (200, 404) before its title, also for all links at once. Click it to look up a dead page in the Wayback Machine or on archive.is, use its latest copy or its new web address, or search its title.
 - **Swift Discover**: the Hot Bookmarks of the Diigo community, without what is in your library already, in the order For you (by your own tags), with a search box, filters by tag and site, and Not interested.
 
-The add-on doesn't change diigo.com itself: it only adds the way there, in the menu at the top.
+The add-on doesn't change diigo.com itself: it only adds the way there, Go to Swift Library in the menu at the top.
 
 **Not in this add-on**
 
@@ -138,7 +138,7 @@ SWIFT LIBRARY AND SWIFT DISCOVER
 • Clean up on Start: similar tags to merge, bookmarks without a title to fetch it for, unread bookmarks older than 3 months, and links that moved or died.
 • The status of each link (200, 404) before its title, also for all links at once. Click it to look up a dead page in the Wayback Machine or on archive.is, use its latest copy or its new web address, or search its title.
 • Swift Discover: the Hot Bookmarks of the Diigo community, without what is in your library already, in the order For you (by your own tags), with a search box, filters by tag and site, and Not interested.
-The add-on doesn't change diigo.com itself: it only adds the way there, in the menu at the top.
+The add-on doesn't change diigo.com itself: it only adds the way there, Go to Swift Library in the menu at the top.
 
 NOT IN THIS ADD-ON
 Highlighting, sticky notes and screenshots: for those there is Diigo's own add-on.
@@ -202,6 +202,7 @@ What Diigo does with that data is in Diigo's privacy policy: https://www.diigo.c
 
 With the option "dead links" on (the default), the add-on requests the page of each bookmark in the Swift Library
 from its own website, without cookies, to show whether it still exists. The status codes are kept in memory only.
+With "Check links by themselves" off (Swift Options, Privacy), a link is only requested when you ask for it.
 Fetch titles requests the pages you choose it for in the same way, for their title. Only when you choose Use the latest
 copy in the Wayback Machine for a link, the add-on asks the Wayback Machine (archive.org) for that web address.
 
@@ -212,6 +213,7 @@ Only when you allow access to your bookmarks on the options page, the add-on rea
 sends Diigo those of the folders you choose (URL, title, and the folder names as tags), and those you save or move to
 Diigo from the menu of a bookmark. Other bookmarks stay in your browser.
 
-The options, the tags of your last bookmark, the bookmarks still to sync and the URLs already synced are stored in your
-browser only.
+The tags of your last bookmark, the bookmarks still to sync and the URLs already synced are stored in your browser
+only. The options are stored in your browser and, when your browser syncs add-on data, with your browser account
+(Firefox Sync, Google or Microsoft), so your other computers get them too; they don't go to the maker of the add-on.
 ```

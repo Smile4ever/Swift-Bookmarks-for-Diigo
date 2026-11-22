@@ -1,18 +1,16 @@
-// The menu of your name at the top right of the Swift Library and Swift Discover, as on diigo.com: a click on the name
-// opens it, with Diigo's items by their names on the site (in English, like the site), Discover leading to Swift
-// Discover as in the menu at the top. A click on an item, next to the menu, or Esc closes it. Shared by library.html and
-// discover.html (library-side.js and discover.js: showMainNav call showUserMenu).
+// The menu of your name at the top right of the Swift pages: your account on diigo.com, and only that, said so in its
+// heading, each item with ↗ (swift-nav.css) as it leads to diigo.com. Diigo's Help and Support aren't here: they are
+// about Diigo, not about these pages (Swift Guide is); nor Discover, which is in the menu at the top. A click on the
+// name opens it; a click on an item, next to the menu, or Esc closes it (showMainNav of each page calls showUserMenu).
 
-// where each leads; name: who is signed in. Settings, Support and Sign Out as diigo.com has them (November 2026:
-// /setting, /common/contact, /sign-out; /help leads to help.diigo.com).
+// where each leads; name: who is signed in. Settings and Sign Out as diigo.com has them (November 2026: /setting,
+// /sign-out).
 const USER_MENU = [
   // through your library: /profile/<name> loaded as a page is Diigo's old classic one (diigo-site/public-library.js)
-  {label: 'Public Library', url: name => `https://www.diigo.com/user/${encodeURIComponent(name)}#dqa-public-library`},
-  {label: 'Settings', url: () => 'https://www.diigo.com/setting'},
-  {label: 'Support', url: () => 'https://www.diigo.com/common/contact'},
-  {label: 'Swift Discover', url: () => 'discover.html'},
-  {label: 'Help', url: () => 'https://www.diigo.com/help'},
-  {label: 'Sign Out', url: () => 'https://www.diigo.com/sign-out'},
+  // through Diigo's own library, also with myLibraryToSwift (settings.js: DIIGO_OWN)
+  {key: 'userPublicLibrary', url: name => `https://www.diigo.com/user/${encodeURIComponent(name)}${DIIGO_OWN}#dqa-public-library`},
+  {key: 'userSettings', url: () => 'https://www.diigo.com/setting'},
+  {key: 'userSignOut', url: () => 'https://www.diigo.com/sign-out'},
 ];
 
 function openUserMenu(open) {
@@ -22,17 +20,22 @@ function openUserMenu(open) {
   if (open) menu.querySelector('.user-menu-items a')?.focus();
 }
 
-// the name and its menu, only while someone is signed in
+// the name and its menu, only while someone is signed in; before them the way to diigo.com: your library there
+// (Diigo's own, as Ctrl+click on My Library opens it) or, signed out, its home page
 function showUserMenu(name) {
+  const toDiigo = document.getElementById('toDiigo');
+  toDiigo.textContent = browser.i18n.getMessage('toDiigo');
+  toDiigo.href = name ? `https://www.diigo.com/user/${encodeURIComponent(name)}${DIIGO_OWN}` : 'https://www.diigo.com/';
   document.getElementById('userMenu').hidden = !name;
   document.getElementById('userName').textContent = name;
-  document.getElementById('userMenuItems').replaceChildren(...USER_MENU.map(item => {
+  const head = document.createElement('span');
+  head.className = 'user-menu-head';
+  head.textContent = browser.i18n.getMessage('userMenuHead');
+  document.getElementById('userMenuItems').replaceChildren(head, ...USER_MENU.map(item => {
     const link = document.createElement('a');
     link.href = item.url(name);
-    link.textContent = item.label;
+    link.textContent = browser.i18n.getMessage(item.key);
     link.setAttribute('role', 'menuitem');
-    // Swift Discover from Swift Discover: the page itself
-    if (link.href == location.href.split('#')[0]) link.setAttribute('aria-current', 'page');
     return link;
   }));
 }

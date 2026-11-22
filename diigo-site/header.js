@@ -1,14 +1,10 @@
-// The menu at the top of diigo.com, as set on the options page (menuItems in options/settings.js): which items show, in
-// which order, and links of your own. Diigo's own items (My Library, My Outliners, My Groups, Tools, Go Premium) stay where Diigo
-// draws them, only hidden (data-dqa-menu-off, diigo-site.css) or moved into their order: in the library they are links
-// of React, which open the page without loading it again. Items of Diigo that aren't on the options page (My
-// <company>...) go at the end. The items of the add-on and your links are added here: Swift Library,
-// Swift Discover (the Hot Bookmarks of the Diigo community, options/discover.html) and Learn more (Diigo's tour of what
-// it does).
+// The menu at the top of diigo.com: Diigo's own items (My Library, My Outliners, My Groups, Tools, Go Premium…) as Diigo
+// draws them, untouched, and after them one button of the add-on, Go to Swift Library, while you're signed in: the way
+// to the Swift Library, which has the other Swift pages in its own menu. Nothing to set for it.
 // That menu comes in four versions: .MainNav .inner > ul in the library (React), #main-nav on pages Diigo draws on its
 // server such as /buzz, #topNav ul on the homepage, and header .nav-line > nav on pages such as /tools, where the items
 // are links side by side (a), not in a list (li > a). In the library the items sit in a list React draws: when React
-// drops them, update() adds them again.
+// drops the button, update() adds it again.
 
 const MENUS = '.MainNav .inner > ul, #main-nav, #topNav ul, header .nav-line > nav';
 
@@ -26,17 +22,6 @@ const DIIGO_MENU_ITEMS = {
   groups: url => url.host == 'groups.diigo.com' && url.pathname == '/',
   tools: url => url.host == 'www.diigo.com' && url.pathname == '/tools',
   premium: url => url.host == 'www.diigo.com' && /^\/premium\/?$/.test(url.pathname),
-};
-
-// the items of the add-on; Learn more is a name on diigo.com, in English like the rest of its menu
-const ADDON_MENU_ITEMS = {
-  // Swift Discover, options/discover.html, and the library of the add-on, options/library.html: pages of the add-on,
-  // which diigo.com can't link to itself
-  discover: {message: 'discoverMenu', url: '#', click: openPage('openDiscover')},
-  // the options page of the add-on
-  options: {message: 'optionsMenu', url: '#', click: openPage('openOptions')},
-  learnMore: {label: 'Learn more', url: 'https://www.diigo.com/learn_more', page: '/learn_more'},
-  fastLibrary: {message: 'libraryMenu', url: '#', click: openPage('openLibrary'), signedIn: true},
 };
 
 function openPage(type) {
@@ -64,118 +49,120 @@ function diigoItemId(li) {
   return Object.keys(DIIGO_MENU_ITEMS).find(id => DIIGO_MENU_ITEMS[id](url)) || '';
 }
 
-// what the add-on puts in the menu for an item of menuItems, or null when it adds nothing for it
-function addedItem(item) {
-  if (DIIGO_MENU_ITEMS[item.id] || !item.shown) return null;
-  const own = ADDON_MENU_ITEMS[item.id];
-  if (own) return own.signedIn && !user ? null : own;
-  // a link of your own, once it has a web address; on its page itself when that's the page you're on
-  if (!/^https?:\/\/./i.test(item.url || '')) return null;
-  let url;
-  try {
-    url = new URL(item.url);
-  } catch (e) {
-    return null;
+// The button: the icon of the add-on (drawn here, as diigo.com can't load the add-on's files) and Go to Swift Library;
+// a click opens it as the toolbar button does (background.js: openLibrary, the tab it is open in already)
+const SVG = 'http://www.w3.org/2000/svg';
+
+function swiftIcon() {
+  const svg = document.createElementNS(SVG, 'svg');
+  svg.setAttribute('viewBox', '0 0 128 128');
+  svg.setAttribute('aria-hidden', 'true');
+  for (const [tag, attributes] of [
+    ['rect', {x: 4, y: 4, width: 120, height: 120, rx: 28, fill: '#3f98e5'}],
+    ['path', {d: 'M38 22h52a6 6 0 0 1 6 6v80l-32-20-32 20V28a6 6 0 0 1 6-6z', fill: '#fff'}],
+    ['path', {d: 'M70 32 48 62h14l-6 22 24-32H66z', fill: '#3f98e5'}],
+  ]) {
+    const shape = document.createElementNS(SVG, tag);
+    for (const [name, value] of Object.entries(attributes)) shape.setAttribute(name, value);
+    svg.append(shape);
   }
-  const here = url.origin == location.origin && url.pathname == location.pathname && url.pathname != '/';
-  return {label: item.label.trim() || url.hostname, url: item.url, here};
+  return svg;
 }
 
 // asLink: for header nav, a link on its own
-function menuItemElement(id, item, asLink) {
-  const li = document.createElement('li');
-  li.dataset.dqaMenuItem = id;
+function swiftButton(asLink) {
   const link = document.createElement('a');
-  link.href = item.url;
-  link.textContent = item.label || browser.i18n.getMessage(item.message);
-  if (item.click) link.addEventListener('click', item.click);
-  // on that page itself, marked as the page you're on, as Diigo does: .active on the li in the library, on the a elsewhere
-  const here = item.here || !!item.page && location.pathname.startsWith(item.page);
-  li.classList.toggle('active', here);
-  link.classList.toggle('active', here);
+  link.href = '#';
+  link.className = 'dqa-swift-button';
+  link.append(swiftIcon(), browser.i18n.getMessage('goToSwiftLibrary'));
+  link.addEventListener('click', openPage('openLibrary'));
   if (asLink) {
-    link.dataset.dqaMenuItem = id;
+    link.dataset.dqaSwift = '';
     return link;
   }
+  const li = document.createElement('li');
+  li.dataset.dqaSwift = '';
   li.append(link);
   return li;
 }
 
-function updateMenu(menu, items) {
-  const added = new Map([...menu.querySelectorAll(':scope > [data-dqa-menu-item]')].map(li => [li.dataset.dqaMenuItem, li]));
-  for (const item of items) {
-    const wanted = addedItem(item);
-    const key = wanted && JSON.stringify([wanted.label, wanted.url]);
-    const li = added.get(item.id);
-    added.delete(item.id);
-    if (li?.dataset.dqaMenuKey == key) continue;
-    li?.remove();
-    if (!wanted) continue;
-    const el = menuItemElement(item.id, wanted, menu.tagName == 'NAV');
-    el.dataset.dqaMenuKey = key;
-    menu.append(el);
-  }
-  // items that are no longer on the options page
-  added.forEach(li => li.remove());
-
-  const current = [...menu.children];
-  const indexOf = new Map(current.map(li => {
-    const index = items.findIndex(item => item.id == (li.dataset.dqaMenuItem || diigoItemId(li)));
-    li.toggleAttribute('data-dqa-menu-off', index >= 0 && !items[index].shown);
-    return [li, index < 0 ? items.length : index];
-  }));
-  // in order, by moving the items themselves: Diigo floats them side by side, and a flex box with the CSS order would
-  // put them lower. Only when the order is wrong, as each move is a change of the page that calls update() again.
-  const sorted = [...current].sort((a, b) => indexOf.get(a) - indexOf.get(b));
-  if (sorted.some((li, i) => li != current[i])) menu.append(...sorted);
+// at the end of the menu, once; only while signed in, as the Swift Library is your library
+function updateMenu(menu) {
+  const button = menu.querySelector(':scope > [data-dqa-swift]');
+  if (!user) return button?.remove();
+  if (button && button == menu.lastElementChild) return;
+  // drawn again after it by Diigo: moved to the end, as each move is a change of the page that calls update() again
+  menu.append(button || swiftButton(menu.tagName == 'NAV'));
 }
 
 // called by update() in diigo-site.js
 function updateHeader() {
-  const items = menuItemsOf(settings);
   document.querySelectorAll(MENUS).forEach(menu => {
-    updateMenu(menu, items);
-    markMyLibrary(menu);
+    updateMenu(menu);
+    markMenu(menu);
   });
 }
 
 
-// ---- myLibraryToSwift and toolsToSwift: My Library opens the Swift Library, Tools the Tools page of the add-on ----
-// A plain click on Diigo's My Library in the menu opens the Swift Library in this tab, one on Tools options/tools.html
-// (My Outliners stays Diigo's own: your outliners are in the Swift Library). Diigo's own is still there: Ctrl+click, Shift+click or a middle click (auxclick, not click) opens it as
-// usual, and so does its web address typed in: only this click is taken over.
+// ---- My Library: always Diigo's own; toolsToSwift: Tools opens Swift Tools ----
+// My Library in the menu at the top (here, and on groups.diigo.com) is your library as Diigo has it, chosen: never
+// taken over. With myLibraryToSwift, going to your library on diigo.com in any other way (a link, a bookmark, the
+// address typed) opens the Swift Library (background.js: libraryToSwift), so My Library leads there with ?swift=false
+// (DIIGO_OWN): its link has it, for Ctrl+click and a middle click too, and a plain click loads that page, as in the
+// library React would only change the address to /user/<name>, which the background script takes as going there.
+// Tools: a plain click opens Swift Tools in this tab (toolsToSwift); Ctrl+click, Shift+click or a middle click
+// Diigo's own, as the browser opens it.
 
-// what each opens instead, while its setting is on: the message to the background script, and the tooltip
 const TAKEN_OVER = {
-  library: {setting: 'myLibraryToSwift', type: 'openLibrary', title: 'myLibraryToSwiftTitle'},
   tools: {setting: 'toolsToSwift', type: 'openTools', title: 'toolsToSwiftTitle'},
 };
 
 // Diigo's My Library and Tools in a menu, the li or (header nav) the link, with which it is
-const myLibraryItems = menu => [...menu.children].filter(item => !item.dataset.dqaMenuItem && diigoItemId(item) in TAKEN_OVER);
+const diigoMenuItems = menu => [...menu.children].filter(item => !item.dataset.dqaSwift &&
+  ['library', 'tools'].includes(diigoItemId(item)));
 
-// how to get to Diigo's own, on hovering it; only set when it changes, as each change is one of the page
-function markMyLibrary(menu) {
-  for (const item of myLibraryItems(menu)) {
+// My Library with ?swift=false while myLibraryToSwift is on (and without again when it's off); Tools with how to get
+// to Diigo's own, on hovering it. Only set when it changes, as each change is one of the page.
+function markMenu(menu) {
+  for (const item of diigoMenuItems(menu)) {
     const link = linkOf(item);
-    const over = TAKEN_OVER[diigoItemId(item)];
+    if (!link) continue;
+    const id = diigoItemId(item);
+    if (id == 'library') {
+      const href = link.getAttribute('href') || '';
+      const own = href.includes(DIIGO_OWN);
+      const on = settings.myLibraryToSwift && !!user;
+      if (on && !own) link.setAttribute('href', href.replace(/([?#]|$)/, m => DIIGO_OWN + (m == '?' ? '&' : m)));
+      if (!on && own) link.setAttribute('href', href.replace(DIIGO_OWN + '&', '?').replace(DIIGO_OWN, ''));
+      continue;
+    }
+    const over = TAKEN_OVER[id];
     const title = settings[over.setting] && user ? browser.i18n.getMessage(over.title) : '';
-    if (!link || (link.dataset.dqaTitle || '') == title) continue;
+    if ((link.dataset.dqaTitle || '') == title) continue;
     if (title) link.title = title;
     else link.removeAttribute('title');
     link.dataset.dqaTitle = title;
   }
 }
 
-// in the capture phase, before React's own handler in the library opens Diigo's page
+// in the capture phase, before React's own handler in the library: a plain click only; one with Ctrl, Shift or the
+// middle button goes as the browser opens it
 document.addEventListener('click', e => {
-  if (!user || e.button != 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+  if (e.button != 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || !user) return;
   const link = e.target.closest?.('a');
   const menu = link?.closest(MENUS);
-  const item = menu && myLibraryItems(menu).find(item => item.contains(link));
-  const over = item && TAKEN_OVER[diigoItemId(item)];
-  if (!over || !settings[over.setting]) return;
-  e.preventDefault();
-  e.stopImmediatePropagation();
-  browser.runtime.sendMessage({type: over.type, here: true}).catch(() => {});
+  const item = menu && diigoMenuItems(menu).find(item => item.contains(link));
+  const id = item && diigoItemId(item);
+  if (id == 'library' && settings.myLibraryToSwift) {
+    // Diigo's own as a page of its own, with ?swift=false
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    const url = new URL(link.href);
+    url.searchParams.set('swift', 'false');
+    location.assign(url.href);
+  } else if (id == 'tools' && settings.toolsToSwift) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    browser.runtime.sendMessage({type: TAKEN_OVER.tools.type, here: true}).catch(() => {});
+  }
 }, true);

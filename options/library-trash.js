@@ -6,6 +6,11 @@
 // highlights; a note as Diigo makes a new note, with its text from the index (not those that went to the trash before
 // the index kept it); an image or a PDF from its file, kept in the trash when it was deleted (not those of before).
 // Diigo can't make a Kindle item but by importing it from Kindle: for those a link to its import page instead.
+// whether Put back can make it again (trashActions says why not)
+const canRestore = item => item.pendingDelete || item.type != 'kindle' &&
+  !(item.type == 'note' && !('content' in item)) && !(WITH_FILE.includes(item.type) && !item.file) &&
+  (!item.type || ['bookmark', 'note', 'outliner', ...WITH_FILE].includes(item.type));
+
 function trashActions(item, li) {
   let restore = element('button', '', message('libraryRestore'));
   restore.type = 'button';
@@ -46,14 +51,17 @@ const sizeFormat = bytes => {
   }).format(bytes / 1024 ** power);
 };
 
+// All of it counts, as the list has it (itemsOf): also what Diigo hasn't deleted yet (library-delete.js) and what has a
+// hidden tag, which the list leaves out without Show hidden (the count after it says how many)
 async function showTrashSize() {
-  if (!trash.size) {
+  const count = totalOf('trash');
+  if (!count) {
     $('trashSize').textContent = message('libraryTrashEmpty');
     return;
   }
   let bytes = 0;
-  for (const {file, ...item} of trash.values()) bytes += (file?.size || 0) + JSON.stringify(item).length;
-  let text = message('libraryTrashSize', [String(trash.size), sizeFormat(bytes)]);
+  for (const {file, ...item} of itemsOf('trash')) bytes += (file?.size || 0) + JSON.stringify(item).length;
+  let text = message('libraryTrashSize', [String(count), sizeFormat(bytes)]);
   const estimate = await navigator.storage?.estimate?.().catch(() => null);
   if (estimate?.quota) {
     text += ' ' + message('libraryStorage', [sizeFormat(estimate.usage || 0), sizeFormat(estimate.quota)]);
@@ -79,35 +87,117 @@ function leaveList(item, li) {
   if (state.view == 'trash') safely('trash size', showTrashSize);
 }
 
-async function restoreItem(item, li) {
-  if (controller) return;
+// Put back of one, without the page: why: '' when it worked, else why not. A bookmark is in the index again only with
+// the next update (bookmark: true), with its new id from Diigo; the others at once.
+async function restoreOne(item) {
   if (item.type == 'note' || item.type == 'outliner' || WITH_FILE.includes(item.type)) {
     // with its new link_id in the index at once; an outliner made again on Diigo (library-outliners.js)
     const made = await (item.type == 'note' ? restoreNote(item) : item.type == 'outliner' ? outlinerPart.restore(item)
       : restoreFile(item));
-    if (!made) return showStatus(message('libraryRestoreFailed', diigoAnswer), true);
-    trash.delete(item.id);
-    await saveIndex({trashRemove: [item.id]});
-    leaveList(item, li);
-    return;
+    if (!made) return {why: message('libraryRestoreFailed', diigoAnswer)};
+  } else {
+    const bm = {
+      url: item.url, title: item.title || item.url, description: item.description, tags: item.tags,
+      private: item.private, unread: item.unread,
+    };
+    const result = await browser.runtime.sendMessage({type: 'save', ...bm, urlId: ''}).catch(() => null);
+    if (!result?.ok) return {why: message('libraryRestoreFailed', saveError(result))};
   }
-  const bm = {
-    url: item.url, title: item.title || item.url, description: item.description, tags: item.tags,
-    private: item.private, unread: item.unread,
-  };
-  const result = await browser.runtime.sendMessage({type: 'save', ...bm, urlId: ''}).catch(() => null);
-  if (!result?.ok) return showStatus(message('libraryRestoreFailed', saveError(result)), true);
   trash.delete(item.id);
   await saveIndex({trashRemove: [item.id]});
+  return {why: '', bookmark: !item.type || item.type == 'bookmark'};
+}
+
+async function restoreItem(item, li) {
+  if (controller) return;
+  const {why, bookmark} = await restoreOne(item);
+  if (why) return showStatus(why, true);
   leaveList(item, li);
   // back in the index with the update, with its new id from Diigo
-  update();
+  if (bookmark) update();
+}
+
+
+// ---- Bulk edit in the trash: Put back and Remove for good of all those ticked ----
+
+// Put back: one after the other, as Put back of each (those Diigo hasn't deleted yet only out of waiting:
+// cancelDelete). What can't be put back (a Kindle item, a note without its text: canRestore) or what Diigo didn't take
+// stays ticked, with why. The index brought up to date once after, for the bookmarks.
+async function restorePicked() {
+  const picked = pickedItems();
+  if (!picked.length || controller) return;
+  const label = $('bulkRestore').textContent;
+  const signal = start();
+  const doneIds = [];
+  let why = '', bookmarks = false;
+  try {
+    showProgress(label, 0, picked.length);
+    for (const item of picked) {
+      if (signal.aborted) break;
+      if (item.pendingDelete) {
+        // a row of its own, not in the page: the list is drawn again after (afterBulk)
+        cancelDelete(item, element('li'));
+        doneIds.push(item.id);
+      } else if (!canRestore(item)) {
+        why ||= message('libraryCantRestore');
+      } else {
+        const result = await restoreOne(item);
+        if (result.why) why ||= result.why;
+        else doneIds.push(item.id);
+        bookmarks ||= !!result.bookmark;
+      }
+      showProgress(label, doneIds.length, picked.length);
+    }
+  } catch (e) {
+    reportProblem(e, 'put back');
+  } finally {
+    stop();
+    endProgress(doneIds);
+    const failed = !stopped && picked.length - doneIds.length;
+    afterBulk(!failed);
+    const text = message('bulkRestored', String(doneIds.length));
+    showStatus(failed ? text + ' ' + message('bulkNotRestored', String(failed)) + ' ' + why : text, !!failed);
+    if (bookmarks) update();
+  }
+}
+
+// Remove for good, after a question: out of the trash, as Remove for good of each; not those Diigo hasn't deleted yet,
+// which only have Put back: they stay ticked
+async function forgetPicked() {
+  const picked = pickedItems();
+  const ids = picked.filter(item => !item.pendingDelete && trash.has(item.id)).map(item => item.id);
+  if (!ids.length || controller || !confirm(message('bulkForgetConfirm', String(ids.length)))) return;
+  ids.forEach(id => trash.delete(id));
+  await saveIndex({trashRemove: ids});
+  endProgress(ids);
+  afterBulk(ids.length == picked.length);
+  showStatus(message('libraryEmptied', String(ids.length)));
 }
 
 // all of it, also what Diigo hasn't deleted yet (library-delete.js): Diigo deletes those now, and they don't stay.
 // With many in it that takes a while (the files of images and PDFs out of the browser, Diigo a batch at a time): the
 // bar below the blue one says how far, and Empty can't be chosen again till it's done (trashBlock, library-home.js).
 let emptying = false;
+
+// the message of how many went (emptyTrash), closed once you leave the trash: it's about the trash only
+let emptiedText = '';
+let shownView = '';
+
+// called by show(): from the trash to elsewhere, the message of Empty goes
+function leftTrash() {
+  const left = shownView == 'trash' && state.view != 'trash';
+  shownView = state.view;
+  if (left && emptiedText && $('status').textContent == emptiedText) showStatus('');
+  if (left) emptiedText = '';
+}
+
+// the filters of the trash (tags, site, search, + filters, Random) gone with what they found; those of the library
+// before it come back leaving it (library-side.js: filtersAside)
+function clearTrashFilters() {
+  if (state.view != 'trash') return;
+  Object.assign(state, {tags: [], site: '', query: '', field: 'all', conditions: [], random: ''});
+  showSearchBox();
+}
 
 function showEmptying(done, count) {
   $('emptyTrash').disabled = emptying;
@@ -118,6 +208,7 @@ async function emptyTrash() {
   const count = totalOf('trash');
   if (emptying || !count || !confirm(message('libraryEmptyConfirm', String(count)))) return;
   emptying = true;
+  safely('filters', clearTrashFilters);
   // what Diigo didn't delete (or Stop left) is in the list again, so not counted as gone
   let gone = 0, failed = 0;
   try {
@@ -139,7 +230,8 @@ async function emptyTrash() {
     showEmptying(gone, count);
     show({keepScroll: true});
     const text = message('libraryEmptied', String(gone));
-    showStatus(failed ? text + ' ' + message('cleanupFailed', String(failed)) : text, !!failed);
+    emptiedText = failed ? text + ' ' + message('cleanupFailed', String(failed)) : text;
+    showStatus(emptiedText, !!failed);
   }
 }
 

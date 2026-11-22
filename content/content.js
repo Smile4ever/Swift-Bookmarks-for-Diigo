@@ -68,6 +68,8 @@ globalThis.browser = globalThis.browser || globalThis.chrome;
       keywords: (info.keywords || []).join('\n'),
       canonical: info.canonical || '',
     });
+    // the page itself, not a link on it: a screenshot of it can go along (form.js: screenshot)
+    if (info != link) query.set('page', '1');
     if (!frame) {
       frame = document.createElement('iframe');
       for (const [name, value] of Object.entries(frameStyle)) frame.style.setProperty(name, value, 'important');
@@ -114,7 +116,14 @@ globalThis.browser = globalThis.browser || globalThis.chrome;
     if (frame && e.target != frame && Date.now() < guardUntil && guardCount++ < 20) frame.focus();
   }, true);
 
-  browser.runtime.onMessage.addListener(msg => {
+  browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    // the form out of sight for a screenshot of the page (background.js: pageScreenshot), and back; the answer once
+    // the page is drawn without it
+    if (msg.type == 'formVisible' && frame) {
+      frame.style.setProperty('visibility', msg.visible ? 'visible' : 'hidden', 'important');
+      requestAnimationFrame(() => requestAnimationFrame(() => sendResponse(true)));
+      return true;
+    }
     if (msg.type != 'toggle') return;
     if (frame && !msg.link && !isHidden()) close();
     else open(msg.link);

@@ -53,7 +53,7 @@ Find it useful? [Donate via PayPal](https://paypal.me/Smile4ever/10).
 Highlighting, sticky notes and screenshots are not in this add-on; for those there is Diigo's own add-on.
 
 The add-on doesn't change how diigo.com looks and works: what it does better is in the Swift Library and Swift Discover.
-On diigo.com it only adds the way there, in the menu at the top, which you can set on the options page. The trash of
+On diigo.com it only adds the way there: Go to Swift Library at the end of the menu at the top, which Diigo's own items keep as they are. The trash of
 the Swift Library is kept in this browser only, so it isn't shown on diigo.com; what you delete there goes to it all the
 same, to put back in the Swift Library.
 
@@ -146,8 +146,8 @@ later, and what changes elsewhere is loaded again.
 
 Delete puts an outliner in the trash, as a bookmark: Diigo deletes it 30 seconds later, and till then Undo or Put back
 simply cancels it. After that the trash keeps its name and items for 30 days, and Put back makes it again on Diigo (as a
-new outliner: a link to the old one, or its sharing, doesn't come back). My Outliners, Diigo's own page, can be shown in
-the menu at the top, on the options page.
+new outliner: a link to the old one, or its sharing, doesn't come back). My Outliners, Diigo's own page, stays in the
+menu at the top of diigo.com.
 
 ## Shortcuts
 
@@ -175,7 +175,8 @@ your hidden tags, rules per site and folders), to attach to an issue on GitHub. 
 The add-on sends nothing to its maker. It talks to diigo.com for you: while you're signed in it asks Diigo whether each
 page you open is in your library, and it sends Diigo the bookmarks you save. With the option for dead links on, it
 requests the page of each bookmark in the Swift Library from its own site, and reads its start up to its title, to show
-whether it still exists, moved or is parked. Swift
+whether it still exists, moved or is parked; with Check links by themselves off (Swift Options, Privacy) only when you
+ask for it: a click on its ·, Check all links, or looking for dead links in the side bar. Swift
 Discover loads the Hot Bookmarks from diigo.com (diigo.com/buzz/hot), and keeps them and what you said Not interested
 to in the browser. Use the latest copy in the Wayback Machine, for a dead link in the Swift Library, asks archive.org for
 the copy of that one page, only when you choose it. For a link you save from the right-click menu, the add-on requests
@@ -184,7 +185,13 @@ which items Diigo deletes from that request (delete_b), to take them out of the 
 Only when you allow access to your bookmarks on the options page, it reads them, and sends Diigo those of the folders you
 choose, and those you save or move to Diigo from the menu of a bookmark.
 The Swift Library keeps a copy of your library (titles, URLs, descriptions, tags) in the browser, on your computer
-only; it goes when you remove the add-on.
+only; it goes when you remove the add-on. Built again, what it had and Diigo no longer gives goes to its trash, for 30
+days.
+The settings of Swift Options are kept with the account of the browser (storage.sync: Firefox Sync, the Google or
+Microsoft account) when it syncs, so your other computers get them too, and a copy in this browser; the folders to sync
+stay on this computer. So do the links you said are not dead, the similar tags you said are not the same and Not
+interested in Swift Discover. A setting or list too large for storage.sync (8 kB: a long list of rules per site, many
+Not interested) stays in this browser only. Firefox syncs this only with Add-ons ticked in Firefox Sync.
 
 ## Folders
 
@@ -197,8 +204,8 @@ background/     background.js: sign-in, the Diigo API (toolbar3.diigo.com), tool
 content/        content.js: put in the page when the form opens; shows the form in an iframe and removes it again
 form/           form.html, form.js, form.css: the bookmark form; asks background.js to open, save or delete a bookmark
 diigo-site/     on www.diigo.com, in the order of manifest.json: common.js: what they share; delete-window.js: what
-                Diigo's delete window deletes goes to the trash of the Swift Library; header.js: the menu at the top as set on the options page, with Swift Library, Swift Discover and
-                Learn more, and My Library opening the Swift Library; diigo-site.js, last: runs them as the page changes; diigo-site.css: their looks
+                Diigo's delete window deletes goes to the trash of the Swift Library; header.js: Go to Swift Library at the end of the menu at the top, Diigo's own items as they are,
+                and My Library and Tools opening the Swift pages when chosen; diigo-site.js, last: runs them as the page changes; diigo-site.css: their looks
 options/        options.html, options.js, options.css: the options page: hidden tags, what the bookmark form fills in and
                 the rules per site, the folders to sync, each diigo.com improvement on or off, the shortcuts; settings.js: the settings and their defaults, also loaded by the
                 form, the scripts of diigo-site/ and the background scripts; library-index.js: the index of the library
@@ -212,9 +219,12 @@ options/        options.html, options.js, options.css: the options page: hidden 
                 library-home.js (Start: blocks instead of one list), library-outliners.js (your outliners of Diigo,
                 with md5.js and outliners.css)
                 and library-page.js (the events, and the start); discover.html, discover.js, discover.css: Swift
-                Discover, the Hot Bookmarks of diigo.com/buzz/hot, with library.css and the index
+                Discover, the Hot Bookmarks of diigo.com/buzz/hot, with library.css and the index; guide.html,
+                guide.js, guide.css: Swift Guide, what the add-on does more than Diigo, opened once when it is
+                installed, with the pictures of images/store
 icons/          add-on and toolbar icons: icon.svg (also the favicon of the options page and the Swift Library) and
-                toolbar-saved.svg, toolbar-busy.svg, toolbar-blocked.svg and toolbar-options.svg (on diigo.com) are the
+                toolbar-saved.svg, toolbar-busy.svg, toolbar-library.svg (a page that can't be bookmarked: the button opens
+                the Swift Library) and toolbar-options.svg (on diigo.com) are the
                 drawings; the PNGs are made from them (48 and 128 px for the add-on, 19 and 38 px for the toolbar)
 _locales/       the texts: English (en), Dutch (nl), German (de), French (fr), Spanish (es), Italian (it),
                 Brazilian Portuguese (pt_BR), Polish (pl), Russian (ru), Japanese (ja), Simplified Chinese (zh_CN)

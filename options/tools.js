@@ -9,7 +9,7 @@ for (const el of document.querySelectorAll('[data-i18n]')) el.textContent = mess
 document.title += ' - Swift Bookmarks for Diigo';
 
 let user = '';                   // signed in on diigo.com
-let settings = DEFAULT_SETTINGS;  // see options/settings.js: menuItems
+let settings = DEFAULT_SETTINGS;  // see options/settings.js
 
 function element(tag, className, content) {
   const el = document.createElement(tag);
@@ -20,20 +20,22 @@ function element(tag, className, content) {
 
 // the menu at the top, as in the Swift Library (library-side.js: showMainNav)
 const MENU_LINKS = {
-  library: () => ({label: 'My Library', url: `https://www.diigo.com/user/${encodeURIComponent(user)}`}),
-  outliners: () => ({label: 'My Outliners', url: 'https://www.diigo.com/outliner'}),
-  groups: () => ({label: 'My Groups', url: 'https://groups.diigo.com'}),
+  // Diigo's own, also with myLibraryToSwift (settings.js: DIIGO_OWN)
+  library: () => ({label: message('diigoMyLibrary'), url: `https://www.diigo.com/user/${encodeURIComponent(user)}${DIIGO_OWN}`}),
+  outliners: () => ({label: message('diigoMyOutliners'), url: 'https://www.diigo.com/outliner'}),
+  groups: () => ({label: message('diigoMyGroups'), url: 'https://groups.diigo.com'}),
   // this page itself
-  tools: () => ({label: 'Tools', url: location.pathname, here: true}),
-  learnMore: () => ({label: 'Learn more', url: 'https://www.diigo.com/learn_more'}),
-  premium: () => ({label: 'Go Premium', url: 'https://www.diigo.com/premium'}),
-  fastLibrary: () => ({label: message('libraryMenu'), url: 'library.html'}),
-  discover: () => ({label: message('discoverMenu'), url: 'discover.html'}),
-  options: () => ({label: message('optionsMenu'), url: 'options.html'}),
+  tools: () => ({label: menuName('toolsMenu'), url: location.pathname, here: true}),
+  // Swift Guide, the guide of the add-on, in the place of Diigo's Learn more (guide.html)
+  learnMore: () => ({label: menuName('guideMenu'), url: 'guide.html'}),
+  premium: () => ({label: message('diigoPremium'), url: 'https://www.diigo.com/premium'}),
+  fastLibrary: () => ({label: menuName('libraryMenu'), url: 'library.html'}),
+  discover: () => ({label: menuName('discoverMenu'), url: 'discover.html'}),
+  options: () => ({label: menuName('optionsMenu'), url: 'options.html'}),
 };
 
 function showMainNav() {
-  $('mainNav').replaceChildren(...menuItemsOf(settings).filter(item => item.shown).map(item => {
+  $('mainNav').replaceChildren(...swiftNavItems().map(item => {
     // a link of your own, once it has a web address
     const link = MENU_LINKS[item.id]?.() ||
       (/^https?:\/\/./i.test(item.url || '') && {label: item.label.trim() || new URL(item.url).hostname, url: item.url});
@@ -52,13 +54,6 @@ function showMainNav() {
 browser.runtime.onMessage.addListener(request => {
   if (request?.type != 'userChanged' || request.user == user) return;
   user = request.user || '';
-  showMainNav();
-});
-
-// the menu changed on the options page
-browser.storage.onChanged.addListener(async (changes, area) => {
-  if (area != 'local' || !changes.menuItems) return;
-  settings = await loadSettings().catch(() => settings);
   showMainNav();
 });
 

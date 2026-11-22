@@ -7,17 +7,28 @@ const vm = require('vm');
 
 const ROOT = path.join(__dirname, '..');
 
-// Every browser.* path works: a call gives a Promise, addListener keeps the listener, storage.local is kept in memory
+// what storage.get answers: one key, a list of them, or all (null)
+const storageGet = (area, keys) => {
+  const wanted = keys == null ? Object.keys(area) : [keys].flat();
+  return Promise.resolve(Object.fromEntries(wanted.filter(key => key in area).map(key => [key, area[key]])));
+};
+
+// Every browser.* path works: a call gives a Promise, addListener keeps the listener, storage.local and storage.sync
+// are kept in memory
 function loadBackground() {
   const listeners = {};
   const storage = {};
+  const synced = {};
   const calls = [];
   const callArgs = [];  // {name, args}, for what a call was given
   const menuUpdates = [];
   const special = {
     'contextMenus.update': (id, props) => Promise.resolve(menuUpdates.push({id, ...props})),
-    'storage.local.get': key => Promise.resolve(key in storage ? {[key]: storage[key]} : {}),
+    'storage.local.get': keys => storageGet(storage, keys),
     'storage.local.set': items => Promise.resolve(Object.assign(storage, items)),
+    'storage.sync.get': keys => storageGet(synced, keys),
+    'storage.sync.set': items => Promise.resolve(Object.assign(synced, items)),
+    'storage.sync.remove': keys => Promise.resolve([keys].flat().forEach(key => delete synced[key])),
     'i18n.getMessage': key => key,
     'tabs.query': () => Promise.resolve([]),
     'cookies.get': () => Promise.resolve(null),
@@ -36,12 +47,13 @@ function loadBackground() {
       return special[name] ? special[name](...args) : Promise.resolve();
     },
   });
-  const context = vm.createContext({browser: api(), console, URL, URLSearchParams, AbortController, AbortSignal, setTimeout, fetch: () => Promise.reject(new Error('no network in tests'))});
+  const context = vm.createContext({browser: api(), console, URL, URLSearchParams, AbortController, AbortSignal, setTimeout, clearTimeout, fetch: () => Promise.reject(new Error('no network in tests'))});
   // in the order of manifest.json: settings.js and index-item.js first
   for (const file of ['options/settings.js', 'options/index-item.js', 'background/background.js']) {
     vm.runInContext(fs.readFileSync(path.join(ROOT, file), 'utf8'), context, {filename: file});
   }
-  return {context, listeners, storage, calls, callArgs, menuUpdates};
+  // special: a call answered otherwise in one test
+  return {context, listeners, storage, synced, calls, callArgs, menuUpdates, special};
 }
 
 test('"Save page to Diigo" is in the menu of pages that can be bookmarked, but not on diigo.com', async () => {
@@ -164,6 +176,118 @@ test('the menu of the toolbar button opens the Swift Library, a random bookmark,
   assert.ok(created.every(props => props.index == 4));
 });
 
+test('the Swift Library open in the window already: that tab, with what is asked for in its address', async () => {
+  const {listeners, callArgs, special} = loadBackground();
+  special['tabs.query'] = () => Promise.resolve([{id: 7, url: 'https://example.com/'},
+    {id: 8, url: 'moz-extension://id/options/library.html#view=all&q=x'}]);
+  const onClicked = listeners['contextMenus.onClicked'][0];
+  await onClicked({menuItemId: 'library'}, {index: 3, windowId: 1});
+  await onClicked({menuItemId: 'random'}, {index: 3, windowId: 1});
+  assert.strictEqual(callArgs.filter(call => call.name == 'tabs.create').length, 0);
+  const updates = callArgs.filter(call => call.name == 'tabs.update').map(call => call.args);
+  // as it is, made the tab you see; Random: with that in its address
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(updates)), [
+    [8, {active: true}], [8, {active: true, url: 'moz-extension://id/options/library.html#random=new'}],
+  ]);
+  // in the window of the tab of the button, not in another
+  assert.ok(callArgs.some(call => call.name == 'tabs.query' && call.args[0]?.windowId == 1));
+});
+
+test('the toolbar button opens the Swift Library when set so; the shortcut still the bookmark form', async () => {
+  const {listeners, callArgs, storage} = loadBackground();
+  storage.toolbarButton = 'library';
+  await listeners['storage.onChanged'][0]({toolbarButton: {newValue: 'library'}}, 'local');
+  await new Promise(resolve => setTimeout(resolve));
+  const page = {id: 5, index: 2, windowId: 1, url: 'https://example.com/article'};
+  await listeners['action.onClicked'][0](page);
+  const created = callArgs.filter(call => call.name == 'tabs.create').map(call => call.args[0].url);
+  assert.deepStrictEqual(created, ['moz-extension://id/options/library.html']);
+  // the title of the button says so
+  const titles = callArgs.filter(call => call.name == 'action.setTitle').map(call => call.args[0].title);
+  assert.ok(!titles.length || titles.every(title => title == 'browserActionLibraryTitle'));
+});
+
+test('your library on diigo.com opens the Swift Library (by default), but not with ?swift=false', async () => {
+  assert.strictEqual(vm.runInContext('DEFAULT_SETTINGS.myLibraryToSwift', loadBackground().context), true);
+  const {context, callArgs, storage} = loadBackground();
+  // after the cookie was read when it started (none here), which signs out
+  await new Promise(resolve => setTimeout(resolve));
+  vm.runInContext("user = 'Geoffrey'", context);
+  const go = (url, id = 4) => context.libraryToSwift({id, index: 0, windowId: 1}, url);
+  const updates = () => callArgs.filter(call => call.name == 'tabs.update').map(call => call.args[0]);
+  // switched off: Diigo's own
+  storage.myLibraryToSwift = false;
+  await go('https://www.diigo.com/user/geoffrey');
+  storage.myLibraryToSwift = true;
+  for (const url of ['https://www.diigo.com/user/someone', 'https://www.diigo.com/user/geoffrey/tags']) await go(url);
+  assert.deepStrictEqual(updates(), []);
+  for (const url of ['https://www.diigo.com/user/geoffrey', 'https://www.diigo.com/user/Geoffrey/', 'https://www.diigo.com/user/geoffrey?type=all']) {
+    await go(url);
+  }
+  assert.deepStrictEqual(updates(), [4, 4, 4]);
+  // ?swift=false: Diigo's own for the rest of that tab on diigo.com, My Library too; not for another tab
+  await go('https://www.diigo.com/user/geoffrey?swift=false#dqa-public-library', 5);
+  await go('https://www.diigo.com/buzz/hot', 5);
+  await go('https://www.diigo.com/user/geoffrey', 5);
+  assert.deepStrictEqual(updates(), [4, 4, 4]);
+  await go('https://www.diigo.com/user/geoffrey', 6);
+  assert.deepStrictEqual(updates(), [4, 4, 4, 6]);
+  // left diigo.com: as before
+  await go('https://example.com/', 5);
+  await go('https://www.diigo.com/user/geoffrey', 5);
+  assert.deepStrictEqual(updates(), [4, 4, 4, 6, 5]);
+});
+
+test('the form on a page saved at nearly the same web address opens that bookmark, as the index has it', async () => {
+  const {context} = loadBackground();
+  await new Promise(resolve => setTimeout(resolve));
+  const item = {id: '9', url: 'http://stackoverflow.com/questions/19516212/how-to', title: 'How to kill Firefox',
+    description: 'kill -2', tags: ['firefox', 'linux'], private: true, unread: false, created: 1700000000, updated: 1700000000};
+  vm.runInContext(`indexCache = {items: ${JSON.stringify([item])}, time: Date.now()}`, context);
+  const answer = await context.openBookmark({url: 'https://stackoverflow.com/questions/19516212/how-to?utm_source=x', title: 'x'});
+  assert.strictEqual(answer.otherAddress, true);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(answer.bookmark)), {saved: true, url: item.url, urlId: '', linkId: '9',
+    title: item.title, description: 'kill -2', tags: ['firefox', 'linux'], private: true, unread: false, date: 'on Nov 14, 2023'});
+  // at its own web address: that one, nothing to say
+  const own = await context.openBookmark({url: item.url, title: 'x'});
+  assert.strictEqual(own.otherAddress, false);
+  assert.strictEqual(own.bookmark.saved, true);
+  // nothing like it: a new one
+  const fresh = await context.openBookmark({url: 'https://example.com/', title: 'Example'});
+  assert.strictEqual(fresh.bookmark.saved, false);
+});
+
+test('a bookmark the toolbar API of Diigo does not find is saved again by its link_id, not anew', async () => {
+  const {context} = loadBackground();
+  const requests = [];
+  context.fetch = async (url, options) => {
+    requests.push({url: String(url), body: options?.body ? Object.fromEntries(options.body) : null});
+    return {ok: true, status: 200, text: async () => JSON.stringify({items: [{link_id: '9'}]})};
+  };
+  const result = await context.saveBookmark({linkId: '9', oldUrl: 'http://stackoverflow.com/q/1',
+    url: 'http://stackoverflow.com/q/1', title: 'Q', description: 'kill -2\n\nScreenshot: x', tags: ['linux', 'how to'],
+    private: true, unread: false}, {id: 3, url: 'https://stackoverflow.com/q/1'});
+  assert.strictEqual(result.ok, true);
+  assert.deepStrictEqual(requests.map(r => r.url), ['https://www.diigo.com/item/save/bookmark']);
+  assert.deepStrictEqual(requests[0].body, {link_id: '9', url: 'http://stackoverflow.com/q/1', new_url: 'http://stackoverflow.com/q/1',
+    title: 'Q', description: 'kill -2\n\nScreenshot: x', tags: 'linux "how to"', private: 'true', unread: 'false'});
+});
+
+test('the toolbar icon shows a page saved at nearly the same web address as saved', async () => {
+  const {context, callArgs, special} = loadBackground();
+  // signed in as me
+  special['cookies.get'] = () => Promise.resolve({value: 'x-.-me'});
+  await new Promise(resolve => setTimeout(resolve));
+  // signed in first: a change of who is signed in empties the cache of the index
+  await context.readCookie();
+  vm.runInContext(`indexCache = {items: [{id: '9', url: 'http://stackoverflow.com/q/1', tags: []}], time: Date.now()}`, context);
+  const icons = () => callArgs.filter(call => call.name == 'action.setIcon').map(call => call.args[0].path[19]);
+  await context.onTabLoading({id: 3, url: 'https://stackoverflow.com/q/1?utm_source=x'});
+  assert.strictEqual(icons().at(-1), '/icons/toolbar-saved.png');
+  await context.onTabLoading({id: 3, url: 'https://example.com/'});
+  assert.strictEqual(icons().at(-1), '/icons/toolbar.png');
+});
+
 test('the settings of what the add-on no longer does on diigo.com go once it is updated', async () => {
   const {listeners, callArgs} = loadBackground();
   listeners['runtime.onInstalled'][0]({reason: 'update'});
@@ -183,6 +307,50 @@ test('hidden is added once to the hidden tags saved before, and stays out once t
   await listeners['runtime.onInstalled'][0]({reason: 'update'});
   await new Promise(resolve => setTimeout(resolve));
   assert.deepStrictEqual([...storage.hiddenTags], ['secret']);
+});
+
+test('the settings go to storage.sync once, unless another computer put them there first', async () => {
+  const {listeners, storage, synced, context} = loadBackground();
+  Object.assign(storage, {splitAdd: false, deadLinks: false, syncFolders: ['1'], hiddenDefaultAdded: true});
+  synced.deadLinks = true;
+  await listeners['runtime.onInstalled'][0]({reason: 'update'});
+  await new Promise(resolve => setTimeout(resolve));
+  // the folders of this browser stay here; what another computer synced wins
+  assert.deepStrictEqual({...synced}, {deadLinks: true, splitAdd: false});
+  assert.strictEqual(storage.settingsSynced, true);
+  const settings = await context.loadSettings();
+  assert.strictEqual(settings.deadLinks, true);
+  assert.strictEqual(settings.splitAdd, false);
+  assert.deepStrictEqual([...settings.syncFolders], ['1']);
+  // once: what is changed on this computer after isn't overwritten by the copy here
+  synced.splitAdd = true;
+  await listeners['runtime.onInstalled'][0]({reason: 'update'});
+  await new Promise(resolve => setTimeout(resolve));
+  assert.strictEqual(synced.splitAdd, true);
+});
+
+test('the lists of what you said go to storage.sync once, together with what another computer has', async () => {
+  const {listeners, storage, synced} = loadBackground();
+  Object.assign(storage, {ignoredTagGroups: ['a b'], ignoredLinks: {urls: ['https://x.example/'], sites: []},
+    hiddenDefaultAdded: true});
+  Object.assign(synced, {ignoredTagGroups: ['c d'], ignoredLinks: {urls: [], sites: ['y.example']}});
+  await listeners['runtime.onInstalled'][0]({reason: 'update'});
+  await new Promise(resolve => setTimeout(resolve));
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(synced.ignoredTagGroups)), ['a b', 'c d']);
+  assert.deepStrictEqual(JSON.parse(JSON.stringify(synced.ignoredLinks)), {urls: ['https://x.example/'], sites: ['y.example']});
+  assert.strictEqual(storage.listsSynced, true);
+});
+
+test('a setting too large for storage.sync stays here only', async () => {
+  const {context, storage, synced, special} = loadBackground();
+  synced.siteRules = [{site: 'old.example'}];
+  special['storage.sync.set'] = items => 'siteRules' in items ? Promise.reject(new Error('QUOTA_BYTES_PER_ITEM')) :
+    Promise.resolve(Object.assign(synced, items));
+  await context.saveSettings({siteRules: [{site: 'new.example'}], splitAdd: false});
+  assert.ok(!('siteRules' in synced));
+  assert.strictEqual(synced.splitAdd, false);
+  assert.strictEqual((await context.loadSettings()).siteRules[0].site, 'new.example');
+  assert.strictEqual(storage.splitAdd, false);
 });
 
 test('a new install keeps hidden as the default, without saving hidden tags', async () => {

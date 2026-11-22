@@ -312,7 +312,8 @@ h1 {
 
 #options {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 8px 20px;
   margin: 4px 0 8px;
 }
 

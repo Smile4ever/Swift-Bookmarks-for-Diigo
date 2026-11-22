@@ -2,7 +2,7 @@
 
 // ---- the side bar, as Diigo's (SideBar in its main.<hash>.js): what kind of items, and the tags ----
 
-// The names are Diigo's, in English like the site, but for Annotated and Unread, and those only when some bookmarks are
+// The names are Diigo's, in the language of the browser; Annotated and Unread only when some bookmarks are
 // so. All opens to the types. Diigo's More (Public, Private, Untagged) isn't here: public and private are the privacy
 // filter next to the order, Untagged the first of the tags. Random bookmark below them, not Diigo's either.
 // Without a search: the tags of what kind of items is chosen, the 10 most used (Top) or the 9 last used (Recent), with
@@ -12,15 +12,15 @@
 const VIEWS = {
   // not Diigo's: the start page (library-home.js), a text of the add-on
   home: {label: message('libraryHome'), icon: 'home', test: () => true},
-  all: {label: 'All', icon: 'all', test: () => true},
-  bookmark: {label: 'Bookmarks', icon: 'webpage', sub: true, test: item => item.type == 'bookmark'},
-  pdf: {label: 'PDFs', icon: 'pdf', sub: true, test: item => item.type == 'pdf'},
-  image: {label: 'Images', icon: 'image', sub: true, test: item => item.type == 'image'},
-  note: {label: 'Notes', icon: 'note', sub: true, test: item => item.type == 'note'},
+  all: {label: message('viewAll'), icon: 'all', test: () => true},
+  bookmark: {label: message('viewBookmarks'), icon: 'webpage', sub: true, test: item => item.type == 'bookmark'},
+  pdf: {label: message('viewPdfs'), icon: 'pdf', sub: true, test: item => item.type == 'pdf'},
+  image: {label: message('viewImages'), icon: 'image', sub: true, test: item => item.type == 'image'},
+  note: {label: message('viewNotes'), icon: 'note', sub: true, test: item => item.type == 'note'},
   kindle: {label: 'Kindle', icon: 'kindle', sub: true, test: item => item.type == 'kindle'},
   // your outliners of Diigo, a kind under All as the others, though not items of the index: in the place of the list
   // (library-outliners.js)
-  outliners: {label: 'Outliners', icon: 'outliners', sub: true, test: () => false},
+  outliners: {label: message('viewOutliners'), icon: 'outliners', sub: true, test: () => false},
   ann: {label: message('libraryAnnotated'), icon: 'annotated', test: item => item.annotated},
   // not Diigo's: a text of the add-on
   trash: {label: message('libraryTrash'), icon: 'trash', test: () => true},
@@ -30,7 +30,7 @@ const VIEWS = {
   dead: {label: message('libraryDeadLinks'), icon: 'dead', test: item => ['dead', 'unreachable'].includes(linkCategory(item))},
   // not Diigo's: a text of the add-on (duplicateKeys)
   duplicates: {label: message('libraryDuplicates'), icon: 'duplicates', test: item => duplicateKeys().has(item.id)},
-  untagged: {label: 'Untagged', icon: '', test: item => !item.tags.length},
+  untagged: {label: message('viewUntagged'), icon: '', test: item => !item.tags.length},
   // not Diigo's: bookmarks without a real title (library-edit.js: untitled), from Clean up on Start
   notitle: {label: message('libraryNoTitle'), icon: '', test: item => untitled(item)},
 };
@@ -41,38 +41,57 @@ const CLOUD_TAGS = 300;
 
 const side = {types: false, sort: 'top', related: 0};
 
-// The tags chosen in the library don't follow into the trash, where they would leave out most of it: they are set
-// aside going there, and back again leaving it, unless other tags were chosen in the trash meanwhile.
-let tagsBeforeTrash = null;
+// The trash and the lists of Clean up (Dead links, Duplicates, without a title) are lists of their own: the filters
+// chosen in the library (tags, site, search, + filters, private or public, when saved) don't follow into them, where
+// they would leave out most of it. They are set aside going there, from one of them to another too, and back again
+// leaving them, unless other filters were chosen there meanwhile.
+const ASIDE_VIEWS = ['trash', 'dead', 'duplicates', 'notitle'];
+const NO_FILTERS = {tags: [], site: '', query: '', field: 'all', conditions: [], privacy: 'all', saved: 'any'};
+let filtersAside = null;
+
+const filtersOf = state => Object.fromEntries(Object.keys(NO_FILTERS).map(key =>
+  [key, Array.isArray(state[key]) ? [...state[key]] : state[key]]));
+const noFilters = () => JSON.stringify(filtersOf(state)) == JSON.stringify(NO_FILTERS);
+
+// the filters as state has them now, in the search box and the menus next to the order
+function showFilterControls() {
+  $('privacy').value = state.privacy;
+  $('saved').value = state.saved;
+  showSearchBox();
+}
 
 function setView(view) {
-  if (view == 'trash' && state.view != 'trash') {
-    tagsBeforeTrash = state.tags;
-    state.tags = [];
-  } else if (view != 'trash' && state.view == 'trash' && tagsBeforeTrash) {
-    if (!state.tags.length) state.tags = tagsBeforeTrash;
-    tagsBeforeTrash = null;
+  const aside = name => ASIDE_VIEWS.includes(name);
+  // Start: a search or a filter would take you to the list at once (library-home.js: listAsked), so chosen it starts
+  // without them; going back in the browser brings them back
+  if (view == 'home') {
+    Object.assign(state, filtersOf(NO_FILTERS));
+    filtersAside = null;
+    showFilterControls();
+  } else if (aside(view) && view != state.view) {
+    if (!aside(state.view)) filtersAside = filtersOf(state);
+    Object.assign(state, filtersOf(NO_FILTERS));
+    showFilterControls();
+  } else if (!aside(view) && aside(state.view) && filtersAside) {
+    if (noFilters()) Object.assign(state, filtersAside);
+    filtersAside = null;
+    showFilterControls();
   }
   state.random = '';
   // Outliners: the list of them, not the one open before
   state.outliner = '';
-  // what was mended in Dead links stays there only while it is shown (library-links.js: mended)
-  if (view != state.view || view != 'dead') mended.clear();
+  // what was mended stays in the list only while it is shown (library-links.js: mended)
+  mended.clear();
   state.view = view;
   // Dead links is a filter on the status of links itself: the one above the list (state.links, from Clean up on
   // Start) left as it was would show fewer than the count in the side bar says (only those whose site doesn't
   // answer, say)
-  // and what the background script found since the page started, so the list is what the count said; none dead
-  // known: some whose link isn't checked yet, to look for them (showHunt)
+  // and what the background script found since the page started, so the list is what the count said; the bar above it
+  // gives the choice to check the links not checked yet: all, or until the first dead ones (library-links.js)
   if (view == 'dead') {
-    const before = state.random;
     state.links = 'any';
     side.related = 0;
-    return loadLinkStates().then(() => {
-      if (liveItems().some(item => VIEWS.dead.test(item) && sideVisible(item))) return show({push: true});
-      state.random = before;
-      showHunt();
-    });
+    return loadLinkStates().then(() => show({push: true}));
   }
   side.related = 0;
   show({push: true});
@@ -81,8 +100,8 @@ function setView(view) {
 // the bookmarks counted in the side bar: those with a hidden tag only with Show hidden
 const sideVisible = item => state.showHidden || !item.tags.some(hiddenTag);
 
-// a view is chosen, unless a random bookmark is shown in its place; Dead links also while looking for them (showHunt)
-const chosenView = view => view == 'dead' && hunting() || state.view == view && !state.random;
+// a view is chosen, unless a random bookmark is shown in its place
+const chosenView = view => state.view == view && !state.random;
 
 function sideLink(view) {
   const {label, icon} = VIEWS[view];
@@ -152,7 +171,7 @@ function navigation() {
 
 // Random: some from the index, shown on their own (showRandom); chosen while they are shown
 function randomLine() {
-  const chosen = !!state.random && !hunting();
+  const chosen = !!state.random;
   const item = element('li', 'child' + (chosen ? ' selected' : ''));
   const a = element('a', 'random-line' + (chosen ? ' selected' : ''));
   a.href = '#';
@@ -221,21 +240,21 @@ function recentTags(items) {
 function topTags() {
   const box = element('div', 'topTags');
   const sort = element('select', 'tagSort');
-  sort.append(new Option('Top', 'top'), new Option('Recent', 'recent'));
+  sort.append(new Option(message('sideTop'), 'top'), new Option(message('sideRecent'), 'recent'));
   sort.value = side.sort;
-  sort.setAttribute('aria-label', 'Top / Recent');
+  sort.setAttribute('aria-label', message('sideTop') + ' / ' + message('sideRecent'));
   sort.addEventListener('change', () => {
     side.sort = sort.value;
     showTags();
   });
-  box.append(sideTitle('Tags', sort));
+  box.append(sideTitle(message('sideTags'), sort));
   const items = viewItems();
   const untagged = items.filter(item => !item.tags.length).length;
   // chosen: with × to go back to all
   if (state.view == 'untagged') {
-    box.append(tagLine({name: 'Untagged', count: untagged}, {selected: true, onRemove: () => setView('all')}));
+    box.append(tagLine({name: message('viewUntagged'), count: untagged}, {selected: true, onRemove: () => setView('all')}));
   } else if (untagged) {
-    box.append(tagLine({name: 'Untagged', count: untagged}, {onClick: () => setView('untagged')}));
+    box.append(tagLine({name: message('viewUntagged'), count: untagged}, {onClick: () => setView('untagged')}));
   }
   const tags = side.sort == 'top' ? visibleTags(tagCounts(items)).slice(0, TOP_TAGS) : recentTags(items);
   // a click: the bookmarks with that tag, as Diigo searches for it
@@ -247,7 +266,7 @@ function topTags() {
     show({push: true});
   }})));
   const moreTags = element('div', 'moreTagsLine');
-  const all = element('a', 'allTag', 'All tags');
+  const all = element('a', 'allTag', message('sideAllTags'));
   all.href = '#';
   all.addEventListener('click', e => {
     e.preventDefault();
@@ -260,7 +279,7 @@ function topTags() {
 
 function relatedTags() {
   const box = element('div', 'relatedTagsWrapper');
-  box.append(sideTitle('Related Tags'));
+  box.append(sideTitle(message('sideRelatedTags')));
   const chosen = state.tags.map(lower);
   box.append(...state.tags.map(name => tagLine({name}, {selected: true, onRename: () => renameTag(name), onRemove: () => {
     state.tags = state.tags.filter(tag => tag != name);
@@ -340,24 +359,26 @@ function fillCloud() {
 // ---- the menu at the top, as on diigo.com (diigo-site/header.js): the items of the options page, in their order ----
 // (the same in Swift Discover, discover.js)
 
-// where Diigo's own items and those of the add-on lead; their names are those on diigo.com, in English like the site
+// where Diigo's own items and those of the add-on lead, by their names in the language of the browser
 const MENU_LINKS = {
-  library: () => ({label: 'My Library', url: `https://www.diigo.com/user/${encodeURIComponent(user)}`}),
+  // Diigo's own, also with myLibraryToSwift (settings.js: DIIGO_OWN)
+  library: () => ({label: message('diigoMyLibrary'), url: `https://www.diigo.com/user/${encodeURIComponent(user)}${DIIGO_OWN}`}),
   // Diigo's own outliners (yours are in the Swift Library, Outliners in its side bar)
-  outliners: () => ({label: 'My Outliners', url: 'https://www.diigo.com/outliner'}),
-  groups: () => ({label: 'My Groups', url: 'https://groups.diigo.com'}),
+  outliners: () => ({label: message('diigoMyOutliners'), url: 'https://www.diigo.com/outliner'}),
+  groups: () => ({label: message('diigoMyGroups'), url: 'https://groups.diigo.com'}),
   // Diigo's Tools as a page of the add-on (tools.html)
-  tools: () => ({label: 'Tools', url: 'tools.html'}),
-  learnMore: () => ({label: 'Learn more', url: 'https://www.diigo.com/learn_more'}),
-  premium: () => ({label: 'Go Premium', url: 'https://www.diigo.com/premium'}),
-  discover: () => ({label: message('discoverMenu'), url: 'discover.html'}),
-  options: () => ({label: message('optionsMenu'), url: 'options.html'}),
+  tools: () => ({label: menuName('toolsMenu'), url: 'tools.html'}),
+  // Swift Guide, the guide of the add-on, in the place of Diigo's Learn more (guide.html)
+  learnMore: () => ({label: menuName('guideMenu'), url: 'guide.html'}),
+  premium: () => ({label: message('diigoPremium'), url: 'https://www.diigo.com/premium'}),
+  discover: () => ({label: menuName('discoverMenu'), url: 'discover.html'}),
+  options: () => ({label: menuName('optionsMenu'), url: 'options.html'}),
   // this page itself
-  fastLibrary: () => ({label: message('libraryMenu'), url: location.pathname, here: true}),
+  fastLibrary: () => ({label: menuName('libraryMenu'), url: location.pathname, here: true}),
 };
 
 function showMainNav() {
-  $('mainNav').replaceChildren(...menuItemsOf(settings).filter(item => item.shown).map(item => {
+  $('mainNav').replaceChildren(...swiftNavItems().map(item => {
     // a link of your own, once it has a web address
     const link = MENU_LINKS[item.id]?.() ||
       (/^https?:\/\/./i.test(item.url || '') && {label: item.label.trim() || hostOf(item.url), url: item.url});

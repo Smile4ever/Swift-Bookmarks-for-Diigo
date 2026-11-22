@@ -42,6 +42,7 @@ test('every text of the pages and the manifest exists', () => {
     'options/options.html': /data-i18n="([^"]+)"/g,
     'options/library.html': /data-i18n(?:-label|-title)?="([^"]+)"/g,
     'options/discover.html': /data-i18n(?:-label|-title)?="([^"]+)"/g,
+    'options/guide.html': /data-i18n="([^"]+)"/g,
     'manifest.json': /__MSG_(\w+)__/g,
   };
   for (const [file, pattern] of Object.entries(sources)) {
@@ -56,7 +57,7 @@ test('every text the scripts ask for exists', () => {
   const pattern = /(?:getMessage|\bt|\bmessage)\('(\w+)'[,)]|\b(?:message|text|click): '(\w+)'|'(hint\w+)'/g;
   const idsIn = file => [...fs.readFileSync(path.join(ROOT, file), 'utf8').matchAll(pattern)].map(match => match[1] || match[2] || match[3]);
   const scripts = ['background/background.js', 'background/sync.js', 'form/form.js', 'options/options.js',
-    'options/library-index.js', 'options/discover.js'];
+    'options/library-index.js', 'options/discover.js', 'options/guide.js'];
   for (const file of scripts) {
     const ids = idsIn(file);
     assert.ok(ids.length, file);

@@ -1,4 +1,462 @@
 {
+    "userMenuHead": {
+        "message": "Je account op diigo.com"
+    },
+    "formScreenshot": {
+        "message": "Ook een schermafbeelding bewaren"
+    },
+    "screenshotLine": {
+        "message": "Schermafbeelding: $URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1"
+            }
+        }
+    },
+    "screenshotName": {
+        "message": "Schermafbeelding van $TITLE$",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMenu": {
+        "message": "Meer voor dit item"
+    },
+    "itemPin": {
+        "message": "Vastzetten op Start"
+    },
+    "itemHide": {
+        "message": "Verbergen (verborgen tag)"
+    },
+    "itemUnhide": {
+        "message": "Weer tonen (verborgen tag weg)"
+    },
+    "homeChanged": {
+        "message": "Onlangs gewijzigd"
+    },
+    "homePinned": {
+        "message": "Vastgezet"
+    },
+    "homeUnpin": {
+        "message": "Losmaken"
+    },
+    "homeUnpinTitle": {
+        "message": "Haalt de tag pinned weg, ook in Diigo"
+    },
+    "homeEditStart": {
+        "message": "Start aanpassen"
+    },
+    "homeEditIntro": {
+        "message": "Verschuif de blokken, laat weg wat je niet nodig hebt, of voeg eigen blokken toe: wat een zoekopdracht vindt. De tag pinned zet een bladwijzer in Vastgezet."
+    },
+    "homeAddBlock": {
+        "message": "Blok toevoegen"
+    },
+    "homeBlockChange": {
+        "message": "Blok wijzigen"
+    },
+    "homeResetLayout": {
+        "message": "Standaardblokken"
+    },
+    "homeResetConfirm": {
+        "message": "Terug naar de standaardblokken van Start? Je eigen blokken verdwijnen."
+    },
+    "homeBlockUp": {
+        "message": "Omhoog"
+    },
+    "homeBlockDown": {
+        "message": "Omlaag"
+    },
+    "homeBlockHide": {
+        "message": "Weglaten op Start"
+    },
+    "homeBlockShow": {
+        "message": "Tonen op Start"
+    },
+    "homeBlockEmpty": {
+        "message": "Nu niets."
+    },
+    "homeBlockRemoveConfirm": {
+        "message": "Het blok $NAME$ verwijderen?",
+        "placeholders": {
+            "name": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeBlockName": {
+        "message": "Naam"
+    },
+    "homeBlockSearch": {
+        "message": "Wat het toont"
+    },
+    "homeBlockSearchHint": {
+        "message": "Zoals in het zoekvak: woorden, -woord om weg te laten, tag* voor tags die zo beginnen (todo*), in het veld dat je hieronder kiest."
+    },
+    "homeBlockNeedsSearch": {
+        "message": "Typ wat het blok toont."
+    },
+    "homeBlockCount": {
+        "message": "Hoeveel"
+    },
+    "homeBlockCountOf": {
+        "message": "$COUNT$ items",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreStart": {
+        "message": "Je eigen Start: Start aanpassen (rechtsboven op Start) verschuift blokken, laat ze weg, en voegt eigen blokken toe met wat een zoekopdracht vindt. Geef een bladwijzer de tag pinned en hij staat in Vastgezet, bovenaan."
+    },
+    "optionTodoRandom": {
+        "message": "Te doen op Start: enkele willekeurig, met Andere voor andere, in plaats van altijd de oudste. Handig als je er veel hebt."
+    },
+    "goToSwiftLibrary": {
+        "message": "Ga naar Swift Library"
+    },
+    "optionToolbarButton": {
+        "message": "De knop in de werkbalk opent"
+    },
+    "toolbarButtonForm": {
+        "message": "Het bladwijzerformulier"
+    },
+    "toolbarButtonLibrary": {
+        "message": "De Swift Library"
+    },
+    "browserActionLibraryTitle": {
+        "message": "Open de Swift Library"
+    },
+    "homeTodo": {
+        "message": "Te doen"
+    },
+    "homeTodoDone": {
+        "message": "Klaar"
+    },
+    "homeTodoDoneTitle": {
+        "message": "Haalt $TAGS$ weg, ook in Diigo",
+        "placeholders": {
+            "tags": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreTodo": {
+        "message": "Te doen: geef een bladwijzer een tag die begint met todo (todo, todo-werk…) en hij verschijnt in Te doen op Start, de oudste eerst, met Klaar om de tag weg te halen."
+    },
+    "menuLibrary": {
+        "message": "Bibliotheek"
+    },
+    "menuDiscover": {
+        "message": "Ontdekken"
+    },
+    "menuTools": {
+        "message": "Tools"
+    },
+    "diigoMyLibrary": {
+        "message": "Mijn bibliotheek"
+    },
+    "diigoMyOutliners": {
+        "message": "Mijn outliners"
+    },
+    "diigoMyGroups": {
+        "message": "Mijn groepen"
+    },
+    "diigoPremium": {
+        "message": "Naar Premium"
+    },
+    "userPublicLibrary": {
+        "message": "Openbare bibliotheek"
+    },
+    "userSettings": {
+        "message": "Instellingen op Diigo"
+    },
+    "userSignOut": {
+        "message": "Afmelden"
+    },
+    "viewAll": {
+        "message": "Alles"
+    },
+    "viewBookmarks": {
+        "message": "Bladwijzers"
+    },
+    "viewPdfs": {
+        "message": "Pdf's"
+    },
+    "viewImages": {
+        "message": "Afbeeldingen"
+    },
+    "viewNotes": {
+        "message": "Notities"
+    },
+    "viewOutliners": {
+        "message": "Outliners"
+    },
+    "viewUntagged": {
+        "message": "Zonder tags"
+    },
+    "sideTags": {
+        "message": "Tags"
+    },
+    "sideTop": {
+        "message": "Meest gebruikt"
+    },
+    "sideRecent": {
+        "message": "Recent"
+    },
+    "sideAllTags": {
+        "message": "Alle tags"
+    },
+    "sideRelatedTags": {
+        "message": "Gerelateerde tags"
+    },
+    "toDiigo": {
+        "message": "Naar diigo.com"
+    },
+    "guideTypesHead": {
+        "message": "Niet alleen bladwijzers"
+    },
+    "guideTypesIntro": {
+        "message": "Een Diigo-bibliotheek bevat meer dan webpagina's. De Swift Library toont met een icoon voor de titel wat voor item het is, en onder Alles in de zijbalk kies je één soort. De knoppen om toe te voegen bovenaan de zijbalk maken elk ervan, behalve Kindle."
+    },
+    "guideTypeBookmark": {
+        "message": "Bladwijzers: webpagina's, bewaard met het bladwijzerformulier of hier toegevoegd, met de status van hun pagina voor de titel."
+    },
+    "guideTypeNote": {
+        "message": "Notities: eigen tekst, gewoon of met opmaak, hier geschreven en bewerkt en in de pagina getoond met een klik op de titel. Een notitie waarvan de titel eindigt op .py, .css, .html en dergelijke is code, in kleuren getoond. Notities zijn op Diigo altijd privé."
+    },
+    "guideTypeFile": {
+        "message": "Afbeeldingen en pdf's: hier geüpload met een titel, beschrijving en tags (een pdf tot 64 MB); een afbeelding wordt in de pagina getoond. Verwijder je ze hier, dan blijft hun bestand in de prullenbak, zodat je ze kunt terugzetten."
+    },
+    "guideTypeKindle": {
+        "message": "Kindle: je Kindle-markeringen, geïmporteerd op diigo.com. Ze kunnen hier niet gemaakt of bewerkt worden; uit de prullenbak komen ze terug door ze opnieuw te importeren."
+    },
+    "guideTypeAnnotated": {
+        "message": "Geannoteerd: bladwijzers met markeringen of plaknotities op hun pagina, gemaakt met Diigo's eigen browserextensie. De Swift Library toont welke ze hebben; de markeringen zelf staan op diigo.com."
+    },
+    "linksCheckChoice": {
+        "message": "$COUNT$ links van je library zijn niet of niet onlangs gecontroleerd. Controleer ze allemaal, ook die je niet tegenkomt bij het scrollen, of alleen tot de eerste $FOUND$ dode gevonden zijn.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "found": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntButton": {
+        "message": "De eerste $COUNT$ dode links vinden",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHuntIntro": {
+        "message": "Dode links zoeken tussen de links die nog niet gecontroleerd zijn, tot er $COUNT$ gevonden zijn; elke gevonden link verschijnt hier meteen.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHunting": {
+        "message": "Dode links zoeken: $DONE$ gecontroleerd, $DEAD$ gevonden",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHunted": {
+        "message": "$DEAD$ dode links gevonden in $DONE$ gecontroleerde links.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntedNone": {
+        "message": "Geen dode links in de $DONE$ gecontroleerde links.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            }
+        }
+    },
+    "toolsMenu": {
+        "message": "Swift Tools"
+    },
+    "guideSyncHead": {
+        "message": "Je browserbladwijzers naar Diigo"
+    },
+    "guideSyncText": {
+        "message": "Kies mappen van deze browser in Swift Opties, en hun bladwijzers gaan naar je Diigo-bibliotheek: één keer met Nu synchroniseren, of gesynchroniseerd gehouden, zodat een nieuwe bladwijzer erin een minuut later naar Diigo gaat. De mapnamen kunnen tags worden (Recepten › Italiaans eten geeft recepten en italiaans-eten), en de bladwijzers kunnen als privé bewaard worden. De mappen kies je per computer."
+    },
+    "guideSyncOneWay": {
+        "message": "Het gaat in één richting, van deze browser naar Diigo: een bladwijzer die al in Diigo staat, blijft daar zoals hij is, en een die je uit deze browser verwijdert, blijft in Diigo. Je Diigo-bibliotheek komt niet in de bladwijzers van de browser; daarvoor zijn er de Swift Library en d in de adresbalk."
+    },
+    "guideSyncChoose": {
+        "message": "Mappen kiezen"
+    },
+    "libraryGoneOn": {
+        "message": "Niet meer op Diigo $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexGoneToTrash": {
+        "message": "Index opnieuw opgebouwd: $COUNT$ items staan niet meer op Diigo en zijn naar de prullenbak verplaatst, waar je ze 30 dagen kunt terugzetten.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptShrunk": {
+        "message": "Diigo gaf maar $COUNT$ items, veel minder dan de $BEFORE$ in de index, dus de index blijft zoals hij was. Probeer het later opnieuw, of kies Opnieuw opbouwen in Swift Opties als je bibliotheek echt zoveel kleiner is.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexShrinkConfirm": {
+        "message": "Diigo gaf maar $COUNT$ items, veel minder dan de $BEFORE$ in de index. Meestal betekent dat dat Diigo niet goed laadde. De index toch vervangen door deze $COUNT$ items?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "guideNews": {
+        "message": "Nieuw: een gids over alles wat de add-on meer doet dan Diigo, zoals bladwijzers verbergen met de tag hidden."
+    },
+    "privacyFirefoxSync": {
+        "message": "In Firefox gaan de instellingen alleen mee naar je andere computers als Add-ons aangevinkt is in de instellingen van Firefox Sync (Instellingen, Synchronisatie)."
+    },
+    "guideMenu": {
+        "message": "Swift Gids"
+    },
+    "guideIntro": {
+        "message": "Swift Bookmarks for Diigo maakt Diigo sneller en makkelijker in gebruik, met je aanmelding op diigo.com. Het is niet van Diigo zelf. Hier lees je wat het toevoegt, en waar je het vindt."
+    },
+    "guideAgain": {
+        "message": "Je kunt deze gids altijd opnieuw openen: Gids in het menu bovenaan de Swift-pagina's, of in het menu van de knop in de werkbalk."
+    },
+    "guideFormHead": {
+        "message": "Een pagina bewaren in een tel"
+    },
+    "guideFormText": {
+        "message": "Klik op de knop in de werkbalk, of klik met rechts op een pagina of een link. Het formulier stelt tags voor: je eigen tags die in de titel of het webadres staan, die van je laatste bladwijzer op dezelfde site, en tags die je vaak samen gebruikt. Een nieuwe bladwijzer wordt bewaard zonder trackingparameters, het formulier zegt wanneer je de pagina al eens bewaarde, en de knop in de werkbalk toont of een pagina al in je bibliotheek staat."
+    },
+    "guideShortcut": {
+        "message": "Sneltoets: $KEYS$",
+        "placeholders": {
+            "keys": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideHiddenHead": {
+        "message": "Bladwijzers verbergen met de tag hidden"
+    },
+    "guideHiddenText": {
+        "message": "Geef een bladwijzer de tag hidden en hij blijft weg uit de Swift Library, de adresbalk, Swift Discover en de voorstellen van het formulier: handig voor wat je liever niet ziet opduiken als iemand over je schouder meekijkt. Om ze te zien zoek je de tag volledig (hidden) of vink je Verborgen tonen aan boven de lijst. Kies je eigen verborgen tags in Swift Opties; tags die alleen verborgen bladwijzers hebben, worden ook verborgen, zodat ze die niet verraden."
+    },
+    "guideHiddenWarn": {
+        "message": "Verborgen is niet privé: op diigo.com zelf, en voor anderen als de bladwijzer openbaar is, blijft hij zichtbaar. Maak hem ook privé als niemand anders hem mag zien."
+    },
+    "guideHiddenChoose": {
+        "message": "Verborgen tags kiezen"
+    },
+    "guideLibraryHead": {
+        "message": "De Swift Library: je hele bibliotheek in één keer"
+    },
+    "guideLibraryText": {
+        "message": "Een kopie van je bibliotheek in deze browser, zodat zoeken, sorteren en filteren meteen gaan, ook met duizenden bladwijzers. Zoek in alle velden of in één (titel, webadres, tags, beschrijving…), laat weg wat -woord heeft, houd een zoekopdracht als filter met +, en klik op een tag of een site om erop te filteren. Start toont wat je onlangs bewaarde, wat nog gelezen moet worden, en wat je op deze dag in vorige jaren bewaarde."
+    },
+    "guideBulkText": {
+        "message": "Bulk bewerken: vink bladwijzers aan (ook met Shift+klik en Shift+pijltjestoetsen) om tags toe te voegen of weg te halen, ze privé of openbaar, gelezen of ongelezen te maken, ze te delen naar een outliner, of ze allemaal tegelijk te verwijderen."
+    },
+    "guideTrashHead": {
+        "message": "Een prullenbak om je te bedenken"
+    },
+    "guideTrashText": {
+        "message": "Wat je verwijdert, hier of op diigo.com, gaat 30 dagen naar de prullenbak, afbeeldingen en pdf's met hun bestand, en kan daar teruggezet worden, één voor één of met Bulk bewerken. Diigo zelf heeft geen prullenbak."
+    },
+    "guideLinksHead": {
+        "message": "Dode links, en de Wayback Machine"
+    },
+    "guideLinksText": {
+        "message": "Voor elke titel staat de status van de pagina: 200, 404, BOT, PARKED, of → als ze verhuisd is. Klik erop om de pagina op te zoeken in de Wayback Machine of op archive.is, om de laatste kopie of het nieuwe webadres te gebruiken. Opruimen op Start vindt ook dubbele bladwijzers, bladwijzers zonder tags of zonder titel, en gelijkaardige tags om samen te voegen."
+    },
+    "guideLinksPrivacy": {
+        "message": "Daarvoor vraagt de add-on elke pagina op bij de site zelf, vanuit je browser. Liever niet? In Swift Opties, onder Privacy, worden links dan alleen gecontroleerd als je erom vraagt."
+    },
+    "guideTagsHead": {
+        "message": "Tags en outliners"
+    },
+    "guideTagsText": {
+        "message": "Al je tags met een vak om er een te vinden, de 300 meest gebruikte als wolk, een tag in één keer overal hernoemd, en tags die bijna hetzelfde zijn (recept en recepten) samengevoegd tot één."
+    },
+    "guideOutlinersText": {
+        "message": "Je outliners van Diigo staan ook in de zijbalk van de Swift Library: een boom om in te schrijven met het toetsenbord, met items uit je bibliotheek."
+    },
+    "guideDiscoverText": {
+        "message": "De Hot Bookmarks van de Diigo-gemeenschap zonder wat je al hebt, in de volgorde Voor jou (op je tags), met een zoekvak en filters. Bewaar er een met één klik, of laat hem weg met Niet geïnteresseerd."
+    },
+    "guideMoreHead": {
+        "message": "En meer"
+    },
+    "guideMoreAddress": {
+        "message": "In de adresbalk: typ d, een spatie en enkele woorden om je bladwijzers te vinden."
+    },
+    "guideMoreDiigo": {
+        "message": "Op diigo.com: Ga naar Swift Library achteraan het menu bovenaan, en na het aanmelden kom je in de Swift Library. De rest van diigo.com blijft zoals Diigo het heeft; in Swift Opties kun je My Library en Tools de Swift-pagina's laten openen."
+    },
+    "guideMoreSettings": {
+        "message": "Je instellingen gaan mee naar je andere computers met het account van je browser."
+    },
+    "guidePrivacyText": {
+        "message": "De add-on stuurt niets naar de maker. Hij praat voor jou met diigo.com, met je aanmelding daar, en de kopie van je bibliotheek blijft in deze browser. Wat er verder waarheen gaat, en de keuzes daarover, staan in Swift Opties onder Privacy."
+    },
+    "guideDiigoTour": {
+        "message": "Diigo's eigen rondleiding door wat Diigo doet: Learn more op diigo.com"
+    },
+    "privacyHead": {
+        "message": "Privacy"
+    },
+    "privacyIntro": {
+        "message": "De add-on stuurt niets naar de maker. Hij praat voor jou met diigo.com, met je aanmelding daar, en de kopie van je bibliotheek (de index) blijft in deze browser. Deze instellingen worden bewaard bij het account van je browser (Firefox Sync, Google of Microsoft) als die synchroniseert, zodat je andere computers ze ook krijgen; de mappen om te synchroniseren blijven op deze computer."
+    },
+    "optionAutoCheckLinks": {
+        "message": "Elke link vanzelf controleren zodra hij in de lijst verschijnt. Uit: een link wordt alleen gecontroleerd als je erom vraagt, met een klik op zijn ·, Alle links controleren, of door dode links te zoeken in de zijbalk; wat eerder gecontroleerd is, blijft zichtbaar."
+    },
+    "optionsGuideText": {
+        "message": "Nieuw hier, of benieuwd wat de add-on meer doet dan Diigo?"
+    },
+    "linkNotCheckedTitle": {
+        "message": "Nog niet gecontroleerd: klik om deze link te controleren"
+    },
     "move": {
         "message": "Verplaatsen"
     },
@@ -86,7 +544,7 @@
         "message": "Opties van Swift Bookmarks for Diigo"
     },
     "cannotBookmark": {
-        "message": "Deze pagina kan niet in Diigo worden opgeslagen"
+        "message": "Deze pagina kan niet in Diigo worden opgeslagen: open de Swift Library"
     },
     "commandShowForm": {
         "message": "Deze pagina opslaan in Diigo"
@@ -104,13 +562,10 @@
         "message": "Op diigo.com"
     },
     "optionsIntro": {
-        "message": "De add-on verandert niet meer hoe diigo.com eruitziet en werkt: wat hij beter doet, zit in de Swift Library en Swift Discover. Op diigo.com voegt hij alleen de weg daarheen toe, in het menu bovenaan."
+        "message": "De add-on verandert diigo.com nauwelijks: wat hij beter doet, zit in de Swift Library en Swift Discover. Op diigo.com voegt hij alleen de weg daarheen toe, Ga naar Swift Library in het menu bovenaan."
     },
     "optionMyLibraryToSwift": {
-        "message": "My Library in het menu bovenaan diigo.com opent de Swift Library. Die van Diigo zelf: Ctrl+klik of een middelklik, of My Library in het menu van de Swift Library"
-    },
-    "myLibraryToSwiftTitle": {
-        "message": "Opent de Swift Library. Ctrl+klik: My Library op diigo.com"
+        "message": "Naar je bibliotheek op diigo.com gaan opent de Swift Library: een link ernaar, een bladwijzer, het adres typen. My Library in het menu bovenaan diigo.com blijft die van Diigo zelf, net als het adres met ?swift=false erachter"
     },
     "optionSignInToSwift": {
         "message": "Na het inloggen op diigo.com opent de Swift Library in plaats van je library op diigo.com"
@@ -119,10 +574,10 @@
         "message": "De tools van Diigo voor je library, met deze add-on: het bladwijzerformulier met de werkbalkknop en Ctrl+Alt+D, de Swift Library en Swift Discover."
     },
     "optionToolsToSwift": {
-        "message": "Tools in het menu bovenaan diigo.com opent de Tools-pagina van de add-on: zonder Google Play en Import kindle highlights, met deze add-on. Die van Diigo zelf: Ctrl+klik of een middelklik"
+        "message": "Tools in het menu bovenaan diigo.com opent Swift Tools: zonder Google Play en Import kindle highlights, met deze add-on. Die van Diigo zelf: Ctrl+klik of een middelklik"
     },
     "toolsToSwiftTitle": {
-        "message": "Opent de Tools-pagina van de add-on. Ctrl+klik: Tools op diigo.com"
+        "message": "Opent Swift Tools. Ctrl+klik: Tools op diigo.com"
     },
     "optionDeadLinks": {
         "message": "In de Swift Library aangeven welke links dood zijn (404) of waarvan de site niet antwoordt. Daarvoor vraagt de add-on elke pagina op bij de site zelf. Klik op de statuscode om de pagina op te zoeken in de Wayback Machine of op archive.is."
@@ -158,27 +613,6 @@
     },
     "optionSplitAdd": {
         "message": "Vier knoppen bovenaan de zijbalk in plaats van de knop + met een menu: Bookmark, Image, PDF en Note, zodat je met één klik toevoegt"
-    },
-    "topMenuHead": {
-        "message": "Het menu bovenaan diigo.com"
-    },
-    "topMenuIntro": {
-        "message": "Welke items het toont, in welke volgorde, en links van jezelf; hetzelfde bovenaan de Swift Library en Swift Discover. My Library, My Outliners, My Groups en Swift Library staan er alleen als je ingelogd bent."
-    },
-    "topMenuAdd": {
-        "message": "Link toevoegen"
-    },
-    "topMenuName": {
-        "message": "Naam"
-    },
-    "topMenuShow": {
-        "message": "Tonen in het menu"
-    },
-    "topMenuUp": {
-        "message": "Omhoog"
-    },
-    "topMenuDown": {
-        "message": "Omlaag"
     },
     "topMenuRemove": {
         "message": "Verwijderen"
@@ -557,9 +991,6 @@
     "libraryRemoveFilter": {
         "message": "Deze filter weghalen"
     },
-    "libraryHuntIntro": {
-        "message": "20 van je bladwijzers waarvan de link nog niet gecontroleerd is, willekeurig: hun links worden nu gecontroleerd, een dode in het rood. Klik links opnieuw op Dode links voor de gevonden dode links, of 20 andere."
-    },
     "libraryHuntNone": {
         "message": "Geen dode links: alle links van je bladwijzers zijn onlangs gecontroleerd."
     },
@@ -684,6 +1115,30 @@
     },
     "libraryTrashIntro": {
         "message": "Verwijderd met de add-on, bewaard in deze browser. Terugzetten zet het opnieuw in Diigo, met de datum van vandaag en zonder markeringen. Na 30 dagen voorgoed weg."
+    },
+    "bulkRestored": {
+        "message": "$COUNT$ items teruggezet.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkNotRestored": {
+        "message": "$COUNT$ konden niet teruggezet worden:",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkForgetConfirm": {
+        "message": "De $COUNT$ geselecteerde items definitief uit de prullenbak weggooien?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
     },
     "libraryRestore": {
         "message": "Terugzetten"
@@ -831,6 +1286,14 @@
         "message": "Er ging iets mis ($ERROR$). Alles wat getoond kon worden, staat er; de pagina herladen kan helpen.",
         "placeholders": {
             "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptEmpty": {
+        "message": "Diigo gaf geen items, dus de index van $COUNT$ items blijft zoals hij was. Probeer het later opnieuw.",
+        "placeholders": {
+            "count": {
                 "content": "$1"
             }
         }
@@ -1331,7 +1794,7 @@
         "message": "Het bladwijzerformulier"
     },
     "formOptionsIntro": {
-        "message": "Wat het formulier invult voor een nieuwe bladwijzer. Een bladwijzer die je al bewaarde, opent zoals je hem bewaarde."
+        "message": "Wat het formulier invult voor een nieuwe bladwijzer. Een bladwijzer die je al bewaarde, opent zoals je hem bewaarde. De sneltoets opent altijd het bladwijzerformulier, op een pagina die niet bewaard kan worden de Swift Library."
     },
     "optionPageDescription": {
         "message": "Zonder geselecteerde tekst op de pagina de beschrijving die de pagina van zichzelf geeft (zoals zoekmachines die tonen) als beschrijving"
@@ -1396,14 +1859,6 @@
     },
     "linksCheckAll": {
         "message": "Alle links controleren"
-    },
-    "linksCheckAllIntro": {
-        "message": "$COUNT$ links van je library zijn niet of niet onlangs gecontroleerd: Alle links controleren controleert ze allemaal, ook die je niet tegenkomt bij het scrollen.",
-        "placeholders": {
-            "count": {
-                "content": "$1"
-            }
-        }
     },
     "linksAllChecked": {
         "message": "Alle links van je library zijn onlangs gecontroleerd."
@@ -1626,9 +2081,6 @@
     },
     "linkUseNewUrl": {
         "message": "Het nieuwe webadres gebruiken"
-    },
-    "linkUseNewUrlAll": {
-        "message": "Alles naar het nieuwe adres"
     },
     "linkUseNewUrlConfirm": {
         "message": "$COUNT$ bladwijzers het webadres geven waarnaar ze verhuisden, ook in Diigo?",

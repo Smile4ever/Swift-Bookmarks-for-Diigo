@@ -19,6 +19,9 @@ function showCount() {
   const total = totalOf(state.view);
   $('count').textContent = !total ? message('libraryNoItems')
     : message(shown.length ? 'libraryCount' : 'searchNone', [String(shown.length), String(total)]);
+  // after Show hidden: how many with a hidden tag match (library-search.js: shownItems), shown or not
+  $('hiddenCount').hidden = !hiddenCount;
+  $('hiddenCount').textContent = String(hiddenCount);
 }
 
 // the tags hidden along with the hidden ones (settings.js: alsoHiddenTags), from the index as it is now, kept for the
@@ -43,6 +46,8 @@ function show({keepScroll = false, push = false} = {}) {
   safely('hidden tags', updateAlsoHidden);
   // when the search itself fails, all of the index, as it is
   // Start: no list, its blocks instead
+  // Start and Outliners: no list, so none hidden in it either (showCount)
+  if (home || outlining) hiddenCount = 0;
   shown = home || outlining ? [] : safely('search', shownItems, null) ?? itemsOf(state.view);
   $('list').classList.toggle('home-mode', home);
   $('list').classList.toggle('outliners-mode', outlining);
@@ -64,9 +69,10 @@ function show({keepScroll = false, push = false} = {}) {
   safely('dead links', showDeadBar);
   safely('random', () => {
     $('randomBar').hidden = !state.random;
-    $('randomIntro').textContent = message(hunting() ? 'libraryHuntIntro' : 'libraryRandomIntro');
   });
   if (state.view == 'trash') safely('trash size', showTrashSize);
+  // out of the trash: the message of Empty closed (library-trash.js)
+  safely('trash', leftTrash);
   // keepScroll: drawn again as far as it was, not only the first LIST_STEP, else the page gets shorter under where you
   // are and the browser jumps to another place (after a delete, Undo, Bulk edit, a change from elsewhere)
   const keep = keepScroll ? listed : 0;
@@ -88,13 +94,73 @@ function show({keepScroll = false, push = false} = {}) {
 // add-on, so tabs of the Swift Library tell apart
 function showTitle() {
   if (state.view == 'outliners') return document.title = outlinerPart.title() + TITLE_SUFFIX;
-  const view = hunting() ? VIEWS.dead.label : state.random ? message('libraryRandom') : VIEWS[state.view].label;
+  const view = state.random ? message('libraryRandom') : VIEWS[state.view].label;
   const asked = state.random ? [] : [searched(), ...state.conditions].filter(complete).map(conditionText)
     .concat(state.tags, state.site ? [state.site] : []);
   document.title = (asked.length ? asked.join(', ') + ' · ' : '') + view + TITLE_SUFFIX;
 }
 
 // a bookmark that can't be drawn as it should: its title (or URL) as a link, so it's still there
+// The rows of these items drawn anew, each in its place (in the list and on Start, where one can be in several
+// blocks), the rest of the page as it is; not one being edited in the row itself. id: the id they had, when it changed
+// (another web address can give another link_id).
+function redrawItems(items, id = '') {
+  for (const item of items) {
+    const ids = new Set([item.id, id].filter(Boolean));
+    for (const old of ids) {
+      for (const li of $('list').querySelectorAll(`li[data-id="${CSS.escape(String(old))}"]`)) {
+        if (li.redraw && !li.querySelector('form.edit')) li.replaceWith(li.redraw(item));
+      }
+    }
+  }
+}
+
+// whether an item is in the same blocks of Start after a change (library-home.js): read, private, its tags (hidden
+// ones), when it was saved and what kind it is
+const sameBlocks = (a, b) => !!a && !!b && ['unread', 'private', 'created', 'type'].every(key => a[key] == b[key]) &&
+  JSON.stringify(a.tags) == JSON.stringify(b.tags);
+
+// The index read again (library-page.js: readIndexAgain); before and trashBefore as they were. What didn't change stays
+// the same object, so the rows drawn keep theirs, and only the rows of what did change are drawn anew, in their place:
+// after an edit (here, on diigo.com, with the bookmark form) the list doesn't jump. The answer is whether that was
+// enough; else (items added or gone, the trash changed, a change that moves one to other blocks on Start, Outliners)
+// show() draws it all again.
+function redrawChanged(before, trashBefore) {
+  const sameIds = (a, b) => a.size == b.size && [...a.keys()].every(id => b.has(id));
+  const changed = [];
+  for (const [id, item] of index) {
+    const old = before.get(id);
+    if (old && JSON.stringify(old) == JSON.stringify(item)) index.set(id, old);
+    else changed.push(item);
+  }
+  if (!sameIds(index, before) || state.view == 'outliners') return false;
+  const trashSame = sameIds(trash, trashBefore) &&
+    [...trash].every(([id, item]) => JSON.stringify(item) == JSON.stringify(trashBefore.get(id)));
+  if (!trashSame) return false;
+  trash = trashBefore;
+  if (state.view == 'home' && changed.some(item => !sameBlocks(item, before.get(item.id)))) return false;
+  if (!changed.length) return true;
+  shown = shown.map(item => index.get(item.id) || item);
+  redrawItems(changed);
+  safely('count', showCount);
+  safely('side bar', showTags);
+  return true;
+}
+
+// One more that matches what is shown (a dead link found in Dead links, library-links.js: checkLinks): at
+// the end of the list, without drawing it again, so what you point at or click on stays where it is. Only when the
+// list is drawn to its end; else it comes when you scroll there (listMore).
+function appendShown(item) {
+  // one with a hidden tag isn't shown, but counted after Show hidden (showCount)
+  if (shown.includes(item) || !shownItems().includes(item) || pending.has(item.id)) return showCount();
+  shown.push(item);
+  if (listed == shown.length - 1) {
+    $('items').append(itemElement(item));
+    listed++;
+  }
+  showCount();
+}
+
 function plainItem(item) {
   const li = element('li', 'item');
   const link = element('a', 'title', text(item?.title) || text(item?.url) || text(item?.id));
@@ -226,6 +292,9 @@ function typeIcon(item) {
 
 function itemElement(item) {
   const li = element('li', 'item');
+  // to draw it anew in its place (redrawItems)
+  li.dataset.id = item.id;
+  li.redraw = itemElement;
   if (item.thumb && item.type && item.type != 'bookmark') li.append(thumbElement(item));
   if (picking()) {
     li.append(pickBox(item));
@@ -251,6 +320,10 @@ function itemElement(item) {
   }
   // Duplicates: the web address as it is, as that is where they differ (urlKey)
   if (state.view == 'duplicates' && item.url) li.append(element('div', 'full-url', item.url));
+  // Moved (the filter of the status of links, from Clean up on Start): where it moved to, to judge it before giving
+  // it that address (Bulk edit: bulkNewUrl, or the menu of its code)
+  const movedTo = state.links == 'moved' && linkStates.get(item.url)?.to;
+  if (movedTo) li.append(element('div', 'full-url moved-to', '→ ' + movedTo));
 
   const meta = element('div', 'meta');
   const host = hostOf(item.url);
@@ -296,6 +369,8 @@ function itemElement(item) {
   }
   const actions = element('div', 'actions');
   if (editable(item)) actions.append(editButton(item, li));
+  // ⋯: pin to Start, hide (library-home.js: itemMenuButton)
+  actions.append(itemMenuButton(item));
   // no On Diigo here: the title of a PDF or a Kindle item leads there already (titleUrl), a note or an image opens in
   // the Swift Library with On Diigo in it (library-edit.js: viewNote, viewImage)
   const remove = element('button', 'delete', message('libraryDelete'));
@@ -311,7 +386,9 @@ function itemElement(item) {
     restore.addEventListener('click', () => cancelDelete(item, li));
     actions.replaceChildren(restore);
   } else if (item.deletedAt) {
-    meta.append(element('span', 'date', message('libraryDeletedOn', dateFormat.format(item.deletedAt))));
+    // or no longer on Diigo, found when the index was built (library-index.js: buildIndex)
+    meta.append(element('span', 'date', message(item.goneFromDiigo ? 'libraryGoneOn' : 'libraryDeletedOn',
+      dateFormat.format(item.deletedAt))));
     actions.replaceChildren(...trashActions(item, li));
   }
   line.append(tags, actions);

@@ -230,56 +230,12 @@ test('what diigo.com deletes: the ids of its request, as a form or as bytes', ()
   assert.deepStrictEqual(plain(deletedIds({formData: {link_id: ['']}})), []);
 });
 
-test('My Library is hidden in the menu at the top, also in a menu saved before, once', async () => {
-  const context = background();
-  assert.strictEqual(vm.runInContext("DEFAULT_SETTINGS.menuItems.find(item => item.id == 'library').shown", context), false);
-  const storage = {menuItems: [{id: 'library', shown: true}, {id: 'tools', shown: true}]};
-  context.browser = {storage: {local: {
-    get: keys => Promise.resolve(Object.fromEntries([keys].flat().filter(key => key in storage).map(key => [key, storage[key]]))),
-    set: items => Promise.resolve(Object.assign(storage, items)),
-  }}};
-  await context.hideMyLibrary();
-  assert.deepStrictEqual(plain(storage.menuItems), [{id: 'library', shown: false}, {id: 'tools', shown: true}]);
-  // shown again on the options page: it stays so
-  storage.menuItems[0].shown = true;
-  await context.hideMyLibrary();
-  assert.strictEqual(storage.menuItems[0].shown, true);
-});
-
-test('My Outliners is hidden in the menu at the top, also in a menu saved before, once', async () => {
+test('no menu to set for diigo.com; the Swift pages have all of them in theirs', () => {
   const context = background();
   const run = code => vm.runInContext(code, context);
-  assert.strictEqual(run("DEFAULT_SETTINGS.menuItems.find(item => item.id == 'outliners').shown"), false);
-  // an item no longer known (Swift Outliners, of before) leaves a menu saved before
-  const ids = run(`menuItemsOf({menuItems: [{id: 'swiftOutliners', shown: true}, {id: 'outliners', shown: true}]})
-    .map(item => item.id)`);
-  assert.ok(!plain(ids).includes('swiftOutliners'));
-  const storage = {menuItems: [{id: 'outliners', shown: true}, {id: 'tools', shown: true}]};
-  context.browser = {storage: {local: {
-    get: keys => Promise.resolve(Object.fromEntries([keys].flat().filter(key => key in storage).map(key => [key, storage[key]]))),
-    set: items => Promise.resolve(Object.assign(storage, items)),
-  }}};
-  await context.hideMyOutliners();
-  assert.deepStrictEqual(plain(storage.menuItems), [{id: 'outliners', shown: false}, {id: 'tools', shown: true}]);
-  storage.menuItems[0].shown = true;
-  await context.hideMyOutliners();
-  assert.strictEqual(storage.menuItems[0].shown, true);
-});
-
-test('My Groups is hidden in the menu at the top, also in a menu saved before, once', async () => {
-  const context = background();
-  assert.strictEqual(vm.runInContext("DEFAULT_SETTINGS.menuItems.find(item => item.id == 'groups').shown", context), false);
-  const storage = {menuItems: [{id: 'groups', shown: true}, {id: 'library', shown: true}], myLibraryHidden: true};
-  context.browser = {storage: {local: {
-    get: keys => Promise.resolve(Object.fromEntries([keys].flat().filter(key => key in storage).map(key => [key, storage[key]]))),
-    set: items => Promise.resolve(Object.assign(storage, items)),
-  }}};
-  await context.hideMyGroups();
-  await context.hideMyLibrary();
-  assert.deepStrictEqual(plain(storage.menuItems), [{id: 'groups', shown: false}, {id: 'library', shown: true}]);
-  storage.menuItems[0].shown = true;
-  await context.hideMyGroups();
-  assert.strictEqual(storage.menuItems[0].shown, true);
+  assert.strictEqual(run("'menuItems' in DEFAULT_SETTINGS"), false);
+  assert.deepStrictEqual(plain(run('swiftNavItems().map(item => item.id)')),
+    ['fastLibrary', 'discover', 'options', 'tools', 'learnMore']);
 });
 
 test('dead links you said are not dead: one link, or all of a site, not dead any more', () => {
@@ -363,4 +319,47 @@ test('the tags of yours a title or web address mentions, as the form suggests an
     ['machine-learning', 'python']);
   // in the web address too, without www. and .html; not tags of fewer than 3 characters
   assert.deepStrictEqual(Array.from(tagsMentioned('Dinner', 'https://www.recipes.com/js/pasta.html', names)), ['recipes']);
+});
+
+test('an index is kept when Diigo gives no items, and replaced when it gives some', async () => {
+  const context = load('options/settings.js', 'options/index-item.js', 'options/library-index.js');
+  let answer = {items: [], total: 0};
+  context.fetch = async () => ({json: async () => answer});
+  vm.runInContext(`index = new Map([['a', {id: 'a', updated: 1}], ['b', {id: 'b', updated: 2}]]);
+    meta = {user: 'me', newest: 2, version: INDEX_VERSION};`, context);
+  const build = () => vm.runInContext(`buildIndex('me', new AbortController().signal, () => {})`, context);
+  await assert.rejects(build());
+  assert.strictEqual(vm.runInContext('index.size', context), 2);
+  answer = {items: [{link_id: 'c', url: 'https://example.com/', updated_at: '2026-11-22 10:00:00', tags: ''}], total: 1};
+  assert.strictEqual(await build(), 2);
+  assert.deepStrictEqual(plain(vm.runInContext('[...index.keys()]', context)), ['c']);
+  // what Diigo no longer has: in the trash, to put back
+  const trashed = plain(vm.runInContext('[...trash.values()]', context));
+  assert.deepStrictEqual(trashed.map(item => [item.id, item.goneFromDiigo, item.deletedAt > 0]), [['a', true, true], ['b', true, true]]);
+  // someone else's index: Diigo's empty library is theirs, and theirs isn't put in the trash
+  vm.runInContext(`meta = {...meta, user: 'other'}`, context);
+  answer = {items: [], total: 0};
+  vm.runInContext(`index = new Map([['x', {id: 'x', updated: 1}]])`, context);
+  assert.strictEqual(await build(), 0);
+  assert.strictEqual(vm.runInContext('index.size', context), 0);
+  assert.ok(!vm.runInContext(`trash.has('x')`, context));
+});
+
+test('an index is kept when Diigo gives far fewer items, unless that is allowed', async () => {
+  const context = load('options/settings.js', 'options/index-item.js', 'options/library-index.js');
+  const bookmark = i => ({link_id: 'n' + i, url: `https://example.com/${i}`, updated_at: '2026-11-22 10:00:00', tags: ''});
+  context.fetch = async () => ({json: async () => ({items: [1, 2, 3, 4, 5].map(bookmark), total: 5})});
+  vm.runInContext(`index = new Map(Array.from({length: 30}, (_, i) => ['o' + i, {id: 'o' + i, updated: 1}]));
+    meta = {user: 'me', newest: 1, version: INDEX_VERSION};`, context);
+  const build = allowShrink => vm.runInContext(`buildIndex('me', new AbortController().signal, () => {}, options)`,
+    Object.assign(context, {options: {allowShrink}}));
+  let asked = null;
+  await assert.rejects(build((count, before) => (asked = [count, before], false)));
+  assert.deepStrictEqual(asked, [5, 30]);
+  assert.strictEqual(vm.runInContext('index.size', context), 30);
+  // without a question (built by itself): kept too
+  await assert.rejects(build(undefined));
+  assert.strictEqual(await build(() => true), 30);
+  assert.strictEqual(vm.runInContext('index.size', context), 5);
+  assert.strictEqual(vm.runInContext('trash.size', context), 30);
 });

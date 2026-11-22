@@ -27,14 +27,15 @@ function saveError(result) {
 // a text field of the popups (cardField)
 const input = (type, value) => Object.assign(element('input'), {type, value: value || '', spellcheck: false});
 
-// After an edit in the popup: the bookmark or note anew in its place in the list (li, unless the list was drawn again
-// meanwhile), and the tags at the side.
-function showEdited(li, item, changed) {
+// After an edit in the popup: the bookmark or note anew in its place, the rest of the page as it is (library-list.js:
+// redrawItems), and the tags at the side. before: the item as it was before the edit. On Start (library-home.js) its
+// blocks again only when it belongs in others now (sameBlocks): read, private, tags.
+function showEdited(li, item, changed, before) {
   $('popup').close();
-  // on Start (library-home.js): its blocks again
-  if (state.view == 'home') return show({keepScroll: true});
+  if (state.view == 'home' && !sameBlocks(before, changed)) return show({keepScroll: true});
   shown = shown.map(other => other == item ? changed : other);
-  if (li.isConnected) li.replaceWith(itemElement(changed));
+  if (li.isConnected && !li.dataset.id) li.replaceWith(itemElement(changed));
+  redrawItems([changed], item.id);
   showTags();
 }
 
@@ -65,6 +66,7 @@ function autoGrow(field) {
 // singleSave), as the toolbar API is about bookmarks.
 function editBookmark(item, li) {
   let saving = false;
+  const before = {...item, tags: [...item.tags]};
   const kind = item.type == 'image' || item.type == 'pdf' ? item.type : 'bookmark';
   const heading = {bookmark: 'libraryEditBookmark', image: 'libraryEditImage', pdf: 'libraryEditPdf'}[kind];
   const {card, fields, error, save} = popupCard(heading, 'save', () => saving);
@@ -136,7 +138,7 @@ function editBookmark(item, li) {
       const saved = await saveWithNewUrl(item, {...bm, tags: joinTags(bm.tags).trim()});
       if (!saved) return fail(message('libraryUrlNotSaved'));
       if (!await shared(saved)) return;
-      return showEdited(li, item, saved);
+      return showEdited(li, item, saved, before);
     }
     if (!urlId) {
       const found = await browser.runtime.sendMessage({type: 'open', url: bm.url}).catch(() => null);
@@ -148,7 +150,7 @@ function editBookmark(item, li) {
     Object.assign(item, bm, {updated: Math.floor(Date.now() / 1000)});
     await saveIndex({put: [item]});
     if (!await shared(item)) return;
-    showEdited(li, item, item);
+    showEdited(li, item, item, before);
   });
 
   // an image or a PDF: as Diigo's edit window saves it; the index then has what Diigo answered (its thumbnail too)
@@ -174,7 +176,7 @@ function editBookmark(item, li) {
       {updated: Math.floor(Date.now() / 1000)});
     await saveIndex({put: [item]});
     if (!await shared(item)) return;
-    showEdited(li, item, item);
+    showEdited(li, item, item, before);
   }
   title.focus();
 }
@@ -281,6 +283,7 @@ function keptHtml(html, kept) {
 // a text field. Ctrl+Enter saves; Esc, × or a click next to it close it, but not while saving.
 function editNote(item, li) {
   let saving = false;
+  const before = {...item, tags: [...item.tags]};
   const {card, fields, error, save} = popupCard('libraryEditNote', 'save', () => saving);
   const title = input('text', item.title);
   let content;
@@ -338,7 +341,7 @@ function editNote(item, li) {
       error.hidden = false;
       return;
     }
-    showEdited(li, item, changed);
+    showEdited(li, item, changed, before);
   });
   content.focus();
 }

@@ -1,0 +1,86 @@
+/* guide.html: Swift Guide, in the look of Swift Options (options.css), with what is its own: the welcome at the top,
+   the card of hidden tags marked, and the pictures of the add-on */
+
+.card p {
+  margin: 0 0 10px;
+  line-height: 1.6;
+}
+
+.card .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 0;
+}
+
+.intro-card {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.guide-logo {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+}
+
+.lead {
+  font-size: 17px;
+}
+
+/* hidden tags: what most don't know, marked in the blue of the bar */
+.highlight {
+  border-left: 4px solid var(--blue);
+}
+
+.warning,
+.note {
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: var(--hover);
+}
+
+.shortcut kbd {
+  padding: 1px 6px;
+  border: 1px solid var(--box);
+  border-radius: 3px;
+  font: 13px ui-monospace, monospace;
+}
+
+/* the pictures, side by side when there are two, as wide as the card lets them */
+.shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.shots img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.more {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.6;
+}
+
+.more li {
+  margin-bottom: 6px;
+}
+
+.diigo-tour {
+  color: var(--grey);
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .intro-card {
+    flex-direction: column;
+  }
+}

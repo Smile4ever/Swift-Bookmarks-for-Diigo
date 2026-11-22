@@ -91,8 +91,11 @@ function showStatus(text, error) {
   $('status').textContent = text;
   $('status').classList.toggle('error', !!error);
   clearTimeout(statusTimer);
-  // not while the trash is emptied (library-trash.js: emptyTrash), which says how far
-  if (text && !error) statusTimer = setTimeout(() => !controller && !emptying && showStatus(''), STATUS_TIME);
+  // not while the trash is emptied (library-trash.js: emptyTrash) or links are checked (library-links.js: linkCheck),
+  // which say how far: one link can take longer than STATUS_TIME
+  if (text && !error) {
+    statusTimer = setTimeout(() => !controller && !emptying && !linkCheck && showStatus(''), STATUS_TIME);
+  }
   showNotice();
 }
 
@@ -196,12 +199,15 @@ async function build({keepScroll = false} = {}) {
   const signal = start();
   safely('setup', showSetup);
   try {
-    await buildIndex(user, signal, (pages, of, total) => {
+    const gone = await buildIndex(user, signal, (pages, of, total) => {
       showStatus(message('indexBuilding', [String(pages), String(of)]));
       Object.assign(setup, {pages, of, total, done: Math.min(total, pages * PAGE_SIZE)});
       safely('setup', showSetup);
-    });
-    showStatus('');
+      // far fewer than before (library-index.js: SHRINK_LIMIT): asked, unless built by itself (checkCount), when
+      // the index stays as it was
+    }, {allowShrink: (count, before) => !keepScroll && confirm(message('indexShrinkConfirm', [String(count), String(before)]))});
+    // what Diigo no longer has: in the trash, and said so
+    showStatus(gone ? message('indexGoneToTrash', String(gone)) : '');
     show({keepScroll});
     if (keepScroll && meta.total != index.size) checkCount();
   } catch (e) {

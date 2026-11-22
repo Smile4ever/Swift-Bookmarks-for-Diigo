@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tools</title>
+  <title data-i18n="toolsMenu">Swift Tools</title>
   <!-- the icon of the add-on (icons/icon.svg) -->
   <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
   <!-- in the look of the Swift Library, with what is the Tools page's own after it -->
@@ -13,13 +13,15 @@
 </head>
 <body>
   <!-- tools.js: Diigo's Tools (diigo.com/tools) as a page of the add-on: its tools by their names on diigo.com (in
-       English, like the site), without Google Play and Import kindle highlights, and with this add-on first among the
-       browser tools -->
+       English, like the site), without Google Play and Import kindle highlights, nor the Diigo API (for Premium only), and with this add-on
+       first among the browser tools -->
   <nav class="MainNav">
     <div class="nav-inner">
-      <a class="logo" href="https://www.diigo.com/index" aria-label="Diigo"></a>
+      <a class="logo" href="library.html" aria-label="Swift Library" title="Swift Library"></a>
       <ul id="mainNav"></ul>
       <!-- your name and its menu, as on diigo.com (user-menu.js) -->
+      <!-- the way back to diigo.com: your library there, or its home page signed out (user-menu.js) -->
+      <a class="to-diigo" id="toDiigo" href="https://www.diigo.com/"></a>
       <span class="user-menu" id="userMenu" hidden>
         <button type="button" class="user" id="userLink" aria-haspopup="true" aria-expanded="false"><img src="https://www.diigo.com/asset/images/default_avatar.jpg" alt=""><span id="userName"></span><span class="user-caret"></span></button>
         <span class="user-menu-items" id="userMenuItems" role="menu"></span>
@@ -29,7 +31,7 @@
 
   <header class="bar">
     <div class="inner">
-      <h1>Tools</h1>
+      <h1 data-i18n="toolsMenu">Swift Tools</h1>
     </div>
   </header>
 
@@ -84,6 +86,8 @@
           <span class="service-icon save" aria-hidden="true"></span>
           <p class="tool-links column">
             <a href="https://www.diigo.com/aggregation" target="_blank" rel="noopener">Save favorite items from social media</a>
+            <!-- not on Diigo's Tools page itself, but a tool of Diigo all the same -->
+            <a href="https://www.diigo.com/tools/post_by_email" target="_blank" rel="noopener">Save by Email</a>
           </p>
         </div>
         <div class="tool-card">
@@ -101,12 +105,6 @@
             <a href="https://www.diigo.com/blog_this/config" target="_blank" rel="noopener">Manage blogs</a>
             <a href="https://www.diigo.com/tools/tagroll" target="_blank" rel="noopener">Tagrolls</a>
             <a href="https://www.diigo.com/tools/linkrolls" target="_blank" rel="noopener">Linkrolls</a>
-          </p>
-        </div>
-        <div class="tool-card">
-          <span class="service-icon api" aria-hidden="true"></span>
-          <p class="tool-links column">
-            <a href="https://www.diigo.com/api_dev" target="_blank" rel="noopener">Diigo API</a>
           </p>
         </div>
       </div>

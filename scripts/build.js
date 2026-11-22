@@ -10,7 +10,8 @@ const zlib = require('zlib');
 
 const ROOT = path.join(__dirname, '..');
 
-const COMMON_FILES = ['_locales', 'icons', 'background/background.js', 'background/sync.js', 'content', 'diigo-site', 'form', 'options'];
+// images/store: the pictures of the add-on stores, also in Swift Guide (options/guide.html)
+const COMMON_FILES = ['_locales', 'icons', 'images/store', 'background/background.js', 'background/sync.js', 'content', 'diigo-site', 'form', 'options'];
 
 const TARGETS = {
   firefox: {

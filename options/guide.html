@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="guideMenu">Swift Guide</title>
+  <!-- the icon of the add-on (icons/icon.svg) -->
+  <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
+  <!-- in the look of Swift Options (white cards on a light grey page), with what is the guide's own after it -->
+  <link rel="stylesheet" href="swift-nav.css">
+  <link rel="stylesheet" href="options.css">
+  <link rel="stylesheet" href="guide.css">
+</head>
+<body>
+  <!-- Swift Guide, one of the pages of the add-on: what it does more than Diigo, and where to find it; opens once when
+       the add-on is installed (background.js: onInstalled), and from then on from Swift Guide in the menu at the top of
+       diigo.com (in the place of Diigo's Learn more), the menu of the toolbar button and Swift Options. The pictures are
+       those of the add-on stores (images/store, made by scripts/screenshots.mjs), in English. -->
+  <nav class="MainNav">
+    <div class="nav-inner">
+      <a class="logo" href="library.html" aria-label="Swift Library" title="Swift Library"></a>
+      <ul id="mainNav"></ul>
+      <!-- your name and its menu, as on diigo.com (user-menu.js) -->
+      <!-- the way back to diigo.com: your library there, or its home page signed out (user-menu.js) -->
+      <a class="to-diigo" id="toDiigo" href="https://www.diigo.com/"></a>
+      <span class="user-menu" id="userMenu" hidden>
+        <button type="button" class="user" id="userLink" aria-haspopup="true" aria-expanded="false"><img src="https://www.diigo.com/asset/images/default_avatar.jpg" alt=""><span id="userName"></span><span class="user-caret"></span></button>
+        <span class="user-menu-items" id="userMenuItems" role="menu"></span>
+      </span>
+    </div>
+  </nav>
+
+  <header class="bar">
+    <div class="bar-inner">
+      <h1 data-i18n="guideMenu">Swift Guide</h1>
+    </div>
+  </header>
+
+  <div class="page">
+    <!-- to each section, the one in view marked, as on Swift Options; gone on a narrow window -->
+    <nav class="side" id="side">
+      <a href="#form" data-i18n="guideFormHead"></a>
+      <a href="#hidden" data-i18n="guideHiddenHead"></a>
+      <a href="#library" data-i18n="guideLibraryHead"></a>
+      <a href="#types" data-i18n="guideTypesHead"></a>
+      <a href="#trash" data-i18n="guideTrashHead"></a>
+      <a href="#links" data-i18n="guideLinksHead"></a>
+      <a href="#tags" data-i18n="guideTagsHead"></a>
+      <a href="#discover" data-i18n="discoverMenu"></a>
+      <a href="#sync" id="navSync" data-i18n="guideSyncHead"></a>
+      <a href="#more" data-i18n="guideMoreHead"></a>
+      <a href="#privacy" data-i18n="privacyHead"></a>
+    </nav>
+
+    <main>
+      <section class="card intro-card">
+        <img class="guide-logo" src="../icons/icon.svg" alt="">
+        <div>
+          <p class="lead" data-i18n="guideIntro"></p>
+          <p class="intro" data-i18n="guideAgain"></p>
+          <p class="actions">
+            <a href="library.html" class="button primary" data-i18n="libraryMenu">Swift Library</a>
+            <a href="options.html" class="button" data-i18n="optionsMenu">Swift Options</a>
+          </p>
+        </div>
+      </section>
+
+      <section class="card" id="form">
+        <h1 data-i18n="guideFormHead"></h1>
+        <p data-i18n="guideFormText"></p>
+        <p class="shortcut" id="shortcut" hidden></p>
+        <div class="shots">
+          <img src="../images/store/1-form.png" alt="" loading="lazy" width="1280" height="800">
+          <img src="../images/store/2-saved.png" alt="" loading="lazy" width="1280" height="800">
+          <!-- the cloud of your 100 most used tags in the form -->
+          <img src="../images/store/3-tag-cloud.png" alt="" loading="lazy" width="1280" height="800">
+        </div>
+      </section>
+
+      <!-- what most don't know: in a card of its own, marked, near the top -->
+      <section class="card highlight" id="hidden">
+        <h1 data-i18n="guideHiddenHead"></h1>
+        <p data-i18n="guideHiddenText"></p>
+        <p class="warning" data-i18n="guideHiddenWarn"></p>
+        <p class="actions"><a href="options.html#tags" class="button" data-i18n="guideHiddenChoose"></a></p>
+      </section>
+
+      <section class="card" id="library">
+        <h1 data-i18n="guideLibraryHead"></h1>
+        <p data-i18n="guideLibraryText"></p>
+        <p data-i18n="guideBulkText"></p>
+        <div class="shots"><img src="../images/store/4-library.png" alt="" loading="lazy" width="1280" height="800"></div>
+      </section>
+
+      <!-- the kinds of items of a Diigo library, under All in the side bar (library-side.js: VIEWS), and what the add-on
+           does with each -->
+      <section class="card" id="types">
+        <h1 data-i18n="guideTypesHead"></h1>
+        <p data-i18n="guideTypesIntro"></p>
+        <ul class="more">
+          <li data-i18n="guideTypeBookmark"></li>
+          <li data-i18n="guideTypeNote"></li>
+          <li data-i18n="guideTypeFile"></li>
+          <li data-i18n="guideTypeKindle"></li>
+          <li data-i18n="guideTypeAnnotated"></li>
+        </ul>
+      </section>
+
+      <section class="card" id="trash">
+        <h1 data-i18n="guideTrashHead"></h1>
+        <p data-i18n="guideTrashText"></p>
+      </section>
+
+      <section class="card" id="links">
+        <h1 data-i18n="guideLinksHead"></h1>
+        <p data-i18n="guideLinksText"></p>
+        <p class="note" data-i18n="guideLinksPrivacy"></p>
+        <div class="shots"><img src="../images/store/6-archive.png" alt="" loading="lazy" width="1280" height="800"></div>
+      </section>
+
+      <section class="card" id="tags">
+        <h1 data-i18n="guideTagsHead"></h1>
+        <p data-i18n="guideTagsText"></p>
+        <p data-i18n="guideOutlinersText"></p>
+      </section>
+
+      <section class="card" id="discover">
+        <h1 data-i18n="discoverMenu">Swift Discover</h1>
+        <p data-i18n="guideDiscoverText"></p>
+        <p class="actions"><a href="discover.html" class="button" data-i18n="discoverMenu">Swift Discover</a></p>
+        <div class="shots"><img src="../images/store/5-discover.png" alt="" loading="lazy" width="1280" height="800"></div>
+      </section>
+
+      <!-- the bookmarks of the browser to Diigo (background/sync.js), set in Swift Options; not in Firefox for Android,
+           which has no bookmarks for add-ons (guide.js) -->
+      <section class="card" id="sync">
+        <h1 data-i18n="guideSyncHead"></h1>
+        <p data-i18n="guideSyncText"></p>
+        <p class="note" data-i18n="guideSyncOneWay"></p>
+        <!-- Firefox only: the menu of a bookmark (guide.js) -->
+        <p id="syncMenuHint" data-i18n="syncMenuHint" hidden></p>
+        <p class="actions"><a href="options.html#sync" class="button" data-i18n="guideSyncChoose"></a></p>
+      </section>
+
+      <section class="card" id="more">
+        <h1 data-i18n="guideMoreHead"></h1>
+        <ul class="more">
+          <li data-i18n="guideMoreStart"></li>
+          <li data-i18n="guideMoreTodo"></li>
+          <li data-i18n="guideMoreAddress"></li>
+          <li data-i18n="guideMoreDiigo"></li>
+          <li data-i18n="guideMoreSettings"></li>
+        </ul>
+      </section>
+
+      <section class="card" id="privacy">
+        <h1 data-i18n="privacyHead">Privacy</h1>
+        <p data-i18n="guidePrivacyText"></p>
+        <p class="actions"><a href="options.html#privacy" class="button" data-i18n="optionsMenu">Swift Options</a></p>
+      </section>
+
+      <!-- Diigo's own tour, which this page takes the place of in the menu -->
+      <p class="diigo-tour"><a href="https://www.diigo.com/learn_more" target="_blank" rel="noopener" data-i18n="guideDiigoTour"></a></p>
+    </main>
+  </div>
+
+  <script src="settings.js"></script>
+  <script src="index-item.js"></script>
+  <script src="user-menu.js"></script>
+  <script src="guide.js"></script>
+</body>
+</html>

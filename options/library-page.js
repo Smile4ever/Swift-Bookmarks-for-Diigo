@@ -39,6 +39,7 @@ $('tickDuplicates').addEventListener('click', tickDuplicates);
 // Without a title: all of those shown (library-edit.js)
 $('fetchTitles').addEventListener('click', () => fetchTitles(shown));
 $('checkAllLinks').addEventListener('click', checkAllLinks);
+$('huntDeadLinks').addEventListener('click', huntDeadLinks);
 $('privacy').addEventListener('change', () => {
   state.privacy = $('privacy').value;
   state.random = '';
@@ -131,23 +132,44 @@ $('bulkStop').addEventListener('click', () => {
   controller?.abort();
 });
 $('bulkDelete').addEventListener('click', deletePicked);
+$('bulkNewUrl').addEventListener('click', newUrlsPicked);
+$('bulkRestore').addEventListener('click', restorePicked);
+$('bulkForget').addEventListener('click', forgetPicked);
 showBulkShare();
 addEventListener('popstate', () => {
   loadState();
   show();
 });
 
+// Once after the update that brought Swift Guide (background.js: guideNewsOnce): a bar that it's there, gone for good
+// with × or once the guide is opened (here or elsewhere: guide.js says guideNewsSeen too)
+const forgetGuideNews = () => browser.storage.local.set({guideNews: false, guideNewsSeen: true}).catch(() => {});
+async function showGuideNews() {
+  const {guideNews} = await browser.storage.local.get('guideNews').catch(() => ({}));
+  $('guideNews').hidden = !guideNews;
+}
+$('guideNewsOpen').addEventListener('click', forgetGuideNews);
+$('guideNewsClose').addEventListener('click', () => {
+  $('guideNews').hidden = true;
+  forgetGuideNews();
+});
+browser.storage.onChanged.addListener((changes, area) => area == 'local' && changes.guideNews && showGuideNews());
+showGuideNews();
+
 // The background script brought the index up to date after a save elsewhere (diigo.com, the bookmark form, the sync of
 // bookmarks of the browser): read again, as it is now, so Start (Recently saved) and the list show it at once. While
 // building, updating or deleting, which save the index themselves, it is read again once that is done (library.js:
 // stop, indexStale), not left till the next change. The list stays as it is while a bookmark is being edited in it.
+// Only items that changed: those drawn anew in their place, not the whole page (library-list.js: redrawChanged).
 function readIndexAgain() {
   indexStale = false;
   safely('index', async () => {
+    const [before, trashBefore] = [index, trash];
     db?.close();
     await openIndex();
     showIndex();
-    if (!$('main').querySelector('form.edit')) show({keepScroll: true});
+    if ($('main').querySelector('form.edit')) return;
+    if (!safely('redraw', () => redrawChanged(before, trashBefore), false)) show({keepScroll: true});
   });
 }
 
@@ -160,22 +182,22 @@ browser.runtime.onMessage.addListener(request => {
 // hidden tags, the menu or what Bulk edit does after an action changed on the options page
 // links said not to be dead in another tab of the Swift Library (library-links.js: ignoreLink)
 browser.storage.onChanged.addListener(async (changes, area) => {
-  if (area != 'local' || !changes.ignoredLinks) return;
+  if (!settingsArea(area) || !changes.ignoredLinks) return;
   await loadIgnoredLinks();
   if (meta?.user == user) show({keepScroll: true});
 });
 
 browser.storage.onChanged.addListener(async (changes, area) => {
-  const keys = ['hiddenTags', 'menuItems', 'splitAdd', 'bulkExitAfter', 'bulkClearFilters', 'deleteDelay', 'deadLinks',
-    'hidePrivateFlag', 'hideShareToOutliner'];
-  if (area != 'local' || !keys.some(key => changes[key])) return;
+  const keys = ['hiddenTags', 'todoRandom', 'homeLayout', 'splitAdd', 'bulkExitAfter', 'bulkClearFilters', 'deleteDelay', 'deadLinks',
+    'hidePrivateFlag', 'hideShareToOutliner', 'autoCheckLinks'];
+  if (!settingsArea(area) || !keys.some(key => changes[key])) return;
   settings = await loadSettings().catch(() => settings);
   // the menus of Share to outliner shown or hidden (library-outliners.js: shareSelect)
   for (const select of document.querySelectorAll('select.share-outliner')) select.fill?.();
   safely('menu', showMainNav);
   document.documentElement.classList.toggle('split-add', !!settings.splitAdd);
   placeAddTypes();
-  if ((changes.hiddenTags || changes.deadLinks || changes.hidePrivateFlag) && meta?.user == user) show({keepScroll: true});
+  if ((changes.hiddenTags || changes.deadLinks || changes.hidePrivateFlag || changes.todoRandom || changes.homeLayout) && meta?.user == user) show({keepScroll: true});
 });
 
 // with an index of who is signed in: shown at once, then updated, which mostly takes one request

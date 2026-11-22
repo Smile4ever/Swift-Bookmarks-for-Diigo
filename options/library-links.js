@@ -41,7 +41,8 @@ const IGNORED_LINKS_KEY = 'ignoredLinks';
 let ignoredLinks = {urls: new Set(), sites: new Set()};
 
 async function loadIgnoredLinks() {
-  const saved = (await browser.storage.local.get(IGNORED_LINKS_KEY).catch(() => ({})))[IGNORED_LINKS_KEY];
+  // with the account of the browser too (settings.js: SYNCED_LISTS)
+  const saved = (await loadKept([IGNORED_LINKS_KEY]).catch(() => ({})))[IGNORED_LINKS_KEY];
   ignoredLinks = {
     urls: new Set(Array.isArray(saved?.urls) ? saved.urls : []),
     sites: new Set(Array.isArray(saved?.sites) ? saved.sites : []),
@@ -50,7 +51,7 @@ async function loadIgnoredLinks() {
 
 function saveIgnoredLinks() {
   const saved = {urls: [...ignoredLinks.urls], sites: [...ignoredLinks.sites]};
-  return browser.storage.local.set({[IGNORED_LINKS_KEY]: saved}).catch(() => {});
+  return saveSettings({[IGNORED_LINKS_KEY]: saved}).catch(() => {});
 }
 
 // the site of a link that is ignored for all of its site, or ''
@@ -66,9 +67,9 @@ function linkCategory(item, raw = false) {
   return !raw && linkIgnored(item) ? 'ignored' : entry.state;
 }
 
-// Mended while Dead links is shown (the latest copy in the Wayback Machine, the new web address, Not dead): those stay
-// in that list, with their new status code, till you choose another view (setView), instead of going away under your
-// mouse. Their ids, as the index has them after (a new web address can give another link_id).
+// Mended while a list is shown (the latest copy in the Wayback Machine, the new web address, Not dead): those stay in
+// that list, with their new status code, till you choose another view (setView), instead of going away under your
+// mouse; also in a list they no longer match (the filter of moved links, Dead links). Their ids, as the index has them after (a new web address can give another link_id).
 const mended = new Set();
 
 // not dead (one link, or all of its site), or dead again; the list, Start and the side bar after it
@@ -91,6 +92,9 @@ const LINKS = Object.fromEntries(['any', 'dead', 'unreachable', 'moved', 'blocke
   .map(key => [key, key == 'any' ? () => true : item => linkCategory(item) == key]));
 const linksText = links => message('libraryLinks' + capitalized(links));
 
+// With autoCheckLinks off (a choice of privacy on the options page): no request of its own, only what was found
+// before (linkStates); a link not checked yet shows · and is checked with a click on it. Looking for dead links
+// (huntDeadLinks) and Check all links are asking for it: they check by themselves.
 function linkStatus(item, title) {
   const button = element('button', 'link-status', '…');
   button.type = 'button';
@@ -101,7 +105,23 @@ function linkStatus(item, title) {
     button.title = tip || message('linkArchives');
     title.classList.toggle('dead', state == 'dead');
   };
-  browser.runtime.sendMessage({type: 'checkLink', url: item.url}).then(({state, status, why, to}) => {
+  const ask = () => {
+    mark('pending', '…');
+    browser.runtime.sendMessage({type: 'checkLink', url: item.url}).then(showFound).catch(() => mark('unknown', '?'));
+  };
+  const known = linkStates.get(item.url);
+  if (settings.autoCheckLinks) ask();
+  // one that took too long before (unknown): as not checked, so a click asks again
+  else if (known?.state && known.state != 'unknown') showFound(known);
+  else mark('unchecked', '·', message('linkNotCheckedTitle'));
+  button.addEventListener('click', e => {
+    e.stopPropagation();
+    if (button.dataset.state == 'unchecked') return ask();
+    archiveMenu?.owner == button ? closeArchiveMenu() : showArchiveMenu(button, item);
+  });
+  return button;
+
+  function showFound({state, status, why, to}) {
     // for the filter, the next time the list is drawn; and Dead links in the side bar counts it at once, when it is
     // dead now and wasn't, or the other way round
     const before = linkCategory(item);
@@ -123,12 +143,7 @@ function linkStatus(item, title) {
     else if (state == 'unknown' && status == 429) mark('unknown', '429', message('linkBusyTitle'));
     else if (state == 'unknown') mark('unknown', '?');
     else mark(status >= 400 ? 'warn' : 'ok', String(status));
-  }).catch(() => mark('unknown', '?'));
-  button.addEventListener('click', e => {
-    e.stopPropagation();
-    archiveMenu?.owner == button ? closeArchiveMenu() : showArchiveMenu(button, item);
-  });
-  return button;
+  }
 }
 
 // ---- all links checked at once (Dead links: Check all links) ----
@@ -146,30 +161,76 @@ const uncheckedLinks = () => liveItems().filter(item => checksLink(item) && link
 // page: it only reads the pages of the links, so Bulk edit, Edit and the rest go on meanwhile, also for thousands.
 let linkCheck = null;  // an AbortController while all links are checked
 
+// Find the first dead links, the other choice in the bar of Dead links next to Check all links: checked as that does, a
+// few at a time, but among the links not checked yet in a random order, and only until HUNT_FOUND dead ones (or sites
+// that don't answer) are found; each one found shows in the list at once. It stops too once all are checked, with
+// Stop, or when another view is chosen. None with a hidden tag, which the list leaves out.
+const HUNT_FOUND = 10;
+let hunt = false;  // looking for dead links (checkLinks), not checking all
+
+// how far checking or looking is, while it runs (checkLinks): {text, value, max}
+let checkProgress = null;
+
+// The bar above Dead links: how many links aren't checked, with Check all links; while checking or looking, what it
+// does and how far, with a bar and Stop, here where it was started (and in the status bar, also elsewhere)
 function showDeadBar() {
   const shown = state.view == 'dead' && !!settings.deadLinks;
   $('deadBar').hidden = !shown;
   if (!shown) return;
-  const count = uncheckedLinks().length;
-  $('deadIntro').textContent = count ? message('linksCheckAllIntro', String(count)) : message('linksAllChecked');
-  $('checkAllLinks').hidden = !count && !linkCheck;
+  const progress = $('deadProgress');
+  progress.hidden = !linkCheck;
+  const count = linkCheck ? 0 : uncheckedLinks().length;
+  if (linkCheck) {
+    $('deadIntro').textContent = (hunt ? message('linksHuntIntro', String(HUNT_FOUND)) + ' ' : '') +
+      (checkProgress?.text || '');
+    progress.max = checkProgress?.max || 1;
+    progress.value = checkProgress?.value || 0;
+  } else {
+    $('deadIntro').textContent = count ? message('linksCheckChoice', [String(count), String(HUNT_FOUND)])
+      : message('linksAllChecked');
+  }
+  // the choice, or Stop (the first button) while one of them runs
+  $('checkAllLinks').hidden = !linkCheck && !count;
   $('checkAllLinks').textContent = message(linkCheck ? 'cleanupStop' : 'linksCheckAll');
+  $('huntDeadLinks').hidden = !!linkCheck || !count;
+  $('huntDeadLinks').textContent = message('linksHuntButton', String(HUNT_FOUND));
 }
 
+// the button of Dead links: Check all links, or Stop while it (or looking for dead links) runs
 async function checkAllLinks() {
-  // a second click: Stop
   if (linkCheck) return linkCheck.abort();
   await loadLinkStates();
-  const todo = uncheckedLinks();
+  return checkLinks(uncheckedLinks());
+}
+
+async function huntDeadLinks() {
+  if (linkCheck) return;
+  await loadLinkStates();
+  const todo = uncheckedLinks().filter(item => !item.tags.some(hiddenTag));
+  if (!todo.length) return showStatus(message('libraryHuntNone'));
+  return checkLinks(pickRandom(todo, todo.length), {until: HUNT_FOUND});
+}
+
+// until: stop once that many dead ones are found (looking for them, huntDeadLinks); else all of todo
+async function checkLinks(todo, {until = 0} = {}) {
   if (!todo.length) return showDeadBar();
   linkCheck = new AbortController();
+  hunt = !!until;
   const signal = linkCheck.signal;
   showDeadBar();
   let done = 0, dead = 0, next = 0;
-  const say = () => showStatus(message('linksChecking', [String(done), String(todo.length), String(dead)]));
+  // how far: in the bar of Dead links and the status bar. Looking: found of HUNT_FOUND, else checked of all.
+  const say = () => {
+    const text = hunt ? message('linksHunting', [String(done), String(dead)])
+      : message('linksChecking', [String(done), String(todo.length), String(dead)]);
+    checkProgress = hunt ? {text, value: dead, max: until} : {text, value: done, max: todo.length};
+    showStatus(text);
+    safely('dead links', showDeadBar);
+  };
+  const enough = () => hunt && (dead >= until || state.view != 'dead');
   say();
   const worker = async () => {
-    while (next < todo.length && !signal.aborted) {
+    while (next < todo.length && !signal.aborted && !enough()) {
       const item = todo[next++];
       const result = await browser.runtime.sendMessage({type: 'checkLink', url: item.url}).catch(() => null);
       if (signal.aborted) break;
@@ -178,6 +239,9 @@ async function checkAllLinks() {
         if (['dead', 'unreachable'].includes(linkCategory(item))) {
           dead++;
           sideSoon();
+          // in Dead links (looking for them, or checking all there): at the end of the list at once, the rest of it as
+          // it is, so nothing moves under the mouse
+          if (state.view == 'dead') safely('dead links', () => appendShown(item));
         }
       }
       done++;
@@ -188,10 +252,15 @@ async function checkAllLinks() {
     await Promise.all([...Array(CHECK_ALL_AT_ONCE)].map(worker));
   } finally {
     const wasStopped = signal.aborted;
+    const wasHunt = hunt;
     linkCheck = null;
-    showStatus(message(wasStopped ? 'linksCheckStopped' : 'linksChecked', [String(done), String(dead)]));
-    // not while Bulk edit or the like runs, which draws the list itself once it's done
-    if (!controller) show({keepScroll: true});
+    hunt = false;
+    checkProgress = null;
+    showStatus(wasHunt ? dead ? message('linksHunted', [String(done), String(dead)]) : message('linksHuntedNone', String(done))
+      : message(wasStopped ? 'linksCheckStopped' : 'linksChecked', [String(done), String(dead)]));
+    // in Dead links: the list as it is, with what was found added (appendShown); elsewhere drawn again, with the status
+    // of each link, not while Bulk edit or the like runs, which draws the list itself once it's done
+    if (state.view != 'dead' && !controller) show({keepScroll: true});
     else showDeadBar();
   }
 }
@@ -226,8 +295,8 @@ async function waybackCopy(url) {
 // ---- a link that moved: its new web address in its place ----
 
 // The bookmarks that moved (background.js: classifyLink, moved, to) at their new web address, as Diigo's own edit window
-// changes one (saveWithNewUrl), one after the other: from the menu of the code of one, or all of them (Clean up on
-// Start: All to the new address, which asks first). How far in the status line; what Diigo didn't take stays as it was.
+// changes one (saveWithNewUrl), one after the other: from the menu of the code of one, or those ticked in Bulk edit
+// (library-bulk.js: bulkNewUrl, which asks first). How far in the status line; what Diigo didn't take stays as it was.
 async function useNewUrls(items) {
   const moved = items.filter(item => linkStates.get(item.url)?.state == 'moved' && linkStates.get(item.url).to);
   if (controller || !moved.length) return;
@@ -298,8 +367,9 @@ const ARCHIVES = [
 
 let archiveMenu = null;
 
-// for a bookmark of the library that is dead or whose site doesn't answer, also what mends it (useWaybackCopy, tagDead),
-// and Not dead (ignoreLink); for one you said is not dead, Count as dead again
+// The same archives for every link of the library (and the latest copy in its place, useWaybackCopy); for one that is
+// dead or whose site doesn't answer also its title searched, a tag that says so (tagDead) and Not dead (ignoreLink); for
+// one you said is not dead, Count as dead again
 function showArchiveMenu(button, item) {
   closeArchiveMenu();
   archiveMenu = element('div', 'archive-menu');
@@ -333,18 +403,17 @@ function showArchiveMenu(button, item) {
     archiveMenu.append(element('hr'), search);
   }
   const live = index.has(item.id) && !item.deletedAt && !item.pendingDelete;
-  if (broken && live) {
-    archiveMenu.append(element('hr'), action(message('linkUseWayback'), useWaybackCopy));
-    if (!hasTag(item, DEAD_TAG)) archiveMenu.append(action(message('linkTagDead'), tagDead));
-  }
-  // moved: its new web address in its place (useNewUrl), or the latest copy in the Wayback Machine of the page as it
-  // was, when the new address isn't the same page any more (a redirect to the home page of a site, say)
+  // The archives are the same for every link, whatever its status: the copies above, and the latest copy in the
+  // Wayback Machine in its place (useWaybackCopy), also for one that works (a page that changed into something else
+  // answers 200 too). Moved: also its new web address in its place (useNewUrl).
   const to = linkStates.get(item.url)?.to;
-  if (button.dataset.state == 'moved' && live) {
+  if (live) {
     archiveMenu.append(element('hr'));
-    if (to) archiveMenu.append(action(message('linkUseNewUrl'), () => useNewUrls([item])));
+    if (button.dataset.state == 'moved' && to) archiveMenu.append(action(message('linkUseNewUrl'), () => useNewUrls([item])));
     archiveMenu.append(action(message('linkUseWayback'), useWaybackCopy));
   }
+  // only for one that is gone: a tag that says so
+  if (broken && live && !hasTag(item, DEAD_TAG)) archiveMenu.append(action(message('linkTagDead'), tagDead));
   const site = hostOf(item.url);
   if (broken) {
     archiveMenu.append(element('hr'), action(message('linkIgnore'), () => ignoreLink(item, 'url')));

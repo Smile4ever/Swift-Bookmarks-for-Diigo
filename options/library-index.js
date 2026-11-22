@@ -53,6 +53,8 @@ function repairItem(item) {
     ...item.thumb ? {thumb: text(item.thumb)} : {},
     // in the trash: the file of an image or a PDF (itemFile)
     ...item.file instanceof Blob ? {file: item.file, fileName: text(item.fileName)} : {},
+    // in the trash: not deleted with the add-on, but no longer in what Diigo gave when the index was built (buildIndex)
+    ...item.goneFromDiigo ? {goneFromDiigo: true} : {},
   };
 }
 
@@ -158,8 +160,19 @@ const pageFailed = (pageNum, signal) => e => {
 };
 
 // The whole library, a few pages at a time, as the index of user; progress(pages done, pages, items in the library).
-// One page that fails stops the others, and the index stays as it was.
-async function buildIndex(user, signal, progress) {
+// One page that fails stops the others, and the index stays as it was. So does an answer of Diigo without any items
+// while the index of user has some: Diigo that doesn't load (signed out, busy, broken) rather than a library emptied,
+// so a library of thousands isn't thrown away for it; to empty an index, Diigo has to give at least one item. And far
+// fewer items than the index has (less than SHRINK_LIMIT of it, from SHRINK_MIN on): Diigo that gave only a part, more
+// likely than half of a library deleted elsewhere; only when allowShrink(count, before) says yes (a question to you,
+// when you asked for it yourself), else the index stays.
+// What the index of user had and Diigo no longer gives (deleted in Diigo's app or another browser, or lost by Diigo)
+// goes to the trash (goneFromDiigo), for TRASH_DAYS, so it can be put back: the index may have been the only copy. The
+// answer: how many went there.
+const SHRINK_LIMIT = .5;
+const SHRINK_MIN = 20;
+
+async function buildIndex(user, signal, progress, {allowShrink = () => false} = {}) {
   const pagesSignal = new AbortController();
   signal.addEventListener('abort', () => pagesSignal.abort());
   const first = await libraryPage(0, 'created', signal).catch(pageFailed(0, signal));
@@ -183,12 +196,21 @@ async function buildIndex(user, signal, progress) {
     throw e;
   })));
   const items = [...byId.values()];
+  const before = meta?.user == user ? index.size : 0;
+  if (!items.length && before) throw new Error(message('indexKeptEmpty', String(before)));
+  if (before >= SHRINK_MIN && items.length < before * SHRINK_LIMIT && !await allowShrink(items.length, before)) {
+    throw new Error(message('indexKeptShrunk', [String(items.length), String(before)]));
+  }
+  const gone = before ? [...index.values()].filter(item => !byId.has(item.id) && !trash.has(item.id))
+    .map(item => ({...item, deletedAt: Date.now(), goneFromDiigo: true})) : [];
   meta = {
     user, built: Date.now(), updated: Date.now(), total: first.total || items.length, newest: newestOf(items),
     version: INDEX_VERSION,
   };
   index = byId;
-  await saveIndex({put: items, all: true});
+  gone.forEach(item => trash.set(item.id, item));
+  await saveIndex({put: items, all: true, trashPut: gone});
+  return gone.length;
 }
 
 // Only what changed since: the library by last change, page by page, until a page reaches what the index has already

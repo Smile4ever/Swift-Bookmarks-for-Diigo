@@ -315,12 +315,16 @@ async function save({move = false} = {}) {
   const result = await browser.runtime.sendMessage({
     type: 'save',
     urlId: data.bookmark.urlId,
+    // one Diigo's toolbar API didn't find: by its link_id, at the web address it had (background.js: saveByLinkId)
+    linkId: data.bookmark.linkId || '',
+    oldUrl: data.bookmark.url,
     url: url.value,
     title: title.value,
     description: $('description').value,
     tags: chosenTags(),
     private: $('private').checked,
     unread: $('unread').checked,
+    screenshot: !$('screenshotOption').hidden && $('screenshot').checked,
     // Share to group is hidden for a private bookmark, so what was chosen in it before doesn't count; an outliner does
     group: $('private').checked ? '' : $('group').value,
     outliner: $('outliner').value,
@@ -342,6 +346,8 @@ async function save({move = false} = {}) {
   logError('Bookmark form', error.textContent, $('url')?.value || '');
 }
 
+// the box remembered for the next time (settings.js: formScreenshot)
+$('screenshot').addEventListener('change', () => saveSettings({formScreenshot: $('screenshot').checked}).catch(() => {}));
 $('save').addEventListener('click', () => asking ? askUrl() : save());
 $('move').addEventListener('click', () => save({move: true}));
 $('close').addEventListener('click', close);
@@ -398,7 +404,8 @@ function start(url, title) {
 }
 
 // The bookmarks at nearly the same web address (background.js: similarBookmarks), above the fields: Edit opens that one
-// in the form instead, as the form opens for a page
+// in the form instead, as the form opens for a page. Opened as one of those already (otherAddress): nothing to say,
+// it is just that bookmark, at its own web address in the field.
 function showSimilar() {
   const list = $('similar-list');
   list.replaceChildren(...data.similar.map(other => {
@@ -469,6 +476,10 @@ function show(answer, loaded) {
   }
   data = answer;
   settings = loaded;
+  // a screenshot of the page you're on along: only for the page itself, not a link or from the Swift Library; as
+  // last time (formScreenshot)
+  $('screenshotOption').hidden = query.get('page') != '1';
+  $('screenshot').checked = !!settings.formScreenshot;
   const bm = data.bookmark;
   allTags = [...data.userTags].sort((a, b) => b.count - a.count).map(tag => tag.name);
   $('spinner').hidden = true;

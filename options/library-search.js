@@ -9,12 +9,11 @@
 // saved: when, the filter next to it (SAVED)
 // links: the status of its page, the filter after that, with deadLinks (library-links.js: LINKS)
 // random: the ids of the random bookmarks, shown on their own (showRandom)
-// hunt: with random, those are bookmarks whose link isn't checked yet, to find dead links (showHunt)
 // conditions: those kept with +, [{field, value}]
 // bulk: Bulk edit is on, with a box at each bookmark
 const state = {
   field: 'all', query: '', tags: [], site: '', sort: 'newest', view: 'home', privacy: 'all', saved: 'any',
-  links: 'any', random: '', hunt: false, conditions: [], bulk: false, showHidden: false, outliner: '',
+  links: 'any', random: '', conditions: [], bulk: false, showHidden: false, outliner: '',
 };
 const PRIVACY = {all: () => true, public: item => !item.private, private: item => item.private};
 // how long ago it was saved, in days
@@ -110,8 +109,12 @@ function askedHiddenTags() {
 }
 
 // Bookmarks with a hidden tag only when one of their hidden tags is asked for in full (askedHiddenTags), not for any
-// search that happens to match them, or with Show hidden ticked
+// search that happens to match them, or with Show hidden ticked. hiddenCount: how many of what matches are such
+// bookmarks, left out or (with Show hidden) shown, for the count after Show hidden (library-list.js: showCount).
+let hiddenCount = 0;
+
 function shownItems() {
+  hiddenCount = 0;
   // Random: only those, in the order they were picked (showRandom)
   if (state.random) return state.random.split(',').map(id => index.get(id)).filter(Boolean);
   const site = state.site;
@@ -119,9 +122,14 @@ function shownItems() {
   const inTrash = state.view == 'trash';
   const tests = conditionTests();
   const asked = askedHiddenTags();
-  const shownHidden = item =>
-    state.showHidden || !item.tags.some(hiddenTag) || item.tags.some(tag => asked.has(lower(tag)));
-  return itemsOf(state.view).filter(item =>
+  const shownHidden = item => {
+    if (!item.tags.some(hiddenTag) || item.tags.some(tag => asked.has(lower(tag)))) return true;
+    hiddenCount++;
+    return state.showHidden;
+  };
+  // what was mended here (a new web address, the latest copy in the Wayback Machine, Not dead: library-links.js:
+  // mended) stays while this list is shown, though it may no longer match it (the filter of moved links, say)
+  return itemsOf(state.view).filter(item => mended.has(item.id) && !inTrash ||
     tests.every(test => test(item)) &&
     (!site || onSite(item.url, site)) &&
     tags.every(tag => item.tags.some(other => lower(other) == tag)) &&
@@ -154,7 +162,6 @@ function saveState(push) {
   if (state.links != 'any') params.set('links', state.links);
   if (state.showHidden) params.set('hidden', '1');
   if (state.random) params.set('random', state.random);
-  if (hunting()) params.set('hunt', '1');
   state.conditions.forEach(({field, value}) => params.append('if', JSON.stringify([field, value])));
   if (state.bulk) params.set('bulk', '1');
   const hash = params.toString();
@@ -176,7 +183,6 @@ function loadState() {
   state.links = params.get('links') in LINKS ? params.get('links') : 'any';
   state.showHidden = params.has('hidden');
   state.random = params.get('random') || '';
-  state.hunt = params.has('hunt');
   state.bulk = params.has('bulk');
   state.conditions = params.getAll('if').map(condition => {
     try {
@@ -393,34 +399,8 @@ function showRandom() {
   const others = bookmarks.filter(item => !shownNow.has(item.id));
   const pool = others.length >= Math.min(RANDOM_COUNT, bookmarks.length) ? others : bookmarks;
   state.random = pickRandom(pool, RANDOM_COUNT).map(item => item.id).join(',');
-  state.hunt = false;
   // from the trash: those are bookmarks of the library, not of the trash (as a tag of the side bar does)
   if (state.view == 'trash') state.view = 'all';
-  show({push: true});
-}
-
-// Dead links in the side bar without dead links known: HUNT_COUNT bookmarks whose link isn't checked yet (or not for
-// a while: the background script forgets what it found after some days, background.js: LINK_KEEP), at random, shown
-// as Random shows its own. Drawn, their links are checked; what is dead is counted at Dead links at once (sideSoon), and
-// a click on it again shows those, or HUNT_COUNT others while none is found. #randomBar says so.
-const HUNT_COUNT = 20;
-
-const hunting = () => state.hunt && !!state.random;
-
-// those to look at: web pages not checked, none with a hidden tag
-const huntPool = () => liveItems().filter(item => isWebPage(item) && !item.tags.some(hiddenTag) &&
-  linkCategory(item) == 'unchecked');
-
-function showHunt() {
-  const shownNow = new Set(state.random.split(','));
-  const unchecked = huntPool();
-  if (!unchecked.length) return showStatus(message('libraryHuntNone'));
-  const others = unchecked.filter(item => !shownNow.has(item.id));
-  state.random = pickRandom(others.length ? others : unchecked, HUNT_COUNT).map(item => item.id).join(',');
-  state.hunt = true;
-  // the chip above the list taken away: Dead links, with what was found meanwhile
-  state.view = 'dead';
-  state.links = 'any';
   show({push: true});
 }
 
@@ -429,17 +409,15 @@ function showHunt() {
 function fillRandom() {
   if (!state.random) return;
   const kept = state.random.split(',').filter(id => index.has(id) && !pending.has(id));
-  const count = hunting() ? HUNT_COUNT : RANDOM_COUNT;
-  if (kept.length >= count) return;
+  if (kept.length >= RANDOM_COUNT) return;
   const shownNow = new Set(kept);
-  const pool = hunting() ? huntPool() : randomPool();
-  const added = pickRandom(pool.filter(item => !shownNow.has(item.id)), count - kept.length);
+  const added = pickRandom(randomPool().filter(item => !shownNow.has(item.id)), RANDOM_COUNT - kept.length);
   state.random = [...kept, ...added.map(item => item.id)].join(',');
 }
 
 function showFilters() {
   if (state.random) {
-    const chip = element('button', 'filter random', message(hunting() ? 'libraryDeadLinks' : 'libraryRandom'));
+    const chip = element('button', 'filter random', message('libraryRandom'));
     chip.type = 'button';
     chip.title = message('libraryRemoveFilter');
     chip.addEventListener('click', () => {

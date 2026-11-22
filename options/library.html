@@ -16,9 +16,11 @@
   <!-- the menu at the top of diigo.com, as Diigo draws it (.MainNav), with the items of the options page -->
   <nav class="MainNav">
     <div class="nav-inner">
-      <a class="logo" href="https://www.diigo.com/index" aria-label="Diigo"></a>
+      <a class="logo" href="library.html" aria-label="Swift Library" title="Swift Library"></a>
       <ul id="mainNav"></ul>
       <!-- your name and its menu, as on diigo.com (user-menu.js) -->
+      <!-- the way back to diigo.com: your library there, or its home page signed out (user-menu.js) -->
+      <a class="to-diigo" id="toDiigo" href="https://www.diigo.com/"></a>
       <span class="user-menu" id="userMenu" hidden>
         <button type="button" class="user" id="userLink" aria-haspopup="true" aria-expanded="false"><img src="https://www.diigo.com/asset/images/default_avatar.jpg" alt=""><span id="userName"></span><span class="user-caret"></span></button>
         <span class="user-menu-items" id="userMenuItems" role="menu"></span>
@@ -72,6 +74,13 @@
 
   <!-- what went wrong, when something did (library.js: reportProblem) -->
   <div id="problem" class="problem" role="alert" hidden></div>
+
+  <!-- once after the update that brought it: that there is Swift Guide (library-page.js: showGuideNews) -->
+  <div id="guideNews" class="guide-news" hidden>
+    <span data-i18n="guideNews"></span>
+    <a href="guide.html" id="guideNewsOpen" data-i18n="guideMenu">Swift Guide</a>
+    <button type="button" id="guideNewsClose" aria-label="×">×</button>
+  </div>
 
   <!-- while there is no index to show: building it the first time, with how far, or why it can't (signed out, it
        failed, stopped), in the place of the library (library.js: showSetup) -->
@@ -141,13 +150,16 @@
         <p data-i18n="libraryNoTitleIntro"></p>
         <button type="button" id="fetchTitles" data-i18n="libraryFetchTitles">Fetch titles</button>
       </div>
-      <!-- Dead links: how many links aren't checked (lately), and Check all links (library-links.js: checkAllLinks) -->
+      <!-- Dead links: how many links aren't checked (lately), with the choice: Check all links (library-links.js:
+           checkAllLinks), or only until the first dead ones are found (huntDeadLinks); while one runs, how far and Stop -->
       <div id="deadBar" class="trash-bar notitle-bar" hidden>
         <p id="deadIntro"></p>
+        <!-- while checking or looking: how far (library-links.js: checkLinks) -->
+        <progress id="deadProgress" max="1" value="0" hidden></progress>
         <button type="button" id="checkAllLinks" data-i18n="linksCheckAll">Check all links</button>
+        <button type="button" id="huntDeadLinks"></button>
       </div>
-      <!-- the random bookmarks, only when they are shown (library-search.js: showRandom), or those looked at for dead
-           links (showHunt) -->
+      <!-- the random bookmarks, only when they are shown (library-search.js: showRandom) -->
       <div id="randomBar" class="trash-bar" hidden>
         <p id="randomIntro" data-i18n="libraryRandomIntro"></p>
       </div>
@@ -157,7 +169,7 @@
         <span id="count"></span>
         <!-- the bookmarks with a hidden tag too, without asking for one of their tags (library-search.js: shownItems); out of
              the way, as the hidden tags themselves -->
-        <label class="show-hidden"><input type="checkbox" id="showHidden"><span data-i18n="libraryShowHidden">Show hidden</span></label>
+        <label class="show-hidden"><input type="checkbox" id="showHidden"><span data-i18n="libraryShowHidden">Show hidden</span><span id="hiddenCount" class="hidden-count" hidden></span></label>
         <span class="buttons">
           <button type="button" id="bulkToggle" data-i18n="bulkEdit" aria-pressed="false">Bulk edit</button>
         </span>
@@ -166,16 +178,21 @@
       <div id="bulkBar" class="bulk-bar" hidden>
         <label class="bulk-all"><input type="checkbox" id="bulkAll"><span id="bulkCount"></span></label>
         <!-- tag adds it, -tag takes it away -->
-        <span class="bulk-tags">
+        <span class="bulk-tags not-trash">
           <input type="text" id="bulkTags" spellcheck="false" autocomplete="off" data-i18n-label="bulkTagsHint">
           <button type="button" id="bulkApplyTags" data-i18n="bulkApplyTags">Apply tags</button>
         </span>
         <!-- each one of two, after what is ticked (library-bulk.js: toggles) -->
-        <button type="button" id="bulkRead"></button>
-        <button type="button" id="bulkPrivacy"></button>
+        <button type="button" id="bulkRead" class="not-trash"></button>
+        <button type="button" id="bulkPrivacy" class="not-trash"></button>
         <!-- all ticked to an outliner, as links at its end (library-bulk.js: shareTicked) -->
-        <span id="bulkShare" class="bulk-share"></span>
-        <button type="button" id="bulkDelete" class="delete" data-i18n="libraryDelete">Delete</button>
+        <span id="bulkShare" class="bulk-share not-trash"></span>
+        <!-- only with some ticked that moved for good (library-bulk.js: showPicked) -->
+        <button type="button" id="bulkNewUrl" data-i18n="linkUseNewUrl" hidden>Use the new web address</button>
+        <button type="button" id="bulkDelete" class="delete not-trash" data-i18n="libraryDelete">Delete</button>
+        <!-- in the trash, in the place of the rest: Put back and Remove for good (library-trash.js: restorePicked) -->
+        <button type="button" id="bulkRestore" class="only-trash" data-i18n="libraryRestore" hidden>Put back</button>
+        <button type="button" id="bulkForget" class="delete only-trash" data-i18n="libraryForget" hidden>Remove for good</button>
         <!-- while busy, in place of the rest (library-bulk.js: showProgress) -->
         <span class="bulk-progress">
           <span id="bulkProgressText"></span>
@@ -193,7 +210,7 @@
 
   <!-- All tags of the side bar: the 300 most used, or all with what is typed in the box -->
   <dialog id="cloudDialog" class="cloud-dialog">
-    <div class="cloud-head"><span>All tags</span><button type="button" id="cloudClose" aria-label="×">×</button></div>
+    <div class="cloud-head"><span data-i18n="sideAllTags">All tags</span><button type="button" id="cloudClose" aria-label="×">×</button></div>
     <input type="search" id="cloudFind" class="cloud-find" spellcheck="false" autocomplete="off" data-i18n-label="libraryTagFilter">
     <p id="cloudNone" class="cloud-none" data-i18n="cloudNoMatch" hidden>No tag has that in its name.</p>
     <div id="cloud" class="tag-cloud"></div>

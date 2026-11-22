@@ -1,4 +1,462 @@
 {
+    "userMenuHead": {
+        "message": "Dein Konto auf diigo.com"
+    },
+    "formScreenshot": {
+        "message": "Auch einen Screenshot speichern"
+    },
+    "screenshotLine": {
+        "message": "Screenshot: $URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1"
+            }
+        }
+    },
+    "screenshotName": {
+        "message": "Screenshot von $TITLE$",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMenu": {
+        "message": "Mehr für diesen Eintrag"
+    },
+    "itemPin": {
+        "message": "Auf Start anheften"
+    },
+    "itemHide": {
+        "message": "Verstecken (versteckter Tag)"
+    },
+    "itemUnhide": {
+        "message": "Wieder zeigen (versteckter Tag weg)"
+    },
+    "homeChanged": {
+        "message": "Zuletzt geändert"
+    },
+    "homePinned": {
+        "message": "Angeheftet"
+    },
+    "homeUnpin": {
+        "message": "Lösen"
+    },
+    "homeUnpinTitle": {
+        "message": "Entfernt den Tag pinned, auch in Diigo"
+    },
+    "homeEditStart": {
+        "message": "Start anpassen"
+    },
+    "homeEditIntro": {
+        "message": "Verschiebe die Blöcke, lass weg, was du nicht brauchst, oder füge eigene Blöcke hinzu: was eine Suche findet. Der Tag pinned bringt ein Lesezeichen nach Angeheftet."
+    },
+    "homeAddBlock": {
+        "message": "Block hinzufügen"
+    },
+    "homeBlockChange": {
+        "message": "Block ändern"
+    },
+    "homeResetLayout": {
+        "message": "Standardblöcke"
+    },
+    "homeResetConfirm": {
+        "message": "Zurück zu den Standardblöcken von Start? Deine eigenen Blöcke verschwinden."
+    },
+    "homeBlockUp": {
+        "message": "Nach oben"
+    },
+    "homeBlockDown": {
+        "message": "Nach unten"
+    },
+    "homeBlockHide": {
+        "message": "Auf Start weglassen"
+    },
+    "homeBlockShow": {
+        "message": "Auf Start zeigen"
+    },
+    "homeBlockEmpty": {
+        "message": "Gerade nichts."
+    },
+    "homeBlockRemoveConfirm": {
+        "message": "Den Block $NAME$ entfernen?",
+        "placeholders": {
+            "name": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeBlockName": {
+        "message": "Name"
+    },
+    "homeBlockSearch": {
+        "message": "Was er zeigt"
+    },
+    "homeBlockSearchHint": {
+        "message": "Wie im Suchfeld: Wörter, -Wort zum Weglassen, tag* für Tags, die so beginnen (todo*), im unten gewählten Feld."
+    },
+    "homeBlockNeedsSearch": {
+        "message": "Gib ein, was der Block zeigt."
+    },
+    "homeBlockCount": {
+        "message": "Wie viele"
+    },
+    "homeBlockCountOf": {
+        "message": "$COUNT$ Einträge",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreStart": {
+        "message": "Dein eigener Start: Start anpassen (oben rechts auf Start) verschiebt Blöcke, lässt sie weg und fügt eigene Blöcke hinzu, mit dem, was eine Suche findet. Gib einem Lesezeichen den Tag pinned, und es steht in Angeheftet, ganz oben."
+    },
+    "optionTodoRandom": {
+        "message": "Zu erledigen auf Start: einige zufällig, mit Andere für andere, statt immer der ältesten. Praktisch, wenn es viele sind."
+    },
+    "goToSwiftLibrary": {
+        "message": "Zur Swift Library"
+    },
+    "optionToolbarButton": {
+        "message": "Die Schaltfläche in der Symbolleiste öffnet"
+    },
+    "toolbarButtonForm": {
+        "message": "Das Lesezeichen-Formular"
+    },
+    "toolbarButtonLibrary": {
+        "message": "Die Swift Library"
+    },
+    "browserActionLibraryTitle": {
+        "message": "Swift Library öffnen"
+    },
+    "homeTodo": {
+        "message": "Zu erledigen"
+    },
+    "homeTodoDone": {
+        "message": "Erledigt"
+    },
+    "homeTodoDoneTitle": {
+        "message": "Entfernt $TAGS$, auch in Diigo",
+        "placeholders": {
+            "tags": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreTodo": {
+        "message": "Zu erledigen: gib einem Lesezeichen einen Tag, der mit todo beginnt (todo, todo-arbeit…), und es erscheint unter Zu erledigen auf Start, das älteste zuerst, mit Erledigt, um den Tag zu entfernen."
+    },
+    "menuLibrary": {
+        "message": "Bibliothek"
+    },
+    "menuDiscover": {
+        "message": "Entdecken"
+    },
+    "menuTools": {
+        "message": "Werkzeuge"
+    },
+    "diigoMyLibrary": {
+        "message": "Meine Bibliothek"
+    },
+    "diigoMyOutliners": {
+        "message": "Meine Outliner"
+    },
+    "diigoMyGroups": {
+        "message": "Meine Gruppen"
+    },
+    "diigoPremium": {
+        "message": "Premium holen"
+    },
+    "userPublicLibrary": {
+        "message": "Öffentliche Bibliothek"
+    },
+    "userSettings": {
+        "message": "Einstellungen auf Diigo"
+    },
+    "userSignOut": {
+        "message": "Abmelden"
+    },
+    "viewAll": {
+        "message": "Alle"
+    },
+    "viewBookmarks": {
+        "message": "Lesezeichen"
+    },
+    "viewPdfs": {
+        "message": "PDFs"
+    },
+    "viewImages": {
+        "message": "Bilder"
+    },
+    "viewNotes": {
+        "message": "Notizen"
+    },
+    "viewOutliners": {
+        "message": "Outliner"
+    },
+    "viewUntagged": {
+        "message": "Ohne Tags"
+    },
+    "sideTags": {
+        "message": "Tags"
+    },
+    "sideTop": {
+        "message": "Meistgenutzt"
+    },
+    "sideRecent": {
+        "message": "Zuletzt"
+    },
+    "sideAllTags": {
+        "message": "Alle Tags"
+    },
+    "sideRelatedTags": {
+        "message": "Verwandte Tags"
+    },
+    "toDiigo": {
+        "message": "Zu diigo.com"
+    },
+    "guideTypesHead": {
+        "message": "Nicht nur Lesezeichen"
+    },
+    "guideTypesIntro": {
+        "message": "Eine Diigo-Bibliothek enthält mehr als Webseiten. Die Swift Library zeigt mit einem Symbol vor dem Titel, welche Art von Eintrag es ist, und unter Alle in der Seitenleiste wählst du eine Art. Die Schaltflächen zum Hinzufügen oben in der Seitenleiste erstellen jede davon, außer Kindle."
+    },
+    "guideTypeBookmark": {
+        "message": "Lesezeichen: Webseiten, mit dem Lesezeichen-Formular gespeichert oder hier hinzugefügt, mit dem Status ihrer Seite vor dem Titel."
+    },
+    "guideTypeNote": {
+        "message": "Notizen: eigener Text, schlicht oder formatiert, hier geschrieben und bearbeitet und mit einem Klick auf den Titel in der Seite gezeigt. Eine Notiz, deren Titel auf .py, .css, .html oder Ähnliches endet, ist Code und wird in Farben gezeigt. Notizen sind auf Diigo immer privat."
+    },
+    "guideTypeFile": {
+        "message": "Bilder und PDFs: hier hochgeladen, mit Titel, Beschreibung und Tags (ein PDF bis 64 MB); ein Bild wird in der Seite gezeigt. Hier gelöscht, bleibt ihre Datei im Papierkorb, sodass sie zurückgelegt werden können."
+    },
+    "guideTypeKindle": {
+        "message": "Kindle: deine Kindle-Markierungen, auf diigo.com importiert. Sie können hier nicht erstellt oder bearbeitet werden; aus dem Papierkorb kommen sie zurück, indem du sie erneut importierst."
+    },
+    "guideTypeAnnotated": {
+        "message": "Annotiert: Lesezeichen mit Markierungen oder Haftnotizen auf ihrer Seite, gemacht mit Diigos eigener Browsererweiterung. Die Swift Library zeigt, welche sie haben; die Markierungen selbst sind auf diigo.com."
+    },
+    "linksCheckChoice": {
+        "message": "$COUNT$ Links deiner Bibliothek sind nicht oder nicht kürzlich geprüft. Prüfe sie alle, auch die, zu denen du nicht scrollst, oder nur, bis die ersten $FOUND$ toten gefunden sind.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "found": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntButton": {
+        "message": "Die ersten $COUNT$ toten Links finden",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHuntIntro": {
+        "message": "Tote Links unter den noch nicht geprüften Links suchen, bis $COUNT$ gefunden sind; jeder gefundene erscheint hier sofort.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHunting": {
+        "message": "Tote Links suchen: $DONE$ geprüft, $DEAD$ gefunden",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHunted": {
+        "message": "$DEAD$ tote Links unter $DONE$ geprüften Links gefunden.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntedNone": {
+        "message": "Keine toten Links unter den $DONE$ geprüften Links.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            }
+        }
+    },
+    "toolsMenu": {
+        "message": "Swift Tools"
+    },
+    "guideSyncHead": {
+        "message": "Deine Browser-Lesezeichen zu Diigo"
+    },
+    "guideSyncText": {
+        "message": "Wähle in den Swift Einstellungen Ordner dieses Browsers, und ihre Lesezeichen kommen in deine Diigo-Bibliothek: einmalig mit Jetzt synchronisieren, oder synchron gehalten, sodass ein neues Lesezeichen darin eine Minute später zu Diigo geht. Die Ordnernamen können Tags werden (Rezepte › Italienisches Essen ergibt rezepte und italienisches-essen), und die Lesezeichen können privat gespeichert werden. Die Ordner wählst du auf jedem Computer selbst."
+    },
+    "guideSyncOneWay": {
+        "message": "Es geht in eine Richtung, von diesem Browser zu Diigo: ein Lesezeichen, das schon in Diigo ist, bleibt dort, wie es ist, und eines, das du aus diesem Browser entfernst, bleibt in Diigo. Deine Diigo-Bibliothek kommt nicht in die Lesezeichen des Browsers; dafür gibt es die Swift Library und d in der Adressleiste."
+    },
+    "guideSyncChoose": {
+        "message": "Ordner wählen"
+    },
+    "libraryGoneOn": {
+        "message": "Nicht mehr auf Diigo $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexGoneToTrash": {
+        "message": "Index neu erstellt: $COUNT$ Einträge sind nicht mehr auf Diigo und wurden in den Papierkorb verschoben, wo du sie 30 Tage lang zurücklegen kannst.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptShrunk": {
+        "message": "Diigo hat nur $COUNT$ Einträge geliefert, weit weniger als die $BEFORE$ im Index, daher bleibt der Index unverändert. Versuche es später erneut, oder wähle Neu erstellen in den Swift Einstellungen, wenn deine Bibliothek wirklich so viel kleiner ist.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexShrinkConfirm": {
+        "message": "Diigo hat nur $COUNT$ Einträge geliefert, weit weniger als die $BEFORE$ im Index. Meist heißt das, dass Diigo nicht richtig geladen hat. Den Index trotzdem durch diese $COUNT$ Einträge ersetzen?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "guideNews": {
+        "message": "Neu: eine Anleitung zu allem, was die Erweiterung mehr kann als Diigo, etwa Lesezeichen mit dem Tag hidden verstecken."
+    },
+    "privacyFirefoxSync": {
+        "message": "In Firefox gehen die Einstellungen nur dann auf deine anderen Computer, wenn in den Einstellungen von Firefox Sync Add-ons angehakt ist (Einstellungen, Synchronisation)."
+    },
+    "guideMenu": {
+        "message": "Swift Anleitung"
+    },
+    "guideIntro": {
+        "message": "Swift Bookmarks for Diigo macht Diigo schneller und einfacher, mit deiner Anmeldung auf diigo.com. Es stammt nicht von Diigo selbst. Hier steht, was es hinzufügt und wo du es findest."
+    },
+    "guideAgain": {
+        "message": "Du kannst diese Anleitung jederzeit wieder öffnen: Anleitung im Menü oben auf den Swift-Seiten oder im Menü der Schaltfläche in der Symbolleiste."
+    },
+    "guideFormHead": {
+        "message": "Eine Seite in Sekunden speichern"
+    },
+    "guideFormText": {
+        "message": "Klicke auf die Schaltfläche in der Symbolleiste oder mit rechts auf eine Seite oder einen Link. Das Formular schlägt Tags vor: deine eigenen Tags, die im Titel oder in der Webadresse stehen, die deines letzten Lesezeichens auf derselben Website und Tags, die du oft zusammen verwendest. Ein neues Lesezeichen wird ohne Tracking-Parameter gespeichert, das Formular sagt dir, wann du die Seite schon einmal gespeichert hast, und die Schaltfläche zeigt, ob eine Seite schon in deiner Bibliothek ist."
+    },
+    "guideShortcut": {
+        "message": "Tastenkürzel: $KEYS$",
+        "placeholders": {
+            "keys": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideHiddenHead": {
+        "message": "Lesezeichen mit dem Tag hidden verstecken"
+    },
+    "guideHiddenText": {
+        "message": "Gib einem Lesezeichen den Tag hidden, und es fehlt in der Swift Library, der Adressleiste, Swift Discover und den Vorschlägen des Formulars: praktisch für das, was nicht auftauchen soll, wenn dir jemand über die Schulter schaut. Um sie zu sehen, suche den Tag vollständig (hidden) oder hake Verborgene zeigen über der Liste an. Eigene versteckte Tags wählst du in den Swift Einstellungen; Tags, die nur versteckte Lesezeichen haben, werden ebenfalls versteckt, damit sie diese nicht verraten."
+    },
+    "guideHiddenWarn": {
+        "message": "Versteckt ist nicht privat: auf diigo.com selbst, und für andere, wenn das Lesezeichen öffentlich ist, bleibt es sichtbar. Mach es auch privat, wenn es niemand sonst sehen soll."
+    },
+    "guideHiddenChoose": {
+        "message": "Versteckte Tags wählen"
+    },
+    "guideLibraryHead": {
+        "message": "Die Swift Library: deine ganze Bibliothek auf einmal"
+    },
+    "guideLibraryText": {
+        "message": "Eine Kopie deiner Bibliothek in diesem Browser, sodass Suchen, Sortieren und Filtern sofort gehen, auch bei Tausenden von Lesezeichen. Suche in allen Feldern oder in einem (Titel, Webadresse, Tags, Beschreibung…), lass mit -Wort etwas weg, behalte eine Suche mit + als Filter und klicke auf einen Tag oder eine Website, um danach zu filtern. Start zeigt, was du zuletzt gespeichert hast, was noch gelesen werden will und was du an diesem Tag in früheren Jahren gespeichert hast."
+    },
+    "guideBulkText": {
+        "message": "Mehrere bearbeiten: hake Lesezeichen an (auch mit Umschalt+Klick und Umschalt+Pfeiltasten), um Tags hinzuzufügen oder zu entfernen, sie privat oder öffentlich, gelesen oder ungelesen zu machen, sie in einen Outliner zu teilen oder alle auf einmal zu löschen."
+    },
+    "guideTrashHead": {
+        "message": "Ein Papierkorb, falls du es dir anders überlegst"
+    },
+    "guideTrashText": {
+        "message": "Was du löschst, hier oder auf diigo.com, kommt für 30 Tage in den Papierkorb, Bilder und PDFs mit ihrer Datei, und kann von dort zurückgelegt werden, einzeln oder mit Mehrere bearbeiten. Diigo selbst hat keinen Papierkorb."
+    },
+    "guideLinksHead": {
+        "message": "Tote Links und die Wayback Machine"
+    },
+    "guideLinksText": {
+        "message": "Vor jedem Titel steht der Status seiner Seite: 200, 404, BOT, PARKED oder →, wenn sie umgezogen ist. Klicke darauf, um die Seite in der Wayback Machine oder auf archive.is nachzuschlagen und die letzte Kopie oder die neue Webadresse zu verwenden. Aufräumen auf Start findet auch Duplikate, Lesezeichen ohne Tags oder ohne Titel und ähnliche Tags zum Zusammenführen."
+    },
+    "guideLinksPrivacy": {
+        "message": "Dafür ruft die Erweiterung jede Seite bei ihrer eigenen Website ab, aus deinem Browser. Lieber nicht? In den Swift Einstellungen unter Datenschutz werden Links dann nur geprüft, wenn du darum bittest."
+    },
+    "guideTagsHead": {
+        "message": "Tags und Outliner"
+    },
+    "guideTagsText": {
+        "message": "Alle deine Tags mit einem Feld zum Finden, die 300 meistgenutzten als Wolke, ein Tag überall auf einmal umbenannt und fast gleiche Tags (Rezept und Rezepte) zu einem zusammengeführt."
+    },
+    "guideOutlinersText": {
+        "message": "Deine Outliner von Diigo stehen auch in der Seitenleiste der Swift Library: ein Baum zum Schreiben mit der Tastatur, mit Einträgen aus deiner Bibliothek."
+    },
+    "guideDiscoverText": {
+        "message": "Die Hot Bookmarks der Diigo-Community ohne das, was du schon hast, in der Reihenfolge Für dich (nach deinen Tags), mit Suchfeld und Filtern. Speichere eines mit einem Klick oder blende es mit Nicht interessiert aus."
+    },
+    "guideMoreHead": {
+        "message": "Und mehr"
+    },
+    "guideMoreAddress": {
+        "message": "In der Adressleiste: tippe d, ein Leerzeichen und ein paar Wörter, um deine Lesezeichen zu finden."
+    },
+    "guideMoreDiigo": {
+        "message": "Auf diigo.com: Zur Swift Library am Ende des Menüs oben, und nach der Anmeldung die Swift Library. Der Rest von diigo.com bleibt, wie Diigo ihn hat; in den Swift Einstellungen kannst du My Library und Tools die Swift-Seiten öffnen lassen."
+    },
+    "guideMoreSettings": {
+        "message": "Deine Einstellungen gehen mit dem Konto deines Browsers auf deine anderen Computer mit."
+    },
+    "guidePrivacyText": {
+        "message": "Die Erweiterung sendet nichts an ihren Entwickler. Sie spricht für dich mit diigo.com, mit deiner Anmeldung dort, und die Kopie deiner Bibliothek bleibt in diesem Browser. Was sonst wohin geht, und die Wahlmöglichkeiten dazu, stehen in den Swift Einstellungen unter Datenschutz."
+    },
+    "guideDiigoTour": {
+        "message": "Diigos eigene Tour durch das, was Diigo kann: Learn more auf diigo.com"
+    },
+    "privacyHead": {
+        "message": "Datenschutz"
+    },
+    "privacyIntro": {
+        "message": "Die Erweiterung sendet nichts an ihren Entwickler. Sie spricht für dich mit diigo.com, mit deiner Anmeldung dort, und die Kopie deiner Bibliothek (der Index) bleibt in diesem Browser. Diese Einstellungen werden beim Konto deines Browsers gespeichert (Firefox Sync, Google oder Microsoft), wenn er synchronisiert, sodass deine anderen Computer sie auch bekommen; die zu synchronisierenden Ordner bleiben auf diesem Computer."
+    },
+    "optionAutoCheckLinks": {
+        "message": "Jeden Link von selbst prüfen, sobald er in der Liste erscheint. Aus: ein Link wird nur geprüft, wenn du darum bittest, mit einem Klick auf sein ·, Alle Links prüfen oder der Suche nach toten Links in der Seitenleiste; was vorher geprüft wurde, bleibt sichtbar."
+    },
+    "optionsGuideText": {
+        "message": "Neu hier, oder neugierig, was die Erweiterung mehr kann als Diigo?"
+    },
+    "linkNotCheckedTitle": {
+        "message": "Noch nicht geprüft: klicken, um diesen Link zu prüfen"
+    },
     "move": {
         "message": "Verschieben"
     },
@@ -86,7 +544,7 @@
         "message": "Optionen von Swift Bookmarks for Diigo"
     },
     "cannotBookmark": {
-        "message": "Diigo kann diese Seite nicht speichern"
+        "message": "Diese Seite kann nicht in Diigo gespeichert werden: Swift Library öffnen"
     },
     "commandShowForm": {
         "message": "Diese Seite in Diigo speichern"
@@ -104,13 +562,10 @@
         "message": "Auf diigo.com"
     },
     "optionsIntro": {
-        "message": "Das Add-on ändert nicht mehr, wie diigo.com aussieht und funktioniert: Was es besser macht, steckt in der Swift Library und in Swift Discover. Auf diigo.com fügt es nur den Weg dorthin hinzu, im Menü oben."
+        "message": "Das Add-on ändert diigo.com kaum: was es besser macht, steckt in der Swift Library und Swift Discover. Auf diigo.com fügt es nur den Weg dorthin hinzu, Zur Swift Library im Menü oben."
     },
     "optionMyLibraryToSwift": {
-        "message": "My Library im Menü oben auf diigo.com öffnet die Swift Library. Die von Diigo selbst: Strg+Klick oder ein Mittelklick, oder My Library im Menü der Swift Library"
-    },
-    "myLibraryToSwiftTitle": {
-        "message": "Öffnet die Swift Library. Strg+Klick: My Library auf diigo.com"
+        "message": "Der Weg zu deiner Bibliothek auf diigo.com öffnet die Swift Library: ein Link, ein Lesezeichen, die Adresse getippt. My Library im Menü oben auf diigo.com bleibt die von Diigo, ebenso die Adresse mit ?swift=false dahinter"
     },
     "optionSignInToSwift": {
         "message": "Nach der Anmeldung auf diigo.com öffnet sich die Swift Library statt deiner Bibliothek auf diigo.com"
@@ -119,10 +574,10 @@
         "message": "Die Werkzeuge von Diigo für deine Bibliothek, mit diesem Add-on: das Lesezeichenformular mit der Symbolleistenschaltfläche und Strg+Alt+D, die Swift Library und Swift Discover."
     },
     "optionToolsToSwift": {
-        "message": "Tools im Menü oben auf diigo.com öffnet die Tools-Seite des Add-ons: ohne Google Play und Import kindle highlights, mit diesem Add-on. Die von Diigo selbst: Strg+Klick oder ein Mittelklick"
+        "message": "Tools im Menü oben auf diigo.com öffnet Swift Tools: ohne Google Play und Import kindle highlights, mit diesem Add-on. Die von Diigo selbst: Strg+Klick oder ein Mittelklick"
     },
     "toolsToSwiftTitle": {
-        "message": "Öffnet die Tools-Seite des Add-ons. Strg+Klick: Tools auf diigo.com"
+        "message": "Öffnet Swift Tools. Strg+Klick: Tools auf diigo.com"
     },
     "optionDeadLinks": {
         "message": "In der Swift Library zeigen, welche Links tot sind (404) oder deren Seite nicht antwortet. Dafür ruft das Add-on jede Seite bei der Website selbst ab. Klicke auf den Statuscode, um die Seite in der Wayback Machine oder auf archive.is nachzuschlagen."
@@ -158,27 +613,6 @@
     },
     "optionSplitAdd": {
         "message": "Vier Schaltflächen oben in der Seitenleiste statt der Schaltfläche + mit Menü: Bookmark, Image, PDF und Note, damit du mit einem Klick hinzufügst"
-    },
-    "topMenuHead": {
-        "message": "Das Menü oben auf diigo.com"
-    },
-    "topMenuIntro": {
-        "message": "Welche Einträge es zeigt, in welcher Reihenfolge, und eigene Links; ebenso oben in der Swift Library und in Swift Discover. My Library, My Outliners, My Groups und Swift Library erscheinen nur, wenn du angemeldet bist."
-    },
-    "topMenuAdd": {
-        "message": "Link hinzufügen"
-    },
-    "topMenuName": {
-        "message": "Name"
-    },
-    "topMenuShow": {
-        "message": "Im Menü zeigen"
-    },
-    "topMenuUp": {
-        "message": "Nach oben"
-    },
-    "topMenuDown": {
-        "message": "Nach unten"
     },
     "topMenuRemove": {
         "message": "Entfernen"
@@ -557,9 +991,6 @@
     "libraryRemoveFilter": {
         "message": "Diesen Filter entfernen"
     },
-    "libraryHuntIntro": {
-        "message": "20 deiner Lesezeichen, deren Link noch nicht geprüft ist, zufällig: ihre Links werden jetzt geprüft, ein toter rot. Klicke links erneut auf Tote Links für die gefundenen, oder für 20 andere."
-    },
     "libraryHuntNone": {
         "message": "Keine toten Links: alle Links deiner Lesezeichen wurden kürzlich geprüft."
     },
@@ -684,6 +1115,30 @@
     },
     "libraryTrashIntro": {
         "message": "Mit dem Add-on gelöscht, in diesem Browser aufbewahrt. Wiederherstellen legt es erneut in Diigo an, mit dem heutigen Datum und ohne Markierungen. Nach 30 Tagen endgültig weg."
+    },
+    "bulkRestored": {
+        "message": "$COUNT$ Einträge wiederhergestellt.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkNotRestored": {
+        "message": "$COUNT$ konnten nicht wiederhergestellt werden:",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkForgetConfirm": {
+        "message": "Die $COUNT$ ausgewählten Einträge endgültig aus dem Papierkorb entfernen?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
     },
     "libraryRestore": {
         "message": "Zurücklegen"
@@ -831,6 +1286,14 @@
         "message": "Etwas ist schiefgegangen ($ERROR$). Alles, was gezeigt werden konnte, wird gezeigt; die Seite neu zu laden kann helfen.",
         "placeholders": {
             "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptEmpty": {
+        "message": "Diigo hat keine Einträge geliefert, daher bleibt der Index mit $COUNT$ Einträgen unverändert. Versuche es später erneut.",
+        "placeholders": {
+            "count": {
                 "content": "$1"
             }
         }
@@ -1331,7 +1794,7 @@
         "message": "Das Lesezeichenformular"
     },
     "formOptionsIntro": {
-        "message": "Was das Formular für ein neues Lesezeichen ausfüllt. Ein schon gespeichertes Lesezeichen öffnet sich so, wie du es gespeichert hast."
+        "message": "Was das Formular für ein neues Lesezeichen ausfüllt. Ein schon gespeichertes Lesezeichen öffnet sich so, wie du es gespeichert hast. Das Tastenkürzel öffnet immer das Lesezeichen-Formular, auf einer Seite, die nicht gespeichert werden kann, die Swift Library."
     },
     "optionPageDescription": {
         "message": "Ohne markierten Text auf der Seite die Beschreibung, die die Seite von sich selbst gibt (wie Suchmaschinen sie zeigen), als Beschreibung"
@@ -1396,14 +1859,6 @@
     },
     "linksCheckAll": {
         "message": "Alle Links prüfen"
-    },
-    "linksCheckAllIntro": {
-        "message": "$COUNT$ Links deiner Bibliothek sind nicht oder nicht kürzlich geprüft: Alle Links prüfen prüft sie alle, auch die, zu denen du nicht scrollst.",
-        "placeholders": {
-            "count": {
-                "content": "$1"
-            }
-        }
     },
     "linksAllChecked": {
         "message": "Alle Links deiner Bibliothek sind kürzlich geprüft."
@@ -1626,9 +2081,6 @@
     },
     "linkUseNewUrl": {
         "message": "Die neue Webadresse verwenden"
-    },
-    "linkUseNewUrlAll": {
-        "message": "Alle zur neuen Adresse"
     },
     "linkUseNewUrlConfirm": {
         "message": "$COUNT$ Lesezeichen die Webadresse geben, zu der sie umgezogen sind, auch in Diigo?",

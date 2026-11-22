@@ -7,7 +7,8 @@
 // list yet as it grows while scrolling. What is ticked stays so while you search, but only what is shown counts.
 let chosen = new Set();  // their ids
 
-const picking = () => state.bulk && state.view != 'trash' && state.view != 'home';
+// in the trash too, with Put back and Remove for good in its bar (library-trash.js: restorePicked, forgetPicked)
+const picking = () => state.bulk && state.view != 'home';
 const pickedItems = () => shown.filter(item => chosen.has(item.id));
 
 // ---- the selection: from where it starts (anchor) to its other end (focus), as in a list of files ----
@@ -114,6 +115,8 @@ function deleteKey(e) {
   if (e.key != 'Delete' || !picking() || e.ctrlKey || e.altKey || e.metaKey || e.shiftKey || typingOrPopup(e)) return;
   if (!pickedItems().length) return;
   e.preventDefault();
+  // in the trash: Remove for good, which asks first
+  if (state.view == 'trash') return forgetPicked();
   deletePicked();
 }
 
@@ -177,10 +180,10 @@ function pickOnClick(li, item) {
 
 // Without Bulk edit, a click at the front of a bookmark, where its box comes (the padding at the left of .item, which
 // shows an empty box on hover, library.css), turns it on, with that bookmark ticked as the start of the selection; not
-// a click elsewhere on it. Not in the trash, which has no Bulk edit.
+// a click elsewhere on it.
 function bulkOnClick(li, item) {
   li.addEventListener('click', e => {
-    if (picking() || state.view == 'trash' || e.target != li) return;
+    if (picking() || e.target != li) return;
     if (e.clientX - li.getBoundingClientRect().left >= parseFloat(getComputedStyle(li).paddingLeft)) return;
     state.bulk = true;
     chosen.add(item.id);
@@ -200,6 +203,10 @@ function watchBulkBar() {
 // called by show(), before the list is drawn
 function showBulk() {
   $('bulkBar').hidden = !picking();
+  // the trash: only Put back and Remove for good
+  const inTrash = state.view == 'trash';
+  $('bulkBar').querySelectorAll('.not-trash').forEach(el => el.hidden = inTrash);
+  $('bulkBar').querySelectorAll('.only-trash').forEach(el => el.hidden = !inTrash);
   $('bulkToggle').setAttribute('aria-pressed', String(state.bulk));
   $('bulkToggle').classList.toggle('on', state.bulk);
   showPicked();
@@ -239,6 +246,20 @@ function showPicked() {
   for (const button of $('bulkBar').querySelectorAll('button')) button.disabled = !count || !!controller;
   const {add, remove} = bulkTags();
   if (!add.length && !remove.length) $('bulkApplyTags').disabled = true;
+  // the new web address: only for those ticked that moved for good, not in the trash
+  $('bulkNewUrl').hidden = state.view == 'trash' || !picked.some(movedTo);
+}
+
+// moved for good, to a web address that is known (library-links.js: useNewUrls)
+const movedTo = item => linkCategory(item) == 'moved' && !!linkStates.get(item.url)?.to;
+
+// those ticked that moved, at their new web address, after asking how many; ticked no longer once done
+async function newUrlsPicked() {
+  const moved = pickedItems().filter(movedTo);
+  if (!moved.length || controller || !confirm(message('linkUseNewUrlConfirm', String(moved.length)))) return;
+  await useNewUrls(moved);
+  moved.forEach(item => chosen.delete(item.id));
+  afterBulk(true);
 }
 
 // While Bulk edit is busy its bar shows only that: what it does (the name of its button), a bar of how far and Stop

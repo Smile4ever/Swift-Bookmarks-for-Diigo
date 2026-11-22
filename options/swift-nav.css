@@ -1,6 +1,6 @@
 /* The menu at the top of every page of the add-on, as Diigo's own .MainNav (main.<hash>.css of diigo.com), and the menu
-   of your name in it (user-menu.js): one look for the Swift Library, Swift Discover, Swift Outliners, Tools and Swift
-   Options. Loaded before the page's own CSS (library.css, options.css), whose colours (--page, --hover...) it uses. */
+   of your name in it (user-menu.js): one look for the Swift Library, Swift Discover, Swift Outliners, Swift Tools,
+   Swift Options and Swift Guide. Loaded before the page's own CSS (library.css, options.css), whose colours (--page, --hover...) it uses. */
 
 /* room for the scroll bar on every page, also a short one: going from one page to another, nothing moves sideways */
 html {
@@ -19,13 +19,16 @@ html {
   padding: 12px 50px 8px;
 }
 
+/* the icon of the add-on, not Diigo's logo: these pages are the add-on's, not Diigo's; it leads to the Swift Library.
+   A thin white ring, as it is blue on blue. */
 .MainNav .logo {
   flex: none;
-  width: 68px;
+  width: 32px;
   height: 32px;
   margin-left: 10px;
-  background: url("https://www.diigo.com/asset/images/logo_s2@2x.png") no-repeat;
-  background-size: 68px auto;
+  border-radius: 8px;
+  background: url("../icons/icon.svg") no-repeat center / 32px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .7);
 }
 
 .MainNav ul {
@@ -49,6 +52,20 @@ html {
 }
 
 .MainNav li.active a {
+  color: #fff;
+}
+
+/* the way to diigo.com (user-menu.js), at the right before your name, as faint as the items of the menu */
+.MainNav .to-diigo {
+  flex: none;
+  margin-right: 24px;
+  color: #a7deff;
+  font-size: 13px;
+  line-height: 32px;
+  text-decoration: none;
+}
+
+.MainNav .to-diigo:hover {
   color: #fff;
 }
 
@@ -104,6 +121,14 @@ html {
   cursor: pointer;
 }
 
+/* white on the blue bar on hovering too, not the blue of a button of the page (options.css: button:hover), a bit
+   lighter to show it can be clicked */
+.MainNav button.user:hover:not(:disabled),
+.MainNav .user-menu.open button.user {
+  color: #fff;
+  opacity: .85;
+}
+
 .MainNav .user:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 2px;
@@ -129,7 +154,9 @@ html {
   display: none;
   position: absolute;
   top: calc(100% + 8px);
-  left: 0;
+  /* under the name, its right edge at that of the name: at the right of the window, longer names (another language)
+     go to the left, not out of the window */
+  right: 0;
   z-index: 20;
   flex-direction: column;
   min-width: 170px;
@@ -158,6 +185,17 @@ html {
   outline: none;
 }
 
-.user-menu-items a[aria-current] {
-  color: var(--text);
+/* that these are of diigo.com: a heading, and ↗ after each, as they lead there (user-menu.js) */
+.user-menu-head {
+  padding: 4px 20px 6px;
+  color: var(--grey);
+  font-size: 11px;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.user-menu-items a::after {
+  content: " ↗";
+  opacity: .6;
 }

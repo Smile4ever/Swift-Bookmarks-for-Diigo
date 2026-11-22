@@ -13,7 +13,8 @@ let ignoredGroups = new Set();  // groupKey of each group left out
 const groupKey = group => group.map(tag => lower(tag.name)).sort().join('\n');
 
 async function loadIgnoredGroups() {
-  const saved = (await browser.storage.local.get(IGNORED_KEY).catch(() => ({})))[IGNORED_KEY];
+  // with the account of the browser too (settings.js: SYNCED_LISTS)
+  const saved = (await loadKept([IGNORED_KEY]).catch(() => ({})))[IGNORED_KEY];
   ignoredGroups = new Set(Array.isArray(saved) ? saved : []);
 }
 
@@ -45,7 +46,7 @@ function similarGroup(group, i) {
   ignore.type = 'button';
   ignore.addEventListener('click', async () => {
     ignoredGroups.add(groupKey(group));
-    await browser.storage.local.set({[IGNORED_KEY]: [...ignoredGroups]}).catch(() => {});
+    await saveSettings({[IGNORED_KEY]: [...ignoredGroups]}).catch(() => {});
     fillSimilar();
     show({keepScroll: true});
   });

@@ -18,20 +18,22 @@ let user = '';  // signed in on diigo.com, for the menu at the top and your name
 // ---- the menu at the top, as in the Swift Library (library-side.js: showMainNav), from the menu as set below ----
 
 const MENU_LINKS = {
-  library: () => ({label: 'My Library', url: `https://www.diigo.com/user/${encodeURIComponent(user)}`}),
-  outliners: () => ({label: 'My Outliners', url: 'https://www.diigo.com/outliner'}),
-  groups: () => ({label: 'My Groups', url: 'https://groups.diigo.com'}),
-  tools: () => ({label: 'Tools', url: 'tools.html'}),
-  learnMore: () => ({label: 'Learn more', url: 'https://www.diigo.com/learn_more'}),
-  premium: () => ({label: 'Go Premium', url: 'https://www.diigo.com/premium'}),
-  fastLibrary: () => ({label: message('libraryMenu'), url: 'library.html'}),
-  discover: () => ({label: message('discoverMenu'), url: 'discover.html'}),
+  // Diigo's own, also with myLibraryToSwift (settings.js: DIIGO_OWN)
+  library: () => ({label: message('diigoMyLibrary'), url: `https://www.diigo.com/user/${encodeURIComponent(user)}${DIIGO_OWN}`}),
+  outliners: () => ({label: message('diigoMyOutliners'), url: 'https://www.diigo.com/outliner'}),
+  groups: () => ({label: message('diigoMyGroups'), url: 'https://groups.diigo.com'}),
+  tools: () => ({label: menuName('toolsMenu'), url: 'tools.html'}),
+  // Swift Guide, the guide of the add-on, in the place of Diigo's Learn more (guide.html)
+  learnMore: () => ({label: menuName('guideMenu'), url: 'guide.html'}),
+  premium: () => ({label: message('diigoPremium'), url: 'https://www.diigo.com/premium'}),
+  fastLibrary: () => ({label: menuName('libraryMenu'), url: 'library.html'}),
+  discover: () => ({label: menuName('discoverMenu'), url: 'discover.html'}),
   // this page itself
-  options: () => ({label: message('optionsMenu'), url: location.pathname, here: true}),
+  options: () => ({label: menuName('optionsMenu'), url: location.pathname, here: true}),
 };
 
 function showMainNav() {
-  document.getElementById('mainNav').replaceChildren(...topMenu.filter(item => item.shown).map(item => {
+  document.getElementById('mainNav').replaceChildren(...swiftNavItems().map(item => {
     // a link of your own, once it has a web address
     let link = MENU_LINKS[item.id]?.();
     if (!link && /^https?:\/\/./i.test(item.url || '')) {
@@ -92,8 +94,11 @@ async function indexFromOptions(work) {
   indexing = new AbortController();
   showIndexState(message('setupStarting'));
   let failed = '';
+  let said = '';
   try {
-    await work(indexing.signal);
+    // built: how many went to the trash as Diigo no longer has them (library-index.js: buildIndex)
+    const {gone} = await work(indexing.signal) || {};
+    if (gone) said = message('indexGoneToTrash', String(gone));
     browser.runtime.sendMessage({type: 'indexChanged'}).catch(() => {});
   } catch (e) {
     failed = indexing.signal.aborted ? message('indexStopped') : e?.message || String(e);
@@ -103,12 +108,17 @@ async function indexFromOptions(work) {
     if (failed) {
       $('indexStatus').textContent = failed;
       $('indexStatus').classList.add('error');
+    } else if (said) {
+      $('indexStatus').textContent = said;
     }
   }
 }
 
+// far fewer items than before (library-index.js: SHRINK_LIMIT): only after a question
 const buildFromOptions = () => indexFromOptions(signal =>
-  buildIndex(user, signal, (pages, of) => showIndexState(message('indexBuilding', [String(pages), String(of)]))));
+  buildIndex(user, signal, (pages, of) => showIndexState(message('indexBuilding', [String(pages), String(of)])),
+    {allowShrink: (count, before) => confirm(message('indexShrinkConfirm', [String(count), String(before)]))})
+    .then(gone => ({gone})));
 // without an index to bring up to date (none yet, of an older version or of someone else): built
 const updateFromOptions = () => !meta?.newest || !indexReady(user) ? buildFromOptions() : indexFromOptions(signal =>
   updateIndex(signal, page => showIndexState(message('indexUpdating', String(page)))));
@@ -217,22 +227,61 @@ loadSettings().then(settings => {
   hiddenTags.placeholder = browser.i18n.getMessage('optionsTagsExample');
   hiddenTags.addEventListener('input', () => {
     const tags = hiddenTags.value.split('\n').map(tag => tag.trim()).filter(Boolean);
-    browser.storage.local.set({hiddenTags: [...new Set(tags)]});
+    saveSettings({hiddenTags: [...new Set(tags)]});
   });
 
   for (const [key, value] of Object.entries(settings)) {
     if (typeof value != 'boolean') continue;
+    // a setting set elsewhere has no switch here (formScreenshot: the box of the bookmark form)
     const box = document.getElementById(key);
+    if (!box) continue;
     box.checked = value;
-    box.addEventListener('change', () => browser.storage.local.set({[key]: box.checked}));
+    box.addEventListener('change', () => saveSettings({[key]: box.checked}));
   }
+  // what the toolbar button opens: a choice of two, not a switch
+  const toolbarButton = document.getElementById('toolbarButton');
+  toolbarButton.value = settings.toolbarButton;
+  toolbarButton.addEventListener('change', () => saveSettings({toolbarButton: toolbarButton.value}));
+  // checking links by themselves only counts with the status of links shown
+  document.getElementById('deadLinks').addEventListener('change', followDeadLinks);
+  followDeadLinks();
 
   showSync(settings);
-  topMenu = menuItemsOf(settings);
-  showTopMenu();
   showMainNav();
   siteRules = settings.siteRules;
   showSiteRules();
+});
+
+
+const followDeadLinks = () =>
+  document.getElementById('autoCheckLinks').disabled = !document.getElementById('deadLinks').checked;
+
+// Firefox: the settings go to other computers only with Add-ons ticked in Firefox Sync
+document.getElementById('privacyFirefoxSync').hidden = !browser.runtime.getBrowserInfo;
+
+// Changed on another computer (storage.sync), while this page is open: what it shows follows, so a click here doesn't
+// put back what was there. Not what you are typing in or editing (a field of it has the focus): that wins when it is
+// saved. What this page saves itself comes back here too, the same, and changes nothing.
+const same = (a, b) => JSON.stringify(a) == JSON.stringify(b);
+const editing = id => document.getElementById(id).contains(document.activeElement);
+
+browser.storage.onChanged.addListener(async (changes, area) => {
+  if (area != 'sync' || !Object.keys(changes).some(key => SYNCED_SETTINGS.includes(key))) return;
+  const settings = await loadSettings().catch(() => null);
+  if (!settings) return;
+  for (const [key, value] of Object.entries(settings)) {
+    const box = typeof value == 'boolean' && document.getElementById(key);
+    if (box && box.checked != value) box.checked = value;
+  }
+  followDeadLinks();
+  if (!editing('toolbarButton')) document.getElementById('toolbarButton').value = settings.toolbarButton;
+  const hiddenTags = document.getElementById('hiddenTags');
+  const typed = [...new Set(hiddenTags.value.split('\n').map(tag => tag.trim()).filter(Boolean))];
+  if (!editing('hiddenTags') && !same(typed, settings.hiddenTags)) hiddenTags.value = settings.hiddenTags.join('\n');
+  if (!editing('siteRules') && !same(siteRules, settings.siteRules)) {
+    siteRules = settings.siteRules;
+    showSiteRules();
+  }
 });
 
 
@@ -240,7 +289,7 @@ loadSettings().then(settings => {
 
 let siteRules = [];  // siteRules of options/settings.js
 
-const saveSiteRules = () => browser.storage.local.set({siteRules});
+const saveSiteRules = () => saveSettings({siteRules});
 
 // tags separated by spaces or commas, "between quotes" when there's a space in one; as in form/form.js
 const splitTags = text => [...new Set((text.match(/"[^"]*"?|[^\s,"]+/g) || [])
@@ -311,21 +360,7 @@ document.getElementById('siteRulesAdd').addEventListener('click', () => {
 });
 
 
-// ---- the menu at the top of diigo.com, done by diigo-site/header.js, and of the Swift Library and Swift Discover ----
-
-// Diigo's own items and Learn more by their names on diigo.com, in English like the site
-const TOP_MENU_NAMES = {library: 'My Library', outliners: 'My Outliners', groups: 'My Groups', tools: 'Tools',
-  learnMore: 'Learn more', premium: 'Go Premium'};
-// the other items of the add-on, by a text of the add-on
-const TOP_MENU_TEXTS = {fastLibrary: 'libraryMenu', discover: 'discoverMenu', options: 'optionsMenu'};
-let topMenu = [];  // menuItems of options/settings.js
-
-// saved, and the menu at the top of this page the same at once
-const saveTopMenu = () => {
-  showMainNav();
-  return browser.storage.local.set({menuItems: topMenu});
-};
-
+// a small button of a row (rules per site): its text, its title (a text of the add-on) and what it does
 function topMenuButton(text, title, action) {
   const button = document.createElement('button');
   button.type = 'button';
@@ -335,76 +370,6 @@ function topMenuButton(text, title, action) {
   button.addEventListener('click', action);
   return button;
 }
-
-// moved up or down: drawn again, with the focus on the same button of the item at its new place
-function moveTopMenuItem(i, by, button) {
-  topMenu.splice(i + by, 0, ...topMenu.splice(i, 1));
-  saveTopMenu();
-  showTopMenu();
-  const row = $('topMenu').children[i + by];
-  (row.querySelector(`.${button}:not(:disabled)`) || row.querySelector('input')).focus();
-}
-
-function topMenuRow(item, i) {
-  const row = document.createElement('li');
-  const box = document.createElement('input');
-  box.type = 'checkbox';
-  box.checked = item.shown;
-  box.addEventListener('change', () => {
-    item.shown = box.checked;
-    saveTopMenu();
-  });
-
-  if ('url' in item) {
-    // a link of your own: its name and web address, saved as you type
-    const field = (key, type, placeholder) => {
-      const input = document.createElement('input');
-      input.type = type;
-      input.className = 'top-menu-' + key;
-      input.value = item[key];
-      input.placeholder = placeholder;
-      input.setAttribute('aria-label', placeholder);
-      input.addEventListener('input', () => {
-        item[key] = input.value.trim();
-        saveTopMenu();
-      });
-      return input;
-    };
-    box.setAttribute('aria-label', message('topMenuShow'));
-    row.append(box, field('label', 'text', message('topMenuName')), field('url', 'url', 'https://…'));
-  } else {
-    const label = document.createElement('label');
-    label.append(box, TOP_MENU_NAMES[item.id] || message(TOP_MENU_TEXTS[item.id]));
-    row.append(label);
-  }
-
-  const up = topMenuButton('↑', 'topMenuUp', () => moveTopMenuItem(i, -1, 'up'));
-  up.className = 'up';
-  up.disabled = i == 0;
-  const down = topMenuButton('↓', 'topMenuDown', () => moveTopMenuItem(i, 1, 'down'));
-  down.className = 'down';
-  down.disabled = i == topMenu.length - 1;
-  row.append(up, down);
-  if ('url' in item) {
-    row.append(topMenuButton('✕', 'topMenuRemove', () => {
-      topMenu.splice(i, 1);
-      saveTopMenu();
-      showTopMenu();
-    }));
-  }
-  return row;
-}
-
-function showTopMenu() {
-  $('topMenu').replaceChildren(...topMenu.map(topMenuRow));
-}
-
-document.getElementById('topMenuAdd').addEventListener('click', () => {
-  topMenu.push({id: 'link-' + Date.now(), label: '', url: '', shown: true});
-  saveTopMenu();
-  showTopMenu();
-  $('topMenu').lastElementChild.querySelector('.top-menu-label').focus();
-});
 
 
 // ---- bookmarks of the browser to Diigo, done by background/sync.js ----
@@ -426,7 +391,7 @@ function folderItem(node) {
     markFolders();
     // a folder in a chosen folder comes along with it, so it isn't kept on its own
     const own = [...$('syncTree').querySelectorAll('input:not(:disabled)')].filter(box => box.checked).map(box => box.value);
-    browser.storage.local.set({syncFolders: own});
+    saveSettings({syncFolders: own});
   });
   const count = document.createElement('span');
   count.className = 'count';

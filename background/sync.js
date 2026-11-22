@@ -326,7 +326,7 @@ browser.alarms.onAlarm.addListener(alarm => {
 });
 
 browser.storage.onChanged.addListener((changes, area) => {
-  if (area != 'local' || !(changes.syncAuto || changes.syncFolders)) return;
+  if (!settingsArea(area) || !(changes.syncAuto || changes.syncFolders)) return;
   setFoldersAlarm();
   // switched on, or other folders while on
   loadSettings().then(settings => settings.syncAuto && syncFolders());

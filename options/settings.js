@@ -3,6 +3,9 @@
 // Loaded first in those pages, so it also gives Chrome and Edge, which only have chrome.*, the browser.* of Firefox.
 globalThis.browser = globalThis.browser || globalThis.chrome;
 
+// the blocks of Start in the Swift Library (options/library-home.js), in their order by default
+const HOME_BLOCKS = ['pinned', 'recent', 'changed', 'shared', 'unread', 'stale', 'todo', 'random', 'day', 'trash', 'cleanup'];
+
 const DEFAULT_SETTINGS = {
   // not suggested in the form unless typed in full, and their bookmarks hidden in the library unless such a tag is
   // searched for in full; hidden from the start (and added once to what was saved before: background.js:
@@ -12,18 +15,24 @@ const DEFAULT_SETTINGS = {
   // those away, so they are hidden as well (options/index-item.js: alsoHiddenOf), in lower case
   alsoHiddenTags: [],
 
-  // My Library in the menu at the top of diigo.com opens the Swift Library, in the same tab (diigo-site/header.js:
-  // takeOverMyLibrary); Ctrl+click, Shift+click or a middle click still goes to Diigo's own, as does My Library in the
-  // menu of the Swift Library
+  // Going to your library on diigo.com (/user/<name>) opens the Swift Library in its place: a link, a bookmark, the
+  // address typed (background.js: libraryToSwift). Diigo's own with ?swift=false after its address (DIIGO_OWN), which
+  // My Library in the menu at the top of diigo.com has (diigo-site/header.js: never taken over), as do the ways to it
+  // of the Swift pages (My Library, Public Library, To diigo.com). On by default.
   myLibraryToSwift: true,
   // Tools there opens the Tools page of the add-on in the same way (options/tools.html: without Google Play and Import
   // kindle highlights, with this add-on). My Outliners stays Diigo's own: your outliners are in the Swift Library.
-  toolsToSwift: true,
+  // off by default, as My Library
+  toolsToSwift: false,
   // signed in on diigo.com, the page Diigo leads to after it (your library, /user/<name>) is the Swift Library instead
   // (background.js: signedInAt)
   signInToSwift: true,
   // the status code of the page of each bookmark in the Swift Library (options/library-links.js)
   deadLinks: true,
+  // with deadLinks: each link checked by itself as it shows in the list (the site sees a request from this browser);
+  // off, only what was checked before shows, and a link is checked when you ask for it (a click on its ·, Check all
+  // links, or looking for dead links in the side bar)
+  autoCheckLinks: true,
   // off by default: Share to outliner hidden, in the bookmark form and when adding in the Swift Library
   hideShareToOutliner: false,
   // the four add buttons at the top of the side bar of the Swift Library, in place of + and its menu
@@ -32,9 +41,15 @@ const DEFAULT_SETTINGS = {
   // instead (options/library-list.js: itemElement)
   hidePrivateFlag: true,
 
+  // what the toolbar button opens (background.js: onButton): form, the bookmark form (the Swift Library on a page that
+  // can't be bookmarked, the options on diigo.com), or library, always the Swift Library; the shortcut stays the form
+  toolbarButton: 'form',
   // the bookmark form (form/form.js): without text selected on the page, the description the page gives of itself
   // (og:description, description) as the description of a new bookmark
   pageDescription: true,
+  // the bookmark form, saving the page you're on: also a screenshot of it, as an image in your library, with a link
+  // to it in the description of the bookmark (background.js: pageScreenshot); the box of the form remembers it
+  formScreenshot: false,
   // a new bookmark without tracking parameters (index-item.js: cleanUrl), at the web address the page says is its own
   // (rel=canonical) when that is on the same site (background.js: preferredUrl)
   cleanUrls: true,
@@ -46,23 +61,16 @@ const DEFAULT_SETTINGS = {
   // when nothing is left to show
   bulkExitAfter: true,
   bulkClearFilters: true,
+  // To do on Start (options/library-home.js: todoBlock): some of them at random, with Other, instead of the oldest
+  todoRandom: false,
+  // Start of the Swift Library (options/library-home.js: homeLayout), as you made it with Customize Start: its blocks
+  // in this order, shown: false leaves one out; and blocks of your own, {id: 'own-…', title, field, value, sort,
+  // count, shown}: what a search (field and value, as the search box has them) finds, newest, oldest, last changed or
+  // at random (sort), count of them
+  homeLayout: HOME_BLOCKS.map(id => ({id, shown: true})),
   // Delete in the Swift Library without asking, but only after 30 seconds, with Undo (options/library-delete.js)
   deleteDelay: true,
 
-  // the menu at the top of diigo.com, in this order (diigo-site/header.js): Diigo's own items, those of the add-on, and
-  // links of your own ({id: 'link-…', label, url, shown}); shown: false hides one. Random bookmark is no longer one of
-  // them: it is in the menu of the toolbar button and the side bar of the Swift Library; a saved one is dropped
-  // (menuItemsOf)
-  // My Library hidden: with myLibraryToSwift it opens the Swift Library too, which has an item of its own; My Groups
-  // too, as groups are mostly old ones with little new in them (a menu saved before gets them hidden once:
-  // background.js, hideMyLibrary and hideMyGroups)
-  // Swift Options: the options page of the add-on (options.html), an item of the add-on as Swift Discover
-  // My Outliners, Diigo's own page, hidden as My Library is: your outliners are in the Swift Library (Outliners in its
-  // side bar); a menu saved before gets it hidden once (background.js, hideMyOutliners)
-  // Go Premium, Diigo's own, hidden too: an advertisement of Diigo, also on /learn_more (a menu saved before gets it
-  // hidden, as it didn't know it: menuItemsOf)
-  menuItems: ['library', 'fastLibrary', 'outliners', 'groups', 'discover', 'options', 'tools', 'learnMore', 'premium']
-    .map(id => ({id, shown: !['library', 'outliners', 'groups', 'premium'].includes(id)})),
 
   // bookmarks of the browser to Diigo, see background/sync.js
   syncFolders: [],       // ids of the folders to sync, with their subfolders
@@ -71,16 +79,61 @@ const DEFAULT_SETTINGS = {
   syncPrivate: true,
 };
 
+// Where the settings are kept: with the account of the browser (storage.sync: Firefox Sync, the Google or Microsoft
+// account), so another computer gets the same, and a copy in this browser (storage.local), which counts when the
+// browser doesn't sync (signed out, Firefox for Android without Sync, or storage.sync failing). Kept in this browser
+// only: what is about this browser itself (its bookmark folders, by ids of their own: background/sync.js) and what the
+// add-on finds from the index of this browser (alsoHiddenTags).
+const LOCAL_SETTINGS = ['alsoHiddenTags', 'syncFolders', 'syncAuto', 'syncFolderTags', 'syncPrivate'];
+const SYNCED_SETTINGS = Object.keys(DEFAULT_SETTINGS).filter(key => !LOCAL_SETTINGS.includes(key));
+// What you said in the pages, kept in the same way (loadKept, saveSettings): links that are not dead
+// (library-links.js), groups of similar tags that are not the same (library-tags.js) and Not interested in Swift
+// Discover. Only while one fits in storage.sync (8 kB): a long list stays in this browser only.
+const SYNCED_LISTS = ['ignoredLinks', 'ignoredTagGroups', 'discoverDismissed'];
+const syncedKey = key => SYNCED_SETTINGS.includes(key) || SYNCED_LISTS.includes(key);
+
+const syncedStorage = () => browser.storage.sync?.get(SYNCED_SETTINGS).catch(() => ({})) ?? Promise.resolve({});
+
+// The name of a page of the add-on in the menu at the top of its own pages: without Swift, which they all have, so the
+// menu doesn't say Swift five times, and in the language of the browser (Library, Discover and Tools are names in
+// English in their full names); in the menu of the toolbar button too, which is the add-on's. On diigo.com
+// (diigo-site/header.js) the full name stays, as there it tells the add-on's items from Diigo's.
+const MENU_NAMES = {libraryMenu: 'menuLibrary', discoverMenu: 'menuDiscover', toolsMenu: 'menuTools'};
+const menuName = key => MENU_NAMES[key] ? browser.i18n.getMessage(MENU_NAMES[key])
+  : browser.i18n.getMessage(key).replace(/^Swift\s+/, '');
+
+// what is synced wins over the copy here: another computer may have changed it since
 async function loadSettings() {
-  return {...DEFAULT_SETTINGS, ...await browser.storage.local.get(Object.keys(DEFAULT_SETTINGS))};
+  const [local, synced] = await Promise.all([browser.storage.local.get(Object.keys(DEFAULT_SETTINGS)), syncedStorage()]);
+  return {...DEFAULT_SETTINGS, ...local, ...synced};
 }
 
-// the menuItems of settings, and at the end the items of the add-on that are newer than what was saved
-function menuItemsOf(settings) {
-  const known = id => DEFAULT_SETTINGS.menuItems.some(item => item.id == id);
-  const items = settings.menuItems.filter(item => 'url' in item || known(item.id));
-  return [...items, ...DEFAULT_SETTINGS.menuItems.filter(item => !items.some(saved => saved.id == item.id))];
+// keys of SYNCED_LISTS as loadSettings reads the settings: synced, else as kept here
+async function loadKept(keys) {
+  const synced = browser.storage.sync?.get(keys).catch(() => ({})) ?? Promise.resolve({});
+  const [local, fromSync] = await Promise.all([browser.storage.local.get(keys).catch(() => ({})), synced]);
+  return {...local, ...fromSync};
 }
+
+// Settings (and SYNCED_LISTS) saved: all of them here, those of SYNCED_SETTINGS and SYNCED_LISTS also with the
+// account, each on its own, as one that is too large for storage.sync (8 kB a setting: a long list of site rules)
+// stays here only: taken out of storage.sync then, so an older one there doesn't win over it (loadSettings).
+async function saveSettings(values) {
+  await browser.storage.local.set(values);
+  if (!browser.storage.sync) return;
+  await Promise.all(Object.entries(values).filter(([key]) => syncedKey(key)).map(([key, value]) =>
+    browser.storage.sync.set({[key]: value}).catch(() => browser.storage.sync.remove(key).catch(() => {}))));
+}
+
+// ?swift=false: your library on diigo.com as Diigo has it, also with myLibraryToSwift (background.js: libraryToSwift)
+const DIIGO_OWN = '?swift=false';
+
+// whether a change of storage (storage.onChanged) is one of settings: here or synced
+const settingsArea = area => area == 'local' || area == 'sync';
+
+// The menu at the top of the pages of the add-on (the Swift pages): all of them, with Swift Tools (tools.html)
+const SWIFT_PAGES = ['fastLibrary', 'discover', 'options', 'tools', 'learnMore'];
+const swiftNavItems = () => SWIFT_PAGES.map(id => ({id, shown: true}));
 
 // whether a tag is in the hiddenTags of settings, or in alsoHiddenTags; tags are compared without case, like Diigo does
 function isHiddenTag(settings, tag) {

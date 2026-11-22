@@ -1,4 +1,462 @@
 {
+    "userMenuHead": {
+        "message": "Il tuo account su diigo.com"
+    },
+    "formScreenshot": {
+        "message": "Salva anche uno screenshot"
+    },
+    "screenshotLine": {
+        "message": "Screenshot: $URL$",
+        "placeholders": {
+            "url": {
+                "content": "$1"
+            }
+        }
+    },
+    "screenshotName": {
+        "message": "Screenshot di $TITLE$",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMenu": {
+        "message": "Altro per questo elemento"
+    },
+    "itemPin": {
+        "message": "Fissa su Inizio"
+    },
+    "itemHide": {
+        "message": "Nascondi (tag nascosto)"
+    },
+    "itemUnhide": {
+        "message": "Mostra di nuovo (tag nascosto tolto)"
+    },
+    "homeChanged": {
+        "message": "Modificati di recente"
+    },
+    "homePinned": {
+        "message": "Fissati"
+    },
+    "homeUnpin": {
+        "message": "Sblocca"
+    },
+    "homeUnpinTitle": {
+        "message": "Toglie il tag pinned, anche in Diigo"
+    },
+    "homeEditStart": {
+        "message": "Personalizza Inizio"
+    },
+    "homeEditIntro": {
+        "message": "Sposta i blocchi, togli ciò che non ti serve o aggiungi blocchi tuoi: ciò che trova una ricerca. Il tag pinned mette un segnalibro in Fissati."
+    },
+    "homeAddBlock": {
+        "message": "Aggiungi un blocco"
+    },
+    "homeBlockChange": {
+        "message": "Modifica il blocco"
+    },
+    "homeResetLayout": {
+        "message": "Blocchi predefiniti"
+    },
+    "homeResetConfirm": {
+        "message": "Tornare ai blocchi predefiniti di Inizio? I tuoi blocchi spariscono."
+    },
+    "homeBlockUp": {
+        "message": "Sposta su"
+    },
+    "homeBlockDown": {
+        "message": "Sposta giù"
+    },
+    "homeBlockHide": {
+        "message": "Togli da Inizio"
+    },
+    "homeBlockShow": {
+        "message": "Mostra su Inizio"
+    },
+    "homeBlockEmpty": {
+        "message": "Niente per ora."
+    },
+    "homeBlockRemoveConfirm": {
+        "message": "Rimuovere il blocco $NAME$?",
+        "placeholders": {
+            "name": {
+                "content": "$1"
+            }
+        }
+    },
+    "homeBlockName": {
+        "message": "Nome"
+    },
+    "homeBlockSearch": {
+        "message": "Cosa mostra"
+    },
+    "homeBlockSearchHint": {
+        "message": "Come nella ricerca: parole, -parola per escludere, tag* per i tag che iniziano così (todo*), nel campo scelto qui sotto."
+    },
+    "homeBlockNeedsSearch": {
+        "message": "Scrivi cosa mostra il blocco."
+    },
+    "homeBlockCount": {
+        "message": "Quanti"
+    },
+    "homeBlockCountOf": {
+        "message": "$COUNT$ elementi",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreStart": {
+        "message": "Il tuo Inizio: Personalizza Inizio (in alto a destra) sposta i blocchi, li toglie e aggiunge blocchi tuoi con ciò che trova una ricerca. Dai a un segnalibro il tag pinned ed è in Fissati, in cima."
+    },
+    "optionTodoRandom": {
+        "message": "Da fare su Inizio: alcuni a caso, con Altri per vederne altri, invece di sempre i più vecchi. Comodo quando sono tanti."
+    },
+    "goToSwiftLibrary": {
+        "message": "Vai alla Swift Library"
+    },
+    "optionToolbarButton": {
+        "message": "Il pulsante nella barra degli strumenti apre"
+    },
+    "toolbarButtonForm": {
+        "message": "Il modulo del segnalibro"
+    },
+    "toolbarButtonLibrary": {
+        "message": "La Swift Library"
+    },
+    "browserActionLibraryTitle": {
+        "message": "Apri la Swift Library"
+    },
+    "homeTodo": {
+        "message": "Da fare"
+    },
+    "homeTodoDone": {
+        "message": "Fatto"
+    },
+    "homeTodoDoneTitle": {
+        "message": "Toglie $TAGS$, anche in Diigo",
+        "placeholders": {
+            "tags": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideMoreTodo": {
+        "message": "Da fare: dai a un segnalibro un tag che inizia con todo (todo, todo-lavoro…) e compare in Da fare su Inizio, il più vecchio per primo, con Fatto per togliere il tag."
+    },
+    "menuLibrary": {
+        "message": "Libreria"
+    },
+    "menuDiscover": {
+        "message": "Scopri"
+    },
+    "menuTools": {
+        "message": "Strumenti"
+    },
+    "diigoMyLibrary": {
+        "message": "La mia libreria"
+    },
+    "diigoMyOutliners": {
+        "message": "I miei outliner"
+    },
+    "diigoMyGroups": {
+        "message": "I miei gruppi"
+    },
+    "diigoPremium": {
+        "message": "Passa a Premium"
+    },
+    "userPublicLibrary": {
+        "message": "Libreria pubblica"
+    },
+    "userSettings": {
+        "message": "Impostazioni su Diigo"
+    },
+    "userSignOut": {
+        "message": "Esci"
+    },
+    "viewAll": {
+        "message": "Tutto"
+    },
+    "viewBookmarks": {
+        "message": "Segnalibri"
+    },
+    "viewPdfs": {
+        "message": "PDF"
+    },
+    "viewImages": {
+        "message": "Immagini"
+    },
+    "viewNotes": {
+        "message": "Note"
+    },
+    "viewOutliners": {
+        "message": "Outliner"
+    },
+    "viewUntagged": {
+        "message": "Senza tag"
+    },
+    "sideTags": {
+        "message": "Tag"
+    },
+    "sideTop": {
+        "message": "Più usati"
+    },
+    "sideRecent": {
+        "message": "Recenti"
+    },
+    "sideAllTags": {
+        "message": "Tutti i tag"
+    },
+    "sideRelatedTags": {
+        "message": "Tag correlati"
+    },
+    "toDiigo": {
+        "message": "Vai a diigo.com"
+    },
+    "guideTypesHead": {
+        "message": "Non solo segnalibri"
+    },
+    "guideTypesIntro": {
+        "message": "Una libreria Diigo contiene più che pagine web. La Swift Library mostra con un'icona prima del titolo di che tipo è ogni elemento, e sotto Tutto nella barra laterale scegli un tipo. I pulsanti per aggiungere in cima alla barra laterale creano ciascuno di essi, tranne Kindle."
+    },
+    "guideTypeBookmark": {
+        "message": "Segnalibri: pagine web, salvate con il modulo o aggiunte qui, con lo stato della loro pagina prima del titolo."
+    },
+    "guideTypeNote": {
+        "message": "Note: testo tuo, semplice o formattato, scritto e modificato qui e mostrato nella pagina con un clic sul titolo. Una nota il cui titolo finisce in .py, .css, .html o simili è codice, mostrato a colori. Le note su Diigo sono sempre private."
+    },
+    "guideTypeFile": {
+        "message": "Immagini e PDF: caricati qui con titolo, descrizione e tag (un PDF fino a 64 MB); un'immagine si vede nella pagina. Eliminati qui, il loro file resta nel cestino, così si possono ripristinare."
+    },
+    "guideTypeKindle": {
+        "message": "Kindle: le tue evidenziazioni Kindle, importate su diigo.com. Non si possono creare né modificare qui; dal cestino tornano importandole di nuovo."
+    },
+    "guideTypeAnnotated": {
+        "message": "Annotati: segnalibri con evidenziazioni o note adesive sulla loro pagina, fatte con l'estensione di Diigo. La Swift Library mostra quali le hanno; le evidenziazioni stesse sono su diigo.com."
+    },
+    "linksCheckChoice": {
+        "message": "$COUNT$ link della tua libreria non sono controllati, o non di recente. Controllali tutti, anche quelli a cui non arrivi scorrendo, o solo finché non si trovano i primi $FOUND$ morti.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "found": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntButton": {
+        "message": "Trova i primi $COUNT$ link morti",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHuntIntro": {
+        "message": "Ricerca di link morti tra i link non ancora controllati, finché non se ne trovano $COUNT$; ognuno compare qui appena trovato.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "linksHunting": {
+        "message": "Ricerca di link morti: $DONE$ controllati, $DEAD$ trovati",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHunted": {
+        "message": "$DEAD$ link morti trovati tra $DONE$ link controllati.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "dead": {
+                "content": "$2"
+            }
+        }
+    },
+    "linksHuntedNone": {
+        "message": "Nessun link morto tra i $DONE$ link controllati.",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            }
+        }
+    },
+    "toolsMenu": {
+        "message": "Swift Tools"
+    },
+    "guideSyncHead": {
+        "message": "I segnalibri del browser verso Diigo"
+    },
+    "guideSyncText": {
+        "message": "Scegli cartelle di questo browser in Swift Opzioni e i loro segnalibri vanno nella tua libreria Diigo: una volta con Sincronizza ora, o tenute sincronizzate, così un nuovo segnalibro al loro interno va su Diigo un minuto dopo averlo creato. I nomi delle cartelle possono diventare tag (Ricette › Cucina italiana dà ricette e cucina-italiana), e i segnalibri possono essere salvati come privati. Le cartelle si scelgono su ogni computer."
+    },
+    "guideSyncOneWay": {
+        "message": "Va in una sola direzione, da questo browser a Diigo: un segnalibro già su Diigo resta lì com'è, e uno che togli da questo browser resta su Diigo. La tua libreria Diigo non entra nei segnalibri del browser; per quello ci sono la Swift Library e d nella barra degli indirizzi."
+    },
+    "guideSyncChoose": {
+        "message": "Scegli le cartelle"
+    },
+    "libraryGoneOn": {
+        "message": "Non più su Diigo $DATE$",
+        "placeholders": {
+            "date": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexGoneToTrash": {
+        "message": "Indice ricreato: $COUNT$ elementi non sono più su Diigo e sono stati spostati nel cestino, da cui puoi ripristinarli per 30 giorni.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptShrunk": {
+        "message": "Diigo ha restituito solo $COUNT$ elementi, molti meno dei $BEFORE$ dell'indice, quindi l'indice resta com'era. Riprova più tardi, o scegli Ricrea in Swift Opzioni se la tua libreria è davvero così più piccola.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "indexShrinkConfirm": {
+        "message": "Diigo ha restituito solo $COUNT$ elementi, molti meno dei $BEFORE$ dell'indice. Di solito significa che Diigo non si è caricato bene. Sostituire comunque l'indice con questi $COUNT$ elementi?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "before": {
+                "content": "$2"
+            }
+        }
+    },
+    "guideNews": {
+        "message": "Novità: una guida a tutto ciò che l'estensione fa in più di Diigo, come nascondere segnalibri con il tag hidden."
+    },
+    "privacyFirefoxSync": {
+        "message": "In Firefox le impostazioni arrivano sugli altri computer solo se Componenti aggiuntivi è spuntato nelle impostazioni di Firefox Sync (Impostazioni, Sincronizzazione)."
+    },
+    "guideMenu": {
+        "message": "Swift Guida"
+    },
+    "guideIntro": {
+        "message": "Swift Bookmarks for Diigo rende Diigo più veloce e più semplice da usare, con il tuo accesso su diigo.com. Non è fatto da Diigo. Ecco cosa aggiunge e dove trovarlo."
+    },
+    "guideAgain": {
+        "message": "Puoi riaprire questa guida in ogni momento: Guida nel menu in alto delle pagine Swift, o nel menu del pulsante nella barra degli strumenti."
+    },
+    "guideFormHead": {
+        "message": "Salvare una pagina in un attimo"
+    },
+    "guideFormText": {
+        "message": "Clicca sul pulsante nella barra degli strumenti, o fai clic destro su una pagina o un link. Il modulo suggerisce tag: i tuoi tag presenti nel titolo o nell'indirizzo, quelli del tuo ultimo segnalibro sullo stesso sito e i tag che usi spesso insieme. Un nuovo segnalibro viene salvato senza parametri di tracciamento, il modulo ti dice quando hai già salvato la pagina, e il pulsante mostra se una pagina è già nella tua libreria."
+    },
+    "guideShortcut": {
+        "message": "Scorciatoia: $KEYS$",
+        "placeholders": {
+            "keys": {
+                "content": "$1"
+            }
+        }
+    },
+    "guideHiddenHead": {
+        "message": "Nascondere segnalibri con il tag hidden"
+    },
+    "guideHiddenText": {
+        "message": "Dai a un segnalibro il tag hidden e sparisce dalla Swift Library, dalla barra degli indirizzi, da Swift Discover e dai suggerimenti del modulo: comodo per ciò che preferisci non far comparire quando qualcuno guarda da sopra la tua spalla. Per vederli, cerca il tag per intero (hidden) o spunta Mostra nascosti sopra l'elenco. Scegli i tuoi tag nascosti in Swift Opzioni; i tag che hanno solo segnalibri nascosti vengono nascosti anch'essi, per non tradirli."
+    },
+    "guideHiddenWarn": {
+        "message": "Nascosto non è privato: su diigo.com stesso, e per gli altri se il segnalibro è pubblico, resta visibile. Rendilo anche privato se nessun altro deve vederlo."
+    },
+    "guideHiddenChoose": {
+        "message": "Scegli i tag nascosti"
+    },
+    "guideLibraryHead": {
+        "message": "La Swift Library: tutta la tua libreria in un colpo"
+    },
+    "guideLibraryText": {
+        "message": "Una copia della tua libreria in questo browser, così cercare, ordinare e filtrare è immediato, anche con migliaia di segnalibri. Cerca in tutti i campi o in uno (titolo, indirizzo, tag, descrizione…), escludi ciò che ha -parola, tieni una ricerca come filtro con +, e clicca su un tag o un sito per filtrare. Inizio mostra cosa hai salvato di recente, cosa aspetta di essere letto e cosa hai salvato in questo giorno negli anni passati."
+    },
+    "guideBulkText": {
+        "message": "Modifica multipla: spunta segnalibri (anche con Maiusc+clic e Maiusc+frecce) per aggiungere o togliere tag, renderli privati o pubblici, letti o non letti, condividerli in un outliner o eliminarli tutti insieme."
+    },
+    "guideTrashHead": {
+        "message": "Un cestino per ripensarci"
+    },
+    "guideTrashText": {
+        "message": "Ciò che elimini, qui o su diigo.com, va nel cestino per 30 giorni, immagini e PDF con il loro file, e da lì si può ripristinare, uno alla volta o con la Modifica multipla. Diigo non ha un cestino."
+    },
+    "guideLinksHead": {
+        "message": "Link morti e la Wayback Machine"
+    },
+    "guideLinksText": {
+        "message": "Davanti a ogni titolo c'è lo stato della sua pagina: 200, 404, BOT, PARKED, o → se si è spostata. Cliccaci per cercare la pagina nella Wayback Machine o su archive.is, e usare l'ultima copia o il nuovo indirizzo. Riordina, in Inizio, trova anche duplicati, segnalibri senza tag o senza titolo, e tag simili da unire."
+    },
+    "guideLinksPrivacy": {
+        "message": "Per questo l'estensione chiede ogni pagina al suo sito, dal tuo browser. Preferisci di no? Nelle Swift Opzioni, sotto Privacy, i link vengono controllati solo quando lo chiedi tu."
+    },
+    "guideTagsHead": {
+        "message": "Tag e outliner"
+    },
+    "guideTagsText": {
+        "message": "Tutti i tuoi tag con una casella per trovarne uno, i 300 più usati come nuvola, un tag rinominato ovunque in un colpo, e tag quasi uguali (ricetta e ricette) uniti in uno."
+    },
+    "guideOutlinersText": {
+        "message": "I tuoi outliner di Diigo sono anche nella barra laterale della Swift Library: un albero in cui scrivere con la tastiera, con elementi della tua libreria."
+    },
+    "guideDiscoverText": {
+        "message": "Gli Hot Bookmarks della comunità Diigo senza ciò che hai già, nell'ordine Per te (secondo i tuoi tag), con ricerca e filtri. Salvane uno con un clic, o scartalo con Non mi interessa."
+    },
+    "guideMoreHead": {
+        "message": "E altro"
+    },
+    "guideMoreAddress": {
+        "message": "Nella barra degli indirizzi: scrivi d, uno spazio e qualche parola per trovare i tuoi segnalibri."
+    },
+    "guideMoreDiigo": {
+        "message": "Su diigo.com: Vai alla Swift Library in fondo al menu in alto, e la Swift Library dopo l'accesso. Il resto di diigo.com resta com'è; in Swift Opzioni puoi far aprire le pagine Swift a My Library e Tools."
+    },
+    "guideMoreSettings": {
+        "message": "Le tue impostazioni ti seguono sugli altri computer con l'account del tuo browser."
+    },
+    "guidePrivacyText": {
+        "message": "L'estensione non invia nulla al suo autore. Parla con diigo.com per te, con il tuo accesso lì, e la copia della tua libreria resta in questo browser. Cos'altro va dove, e le scelte in merito, sono in Swift Opzioni sotto Privacy."
+    },
+    "guideDiigoTour": {
+        "message": "Il tour di Diigo su ciò che fa Diigo: Learn more su diigo.com"
+    },
+    "privacyHead": {
+        "message": "Privacy"
+    },
+    "privacyIntro": {
+        "message": "L'estensione non invia nulla al suo autore. Parla con diigo.com per te, con il tuo accesso lì, e la copia della tua libreria (l'indice) resta in questo browser. Queste impostazioni sono conservate con l'account del tuo browser (Firefox Sync, Google o Microsoft) quando sincronizza, così anche gli altri tuoi computer le ricevono; le cartelle da sincronizzare restano su questo computer."
+    },
+    "optionAutoCheckLinks": {
+        "message": "Controllare ogni link da sé appena compare nell'elenco. Disattivato: un link viene controllato solo quando lo chiedi, con un clic sul suo ·, Controlla tutti i link, o cercando i link morti nella barra laterale; ciò che è stato controllato prima resta visibile."
+    },
+    "optionsGuideText": {
+        "message": "Sei nuovo, o curioso di sapere cosa fa l'estensione in più di Diigo?"
+    },
+    "linkNotCheckedTitle": {
+        "message": "Non ancora controllato: clicca per controllare questo link"
+    },
     "move": {
         "message": "Sposta"
     },
@@ -86,7 +544,7 @@
         "message": "Opzioni di Swift Bookmarks for Diigo"
     },
     "cannotBookmark": {
-        "message": "Diigo non può salvare questa pagina"
+        "message": "Questa pagina non può essere salvata in Diigo: apri la Swift Library"
     },
     "commandShowForm": {
         "message": "Salva questa pagina in Diigo"
@@ -104,13 +562,10 @@
         "message": "Su diigo.com"
     },
     "optionsIntro": {
-        "message": "Il componente aggiuntivo non cambia più l'aspetto e il funzionamento di diigo.com: quello che fa meglio è nella Swift Library e in Swift Discover. Su diigo.com aggiunge solo la strada per arrivarci, nel menu in alto."
+        "message": "L'estensione cambia appena diigo.com: ciò che fa meglio è nella Swift Library e in Swift Discover. Su diigo.com aggiunge solo la strada per arrivarci, Vai alla Swift Library nel menu in alto."
     },
     "optionMyLibraryToSwift": {
-        "message": "My Library nel menu in alto su diigo.com apre la Swift Library. Quella di Diigo: Ctrl+clic o un clic centrale, oppure My Library nel menu della Swift Library"
-    },
-    "myLibraryToSwiftTitle": {
-        "message": "Apre la Swift Library. Ctrl+clic: My Library su diigo.com"
+        "message": "Andare alla tua libreria su diigo.com apre la Swift Library: un link, un segnalibro, il suo indirizzo digitato. My Library nel menu in alto di diigo.com resta quella di Diigo, come il suo indirizzo con ?swift=false dopo"
     },
     "optionSignInToSwift": {
         "message": "Dopo l’accesso a diigo.com si apre la Swift Library invece della tua libreria su diigo.com"
@@ -119,10 +574,10 @@
         "message": "Gli strumenti di Diigo per la tua libreria, con questa estensione: il modulo dei segnalibri con il pulsante della barra e Ctrl+Alt+D, la Swift Library e Swift Discover."
     },
     "optionToolsToSwift": {
-        "message": "Tools nel menu in alto di diigo.com apre la pagina Tools dell’estensione: senza Google Play e Import kindle highlights, con questa estensione. Quella di Diigo: Ctrl+clic o clic centrale"
+        "message": "Tools nel menu in alto di diigo.com apre Swift Tools: senza Google Play e Import kindle highlights, con questa estensione. Quella di Diigo: Ctrl+clic o clic centrale"
     },
     "toolsToSwiftTitle": {
-        "message": "Apre la pagina Tools dell’estensione. Ctrl+clic: Tools su diigo.com"
+        "message": "Apre Swift Tools. Ctrl+clic: Tools su diigo.com"
     },
     "optionDeadLinks": {
         "message": "Mostra nella Swift Library quali link sono morti (404) o il cui sito non risponde. Per questo il componente richiede ogni pagina al sito stesso. Fai clic sul codice di stato per cercare la pagina nella Wayback Machine o su archive.is."
@@ -158,27 +613,6 @@
     },
     "optionSplitAdd": {
         "message": "Quattro pulsanti in cima alla barra laterale al posto del pulsante + con un menu: Bookmark, Image, PDF e Note, per aggiungere con un clic"
-    },
-    "topMenuHead": {
-        "message": "Il menu in cima a diigo.com"
-    },
-    "topMenuIntro": {
-        "message": "Quali voci mostra, in che ordine, e link tuoi; lo stesso in cima alla Swift Library e a Swift Discover. My Library, My Outliners, My Groups e Swift Library compaiono solo quando hai effettuato l'accesso."
-    },
-    "topMenuAdd": {
-        "message": "Aggiungi un link"
-    },
-    "topMenuName": {
-        "message": "Nome"
-    },
-    "topMenuShow": {
-        "message": "Mostra nel menu"
-    },
-    "topMenuUp": {
-        "message": "Sposta su"
-    },
-    "topMenuDown": {
-        "message": "Sposta giù"
     },
     "topMenuRemove": {
         "message": "Rimuovi"
@@ -557,9 +991,6 @@
     "libraryRemoveFilter": {
         "message": "Rimuovi questo filtro"
     },
-    "libraryHuntIntro": {
-        "message": "20 dei tuoi segnalibri il cui link non è ancora stato controllato, a caso: i loro link vengono controllati ora, uno morto in rosso. Fai di nuovo clic su Link morti a sinistra per quelli trovati, o per altri 20."
-    },
     "libraryHuntNone": {
         "message": "Nessun link morto: tutti i link dei tuoi segnalibri sono stati controllati di recente."
     },
@@ -684,6 +1115,30 @@
     },
     "libraryTrashIntro": {
         "message": "Eliminato con il componente aggiuntivo, conservato in questo browser. Ripristina lo ricrea in Diigo, con la data di oggi e senza evidenziazioni. Sparisce per sempre dopo 30 giorni."
+    },
+    "bulkRestored": {
+        "message": "$COUNT$ elementi ripristinati.",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkNotRestored": {
+        "message": "Impossibile ripristinarne $COUNT$:",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "bulkForgetConfirm": {
+        "message": "Eliminare definitivamente dal cestino i $COUNT$ elementi selezionati?",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            }
+        }
     },
     "libraryRestore": {
         "message": "Ripristina"
@@ -831,6 +1286,14 @@
         "message": "Qualcosa è andato storto ($ERROR$). È mostrato tutto ciò che si poteva mostrare; ricaricare la pagina può aiutare.",
         "placeholders": {
             "error": {
+                "content": "$1"
+            }
+        }
+    },
+    "indexKeptEmpty": {
+        "message": "Diigo non ha restituito elementi, quindi l'indice di $COUNT$ elementi resta com'era. Riprova più tardi.",
+        "placeholders": {
+            "count": {
                 "content": "$1"
             }
         }
@@ -1331,7 +1794,7 @@
         "message": "Il modulo del segnalibro"
     },
     "formOptionsIntro": {
-        "message": "Cosa compila il modulo per un nuovo segnalibro. Un segnalibro già salvato si apre come l’hai salvato."
+        "message": "Cosa compila il modulo per un nuovo segnalibro. Un segnalibro già salvato si apre come l’hai salvato. La scorciatoia apre sempre il modulo, e la Swift Library su una pagina che non si può salvare."
     },
     "optionPageDescription": {
         "message": "Senza testo selezionato nella pagina, la descrizione che la pagina dà di sé (come la mostrano i motori di ricerca) come descrizione"
@@ -1396,14 +1859,6 @@
     },
     "linksCheckAll": {
         "message": "Controlla tutti i link"
-    },
-    "linksCheckAllIntro": {
-        "message": "$COUNT$ link della tua libreria non sono controllati, o non di recente: Controlla tutti i link li controlla tutti, anche quelli a cui non scorri.",
-        "placeholders": {
-            "count": {
-                "content": "$1"
-            }
-        }
     },
     "linksAllChecked": {
         "message": "Tutti i link della tua libreria sono stati controllati di recente."
@@ -1626,9 +2081,6 @@
     },
     "linkUseNewUrl": {
         "message": "Usa il nuovo indirizzo web"
-    },
-    "linkUseNewUrlAll": {
-        "message": "Tutti al nuovo indirizzo"
     },
     "linkUseNewUrlConfirm": {
         "message": "Dare a $COUNT$ segnalibri l’indirizzo web a cui sono stati spostati, anche in Diigo?",
