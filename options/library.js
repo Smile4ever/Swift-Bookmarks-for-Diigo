@@ -94,9 +94,19 @@ function showStatus(text, error) {
   // not while the trash is emptied (library-trash.js: emptyTrash) or links are checked (library-links.js: linkCheck),
   // which say how far: one link can take longer than STATUS_TIME
   if (text && !error) {
-    statusTimer = setTimeout(() => !controller && !emptying && !linkCheck && showStatus(''), STATUS_TIME);
+    statusTimer = setTimeout(() => !controller && !emptying && !deletingPending && !linkCheck && showStatus(''), STATUS_TIME);
   }
   showNotice();
+}
+
+// a bar of how far after the message, while Diigo deletes what waited in the trash (library-delete.js: deletePending)
+// or the trash is emptied (library-trash.js: showEmptying); total null: gone
+function showNoticeProgress(done, total) {
+  const bar = $('noticeProgress');
+  bar.hidden = total == null;
+  if (total == null) return;
+  bar.max = Math.max(total, 1);
+  bar.value = Math.min(done, total);
 }
 
 // the bar below the blue one, only when there is something to say: no index (yet), the index busy, or a message; not

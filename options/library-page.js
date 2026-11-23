@@ -188,8 +188,8 @@ browser.storage.onChanged.addListener(async (changes, area) => {
 });
 
 browser.storage.onChanged.addListener(async (changes, area) => {
-  const keys = ['hiddenTags', 'todoRandom', 'homeLayout', 'hideScreenshots', 'screenshotThumbs', 'previewThumbs', 'splitAdd', 'bulkExitAfter', 'bulkClearFilters', 'deleteDelay', 'deadLinks',
-    'hidePrivateFlag', 'hideShareToOutliner', 'autoCheckLinks'];
+  const keys = ['hiddenTags', 'todoRandom', 'homeLayout', 'hideScreenshots', 'screenshotThumbs', 'previewThumbs', 'noHiddenThumbs', 'splitAdd', 'bulkExitAfter', 'bulkClearFilters', 'deleteDelay', 'deadLinks',
+    'hidePrivateFlag', 'hideShareToOutliner', 'autoCheckLinks', 'checkHiddenLinks'];
   if (!settingsArea(area) || !keys.some(key => changes[key])) return;
   settings = await loadSettings().catch(() => settings);
   // the menus of Share to outliner shown or hidden (library-outliners.js: shareSelect)
@@ -198,7 +198,7 @@ browser.storage.onChanged.addListener(async (changes, area) => {
   document.documentElement.classList.toggle('split-add', !!settings.splitAdd);
   placeAddTypes();
   if ((changes.hiddenTags || changes.deadLinks || changes.hidePrivateFlag || changes.todoRandom || changes.homeLayout ||
-    changes.hideScreenshots || changes.screenshotThumbs || changes.previewThumbs) && meta?.user == user) show({keepScroll: true});
+    changes.hideScreenshots || changes.screenshotThumbs || changes.previewThumbs || changes.noHiddenThumbs || changes.checkHiddenLinks) && meta?.user == user) show({keepScroll: true});
 });
 
 // with an index of who is signed in: shown at once, then updated, which mostly takes one request
@@ -219,7 +219,7 @@ Promise.allSettled([
   settings = loaded.value || DEFAULT_SETTINGS;
   safely('menu', showMainNav);
   document.documentElement.classList.toggle('split-add', !!settings.splitAdd);
-  // the + or the four buttons, now that the settings say which (hidden in library.html till then)
+  // the + or the five buttons, now that the settings say which (hidden in library.html till then)
   safely('add', placeAddTypes);
   safely('address', loadState);
   // the cursor in the search box, after what the address searches for, so typing searches at once

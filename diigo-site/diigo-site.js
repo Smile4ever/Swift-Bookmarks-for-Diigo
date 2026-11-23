@@ -5,19 +5,22 @@
 // - public-library.js: Public Library from the pages of the add-on, opened as Diigo's library opens it
 // - header.js: the menu at the top: Go to Swift Library after Diigo's own items, and My Library and Tools opening the
 //   Swift pages when chosen on the options page
+// - hide.js (with hide-page.js, in the page itself): what has a hidden tag out of your library there (hideOnDiigo)
 // - diigo-site.css: the looks of these
 // This one runs it all. The site is a React app, so new elements are handled as they appear.
 // The add-on no longer changes diigo.com itself: what it does better is in the Swift Library and Swift Discover, pages
-// of the add-on. This is what is left: the way there. The trash of the Swift Library is only in this browser, so it
+// of the add-on. This is what is left: the way there, and hidden tags kept hidden, as they would show there otherwise. The trash of the Swift Library is only in this browser, so it
 // isn't shown on diigo.com, where it would look like Diigo's own; what Diigo's delete window deletes goes to it all the
 // same (delete-window.js), to put back in the Swift Library.
 
 function update() {
   updateHeader();
+  hideItems();
 }
 
 function applySettings(newSettings) {
   settings = newSettings;
+  publishHidden();
   update();
 }
 

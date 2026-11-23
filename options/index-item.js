@@ -64,6 +64,27 @@ function indexItem(item) {
   };
 }
 
+// The text of a note as you read it, to search in (options/library-search.js: matches): a rich one (HTML) without its tags, a line for each paragraph, its &entities; as the characters
+// they are; in lower case. '' for any other item. Worked out once per item, as a search asks it of each note at every
+// key typed (kept while the item has the same text: an edited note is another item).
+const noteTexts = new WeakMap();
+const NOTE_ENTITIES = {amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' '};
+
+function noteText(item) {
+  if (item?.type != 'note' || !item.content) return '';
+  const kept = noteTexts.get(item);
+  if (kept?.content == item.content) return kept.text;
+  let text = String(item.content);
+  if (item.rich || /<[a-z][^>]*>/i.test(text)) {
+    text = text.replace(/<(br|\/p|\/div|\/li|\/h[1-6]|\/tr|\/blockquote|\/pre)\b[^>]*>/gi, '\n').replace(/<[^>]*>/g, '')
+      .replace(/&(#x[\da-f]+|#\d+|[a-z]+);/gi, (entity, name) => name[0] != '#' ? NOTE_ENTITIES[name.toLowerCase()] ?? entity
+        : String.fromCodePoint(parseInt(name[1].toLowerCase() == 'x' ? name.slice(2) : name.slice(1), name[1].toLowerCase() == 'x' ? 16 : 10) || 32));
+  }
+  text = text.toLowerCase();
+  noteTexts.set(item, {content: item.content, text});
+  return text;
+}
+
 // The tags only on bookmarks with a hidden tag: they would give those bookmarks away, so they are hidden as well
 // (settings.js: alsoHiddenTags). In lower case, sorted; none without hidden tags.
 function alsoHiddenOf(items, hiddenTags) {

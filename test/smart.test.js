@@ -389,6 +389,30 @@ test('hiding a bookmark in the Swift Library hides its screenshot too, and takin
   assert.ok(posts.some(post => /"2"/.test(post.params.infos || '')));
 });
 
+test('a screenshot deleted: the link to it out of the description of its bookmark', async () => {
+  const context = load('options/settings.js', 'options/index-item.js', 'options/library-index.js');
+  const posts = [];
+  context.fetch = async (url, options) => {
+    posts.push({url: String(url), params: Object.fromEntries(options.body)});
+    return {ok: true, status: 200, text: async () => JSON.stringify({items: [{link_id: '1'}]})};
+  };
+  vm.runInContext(`index = new Map([
+    ['1', {id: '1', type: 'bookmark', url: 'https://example.com/a', title: 'A', tags: ['work'],
+      description: 'About A, see https://example.com/b.\\n\\nScreenshot: https://www.diigo.com/item/image/2k9xq7/abc.\\n\\nScreenshot: https://www.diigo.com/item/image/9'}],
+    ['4', {id: '4', type: 'bookmark', url: 'https://example.com/c', title: 'C', tags: [], description: 'Nothing'}],
+  ]);`, context);
+  const shot = {id: '1037', type: 'image', url: 'https://www.diigo.com/item/image/2k9xq7/abc', tags: ['screenshot']};
+  const old = {id: '9', type: 'image', url: '', tags: ['Screenshot']};
+  await vm.runInContext(`dropScreenshotLinks(${JSON.stringify([shot, old])})`, context);
+  assert.strictEqual(vm.runInContext(`index.get('1').description`, context), 'About A, see https://example.com/b.');
+  assert.strictEqual(posts.length, 1);
+  assert.strictEqual(posts[0].params.description, 'About A, see https://example.com/b.');
+  assert.strictEqual(posts[0].params.link_id, '1');
+  // a link in a sentence: only the link goes
+  const without = text => vm.runInContext(`withoutScreenshotLinks(${JSON.stringify(text)}, url => url == 'https://x/s')`, context);
+  assert.strictEqual(without('A shot (https://x/s) of it\n\nSchermafbeelding: https://x/s'), 'A shot () of it');
+});
+
 test('screenshots are hidden as with a hidden tag, by default, unless switched off', () => {
   const context = load('options/settings.js');
   const hidden = (settings, tag) => vm.runInContext(`isHiddenTag(${JSON.stringify(settings)}, ${JSON.stringify(tag)})`, context);
@@ -398,3 +422,30 @@ test('screenshots are hidden as with a hidden tag, by default, unless switched o
   assert.strictEqual(hidden({hiddenTags: [], hideScreenshots: true}, 'photo'), false);
 });
 
+test('no picture at an item with a hidden tag, by default; the tag screenshot itself does not count', () => {
+  const context = load('options/settings.js');
+  assert.strictEqual(vm.runInContext('DEFAULT_SETTINGS.noHiddenThumbs', context), true);
+  const noPicture = tags => vm.runInContext(`screenshotOfHidden({hiddenTags: ['secret'], hideScreenshots: true},
+    ${JSON.stringify(tags)})`, context);
+  assert.strictEqual(noPicture(['work', 'Secret']), true);
+  assert.strictEqual(noPicture(['work', 'screenshot']), false);
+  assert.strictEqual(noPicture(['work']), false);
+});
+
+
+test('the text of a note to search in: plain as it is, rich without its HTML, in lower case; nothing for others', () => {
+  const {noteText} = load('options/settings.js', 'options/index-item.js');
+  assert.strictEqual(noteText({type: 'note', content: 'Buy MILK\nand bread'}), 'buy milk\nand bread');
+  assert.strictEqual(noteText({type: 'note', rich: true,
+    content: '<p>Tom &amp; Jerry</p><p><strong>Caf&eacute;</strong> &#233;t&#xE9;<br>x&nbsp;y</p>'}),
+    'tom & jerry\ncaf&eacute; été\nx y\n');
+  // HTML without rich (as Diigo's app writes it sometimes): as rich
+  assert.strictEqual(noteText({type: 'note', content: '<div>one</div><div>two</div>'}), 'one\ntwo\n');
+  assert.strictEqual(noteText({type: 'bookmark', content: 'x', description: 'y'}), '');
+  assert.strictEqual(noteText({type: 'note'}), '');
+  // worked out once, again when the text changed
+  const note = {type: 'note', content: 'A'};
+  assert.strictEqual(noteText(note), 'a');
+  note.content = 'B';
+  assert.strictEqual(noteText(note), 'b');
+});

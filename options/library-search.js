@@ -42,7 +42,8 @@ const lower = text => text.toLowerCase();
 
 // the fields to search in; all: in any of them. What kind of item, private, unread and when are filters of their own:
 // the side bar, and the two next to the order.
-const FIELDS = ['all', 'title', 'url', 'description', 'tag', 'site'];
+// content: the text of a note (index-item.js: noteText), in all fields too
+const FIELDS = ['all', 'title', 'url', 'description', 'content', 'tag', 'site'];
 
 // the words of a search: "between quotes" is one, -word what is not there, and "" an empty field
 function words(query) {
@@ -58,11 +59,12 @@ function matches(item, field, word) {
     case 'title': return lower(item.title).includes(word);
     case 'url': return lower(item.url).includes(word);
     case 'description': return lower(item.description).includes(word);
+    case 'content': return noteText(item).includes(word);
     case 'tag': return item.tags.some(word.endsWith('*')
       ? part(tag => tag.startsWith(word.slice(0, -1)))
       : tag => lower(tag) == word);
     case 'site': return hostOf(item.url).includes(word);
-    default: return ['title', 'url', 'description'].some(other => matches(item, other, word)) ||
+    default: return ['title', 'url', 'description', 'content'].some(other => matches(item, other, word)) ||
       item.tags.some(part(tag => tag.includes(word)));
   }
 }
@@ -72,6 +74,7 @@ function empty(item, field) {
   switch (field) {
     case 'tag': return !item.tags.length;
     case 'site': return !hostOf(item.url);
+    case 'content': return !noteText(item).trim();
     case 'all': return true;
     default: return !text(item[field]).trim();
   }
@@ -257,6 +260,9 @@ function autocomplete(input, key) {
   };
 
   const place = () => {
+    // in a popup (library-edit.js: tagSuggestions) inside it, else it is under the popup and its backdrop
+    const host = input.closest('dialog') || document.body;
+    if (list.parentNode != host) host.append(list);
     const box = input.getBoundingClientRect();
     list.style.left = box.left + 'px';
     list.style.top = box.bottom + 2 + 'px';
@@ -392,13 +398,16 @@ function pickRandom(pool, count) {
   return pool.slice(0, count);
 }
 
+// state.random while none could be picked (no bookmarks, or the index not loaded yet): Random all the same, empty,
+// with No bookmarks yet above it (showRandomBar), and picked by fillRandom once there are
+const RANDOM_NONE = 'new';
+
 function showRandom() {
   const shownNow = new Set(state.random.split(','));
   const bookmarks = randomPool();
-  if (!bookmarks.length) return showStatus(message('libraryNoItems'), true);
   const others = bookmarks.filter(item => !shownNow.has(item.id));
   const pool = others.length >= Math.min(RANDOM_COUNT, bookmarks.length) ? others : bookmarks;
-  state.random = pickRandom(pool, RANDOM_COUNT).map(item => item.id).join(',');
+  state.random = pickRandom(pool, RANDOM_COUNT).map(item => item.id).join(',') || RANDOM_NONE;
   // from the trash: those are bookmarks of the library, not of the trash (as a tag of the side bar does)
   if (state.view == 'trash') state.view = 'all';
   show({push: true});
@@ -412,7 +421,14 @@ function fillRandom() {
   if (kept.length >= RANDOM_COUNT) return;
   const shownNow = new Set(kept);
   const added = pickRandom(randomPool().filter(item => !shownNow.has(item.id)), RANDOM_COUNT - kept.length);
-  state.random = [...kept, ...added.map(item => item.id)].join(',');
+  // none (yet): still Random, not the library (RANDOM_NONE)
+  state.random = [...kept, ...added.map(item => item.id)].join(',') || RANDOM_NONE;
+}
+
+// above Random: what it is, or No bookmarks yet when there are none to pick
+function showRandomBar() {
+  $('randomBar').hidden = !state.random;
+  if (state.random) $('randomIntro').textContent = message(randomPool().length ? 'libraryRandomIntro' : 'libraryRandomNone');
 }
 
 function showFilters() {

@@ -49,21 +49,73 @@ function showMainNav() {
   showUserMenu(user);
 }
 
-// the shortcut of the bookmark form, as set in the browser; Firefox for Android has none
-(browser.commands?.getAll() ?? Promise.resolve([])).then(commands => {
+// ---- shortcuts: the keys and what they do ----
+
+// keys: the keys of one shortcut, held together (+); or: more shortcuts that do the same, or the one and the other
+// (/). What the pages do with them: form/form.js, library-page.js (findKey), library-bulk.js (deleteKey, shiftKey),
+// library-edit.js and library-add.js (Ctrl+Enter), library-outliners.js (onKey).
+const FORM_SHORTCUTS = [
+  {keys: [], text: 'shortcutOpenForm'},  // the keys come from the browser: you can change them
+  {keys: ['Enter'], text: 'shortcutSaveFromTags'},
+  {keys: ['Ctrl', 'S'], text: 'shortcutSave'},
+  {or: [['↑'], ['↓']], text: 'shortcutPickTag'},
+  {keys: ['Esc'], text: 'shortcutCloseForm'},
+];
+const LIBRARY_SHORTCUTS = [
+  {keys: ['Ctrl', 'F'], text: 'shortcutFind'},
+  {keys: ['Ctrl', 'Enter'], text: 'shortcutSaveEdit'},
+  {or: [['Shift', '↓'], ['Shift', '↑']], text: 'shortcutBulkSelect'},
+  {or: [['Shift', 'End'], ['Shift', 'Home']], text: 'shortcutBulkEnds'},
+  {keys: ['Delete'], text: 'shortcutBulkDelete'},
+  {keys: ['Esc'], text: 'shortcutCloseMenu'},
+];
+const OUTLINER_SHORTCUTS = [
+  {keys: ['Enter'], text: 'shortcutOutlineNew'},
+  {or: [['Shift', 'Enter'], ['Esc']], text: 'shortcutOutlineNote'},
+  {or: [['Tab'], ['Shift', 'Tab']], text: 'shortcutOutlineIndent'},
+  {or: [['Alt', 'Shift', '↑'], ['Alt', 'Shift', '↓']], text: 'shortcutOutlineMove'},
+  {keys: ['Backspace'], text: 'shortcutOutlineRemove'},
+  {keys: ['Ctrl', 'Shift', 'Backspace'], text: 'shortcutOutlineDelete'},
+];
+
+function shortcutRow({keys, or = [keys], text}) {
+  const row = document.createElement('tr');
+  const how = row.insertCell();
+  or.forEach((combo, i) => {
+    if (i) how.append(' / ');
+    combo.forEach((key, j) => {
+      if (j) how.append(' + ');
+      how.append(element('kbd', '', key));
+    });
+  });
+  row.insertCell().textContent = message(text);
+  return row;
+}
+
+// the shortcut of the bookmark form as set in the browser: in the card of the form and in the table; Firefox for
+// Android has no keyboard shortcuts, so no tables either
+function showShortcuts(commands) {
   const keys = commands.find(command => command.name == 'show-bookmark-form')?.shortcut;
-  if (!keys) return;
-  const kbd = element('kbd', '', keys);
-  // the keys in the text where it says, as <kbd>
-  const [before, after = ''] = message('guideShortcut', '%KEYS%').split('%KEYS%');
-  $('shortcut').replaceChildren(before, kbd, after);
-  $('shortcut').hidden = false;
-}).catch(() => {});
+  if (keys) {
+    // the keys in the text where it says, as <kbd>
+    const [before, after = ''] = message('guideShortcut', '%KEYS%').split('%KEYS%');
+    $('shortcut').replaceChildren(before, element('kbd', '', keys), after);
+    $('shortcut').hidden = false;
+  }
+  FORM_SHORTCUTS[0].keys = keys ? keys.split('+') : [];
+  $('formShortcuts').replaceChildren(...FORM_SHORTCUTS.filter(shortcut => shortcut.keys?.length != 0).map(shortcutRow));
+  $('libraryShortcuts').replaceChildren(...LIBRARY_SHORTCUTS.map(shortcutRow));
+  $('outlinerShortcuts').replaceChildren(...OUTLINER_SHORTCUTS.map(shortcutRow));
+}
+
+(browser.commands?.getAll() ?? Promise.resolve([])).then(showShortcuts).catch(() => showShortcuts([]));
 
 // the bookmarks of the browser: not in Firefox for Android, which has none for add-ons; the menu of a bookmark in
-// Firefox only
+// Firefox only. Shortcuts neither: no keyboard.
 browser.runtime.getPlatformInfo?.().then(platform => {
-  if (platform.os == 'android') $('sync').hidden = $('navSync').hidden = true;
+  if (platform.os != 'android') return;
+  $('sync').hidden = $('navSync').hidden = true;
+  $('shortcuts').hidden = $('navShortcuts').hidden = true;
 }).catch(() => {});
 $('syncMenuHint').hidden = !browser.runtime.getBrowserInfo;
 

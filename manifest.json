@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Swift Bookmarks for Diigo",
   "description": "__MSG_extDesc__",
-  "version": "2026.11.22",
+  "version": "2026.11.23",
   "homepage_url": "https://github.com/Smile4ever/Swift-Bookmarks-for-Diigo",
   "default_locale": "en",
   "icons": {
@@ -28,6 +28,12 @@
   },
   "content_scripts": [
     {
+      "matches": ["https://www.diigo.com/*"],
+      "js": ["diigo-site/hide-page.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
       "matches": ["https://www.diigo.com/*", "https://groups.diigo.com/*"],
       "js": [
         "options/settings.js",
@@ -35,9 +41,11 @@
         "diigo-site/delete-window.js",
         "diigo-site/header.js",
         "diigo-site/public-library.js",
+        "diigo-site/hide.js",
         "diigo-site/diigo-site.js"
       ],
-      "css": ["diigo-site/diigo-site.css"]
+      "css": ["diigo-site/diigo-site.css"],
+      "run_at": "document_start"
     }
   ],
   "omnibox": {

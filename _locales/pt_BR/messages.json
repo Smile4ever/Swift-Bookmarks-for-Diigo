@@ -17,6 +17,12 @@
     "optionPreviewThumbs": {
         "message": "Um favorito sem captura de tela: a imagem de prévia da página (como as redes sociais mostram um link), ou o ícone dela, como uma imagem pequena antes dele. Lida uma vez da página (o site vê uma solicitação deste navegador) e guardada neste navegador; um clique abre a página."
     },
+    "optionNoHiddenThumbs": {
+        "message": "Um item com uma tag oculta, mostrado por Mostrar ocultos ou por uma busca: sem imagem à frente (nem captura de tela, nem imagem de prévia, nem imagem própria)."
+    },
+    "optionHideOnDiigo": {
+        "message": "Também no diigo.com: na sua biblioteca lá, nenhum favorito com uma tag oculta e nenhuma tag oculta na lista de tags, a menos que você pesquise essa tag."
+    },
     "screenshotDescription": {
         "message": "Captura de tela da página $TITLE$\n$URL$",
         "placeholders": {
@@ -423,7 +429,7 @@
         "message": "Dê a um favorito a tag hidden e ele some da Swift Library, da barra de endereços, do Swift Discover e das sugestões do formulário: prático para o que você prefere que não apareça quando alguém olha por cima do seu ombro. Para vê-los, pesquise a tag inteira (hidden) ou marque Mostrar ocultos acima da lista. Escolha as suas próprias tags ocultas em Swift Opções; tags que só favoritos ocultos têm também ficam ocultas, para não entregá-los."
     },
     "guideHiddenWarn": {
-        "message": "Oculto não é privado: no próprio diigo.com, e para os outros quando o favorito é público, ele continua visível. Torne-o privado também se mais ninguém deve vê-lo."
+        "message": "Oculto não é privado: outras pessoas ainda veem um favorito público no diigo.com, e você o vê lá em um navegador sem esta extensão. Torne-o privado também se ninguém mais deve vê-lo."
     },
     "guideHiddenChoose": {
         "message": "Escolher tags ocultas"
@@ -458,6 +464,18 @@
     "guideTagsText": {
         "message": "Todas as suas tags com uma caixa para encontrar uma, as 300 mais usadas como nuvem, uma tag renomeada em todo lugar de uma vez, e tags quase iguais (receita e receitas) juntadas numa só."
     },
+    "guideTagsCloud": {
+        "message": "Todas as tags, em Tags na barra lateral: cada tag em uma nuvem, maior quanto mais você a usa, com uma caixa para encontrar uma. Um clique mostra o que a tem."
+    },
+    "guideTagsRename": {
+        "message": "Renomear uma tag: escolha-a na barra lateral e depois ✎ ao lado. Ela muda de uma vez em todos os seus itens, também no Diigo."
+    },
+    "guideTagsSimilar": {
+        "message": "Tags parecidas, em Limpar no Início: tags com ou sem hífen, espaço ou acento, ou uma o plural da outra. Escolha a que fica e Mesclar, ou Não são iguais para deixá-las."
+    },
+    "guideOutlinersMore": {
+        "message": "Abra um para escrever nele com o teclado, como no Diigo: Enter para um item novo, Tab para recuá-lo, Shift+Enter para a nota dele (todos os atalhos estão abaixo). Da sua biblioteca adiciona favoritos como links, e Adicionar a um outliner faz isso a partir de Editar ou Edição em massa. As mudanças estão no Diigo um momento depois."
+    },
     "guideOutlinersText": {
         "message": "Os seus outliners do Diigo também estão na barra lateral da Swift Library: uma árvore para escrever com o teclado, com itens da sua biblioteca."
     },
@@ -487,6 +505,9 @@
     },
     "privacyIntro": {
         "message": "A extensão não envia nada ao seu autor. Ela fala com o diigo.com por você, com o seu login lá, e a cópia da sua biblioteca (o índice) fica neste navegador. Estas configurações são guardadas com a conta do seu navegador (Firefox Sync, Google ou Microsoft) quando ele sincroniza, para que os seus outros computadores também as tenham; as pastas a sincronizar ficam neste computador."
+    },
+    "optionCheckHiddenLinks": {
+        "message": "Verificar sozinho também os links de favoritos com uma tag oculta. Desligado: os sites deles não recebem nenhuma solicitação deste navegador, a menos que você clique no · deles."
     },
     "optionAutoCheckLinks": {
         "message": "Verificar cada link sozinho assim que ele aparece na lista. Desligado: um link só é verificado quando você pede, com um clique no seu ·, Verificar todos os links, ou procurando links quebrados na barra lateral; o que foi verificado antes continua aparecendo."
@@ -522,6 +543,12 @@
             }
         }
     },
+    "indexHead": {
+        "message": "Índice"
+    },
+    "indexOptionsIntro": {
+        "message": "A cópia da sua biblioteca do Diigo neste navegador, com a qual a Swift Library trabalha. Ela se mantém atualizada sozinha, então isto é só para quando algo parece errado: Atualizar busca o que mudou no Diigo, Criar de novo lê toda a sua biblioteca outra vez."
+    },
     "logHead": {
         "message": "Registro"
     },
@@ -532,7 +559,7 @@
         "message": "Relatar um problema"
     },
     "logReportText": {
-        "message": "Algo não funciona? Salve o registro e anexe o arquivo a um novo issue no GitHub. O arquivo contém os erros abaixo, a versão da extensão, seu navegador e suas configurações, sem suas tags ocultas, regras por site e pastas; use o filtro para salvar só os erros que importam."
+        "message": "Algo não funciona? Salve o registro e anexe o arquivo a um novo issue no GitHub. O arquivo contém os erros abaixo, a versão da extensão, seu navegador e suas configurações, sem suas tags ocultas e pastas; use o filtro para salvar só os erros que importam."
     },
     "logSave": {
         "message": "Salvar o registro para um relatório de erro"
@@ -652,10 +679,7 @@
         "message": "Ocultar Share to outliner: no formulário de favorito e na Swift Library (adicionar, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Quatro botões no topo da barra lateral em vez do botão + com um menu: Bookmark, Image, PDF e Note, para adicionar com um clique"
-    },
-    "topMenuRemove": {
-        "message": "Remover"
+        "message": "Cinco botões no topo da barra lateral em vez do botão + com um menu: Favorito, Imagem, PDF, Nota e Outliner, para adicionar com um clique"
     },
     "cleanupHead": {
         "message": "Procurar e limpar seus favoritos"
@@ -852,6 +876,9 @@
     "searchFieldTitle": {
         "message": "Título"
     },
+    "searchFieldContent": {
+        "message": "Texto de uma nota"
+    },
     "searchFieldDescription": {
         "message": "Descrição"
     },
@@ -919,6 +946,15 @@
     },
     "libraryMenu": {
         "message": "Swift Library"
+    },
+    "libraryOptionsListHead": {
+        "message": "A lista e o Início"
+    },
+    "libraryOptionsPicturesHead": {
+        "message": "Capturas de tela"
+    },
+    "libraryOptionsBulkHead": {
+        "message": "Edição em massa e Excluir"
     },
     "libraryOptionsIntro": {
         "message": "Toda a sua biblioteca do Diigo a partir do índice deste navegador: procurar, ordenar e as tags na hora, também com milhares de favoritos."
@@ -1082,6 +1118,9 @@
     "libraryRandomIntro": {
         "message": "10 dos seus favoritos ao acaso, nenhum com uma tag oculta. Clique de novo à esquerda em Aleatório para outros 10."
     },
+    "libraryRandomNone": {
+        "message": "Ainda não há favoritos."
+    },
     "libraryRandom": {
         "message": "Aleatório"
     },
@@ -1194,6 +1233,17 @@
         "placeholders": {
             "count": {
                 "content": "$1"
+            }
+        }
+    },
+    "libraryDeletingPending": {
+        "message": "O Diigo está excluindo o que está na lixeira · $DONE$ de $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
             }
         }
     },
@@ -1349,6 +1399,48 @@
     "shortcutsHead": {
         "message": "Atalhos"
     },
+    "shortcutsLibraryHead": {
+        "message": "Na Swift Library"
+    },
+    "shortcutsOutlinerHead": {
+        "message": "Em um outliner"
+    },
+    "shortcutFind": {
+        "message": "Para a caixa de busca, também no Swift Discover (de novo: a barra de busca do navegador)"
+    },
+    "shortcutSaveEdit": {
+        "message": "Salvar, em Editar e nas janelas para adicionar um item"
+    },
+    "shortcutBulkSelect": {
+        "message": "Edição em massa: marcar mais um abaixo ou acima"
+    },
+    "shortcutBulkEnds": {
+        "message": "Edição em massa: marcar todos até o fim ou até o topo"
+    },
+    "shortcutBulkDelete": {
+        "message": "Edição em massa: excluir o que está marcado (na lixeira: remover para sempre)"
+    },
+    "shortcutCloseMenu": {
+        "message": "Fechar o menu ⋯ de um item"
+    },
+    "shortcutOutlineNew": {
+        "message": "Um item novo abaixo (no início do texto: acima)"
+    },
+    "shortcutOutlineNote": {
+        "message": "Para a nota do item, e de volta"
+    },
+    "shortcutOutlineIndent": {
+        "message": "Recuar o item, ou desfazer o recuo"
+    },
+    "shortcutOutlineMove": {
+        "message": "Mover o item para cima ou para baixo"
+    },
+    "shortcutOutlineRemove": {
+        "message": "Em um item vazio: removê-lo"
+    },
+    "shortcutOutlineDelete": {
+        "message": "Excluir o item com os que estão abaixo dele (pergunta antes)"
+    },
     "shortcutsFormHead": {
         "message": "No formulário"
     },
@@ -1415,9 +1507,6 @@
     },
     "tagCloudHead": {
         "message": "Suas 100 tags mais usadas"
-    },
-    "editTags": {
-        "message": "Gerenciar tags"
     },
     "noTags": {
         "message": "Você ainda não tem tags."
@@ -1841,33 +1930,6 @@
     },
     "optionCleanUrls": {
         "message": "Um novo favorito sem parâmetros de rastreamento (utm_…, fbclid e afins), e no endereço web que a página diz ser o seu (canonical) quando está no mesmo site"
-    },
-    "siteRulesHead": {
-        "message": "Regras por site"
-    },
-    "siteRulesIntro": {
-        "message": "O que um novo favorito de um site recebe no formulário: tags, privado ou público, ler depois ou não. Uma regra para example.com vale também para seus subdomínios, como blog.example.com."
-    },
-    "siteRulesAdd": {
-        "message": "Adicionar uma regra"
-    },
-    "siteRulesSite": {
-        "message": "Site, ex. github.com"
-    },
-    "siteRulesTags": {
-        "message": "Tags"
-    },
-    "ruleAsUsualPrivacy": {
-        "message": "Privado: como sempre"
-    },
-    "rulePublic": {
-        "message": "Público"
-    },
-    "ruleAsUsualUnread": {
-        "message": "Ler depois: como sempre"
-    },
-    "ruleNotReadLater": {
-        "message": "Não ler depois"
     },
     "similarTags": {
         "message": "Tags parecidas"

@@ -36,9 +36,12 @@ const DEFAULT_SETTINGS = {
   // off, only what was checked before shows, and a link is checked when you ask for it (a click on its ·, Check all
   // links, or looking for dead links in the side bar)
   autoCheckLinks: true,
+  // also those of bookmarks with a hidden tag, by themselves (options/library-links.js: linkOfHidden); a click on
+  // their · checks one all the same
+  checkHiddenLinks: false,
   // off by default: Share to outliner hidden, in the bookmark form and when adding in the Swift Library
   hideShareToOutliner: false,
-  // the four add buttons at the top of the side bar of the Swift Library, in place of + and its menu
+  // the five add buttons at the top of the side bar of the Swift Library, in place of + and its menu
   splitAdd: true,
   // in the list of the Swift Library no Private next to each private item, as most are; Public next to a public one
   // instead (options/library-list.js: itemElement)
@@ -55,9 +58,6 @@ const DEFAULT_SETTINGS = {
   // a new bookmark without tracking parameters (index-item.js: cleanUrl), at the web address the page says is its own
   // (rel=canonical) when that is on the same site (background.js: preferredUrl)
   cleanUrls: true,
-  // what a new bookmark of a site gets in the form: [{site, tags, private, unread}], site as hostOf writes it (its
-  // subdomains too), tags a list, private and unread true, false or null for as usual (form.js: applySiteRules)
-  siteRules: [],
 
   // Bulk edit in the Swift Library (options/library-bulk.js: afterBulk): off once an action is done, and the filters away
   // when nothing is left to show
@@ -74,6 +74,12 @@ const DEFAULT_SETTINGS = {
   // small picture before it; read from the page once (the site sees a request from this browser, as autoCheckLinks)
   // and kept in this browser (options/library-list.js: previewThumb)
   previewThumbs: true,
+  // an item with a hidden tag (but screenshot itself: screenshotOfHidden), shown by Show hidden or a search: no picture
+  // before it (no screenshot, preview image or image of its own), only its room (options/library-list.js: itemElement)
+  noHiddenThumbs: true,
+  // your library on diigo.com without what has a hidden tag, and without the hidden tags in its list of tags, unless
+  // you search for such a tag (diigo-site/hide.js, diigo-site/hide-page.js)
+  hideOnDiigo: true,
   // Start of the Swift Library (options/library-home.js: homeLayout), as you made it with Customize Start: its blocks
   // in this order, shown: false leaves one out; and blocks of your own, {id: 'own-…', title, field, value, sort,
   // count, shown}: what a search (field and value, as the search box has them) finds, newest, oldest, last changed or
@@ -127,7 +133,7 @@ async function loadKept(keys) {
 }
 
 // Settings (and SYNCED_LISTS) saved: all of them here, those of SYNCED_SETTINGS and SYNCED_LISTS also with the
-// account, each on its own, as one that is too large for storage.sync (8 kB a setting: a long list of site rules)
+// account, each on its own, as one that is too large for storage.sync (8 kB a setting: a long list of hidden tags)
 // stays here only: taken out of storage.sync then, so an older one there doesn't win over it (loadSettings).
 async function saveSettings(values) {
   await browser.storage.local.set(values);
@@ -153,6 +159,10 @@ function isHiddenTag(settings, tag) {
   return settings.hiddenTags.some(hidden => hidden.toLowerCase() == name) || !!settings.alsoHiddenTags?.includes(name) ||
     settings.hideScreenshots !== false && name == SCREENSHOT_TAG;
 }
+
+// the names of all hidden tags (isHiddenTag), in lower case: for diigo.com (diigo-site/hide.js)
+const hiddenTagNames = settings => [...new Set([...settings.hiddenTags.map(tag => tag.toLowerCase()),
+  ...settings.alsoHiddenTags || [], ...settings.hideScreenshots !== false ? [SCREENSHOT_TAG] : []])];
 
 // A screenshot of a page whose bookmark has a hidden tag (but screenshot itself): what the page shows goes to Diigo,
 // so the bookmark form and the Swift Library warn before (screenshotHiddenWarn)

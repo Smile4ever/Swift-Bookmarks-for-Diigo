@@ -37,6 +37,10 @@ In [images/store](../images/store): 1280×800, English, made with the Chrome bui
 `icons@2x.png`, `default_avatar.jpg`, saved from a browser: diigo.com refuses them to a script). The Chrome Web Store
 shows at most 5, Edge at most 10, AMO all of them.
 
+The same script makes the pictures of Swift Guide that are not in the stores, in [images/guide](../images/guide):
+the cloud of All tags, Similar tags and an outliner. `node scripts/screenshots.mjs guide` makes only those, and
+leaves the store ones as they are.
+
 | File | Caption |
 |---|---|
 | 1-form.png | The bookmark form on the page: your tags that appear in the title are suggested; one click adds them. |

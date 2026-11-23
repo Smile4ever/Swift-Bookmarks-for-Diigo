@@ -1,4 +1,4 @@
-Next version (number to be decided)
+2026.11.23
 =====
 * A small picture at each bookmark in the Swift Library: the preview image of its page, as social sites show a link (og:image), or its icon when it has none; read from the page once, together with the check of its link, and kept in this browser for a month, so it costs no room in Diigo. A screenshot goes before it; a click opens the page. Without a picture, the room of one with the first letter of its site, so each item starts at the same place. A switch in Swift Options, on by default.
 * A screenshot keeps the tags of its bookmark: changed in the add-on (the bookmark form, Edit, the ⋯ of an item, Done, Unpin, Bulk edit), its screenshots get them too, so a hidden tag added later hides them as well; a new web address goes along in their description.
@@ -6,9 +6,22 @@ Next version (number to be decided)
 * Also save a screenshot in Edit of the Swift Library too: the page opens in a tab for a moment for it.
 * A screenshot waits until its page is loaded in full: what it still asks over the network after loading, what it draws then (fonts, images in view, content its scripts add), at most 15 seconds for a page opened for it and 5 seconds for the page you're on.
 * Also save a screenshot is no longer remembered: off each time, in the bookmark form and in Edit, so each screenshot is one you choose. Diigo keeps only a limited number of images (a free account only a few dozen), not enough for one of every bookmark.
-* Delete screenshot in the ⋯ of a bookmark that has one (in the list and on Start): its screenshot to the trash, as Delete does it; the bookmark stays.
+* Delete screenshot in the ⋯ of a bookmark that has one (in the list and on Start): its screenshot to the trash, as Delete does it; the bookmark stays, without the link to the screenshot in its description. So does Delete of a screenshot itself.
 * A warning before a screenshot of a page of a bookmark with a hidden tag, in the bookmark form and in Edit.
 * Screenshots out of the Swift Library by default, as with a hidden tag (Show hidden or a search for screenshot shows them), and as a small picture at their bookmark instead; both a switch in Swift Options.
+* No picture at an item with a hidden tag, when Show hidden or a search shows it: no screenshot, preview image or image of its own, only its room; nothing is read from its page either. A switch in Swift Options, on by default.
+* Hidden tags hidden on diigo.com too: in your library there, no bookmarks with a hidden tag and no hidden tags in the list of tags, unless you search for such a tag; else anyone looking at your screen would see them there. A switch in Swift Options (Hidden tags), on by default.
+* A bar of how far while Diigo deletes what waited in the trash (Delete without asking), and while the trash is emptied: with many items that takes a while, and nothing showed it.
+* Random without bookmarks: Random all the same, with No bookmarks yet, instead of 0 items as an error (in the side bar) or Start (Random bookmark of the toolbar button). Random bookmark while the index still loads shows them once it has.
+* Shortcuts in Swift Guide instead of Swift Options, now also those of the Swift Library (Ctrl+F, Ctrl+Enter, Bulk edit) and of outliners.
+* Search in the text of notes too: in all fields, or only there with the new field Text of a note; a rich note as you read it, without its HTML.
+* The options of the Swift Library in Swift Options in three groups: the list and Start, screenshots, Bulk edit and Delete. The preview pictures of pages, and none at an item with a hidden tag, are under Privacy.
+* The links of bookmarks with a hidden tag are no longer checked by themselves (shown with Show hidden, or by Check all links): their sites get no request for them unless you click their ·. A switch in Swift Options, Privacy, off by default.
+* Swift Guide tells more about tags and outliners: All tags, renaming a tag, Similar tags, and writing in an outliner, with pictures of each.
+* Rules per site (tags, private and read later for a new bookmark of a site) are gone from Swift Options and the bookmark form; rules made before are forgotten once the add-on is updated.
+* Update and Build again of the index in a card of their own near the end of Swift Options, Index, instead of at the top: the index keeps itself up to date.
+* Tags suggested in Edit and Add of the Swift Library too, as in the bookmark form: Suggested (your tags in the title, and those of the last bookmark on the same site), Often with these, your tags as you type, and the tag icon in the field with your 100 most used tags; for bookmarks, notes, images and PDFs.
+* No more Manage tags next to the cloud of your tags in the bookmark form: it led to diigo.com. Renaming and merging tags is in the Swift Library.
 
 2026.11.22
 =====

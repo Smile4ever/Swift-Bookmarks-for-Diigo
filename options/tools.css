@@ -143,3 +143,29 @@
 .service-icon.publish {
   background-position: -62px 0;
 }
+
+/* the limit test, only in a development install (tools-test.js) */
+.limit-test .tool-card {
+  max-width: none;
+}
+
+.limit-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.limit-row input {
+  width: 6em;
+  margin-left: 4px;
+}
+
+#limitAnswer {
+  max-height: 20em;
+  overflow: auto;
+  padding: 8px;
+  background: rgba(127, 127, 127, .12);
+  white-space: pre-wrap;
+  word-break: break-word;
+}

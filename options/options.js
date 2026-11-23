@@ -151,6 +151,15 @@ function findOption() {
     const whole = !wanted.length || (heading && fits(heading));
     const options = [...section.querySelectorAll('.option')];
     options.forEach(option => option.hidden = !whole && !fits(option));
+    // a group of options under a heading of its own (h2, as in the Swift Library): all of it by its heading, else
+    // the heading only while one of its options fits
+    for (const h2 of section.querySelectorAll('h2')) {
+      const group = h2.nextElementSibling;
+      if (!group?.classList.contains('options')) continue;
+      const byName = !whole && fits(h2);
+      if (byName) group.querySelectorAll('.option').forEach(option => option.hidden = false);
+      h2.hidden = group.hidden = !whole && !byName && ![...group.querySelectorAll('.option')].some(option => !option.hidden);
+    }
     const shown = whole || fits(section);
     section.hidden = !shown;
     if (shown) found++;
@@ -189,36 +198,6 @@ addEventListener('scroll', markSection, {passive: true});
 addEventListener('resize', markSection);
 markSection();
 
-// ---- shortcuts: the keys and what they do ----
-
-const FORM_SHORTCUTS = [
-  {keys: [], text: 'shortcutOpenForm'},  // the keys come from the browser: you can change them
-  {keys: ['Enter'], text: 'shortcutSaveFromTags'},
-  {keys: ['Ctrl', 'S'], text: 'shortcutSave'},
-  {keys: ['↑', '↓'], sep: ' / ', text: 'shortcutPickTag'},
-  {keys: ['Esc'], text: 'shortcutCloseForm'},
-];
-
-function shortcutRow({keys, sep = ' + ', text}) {
-  const row = document.createElement('tr');
-  const how = row.insertCell();
-  keys.forEach((key, i) => {
-    if (i) how.append(sep);
-    const kbd = document.createElement('kbd');
-    kbd.textContent = key;
-    how.append(kbd);
-  });
-  row.insertCell().textContent = browser.i18n.getMessage(text);
-  return row;
-}
-
-// Firefox for Android has no shortcuts
-(browser.commands?.getAll() ?? Promise.resolve([])).then(commands => {
-  const openForm = commands.find(c => c.name == 'show-bookmark-form')?.shortcut;
-  FORM_SHORTCUTS[0].keys = openForm ? openForm.split('+') : [];
-  document.getElementById('formShortcuts').append(...FORM_SHORTCUTS.map(shortcutRow));
-});
-
 
 loadSettings().then(settings => {
   // one tag per line
@@ -248,13 +227,13 @@ loadSettings().then(settings => {
 
   showSync(settings);
   showMainNav();
-  siteRules = settings.siteRules;
-  showSiteRules();
 });
 
 
-const followDeadLinks = () =>
-  document.getElementById('autoCheckLinks').disabled = !document.getElementById('deadLinks').checked;
+const followDeadLinks = () => {
+  const off = !document.getElementById('deadLinks').checked;
+  document.getElementById('autoCheckLinks').disabled = document.getElementById('checkHiddenLinks').disabled = off;
+};
 
 // Firefox: the settings go to other computers only with Add-ons ticked in Firefox Sync
 document.getElementById('privacyFirefoxSync').hidden = !browser.runtime.getBrowserInfo;
@@ -278,98 +257,7 @@ browser.storage.onChanged.addListener(async (changes, area) => {
   const hiddenTags = document.getElementById('hiddenTags');
   const typed = [...new Set(hiddenTags.value.split('\n').map(tag => tag.trim()).filter(Boolean))];
   if (!editing('hiddenTags') && !same(typed, settings.hiddenTags)) hiddenTags.value = settings.hiddenTags.join('\n');
-  if (!editing('siteRules') && !same(siteRules, settings.siteRules)) {
-    siteRules = settings.siteRules;
-    showSiteRules();
-  }
 });
-
-
-// ---- rules per site, for a new bookmark in the bookmark form (form/form.js: siteRulesFor) ----
-
-let siteRules = [];  // siteRules of options/settings.js
-
-const saveSiteRules = () => saveSettings({siteRules});
-
-// tags separated by spaces or commas, "between quotes" when there's a space in one; as in form/form.js
-const splitTags = text => [...new Set((text.match(/"[^"]*"?|[^\s,"]+/g) || [])
-  .map(tag => tag.replace(/"/g, '').trim()).filter(Boolean))];
-const joinTags = tags => tags.map(tag => /[\s,]/.test(tag) ? `"${tag}"` : tag).join(' ');
-
-// as usual (null), or true or false
-function ruleChoice(rule, key, texts) {
-  const select = document.createElement('select');
-  select.setAttribute('aria-label', message(texts[0]));
-  texts.forEach((text, i) => select.append(new Option(message(text), ['', 'yes', 'no'][i])));
-  select.value = rule[key] === true ? 'yes' : rule[key] === false ? 'no' : '';
-  select.addEventListener('change', () => {
-    rule[key] = select.value ? select.value == 'yes' : null;
-    saveSiteRules();
-  });
-  return select;
-}
-
-function siteRuleRow(rule, i) {
-  const row = document.createElement('li');
-  const field = (className, value, placeholder, onInput) => {
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.className = className;
-    input.value = value;
-    input.placeholder = placeholder;
-    input.spellcheck = false;
-    input.setAttribute('aria-label', placeholder);
-    input.addEventListener('input', () => {
-      onInput(input.value);
-      saveSiteRules();
-    });
-    return input;
-  };
-  // a web address on the site works too: its site is kept
-  const site = field('rule-site', rule.site, message('siteRulesSite'), value => {
-    let host = value.trim().toLowerCase();
-    try {
-      host = new URL(/^[a-z]+:\/\//.test(host) ? host : 'https://' + host).hostname;
-    } catch (e) {
-    }
-    rule.site = host.replace(/^www\./, '');
-  });
-  const tags = field('rule-tags', joinTags(rule.tags || []), message('siteRulesTags'), value => {
-    rule.tags = splitTags(value);
-  });
-  row.append(site, tags,
-    ruleChoice(rule, 'private', ['ruleAsUsualPrivacy', 'private', 'rulePublic']),
-    ruleChoice(rule, 'unread', ['ruleAsUsualUnread', 'readLater', 'ruleNotReadLater']),
-    topMenuButton('✕', 'topMenuRemove', () => {
-      siteRules.splice(i, 1);
-      saveSiteRules();
-      showSiteRules();
-    }));
-  return row;
-}
-
-function showSiteRules() {
-  $('siteRules').replaceChildren(...siteRules.map(siteRuleRow));
-}
-
-document.getElementById('siteRulesAdd').addEventListener('click', () => {
-  siteRules.push({site: '', tags: [], private: null, unread: null});
-  saveSiteRules();
-  showSiteRules();
-  $('siteRules').lastElementChild.querySelector('.rule-site').focus();
-});
-
-
-// a small button of a row (rules per site): its text, its title (a text of the add-on) and what it does
-function topMenuButton(text, title, action) {
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.textContent = text;
-  button.title = message(title);
-  button.setAttribute('aria-label', message(title));
-  button.addEventListener('click', action);
-  return button;
-}
 
 
 // ---- bookmarks of the browser to Diigo, done by background/sync.js ----

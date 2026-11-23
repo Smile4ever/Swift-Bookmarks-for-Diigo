@@ -11,6 +11,9 @@
 
 const isWebPage = item => (item.type == 'bookmark' || !item.type) && /^https?:/i.test(item.url);
 const checksLink = item => !!settings.deadLinks && isWebPage(item);
+// A bookmark with a hidden tag: its page not asked by itself (checkHiddenLinks off, the default), in the list nor by
+// Check all links, as its site would see a request for it; a click on its · still checks it
+const linkOfHidden = item => !settings.checkHiddenLinks && item.tags.some(hiddenTag);
 
 // ---- the filter on them (state.links, a filter above the list: Clean up on Start, library-home.js): from what the
 // background script found and kept ----
@@ -110,7 +113,7 @@ function linkStatus(item, title) {
     browser.runtime.sendMessage({type: 'checkLink', url: item.url}).then(showFound).catch(() => mark('unknown', '?'));
   };
   const known = linkStates.get(item.url);
-  if (settings.autoCheckLinks) ask();
+  if (settings.autoCheckLinks && !linkOfHidden(item)) ask();
   // one that took too long before (unknown): as not checked, so a click asks again
   else if (known?.state && known.state != 'unknown') showFound(known);
   else mark('unchecked', '·', message('linkNotCheckedTitle'));
@@ -155,7 +158,9 @@ function linkStatus(item, title) {
 // Dead links counts them at once (sideSoon). In this page: closing it stops it, and what was checked is kept.
 const CHECK_ALL_AT_ONCE = 4;
 
-const uncheckedLinks = () => liveItems().filter(item => checksLink(item) && linkCategory(item) == 'unchecked');
+// none with a hidden tag, unless checkHiddenLinks (linkOfHidden)
+const uncheckedLinks = () =>
+  liveItems().filter(item => checksLink(item) && !linkOfHidden(item) && linkCategory(item) == 'unchecked');
 
 // Checking all links has a Stop of its own (the button of Check all links, while it runs), not the controller of the
 // page: it only reads the pages of the links, so Bulk edit, Edit and the rest go on meanwhile, also for thousands.

@@ -956,9 +956,10 @@ const openOptions = () => browser.runtime.openOptionsPage();
 // The settings of the improvements of diigo.com that are gone, and the bookmark Random bookmark picked for it: out of
 // storage.local once the add-on is updated (onInstalled, below)
 // menuItems: the menu at the top of diigo.com, set on the options page before 2026.11.22; now one button (header.js)
+// siteRules: rules per site for the bookmark form, gone after 2026.11.22
 const OLD_SETTINGS = ['showSignedIn', 'editDeleteButtons', 'privateNoSharing', 'hideAds', 'compactLibrary',
   'hideGooglePlay', 'modernDiscover', 'hideClassic', 'hideUpgrade', 'randomBookmark', 'showTrash', 'menuItems',
-  'myLibraryHidden', 'myGroupsHidden', 'myOutlinersHidden'];
+  'myLibraryHidden', 'myGroupsHidden', 'myOutlinersHidden', 'siteRules'];
 const forgetOldSettings = () => {
   browser.storage.local.remove(OLD_SETTINGS).catch(() => {});
   browser.storage.sync?.remove(OLD_SETTINGS).catch(() => {});
@@ -1485,7 +1486,17 @@ const requests = {
   removeBrowserBookmarks,
   open: openBookmark, save: saveBookmark, delete: deleteBookmark, user: signedInUser, checkLink, preview: pagePreview, openLibrary,
   openDiscover, openTools, openOptions, openGuide, screenshot: screenshotRequest, title: ({url}) => pageTitle(url), pageInfo: ({url}) => pageInfo(url), trash: trashItems, keepFiles, sharing: sharingLists,
+  testSave,
 };
+
+// The limit test of Swift Tools (options/tools-test.js), only in a development install: one bookmark saved as the form
+// saves one (diigoSave), without what the form does after (last tags, the index); the answer of Diigo as it is, to see
+// what it says once an account is at its limit. Not from a web page.
+async function testSave({bm}, tab) {
+  if (tab && !String(tab.url || '').startsWith(browser.runtime.getURL(''))) return null;
+  if ((await browser.management.getSelf()).installType != 'development') return null;
+  return diigoSave(bm);
+}
 
 // The answer goes back with sendResponse: Chrome doesn't take a Promise as the answer. After a restart of the background
 // script the user is not known yet, so the cookie is read first.

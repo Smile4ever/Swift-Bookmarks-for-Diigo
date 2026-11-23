@@ -27,6 +27,129 @@ function saveError(result) {
 // a text field of the popups (cardField)
 const input = (type, value) => Object.assign(element('input'), {type, value: value || '', spellcheck: false});
 
+// ---- tags suggested in the popups, as the bookmark form suggests them (form/form.js: showSuggestions, showRelated) ----
+
+// Below the field of the tags, from the index: Suggested, your tags that are whole words in the title (or the web
+// address of a bookmark) and those of the newest other bookmark on the same site; Often with these, the tags you use
+// most together with those in the field (as background.js: relatedTagsOf, RELATED_LEAST times at least). Not those in
+// the field, nor hidden ones. A click adds one (or takes it out again); Suggested itself adds all of them. As you type,
+// your tags to choose from too (autocomplete). Drawn again as the tags or the title change.
+// item: what is edited ({} for a new one); title: its field, none in Add Image and Add PDF.
+// And the tag icon at the right of the field, as in the form (#cloud-button): your 100 most used tags as a cloud, the
+// more used the larger, those in the field marked; a click adds one or takes it out.
+const POPUP_CLOUD_TAGS = 100;
+const SUGGEST_RELATED = 6;
+const SUGGEST_LEAST = 2;
+
+// the tags of the newest other bookmark on the site of item
+function siteTagsOf(item) {
+  const host = item.url && isWebPage(item) ? hostOf(item.url) : '';
+  if (!host) return [];
+  let newest = null;
+  for (const other of liveItems()) {
+    if (other.id == item.id || !other.tags.length || !isWebPage(other) || hostOf(other.url) != host) continue;
+    if (!newest || other.created > newest.created) newest = other;
+  }
+  return newest?.tags || [];
+}
+
+// the tags most often on the same items as those chosen (lower case), not those of leave out
+function tagsTogether(chosen, leaveOut) {
+  if (!chosen.length) return [];
+  const counts = new Map();
+  for (const other of liveItems()) {
+    const keys = other.tags.map(lower);
+    if (!keys.some(tag => chosen.includes(tag)) || other.tags.some(hiddenTag)) continue;
+    for (const tag of other.tags) {
+      const key = lower(tag);
+      if (leaveOut.has(key)) continue;
+      const known = counts.get(key);
+      counts.set(key, {name: tag, count: (known?.count || 0) + 1});
+    }
+  }
+  return [...counts.values()].filter(({count}) => count >= SUGGEST_LEAST).sort((a, b) => b.count - a.count)
+    .slice(0, SUGGEST_RELATED).map(({name}) => name);
+}
+
+function tagSuggestions(tags, item = {}, title = null) {
+  const box = element('div', 'tag-suggest');
+  const suggestedRow = element('p', 'suggested');
+  const relatedRow = element('p', 'related');
+  const cloud = element('div', 'tag-cloud-box');
+  cloud.hidden = true;
+  box.append(cloud, suggestedRow, relatedRow);
+  const counted = visibleTags(tagCounts(liveItems()));
+  const names = counted.map(tag => tag.name);
+  const siteTags = siteTagsOf(item);
+  const setTags = list => {
+    tags.value = joinTags(list);
+    tags.dispatchEvent(new Event('input', {bubbles: true}));
+    tags.focus();
+    tags.setSelectionRange(tags.value.length, tags.value.length);
+  };
+  const toggle = name => {
+    const list = splitTags(tags.value);
+    const have = list.some(tag => lower(tag) == lower(name));
+    setTags(have ? list.filter(tag => lower(tag) != lower(name)) : [...list, name]);
+  };
+  const chip = name => {
+    const button = element('button', 'tag', name);
+    button.type = 'button';
+    button.addEventListener('click', () => toggle(name));
+    return button;
+  };
+  // the cloud, drawn when it is opened; the tag icon in the field itself (cardField, made before this)
+  const cloudButton = element('button', 'cloud-button');
+  cloudButton.type = 'button';
+  cloudButton.title = message('yourTags');
+  cloudButton.setAttribute('aria-label', message('yourTags'));
+  cloudButton.addEventListener('click', () => {
+    cloud.hidden = !cloud.hidden;
+    if (!cloud.hidden) draw();
+  });
+  const placeButton = () => tags.parentElement ? tags.parentElement.append(cloudButton) : requestAnimationFrame(placeButton);
+  placeButton();
+  const drawCloud = have => {
+    const top = [...counted].sort((a, b) => b.count - a.count).slice(0, POPUP_CLOUD_TAGS);
+    const counts = [...new Set(top.map(tag => tag.count))];
+    const head = element('div', 'cloud-head');
+    head.append(element('span', '', message('tagCloudHead')));
+    const list = element('div', 'cloud-tags');
+    for (const {name, count} of top.sort((a, b) => a.name.localeCompare(b.name))) {
+      const rank = counts.indexOf(count) / counts.length;  // 0 for the most used
+      const button = chip(name);
+      button.classList.toggle('chosen', have.has(lower(name)));
+      button.style.fontSize = (17 - 5 * rank).toFixed(1) + 'px';
+      if (rank < 0.2) button.style.fontWeight = '600';
+      list.append(button);
+    }
+    if (!top.length) list.textContent = message('noTags');
+    cloud.replaceChildren(head, list);
+  };
+  const draw = () => {
+    const have = new Set(splitTags(tags.value).map(lower));
+    if (!cloud.hidden) drawCloud(have);
+    const url = isWebPage(item) ? item.url : '';
+    const mentioned = title || url ? tagsMentioned(title?.value || '', url, names) : [];
+    const suggested = [...new Set([...siteTags, ...mentioned])]
+      .filter(tag => !hiddenTag(tag) && !have.has(lower(tag)));
+    const all = element('button', 'label', message('recommended'));
+    all.type = 'button';
+    all.title = message('addAll');
+    all.addEventListener('click', () => setTags([...splitTags(tags.value), ...suggested]));
+    suggestedRow.replaceChildren(all, ...suggested.map(chip));
+    suggestedRow.hidden = !suggested.length;
+    const related = tagsTogether([...have], new Set([...have, ...suggested.map(lower)]));
+    relatedRow.replaceChildren(element('span', 'label', message('relatedTags')), ...related.map(chip));
+    relatedRow.hidden = !related.length;
+  };
+  tags.addEventListener('input', draw);
+  title?.addEventListener('input', draw);
+  draw();
+  autocomplete(tags, 'tag');
+  return box;
+}
+
 // After an edit in the popup: the bookmark or note anew in its place, the rest of the page as it is (library-list.js:
 // redrawItems), and the tags at the side. before: the item as it was before the edit. On Start (library-home.js) its
 // blocks again only when it belongs in others now (sameBlocks): read, private, tags.
@@ -119,7 +242,8 @@ function editBookmark(item, li) {
   const share = element('div', 'share');
   share.append(outliner);
   fields.append(...kind == 'bookmark' ? [cardField('fieldUrl', url)] : [], titleField,
-    cardField('fieldDescription', description), cardField('fieldTags', tags), share, options, shotWarning);
+    cardField('fieldDescription', description), cardField('fieldTags', tags), tagSuggestions(tags, item, title), share,
+    options, shotWarning);
   // once it is saved: to the outliner chosen too; when that fails, the popup stays with why
   const shared = async saved => {
     if (!outliner.value || await outlinerPart.addItems(outliner.value, [saved])) return true;
@@ -338,7 +462,7 @@ function editNote(item, li) {
   const outliner = outlinerPart.shareSelect();
   const share = element('div', 'share');
   share.append(outliner);
-  fields.append(cardField('fieldTitle', title), text, cardField('fieldTags', tags), share);
+  fields.append(cardField('fieldTitle', title), text, cardField('fieldTags', tags), tagSuggestions(tags, item, title), share);
 
   card.addEventListener('keydown', e => e.key == 'Enter' && e.ctrlKey && card.requestSubmit());
   card.addEventListener('submit', async e => {

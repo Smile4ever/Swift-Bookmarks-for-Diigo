@@ -17,6 +17,12 @@
     "optionPreviewThumbs": {
         "message": "Un segnalibro senza screenshot: l’immagine di anteprima della sua pagina (come i social mostrano un link), o la sua icona, come piccola immagine davanti. Letta una volta dalla pagina (il sito vede una richiesta da questo browser) e conservata in questo browser; un clic apre la pagina."
     },
+    "optionNoHiddenThumbs": {
+        "message": "Un elemento con un tag nascosto, mostrato da Mostra nascosti o da una ricerca: nessuna immagine davanti (né screenshot, né immagine di anteprima, né immagine propria)."
+    },
+    "optionHideOnDiigo": {
+        "message": "Anche su diigo.com: nella tua libreria lì, nessun segnalibro con un tag nascosto e nessun tag nascosto nell’elenco dei tag, a meno che tu non cerchi quel tag."
+    },
     "screenshotDescription": {
         "message": "Screenshot della pagina $TITLE$\n$URL$",
         "placeholders": {
@@ -423,7 +429,7 @@
         "message": "Dai a un segnalibro il tag hidden e sparisce dalla Swift Library, dalla barra degli indirizzi, da Swift Discover e dai suggerimenti del modulo: comodo per ciò che preferisci non far comparire quando qualcuno guarda da sopra la tua spalla. Per vederli, cerca il tag per intero (hidden) o spunta Mostra nascosti sopra l'elenco. Scegli i tuoi tag nascosti in Swift Opzioni; i tag che hanno solo segnalibri nascosti vengono nascosti anch'essi, per non tradirli."
     },
     "guideHiddenWarn": {
-        "message": "Nascosto non è privato: su diigo.com stesso, e per gli altri se il segnalibro è pubblico, resta visibile. Rendilo anche privato se nessun altro deve vederlo."
+        "message": "Nascosto non è privato: gli altri vedono ancora un segnalibro pubblico su diigo.com, e tu lo vedi lì in un browser senza questo componente. Rendilo anche privato se nessun altro deve vederlo."
     },
     "guideHiddenChoose": {
         "message": "Scegli i tag nascosti"
@@ -458,6 +464,18 @@
     "guideTagsText": {
         "message": "Tutti i tuoi tag con una casella per trovarne uno, i 300 più usati come nuvola, un tag rinominato ovunque in un colpo, e tag quasi uguali (ricetta e ricette) uniti in uno."
     },
+    "guideTagsCloud": {
+        "message": "Tutti i tag, sotto Tag nella barra laterale: ogni tag in una nuvola, più grande quanto più lo usi, con una casella per trovarne uno. Un clic mostra ciò che lo ha."
+    },
+    "guideTagsRename": {
+        "message": "Rinominare un tag: sceglilo nella barra laterale, poi ✎ accanto. Cambia in una volta su tutti i tuoi elementi, anche in Diigo."
+    },
+    "guideTagsSimilar": {
+        "message": "Tag simili, in Riordina su Inizio: tag con o senza trattino, spazio o accento, o uno il plurale dell’altro. Scegli quello da tenere e Unisci, o Non sono uguali per lasciarli."
+    },
+    "guideOutlinersMore": {
+        "message": "Aprine uno per scriverci con la tastiera, come su Diigo: Invio per un nuovo elemento, Tab per rientrarlo, Maiusc+Invio per la sua nota (tutte le scorciatoie sono sotto). Dalla tua libreria aggiunge segnalibri come link, e Aggiungi a un outliner lo fa da Modifica o Modifica multipla. Le modifiche sono su Diigo poco dopo."
+    },
     "guideOutlinersText": {
         "message": "I tuoi outliner di Diigo sono anche nella barra laterale della Swift Library: un albero in cui scrivere con la tastiera, con elementi della tua libreria."
     },
@@ -487,6 +505,9 @@
     },
     "privacyIntro": {
         "message": "L'estensione non invia nulla al suo autore. Parla con diigo.com per te, con il tuo accesso lì, e la copia della tua libreria (l'indice) resta in questo browser. Queste impostazioni sono conservate con l'account del tuo browser (Firefox Sync, Google o Microsoft) quando sincronizza, così anche gli altri tuoi computer le ricevono; le cartelle da sincronizzare restano su questo computer."
+    },
+    "optionCheckHiddenLinks": {
+        "message": "Controllare da soli anche i link dei segnalibri con un tag nascosto. Disattivato: i loro siti non ricevono richieste da questo browser per loro, a meno che tu non clicchi sul loro ·."
     },
     "optionAutoCheckLinks": {
         "message": "Controllare ogni link da sé appena compare nell'elenco. Disattivato: un link viene controllato solo quando lo chiedi, con un clic sul suo ·, Controlla tutti i link, o cercando i link morti nella barra laterale; ciò che è stato controllato prima resta visibile."
@@ -522,6 +543,12 @@
             }
         }
     },
+    "indexHead": {
+        "message": "Indice"
+    },
+    "indexOptionsIntro": {
+        "message": "La copia della tua libreria Diigo in questo browser, con cui lavora la Swift Library. Si aggiorna da sola, quindi questo serve solo quando qualcosa non sembra tornare: Aggiorna prende ciò che è cambiato su Diigo, Ricrea rilegge tutta la tua libreria."
+    },
     "logHead": {
         "message": "Registro"
     },
@@ -532,7 +559,7 @@
         "message": "Segnala un problema"
     },
     "logReportText": {
-        "message": "Qualcosa non funziona? Salva il registro e allega il file a un nuovo issue su GitHub. Il file contiene gli errori qui sotto, la versione dell'estensione, il tuo browser e le tue impostazioni, senza i tag nascosti, le regole per sito e le cartelle; usa il filtro per salvare solo gli errori che contano."
+        "message": "Qualcosa non funziona? Salva il registro e allega il file a un nuovo issue su GitHub. Il file contiene gli errori qui sotto, la versione dell'estensione, il tuo browser e le tue impostazioni, senza i tag nascosti e le cartelle; usa il filtro per salvare solo gli errori che contano."
     },
     "logSave": {
         "message": "Salva il registro per una segnalazione"
@@ -652,10 +679,7 @@
         "message": "Nascondi Share to outliner: nel modulo del segnalibro e nella Swift Library (aggiunta, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Quattro pulsanti in cima alla barra laterale al posto del pulsante + con un menu: Bookmark, Image, PDF e Note, per aggiungere con un clic"
-    },
-    "topMenuRemove": {
-        "message": "Rimuovi"
+        "message": "Cinque pulsanti in cima alla barra laterale al posto del pulsante + con un menu: Segnalibro, Immagine, PDF, Nota e Outliner, per aggiungere con un clic"
     },
     "cleanupHead": {
         "message": "Cerca e riordina i tuoi segnalibri"
@@ -852,6 +876,9 @@
     "searchFieldTitle": {
         "message": "Titolo"
     },
+    "searchFieldContent": {
+        "message": "Testo di una nota"
+    },
     "searchFieldDescription": {
         "message": "Descrizione"
     },
@@ -919,6 +946,15 @@
     },
     "libraryMenu": {
         "message": "Swift Library"
+    },
+    "libraryOptionsListHead": {
+        "message": "L’elenco e Inizio"
+    },
+    "libraryOptionsPicturesHead": {
+        "message": "Screenshot"
+    },
+    "libraryOptionsBulkHead": {
+        "message": "Modifica multipla ed Elimina"
     },
     "libraryOptionsIntro": {
         "message": "Tutta la tua libreria Diigo dall'indice di questo browser: cerca, ordina e i tag subito, anche con migliaia di segnalibri."
@@ -1082,6 +1118,9 @@
     "libraryRandomIntro": {
         "message": "10 dei tuoi segnalibri a caso, nessuno con un tag nascosto. Fai di nuovo clic a sinistra su A caso per altri 10."
     },
+    "libraryRandomNone": {
+        "message": "Ancora nessun segnalibro."
+    },
     "libraryRandom": {
         "message": "A caso"
     },
@@ -1194,6 +1233,17 @@
         "placeholders": {
             "count": {
                 "content": "$1"
+            }
+        }
+    },
+    "libraryDeletingPending": {
+        "message": "Diigo sta eliminando ciò che è nel cestino · $DONE$ di $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
             }
         }
     },
@@ -1349,6 +1399,48 @@
     "shortcutsHead": {
         "message": "Scorciatoie"
     },
+    "shortcutsLibraryHead": {
+        "message": "Nella Swift Library"
+    },
+    "shortcutsOutlinerHead": {
+        "message": "In un outliner"
+    },
+    "shortcutFind": {
+        "message": "Alla casella di ricerca, anche in Swift Discover (di nuovo: la barra di ricerca del browser)"
+    },
+    "shortcutSaveEdit": {
+        "message": "Salvare, in Modifica e nelle finestre per aggiungere un elemento"
+    },
+    "shortcutBulkSelect": {
+        "message": "Modifica multipla: spuntarne un altro sotto o sopra"
+    },
+    "shortcutBulkEnds": {
+        "message": "Modifica multipla: spuntare tutti fino alla fine o fino in cima"
+    },
+    "shortcutBulkDelete": {
+        "message": "Modifica multipla: eliminare ciò che è spuntato (nel cestino: per sempre)"
+    },
+    "shortcutCloseMenu": {
+        "message": "Chiudere il menu ⋯ di un elemento"
+    },
+    "shortcutOutlineNew": {
+        "message": "Un nuovo elemento sotto (all’inizio del testo: sopra)"
+    },
+    "shortcutOutlineNote": {
+        "message": "Alla nota dell’elemento, e ritorno"
+    },
+    "shortcutOutlineIndent": {
+        "message": "Rientrare l’elemento, o togliere il rientro"
+    },
+    "shortcutOutlineMove": {
+        "message": "Spostare l’elemento su o giù"
+    },
+    "shortcutOutlineRemove": {
+        "message": "In un elemento vuoto: rimuoverlo"
+    },
+    "shortcutOutlineDelete": {
+        "message": "Eliminare l’elemento con quelli sotto (chiede prima)"
+    },
     "shortcutsFormHead": {
         "message": "Nel modulo"
     },
@@ -1415,9 +1507,6 @@
     },
     "tagCloudHead": {
         "message": "I tuoi 100 tag più usati"
-    },
-    "editTags": {
-        "message": "Gestisci tag"
     },
     "noTags": {
         "message": "Non hai ancora tag."
@@ -1841,33 +1930,6 @@
     },
     "optionCleanUrls": {
         "message": "Un nuovo segnalibro senza parametri di tracciamento (utm_…, fbclid e simili), e all’indirizzo web che la pagina dice suo (canonical) quando è sullo stesso sito"
-    },
-    "siteRulesHead": {
-        "message": "Regole per sito"
-    },
-    "siteRulesIntro": {
-        "message": "Cosa riceve nel modulo un nuovo segnalibro di un sito: tag, privato o pubblico, da leggere dopo o no. Una regola per example.com vale anche per i suoi sottodomini, come blog.example.com."
-    },
-    "siteRulesAdd": {
-        "message": "Aggiungi una regola"
-    },
-    "siteRulesSite": {
-        "message": "Sito, es. github.com"
-    },
-    "siteRulesTags": {
-        "message": "Tag"
-    },
-    "ruleAsUsualPrivacy": {
-        "message": "Privato: come al solito"
-    },
-    "rulePublic": {
-        "message": "Pubblico"
-    },
-    "ruleAsUsualUnread": {
-        "message": "Leggi dopo: come al solito"
-    },
-    "ruleNotReadLater": {
-        "message": "Non leggere dopo"
     },
     "similarTags": {
         "message": "Tag simili"

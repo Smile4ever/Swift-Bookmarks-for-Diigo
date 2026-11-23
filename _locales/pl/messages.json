@@ -17,6 +17,12 @@
     "optionPreviewThumbs": {
         "message": "Zakładka bez zrzutu ekranu: obraz podglądu jej strony (tak jak serwisy społecznościowe pokazują link) lub jej ikona, jako mały obrazek przed nią. Odczytany raz ze strony (witryna widzi żądanie z tej przeglądarki) i przechowywany w tej przeglądarce; kliknięcie otwiera stronę."
     },
+    "optionNoHiddenThumbs": {
+        "message": "Element z ukrytym tagiem, pokazany przez Pokaż ukryte lub wyszukiwanie: bez obrazka przed nim (bez zrzutu ekranu, obrazu podglądu ani własnego obrazu)."
+    },
+    "optionHideOnDiigo": {
+        "message": "Także na diigo.com: w Twojej bibliotece tam żadnych zakładek z ukrytym tagiem i żadnych ukrytych tagów na liście tagów, chyba że szukasz takiego tagu."
+    },
     "screenshotDescription": {
         "message": "Zrzut ekranu strony $TITLE$\n$URL$",
         "placeholders": {
@@ -423,7 +429,7 @@
         "message": "Daj zakładce tag hidden, a zniknie z Swift Library, paska adresu, Swift Discover i podpowiedzi formularza: przydatne dla tego, co wolisz, żeby nie wyskakiwało, gdy ktoś zagląda Ci przez ramię. Aby je zobaczyć, wyszukaj tag w całości (hidden) albo zaznacz Pokaż ukryte nad listą. Własne ukryte tagi wybierzesz w Swift Opcje; tagi, które mają tylko ukryte zakładki, też są ukrywane, żeby ich nie zdradzić."
     },
     "guideHiddenWarn": {
-        "message": "Ukryte to nie prywatne: na samym diigo.com, a dla innych, gdy zakładka jest publiczna, pozostaje widoczna. Ustaw ją też jako prywatną, jeśli nikt inny nie powinien jej widzieć."
+        "message": "Ukryte to nie prywatne: inni nadal widzą publiczną zakładkę na diigo.com, a Ty widzisz ją tam w przeglądarce bez tego dodatku. Ustaw ją też jako prywatną, jeśli nikt inny nie powinien jej widzieć."
     },
     "guideHiddenChoose": {
         "message": "Wybierz ukryte tagi"
@@ -458,6 +464,18 @@
     "guideTagsText": {
         "message": "Wszystkie Twoje tagi z polem do wyszukania, 300 najczęstszych jako chmura, tag zmieniony wszędzie naraz i niemal takie same tagi (przepis i przepisy) scalone w jeden."
     },
+    "guideTagsCloud": {
+        "message": "Wszystkie tagi, pod Tagami na pasku bocznym: każdy tag w chmurze, tym większy, im częściej go używasz, z polem do szukania. Kliknięcie pokazuje, co go ma."
+    },
+    "guideTagsRename": {
+        "message": "Zmiana nazwy tagu: wybierz go na pasku bocznym, potem ✎ obok. Zmienia się od razu we wszystkich elementach, także w Diigo."
+    },
+    "guideTagsSimilar": {
+        "message": "Podobne tagi, w Porządkach na Starcie: tagi z łącznikiem, spacją lub akcentem albo bez, lub jeden w liczbie mnogiej drugiego. Wybierz ten, który zostaje, i Scal, albo To nie to samo, by je zostawić."
+    },
+    "guideOutlinersMore": {
+        "message": "Otwórz jeden, by pisać w nim z klawiatury, jak na Diigo: Enter to nowy element, Tab – wcięcie, Shift+Enter – jego notatka (wszystkie skróty są niżej). Z biblioteki dodaje zakładki jako linki, a Dodaj do outlinera robi to z Edytuj lub Edycji zbiorczej. Zmiany są na Diigo chwilę później."
+    },
     "guideOutlinersText": {
         "message": "Twoje outlinery z Diigo są też w panelu bocznym Swift Library: drzewo do pisania z klawiatury, z elementami z Twojej biblioteki."
     },
@@ -487,6 +505,9 @@
     },
     "privacyIntro": {
         "message": "Dodatek niczego nie wysyła swojemu autorowi. Rozmawia z diigo.com w Twoim imieniu, z Twoim logowaniem tam, a kopia Twojej biblioteki (indeks) zostaje w tej przeglądarce. Te ustawienia są przechowywane z kontem Twojej przeglądarki (Firefox Sync, Google lub Microsoft), gdy synchronizuje, więc Twoje inne komputery też je dostają; foldery do synchronizacji zostają na tym komputerze."
+    },
+    "optionCheckHiddenLinks": {
+        "message": "Sprawdzaj samoczynnie także linki zakładek z ukrytym tagiem. Wyłączone: ich witryny nie dostają z tej przeglądarki żadnego żądania, chyba że klikniesz ich ·."
     },
     "optionAutoCheckLinks": {
         "message": "Sprawdzaj każdy link samodzielnie, gdy tylko pojawi się na liście. Wyłączone: link jest sprawdzany tylko na Twoją prośbę, kliknięciem jego ·, przyciskiem Sprawdź wszystkie linki lub szukając martwych linków w panelu bocznym; to, co sprawdzono wcześniej, nadal jest widoczne."
@@ -522,6 +543,12 @@
             }
         }
     },
+    "indexHead": {
+        "message": "Indeks"
+    },
+    "indexOptionsIntro": {
+        "message": "Kopia Twojej biblioteki Diigo w tej przeglądarce, z której korzysta Swift Library. Aktualizuje się sama, więc to jest tylko na wypadek, gdy coś się nie zgadza: Aktualizuj pobiera to, co zmieniło się na Diigo, Zbuduj ponownie wczytuje całą bibliotekę od nowa."
+    },
     "logHead": {
         "message": "Dziennik"
     },
@@ -532,7 +559,7 @@
         "message": "Zgłoś problem"
     },
     "logReportText": {
-        "message": "Coś nie działa? Zapisz dziennik i dołącz plik do nowego zgłoszenia na GitHubie. Plik zawiera błędy poniżej, wersję dodatku, przeglądarkę i ustawienia, bez ukrytych tagów, reguł dla witryn i folderów; użyj filtra, aby zapisać tylko istotne błędy."
+        "message": "Coś nie działa? Zapisz dziennik i dołącz plik do nowego zgłoszenia na GitHubie. Plik zawiera błędy poniżej, wersję dodatku, przeglądarkę i ustawienia, bez ukrytych tagów i folderów; użyj filtra, aby zapisać tylko istotne błędy."
     },
     "logSave": {
         "message": "Zapisz dziennik do zgłoszenia błędu"
@@ -652,10 +679,7 @@
         "message": "Ukryj Share to outliner: w formularzu zakładki i w Swift Library (dodawanie, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Cztery przyciski u góry paska bocznego zamiast przycisku + z menu: Bookmark, Image, PDF i Note, aby dodawać jednym kliknięciem"
-    },
-    "topMenuRemove": {
-        "message": "Usuń"
+        "message": "Pięć przycisków u góry paska bocznego zamiast przycisku + z menu: Zakładka, Obraz, PDF, Notatka i Outliner, aby dodawać jednym kliknięciem"
     },
     "cleanupHead": {
         "message": "Szukaj i porządkuj zakładki"
@@ -852,6 +876,9 @@
     "searchFieldTitle": {
         "message": "Tytuł"
     },
+    "searchFieldContent": {
+        "message": "Treść notatki"
+    },
     "searchFieldDescription": {
         "message": "Opis"
     },
@@ -919,6 +946,15 @@
     },
     "libraryMenu": {
         "message": "Swift Library"
+    },
+    "libraryOptionsListHead": {
+        "message": "Lista i Start"
+    },
+    "libraryOptionsPicturesHead": {
+        "message": "Zrzuty ekranu"
+    },
+    "libraryOptionsBulkHead": {
+        "message": "Edycja zbiorcza i Usuń"
     },
     "libraryOptionsIntro": {
         "message": "Cała biblioteka Diigo z indeksu w tej przeglądarce: wyszukiwanie, sortowanie i tagi od razu, także przy tysiącach zakładek."
@@ -1082,6 +1118,9 @@
     "libraryRandomIntro": {
         "message": "10 losowych zakładek z Twojej biblioteki, żadna z ukrytym tagiem. Kliknij ponownie po lewej Losowe, aby wylosować 10 innych."
     },
+    "libraryRandomNone": {
+        "message": "Nie ma jeszcze zakładek."
+    },
     "libraryRandom": {
         "message": "Losowe"
     },
@@ -1194,6 +1233,17 @@
         "placeholders": {
             "count": {
                 "content": "$1"
+            }
+        }
+    },
+    "libraryDeletingPending": {
+        "message": "Diigo usuwa to, co jest w koszu · $DONE$ z $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
             }
         }
     },
@@ -1349,6 +1399,48 @@
     "shortcutsHead": {
         "message": "Skróty"
     },
+    "shortcutsLibraryHead": {
+        "message": "W Swift Library"
+    },
+    "shortcutsOutlinerHead": {
+        "message": "W outlinerze"
+    },
+    "shortcutFind": {
+        "message": "Do pola wyszukiwania, także w Swift Discover (jeszcze raz: pasek wyszukiwania przeglądarki)"
+    },
+    "shortcutSaveEdit": {
+        "message": "Zapisz, w Edytuj i w oknach dodawania elementu"
+    },
+    "shortcutBulkSelect": {
+        "message": "Edycja zbiorcza: zaznacz jeszcze jeden poniżej lub powyżej"
+    },
+    "shortcutBulkEnds": {
+        "message": "Edycja zbiorcza: zaznacz wszystkie do końca lub do góry"
+    },
+    "shortcutBulkDelete": {
+        "message": "Edycja zbiorcza: usuń zaznaczone (w koszu: na zawsze)"
+    },
+    "shortcutCloseMenu": {
+        "message": "Zamknij menu ⋯ elementu"
+    },
+    "shortcutOutlineNew": {
+        "message": "Nowy element poniżej (na początku tekstu: powyżej)"
+    },
+    "shortcutOutlineNote": {
+        "message": "Do notatki elementu i z powrotem"
+    },
+    "shortcutOutlineIndent": {
+        "message": "Wcięcie elementu lub jego cofnięcie"
+    },
+    "shortcutOutlineMove": {
+        "message": "Przesuń element w górę lub w dół"
+    },
+    "shortcutOutlineRemove": {
+        "message": "W pustym elemencie: usuń go"
+    },
+    "shortcutOutlineDelete": {
+        "message": "Usuń element razem z tymi pod nim (najpierw pyta)"
+    },
     "shortcutsFormHead": {
         "message": "W formularzu"
     },
@@ -1415,9 +1507,6 @@
     },
     "tagCloudHead": {
         "message": "Twoje 100 najczęściej używanych tagów"
-    },
-    "editTags": {
-        "message": "Zarządzaj tagami"
     },
     "noTags": {
         "message": "Nie masz jeszcze tagów."
@@ -1841,33 +1930,6 @@
     },
     "optionCleanUrls": {
         "message": "Nowa zakładka bez parametrów śledzących (utm_…, fbclid i podobnych) i pod adresem, który strona podaje jako własny (canonical), gdy jest on w tej samej witrynie"
-    },
-    "siteRulesHead": {
-        "message": "Reguły dla witryn"
-    },
-    "siteRulesIntro": {
-        "message": "Co nowa zakładka z danej witryny dostaje w formularzu: tagi, prywatna lub publiczna, do przeczytania później lub nie. Reguła dla example.com obejmuje też subdomeny, np. blog.example.com."
-    },
-    "siteRulesAdd": {
-        "message": "Dodaj regułę"
-    },
-    "siteRulesSite": {
-        "message": "Witryna, np. github.com"
-    },
-    "siteRulesTags": {
-        "message": "Tagi"
-    },
-    "ruleAsUsualPrivacy": {
-        "message": "Prywatna: jak zwykle"
-    },
-    "rulePublic": {
-        "message": "Publiczna"
-    },
-    "ruleAsUsualUnread": {
-        "message": "Do przeczytania: jak zwykle"
-    },
-    "ruleNotReadLater": {
-        "message": "Nie do przeczytania"
     },
     "similarTags": {
         "message": "Podobne tagi"

@@ -1,5 +1,10 @@
 /* The looks of what the add-on adds to diigo.com: the menu at the top */
 
+/* a bookmark of your library with a hidden tag (hide.js: hideItems) */
+.ListItem.dqa-hidden-tag {
+  display: none !important;
+}
+
 /* Go to Swift Library, at the end of the menu at the top (header.js: swiftButton): a white pill with the add-on's
    icon and a blue edge, which stands out on the blue menu of the library and on the white one of other pages */
 a.dqa-swift-button {

@@ -457,6 +457,17 @@ button {
   color: var(--red);
 }
 
+/* how far (library.js: showNoticeProgress), as the bar of Bulk edit */
+.notice-progress {
+  flex: 0 1 240px;
+  height: 6px;
+  accent-color: var(--blue);
+}
+
+.notice-progress[hidden] {
+  display: none;
+}
+
 .buttons {
   display: flex;
   align-items: center;
@@ -1843,6 +1854,124 @@ a.selected .c-icon.kindle { background-position: -360px -50px; }
   display: flex;
   gap: 12px;
   margin: 0 0 12px;
+}
+
+/* Suggested and Often with these below the tags (library-edit.js: tagSuggestions), as in the bookmark form
+   (form/form.css: #suggested, #related): a click on a tag adds it, on Suggested all of them */
+.card .tag-suggest {
+  margin: -8px 0 12px;
+  font-size: 12px;
+}
+
+.card .tag-suggest p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 4px;
+}
+
+.card .tag-suggest p[hidden] {
+  display: none;
+}
+
+.card .tag-suggest .label {
+  margin-right: 2px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--grey);
+  font: inherit;
+}
+
+.card .tag-suggest button.label {
+  color: var(--link);
+  cursor: pointer;
+}
+
+.card .tag-suggest button.label:hover {
+  text-decoration: underline;
+}
+
+.card .tag-suggest .tag {
+  padding: 2px 10px;
+  border: 0;
+  border-radius: 12px;
+  background: #f1f3f4;
+  color: #444;
+  font: inherit;
+  cursor: pointer;
+}
+
+.card .tag-suggest .related .tag {
+  background: #e8f0fe;
+  color: #1a4f9c;
+}
+
+.card .tag-suggest .tag:hover {
+  filter: brightness(.94);
+}
+
+/* the tag icon at the right of the field of the tags, as in the form (form/form.css: #cloud-button), and the cloud of
+   your 100 most used tags it opens (form/form.css: #cloud) */
+.card .field:has(> .cloud-button) input {
+  padding-right: 32px;
+}
+
+.card .field .cloud-button {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 50%;
+  opacity: .55;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23555'%3E%3Cpath d='M21.4 11.6l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7c0 .55.22 1.05.59 1.42l9 9a2 2 0 0 0 2.82 0l7-7a2 2 0 0 0 0-2.82zM5.5 7A1.5 1.5 0 1 1 7 5.5 1.5 1.5 0 0 1 5.5 7z'/%3E%3C/svg%3E") center / 16px no-repeat;
+  cursor: pointer;
+}
+
+.card .field .cloud-button:hover {
+  opacity: 1;
+  background-color: var(--hover);
+}
+
+.card .tag-cloud-box {
+  max-height: 180px;
+  margin: 0 0 8px;
+  padding: 10px 12px;
+  overflow-y: auto;
+  border-radius: 4px;
+  background: #fafafa;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.card .tag-cloud-box[hidden] {
+  display: none;
+}
+
+.card .tag-cloud-box .cloud-head {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 4px;
+  padding: 0;
+  border: 0;
+  color: var(--grey);
+  font-size: 12px;
+}
+
+.card .tag-cloud-box .tag {
+  margin: 0 10px 0 0;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: #555;
+  line-height: inherit;
+}
+
+.card .tag-cloud-box .tag.chosen {
+  color: var(--blue);
 }
 
 .card .share:not(:has(> select:not([hidden]), > .share-group:not([hidden]))) {

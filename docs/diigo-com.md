@@ -142,6 +142,18 @@ Also in the app's code, not tried:
 
 The add-on itself (`background/background.js`) talks to the toolbar API on `toolbar3.diigo.com` instead.
 
+## Hidden tags on diigo.com
+
+`diigo-site/hide-page.js` runs in the page itself (`world: MAIN`, at `document_start`) and changes the answers of
+`load_user_items` and `search_user_items` (out: the items with a hidden tag in `t_name`) and `load_user_tags` (out: the
+hidden tags) when the library reads them, from `XMLHttpRequest` (`responseText`, `response`) or `fetch`; a request
+with a hidden tag in its parameters (a search for it) stays as it is. What is hidden it gets from `diigo-site/hide.js`:
+`localStorage.swiftHiddenTags` (`{user, tags}`) and a `swift-hidden-tags` event. Not verified yet, as diigo.com was
+behind a Cloudflare check when this was written (November 2026): the form of the answer of `load_user_tags` (the filter
+takes a list of names, of objects with a `name`, `tag`, `tag_name` or `title`, or an object by name), which of the two
+the library uses, and whether it stops loading pages when one comes back shorter than `count`. `hide.js` also hides a
+`.ListItem` with a hidden tag in `.tags .Tag .wrapper`, for one that comes another way.
+
 ## Outliners
 
 Diigo's outliner is an app of its own at `/outliner`, which the library shows in a frame (`/outliner/<code>/<title>`,

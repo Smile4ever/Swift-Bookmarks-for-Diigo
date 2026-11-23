@@ -25,10 +25,11 @@ Find it useful? [Donate via PayPal](https://paypal.me/Smile4ever/10).
   your rules for its site say: tags, private or public, read later or not.
 * **No bookmark twice**: the form says when you saved the page before at nearly the same web address, with a way to
   edit that one instead.
-* **Hidden tags**: tags you don't want to see in suggestions, and whose bookmarks stay out of your library unless you search for such a tag.
+* **Hidden tags**: tags you don't want to see in suggestions, and whose bookmarks stay out of your library unless you search for such a tag;
+  in your library on diigo.com too, and the hidden tags out of its list of tags there (a switch in Swift Options, on by default).
 * **Swift Library**: your whole library as a page of the add-on, from that same copy in the browser: search on the field
   you choose, sort, filter by tag and site, and the tags of what you see at the left, at once, also with thousands of
-  bookmarks. Edit there too, and add bookmarks, images, PDFs and notes as on diigo.com, and put back what you deleted from its trash; hidden tags stay hidden.
+  bookmarks. Edit there too, with tags suggested as in the form, and add bookmarks, images, PDFs and notes as on diigo.com, and put back what you deleted from its trash; hidden tags stay hidden.
 * **Filters and Bulk edit** in the Swift Library: the search box searches the field you choose (title, URL,
   description, tag, site), -word for what may not be there, a filter for when they were saved, and adding or removing
   tags, public or private, read or unread, or deleting for all bookmarks you tick at once, also in thousands.
@@ -54,15 +55,18 @@ Find it useful? [Donate via PayPal](https://paypal.me/Smile4ever/10).
   saves what the page shows as an image in your Diigo library, private, with the tags of its bookmark, and as a small
   picture at the bookmark; it waits until the page is loaded in full. The box is off each time: Diigo keeps only a
   limited number of images (a free account only a few dozen), so it is not meant for every bookmark. Delete screenshot
-  in the ⋯ of a bookmark deletes it again.
+  in the ⋯ of a bookmark deletes it again, and the link to it in the description.
 * **A picture at every bookmark** in the Swift Library all the same: the preview image of its page, as social sites
   show a link (og:image), or its icon; read from the page once and kept in this browser, so it uses nothing of your
-  Diigo account.
+  Diigo account. Not at an item with a hidden tag: that gets no picture at all.
 
 Highlighting and sticky notes are not in this add-on; for those there is Diigo's own add-on.
 
 The add-on doesn't change how diigo.com looks and works: what it does better is in the Swift Library and Swift Discover.
-On diigo.com it only adds the way there: Go to Swift Library at the end of the menu at the top, which Diigo's own items keep as they are. The trash of
+On diigo.com it only adds the way there: Go to Swift Library at the end of the menu at the top, which Diigo's own items keep as they are.
+And it keeps your hidden tags hidden there: in your own library on diigo.com, the bookmarks with a hidden tag and the
+hidden tags themselves are left out of what Diigo sends the page, unless you search for such a tag; else anyone looking at
+your screen would see them there. Others still see a public bookmark on diigo.com: hidden is not private. The trash of
 the Swift Library is kept in this browser only, so it isn't shown on diigo.com; what you delete there goes to it all the
 same, to put back in the Swift Library.
 
@@ -177,7 +181,7 @@ In the bookmark form:
 What goes wrong in the add-on (Diigo not saving, the sync, the index, the Swift Library…) is kept in a log: Log on the
 options page, the newest first, with a filter and Clear log. It is kept in memory only (storage.session), so it is empty
 after a browser restart. Save log for a bug report saves the errors shown with the version, browser and settings (not
-your hidden tags, rules per site and folders), to attach to an issue on GitHub. Nothing is sent anywhere by itself.
+your hidden tags and folders), to attach to an issue on GitHub. Nothing is sent anywhere by itself.
 
 ## Privacy
 
@@ -190,7 +194,9 @@ Discover loads the Hot Bookmarks from diigo.com (diigo.com/buzz/hot), and keeps 
 to in the browser. Use the latest copy in the Wayback Machine, for a dead link in the Swift Library, asks archive.org for
 the copy of that one page, only when you choose it. For a link you save from the right-click menu, the add-on requests
 that page itself, for its title, description and keywords. When you delete something on diigo.com, the add-on reads
-which items Diigo deletes from that request (delete_b), to take them out of the index too.
+which items Diigo deletes from that request (delete_b), to take them out of the index too. To keep hidden tags hidden in
+your library on diigo.com, it keeps their names in the storage of diigo.com in this browser (localStorage), where
+Diigo's page can read them; they are your own tags of your Diigo library.
 Only when you allow access to your bookmarks on the options page, it reads them, and sends Diigo those of the folders you
 choose, and those you save or move to Diigo from the menu of a bookmark.
 The Swift Library keeps a copy of your library (titles, URLs, descriptions, tags) in the browser, on your computer
@@ -199,7 +205,7 @@ days.
 The settings of Swift Options are kept with the account of the browser (storage.sync: Firefox Sync, the Google or
 Microsoft account) when it syncs, so your other computers get them too, and a copy in this browser; the folders to sync
 stay on this computer. So do the links you said are not dead, the similar tags you said are not the same and Not
-interested in Swift Discover. A setting or list too large for storage.sync (8 kB: a long list of rules per site, many
+interested in Swift Discover. A setting or list too large for storage.sync (8 kB: a long list of hidden tags, many
 Not interested) stays in this browser only. Firefox syncs this only with Add-ons ticked in Firefox Sync.
 
 ## Folders
@@ -214,9 +220,10 @@ content/        content.js: put in the page when the form opens; shows the form 
 form/           form.html, form.js, form.css: the bookmark form; asks background.js to open, save or delete a bookmark
 diigo-site/     on www.diigo.com, in the order of manifest.json: common.js: what they share; delete-window.js: what
                 Diigo's delete window deletes goes to the trash of the Swift Library; header.js: Go to Swift Library at the end of the menu at the top, Diigo's own items as they are,
-                and My Library and Tools opening the Swift pages when chosen; diigo-site.js, last: runs them as the page changes; diigo-site.css: their looks
+                and My Library and Tools opening the Swift pages when chosen; hide.js: what has a hidden tag out of your library there,
+                with hide-page.js, which runs in the page itself and filters Diigo's answers; diigo-site.js, last: runs them as the page changes; diigo-site.css: their looks
 options/        options.html, options.js, options.css: the options page: hidden tags, what the bookmark form fills in and
-                the rules per site, the folders to sync, each diigo.com improvement on or off, the shortcuts; settings.js: the settings and their defaults, also loaded by the
+                the folders to sync, each diigo.com improvement on or off; settings.js: the settings and their defaults, also loaded by the
                 form, the scripts of diigo-site/ and the background scripts; library-index.js: the index of the library
                 in IndexedDB, index-item.js: an item of it, also for the background scripts; library.html,
                 library.css: the Swift Library, with its filters and Bulk edit; its scripts, in the order of
@@ -230,7 +237,7 @@ options/        options.html, options.js, options.css: the options page: hidden 
                 and library-page.js (the events, and the start); discover.html, discover.js, discover.css: Swift
                 Discover, the Hot Bookmarks of diigo.com/buzz/hot, with library.css and the index; guide.html,
                 guide.js, guide.css: Swift Guide, what the add-on does more than Diigo, opened once when it is
-                installed, with the pictures of images/store
+                installed, with the pictures of images/store and images/guide, and the shortcuts of the form, the Swift Library and outliners
 icons/          add-on and toolbar icons: icon.svg (also the favicon of the options page and the Swift Library) and
                 toolbar-saved.svg, toolbar-busy.svg, toolbar-library.svg (a page that can't be bookmarked: the button opens
                 the Swift Library) and toolbar-options.svg (on diigo.com) are the
@@ -259,6 +266,13 @@ Load it without building:
 * Firefox: `about:debugging` → This Firefox → Load Temporary Add-on → `manifest.json`
 * Chrome: `chrome://extensions` → Developer mode → Load unpacked → this folder
 * Edge: `edge://extensions` → Developer mode → Load unpacked → this folder
+
+Loaded like this, Swift Tools has a **Limit test** at the bottom (`options/tools-test.js`): it saves the number of
+bookmarks you choose to the Diigo account you're signed in with, as the bookmark form saves them (private, at
+`https://example.com/swift-limit-test/<n>`, tagged `swift-limit-test`), and stops at the first one Diigo doesn't
+save, with what Diigo answered. The numbers go on where the last run stopped (kept per account in this browser; Start
+at changes it). For finding the limits of a free account. Delete them afterwards in the Swift Library:
+search for the tag, Bulk edit, Delete. An installed add-on doesn't show it.
 
 ```sh
 npm test               # the tests, with Node.js only

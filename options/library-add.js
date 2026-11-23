@@ -1,6 +1,6 @@
 // A part of the Swift Library (library.html); library.js has what they share, library-page.js puts them to work.
 
-// ---- adding: Diigo's + with its menu, or its four buttons with splitAdd, and a popup over the page for each, as Diigo
+// ---- adding: Diigo's + with its menu, or its five buttons with splitAdd, and a popup over the page for each, as Diigo
 // adds (AddHandler: a window over the library), in the look of the bookmark form of the toolbar button (form/form.html)
 
 // The popup (#popup, a dialog) as a card like form/form.html: the heading and × at the top, the fields, what went wrong,
@@ -159,7 +159,8 @@ function addNote() {
   const outliner = outlinerPart.shareSelect();
   const share = element('div', 'share');
   share.append(outliner);
-  fields.append(cardField('fieldTitle', title), text, cardField('fieldTags', tags), share);
+  fields.append(cardField('fieldTitle', title), text, cardField('fieldTags', tags), tagSuggestions(tags, {type: 'note'}, title),
+    share);
   card.addEventListener('keydown', e => e.key == 'Enter' && e.ctrlKey && card.requestSubmit());
   card.addEventListener('submit', async e => {
     e.preventDefault();
@@ -217,8 +218,8 @@ function addFiles(type) {
   // Share to group not while private, as in the bookmark form (form/form.css); to an outliner it can
   const showGroup = () => group.parentNode.hidden = privateBox.checked || group.options.length < 2;
   privateBox.addEventListener('change', showGroup);
-  fields.append(picker, drop, list, cardField('fieldDescription', description), cardField('fieldTags', tags), share,
-    options);
+  fields.append(picker, drop, list, cardField('fieldDescription', description), cardField('fieldTags', tags),
+    tagSuggestions(tags), share, options);
   save.disabled = true;
 
   const ready = () => files.filter(entry => !entry.problem);
@@ -339,7 +340,7 @@ function openAddMenu(open) {
   if (open) addTypes.querySelector('button').focus();
 }
 
-// splitAdd: the four buttons at the top of the side bar; in the bar (as the + and its menu without splitAdd) while
+// splitAdd: the five buttons at the top of the side bar; in the bar (as the + and its menu without splitAdd) while
 // there's no side bar, before the index is built. Moved, not drawn again: their clicks stay with them. Kept here, not
 // found by its id: showTags takes it out of the page with the rest of the side bar, and puts it back with this.
 const addTypes = $('addTypes');

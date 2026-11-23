@@ -17,6 +17,12 @@
     "optionPreviewThumbs": {
         "message": "Een bladwijzer zonder screenshot: de voorbeeldafbeelding van zijn pagina (zoals sociale sites een link tonen), of zijn pictogram, als kleine afbeelding ervoor. Eén keer van de pagina gelezen (de site ziet een verzoek van deze browser) en in deze browser bewaard; een klik opent de pagina."
     },
+    "optionNoHiddenThumbs": {
+        "message": "Een item met een verborgen tag, getoond door Verborgen tonen of een zoekopdracht: geen afbeelding ervoor (geen schermafbeelding, voorbeeldafbeelding of eigen afbeelding)."
+    },
+    "optionHideOnDiigo": {
+        "message": "Ook op diigo.com: in je bibliotheek daar geen bladwijzers met een verborgen tag en geen verborgen tags in de lijst met tags, tenzij je naar zo’n tag zoekt."
+    },
     "screenshotDescription": {
         "message": "Schermafbeelding van de pagina $TITLE$\n$URL$",
         "placeholders": {
@@ -423,7 +429,7 @@
         "message": "Geef een bladwijzer de tag hidden en hij blijft weg uit de Swift Library, de adresbalk, Swift Discover en de voorstellen van het formulier: handig voor wat je liever niet ziet opduiken als iemand over je schouder meekijkt. Om ze te zien zoek je de tag volledig (hidden) of vink je Verborgen tonen aan boven de lijst. Kies je eigen verborgen tags in Swift Opties; tags die alleen verborgen bladwijzers hebben, worden ook verborgen, zodat ze die niet verraden."
     },
     "guideHiddenWarn": {
-        "message": "Verborgen is niet privé: op diigo.com zelf, en voor anderen als de bladwijzer openbaar is, blijft hij zichtbaar. Maak hem ook privé als niemand anders hem mag zien."
+        "message": "Verborgen is niet privé: anderen zien een openbare bladwijzer op diigo.com nog steeds, en jij ziet hem daar in een browser zonder deze add-on. Maak hem ook privé als niemand anders hem mag zien."
     },
     "guideHiddenChoose": {
         "message": "Verborgen tags kiezen"
@@ -458,6 +464,18 @@
     "guideTagsText": {
         "message": "Al je tags met een vak om er een te vinden, de 300 meest gebruikte als wolk, een tag in één keer overal hernoemd, en tags die bijna hetzelfde zijn (recept en recepten) samengevoegd tot één."
     },
+    "guideTagsCloud": {
+        "message": "Alle tags, onder Tags in de zijbalk: elke tag in een wolk, hoe meer je hem gebruikt hoe groter, met een vak om er een te vinden. Een klik toont wat hem heeft."
+    },
+    "guideTagsRename": {
+        "message": "Een tag hernoemen: kies hem in de zijbalk, en dan ✎ ernaast. Hij verandert in één keer op al je items, ook in Diigo."
+    },
+    "guideTagsSimilar": {
+        "message": "Gelijkaardige tags, in Opruimen op Start: tags met of zonder streepje, spatie of accent, of de ene het meervoud van de andere. Kies welke je houdt en Samenvoegen, of Niet hetzelfde om ze te laten."
+    },
+    "guideOutlinersMore": {
+        "message": "Open er een om erin te schrijven met het toetsenbord, zoals op Diigo: Enter voor een nieuw item, Tab om het in te springen, Shift+Enter voor zijn notitie (alle sneltoetsen staan hieronder). Uit je library voegt bladwijzers toe als links, en Toevoegen aan outliner doet dat vanuit Bewerken of Bulk bewerken. Wijzigingen staan even later op Diigo."
+    },
     "guideOutlinersText": {
         "message": "Je outliners van Diigo staan ook in de zijbalk van de Swift Library: een boom om in te schrijven met het toetsenbord, met items uit je bibliotheek."
     },
@@ -487,6 +505,9 @@
     },
     "privacyIntro": {
         "message": "De add-on stuurt niets naar de maker. Hij praat voor jou met diigo.com, met je aanmelding daar, en de kopie van je bibliotheek (de index) blijft in deze browser. Deze instellingen worden bewaard bij het account van je browser (Firefox Sync, Google of Microsoft) als die synchroniseert, zodat je andere computers ze ook krijgen; de mappen om te synchroniseren blijven op deze computer."
+    },
+    "optionCheckHiddenLinks": {
+        "message": "Ook de links van bladwijzers met een verborgen tag vanzelf controleren. Uit: hun sites krijgen er geen verzoek voor van deze browser, tenzij je op hun · klikt."
     },
     "optionAutoCheckLinks": {
         "message": "Elke link vanzelf controleren zodra hij in de lijst verschijnt. Uit: een link wordt alleen gecontroleerd als je erom vraagt, met een klik op zijn ·, Alle links controleren, of door dode links te zoeken in de zijbalk; wat eerder gecontroleerd is, blijft zichtbaar."
@@ -522,6 +543,12 @@
             }
         }
     },
+    "indexHead": {
+        "message": "Index"
+    },
+    "indexOptionsIntro": {
+        "message": "De kopie van je Diigo-library in deze browser, waarmee de Swift Library werkt. Die houdt zichzelf bij, dus dit is alleen voor als er iets niet lijkt te kloppen: Snel bijwerken haalt op wat er op Diigo veranderde, Opnieuw opbouwen leest je hele library opnieuw in."
+    },
     "logHead": {
         "message": "Logboek"
     },
@@ -532,7 +559,7 @@
         "message": "Een probleem melden"
     },
     "logReportText": {
-        "message": "Werkt er iets niet? Sla het logboek op en voeg het bestand toe aan een nieuw issue op GitHub. Het bestand bevat de fouten hieronder, de versie van de add-on, je browser en je instellingen, zonder je verborgen tags, regels per site en mappen; gebruik de filter om alleen de fouten op te slaan die ertoe doen."
+        "message": "Werkt er iets niet? Sla het logboek op en voeg het bestand toe aan een nieuw issue op GitHub. Het bestand bevat de fouten hieronder, de versie van de add-on, je browser en je instellingen, zonder je verborgen tags en mappen; gebruik de filter om alleen de fouten op te slaan die ertoe doen."
     },
     "logSave": {
         "message": "Logboek opslaan voor een foutmelding"
@@ -652,10 +679,7 @@
         "message": "Share to outliner verbergen: in het bladwijzerformulier en in de Swift Library (toevoegen, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Vier knoppen bovenaan de zijbalk in plaats van de knop + met een menu: Bookmark, Image, PDF en Note, zodat je met één klik toevoegt"
-    },
-    "topMenuRemove": {
-        "message": "Verwijderen"
+        "message": "Vijf knoppen bovenaan de zijbalk in plaats van de knop + met een menu: Bladwijzer, Afbeelding, PDF, Notitie en Outliner, zodat je met één klik toevoegt"
     },
     "cleanupHead": {
         "message": "Bladwijzers zoeken en opruimen"
@@ -852,6 +876,9 @@
     "searchFieldTitle": {
         "message": "Titel"
     },
+    "searchFieldContent": {
+        "message": "Tekst van een notitie"
+    },
     "searchFieldDescription": {
         "message": "Beschrijving"
     },
@@ -915,10 +942,19 @@
         }
     },
     "cloudNoMatch": {
-        "message": "Geen tag heeft dat in zijn naam."
+        "message": "Geen enkele tag bevat deze tekst."
     },
     "libraryMenu": {
         "message": "Swift Library"
+    },
+    "libraryOptionsListHead": {
+        "message": "De lijst en Start"
+    },
+    "libraryOptionsPicturesHead": {
+        "message": "Schermafbeeldingen"
+    },
+    "libraryOptionsBulkHead": {
+        "message": "Bulk bewerken en Verwijderen"
     },
     "libraryOptionsIntro": {
         "message": "Je hele Diigo-library uit de index in deze browser: zoeken, sorteren en de tags meteen, ook met duizenden bladwijzers."
@@ -1082,6 +1118,9 @@
     "libraryRandomIntro": {
         "message": "10 willekeurige bladwijzers uit je library, geen met een verborgen tag. Klik links nog eens op Willekeurig voor 10 andere."
     },
+    "libraryRandomNone": {
+        "message": "Nog geen bladwijzers."
+    },
     "libraryRandom": {
         "message": "Willekeurig"
     },
@@ -1194,6 +1233,17 @@
         "placeholders": {
             "count": {
                 "content": "$1"
+            }
+        }
+    },
+    "libraryDeletingPending": {
+        "message": "Diigo verwijdert wat in de prullenbak zit · $DONE$ van $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
             }
         }
     },
@@ -1349,6 +1399,48 @@
     "shortcutsHead": {
         "message": "Sneltoetsen"
     },
+    "shortcutsLibraryHead": {
+        "message": "In de Swift Library"
+    },
+    "shortcutsOutlinerHead": {
+        "message": "In een outliner"
+    },
+    "shortcutFind": {
+        "message": "Naar het zoekvak, ook in Swift Discover (nog eens: de zoekbalk van de browser)"
+    },
+    "shortcutSaveEdit": {
+        "message": "Bewaren, in Bewerken en in de vensters om een item toe te voegen"
+    },
+    "shortcutBulkSelect": {
+        "message": "Bulk bewerken: nog een eronder of erboven aanvinken"
+    },
+    "shortcutBulkEnds": {
+        "message": "Bulk bewerken: alles tot het einde of tot bovenaan aanvinken"
+    },
+    "shortcutBulkDelete": {
+        "message": "Bulk bewerken: verwijderen wat aangevinkt is (in de prullenbak: voorgoed weg)"
+    },
+    "shortcutCloseMenu": {
+        "message": "Het ⋯-menu van een item sluiten"
+    },
+    "shortcutOutlineNew": {
+        "message": "Een nieuw item eronder (aan het begin van de tekst: erboven)"
+    },
+    "shortcutOutlineNote": {
+        "message": "Naar de notitie van het item, en terug"
+    },
+    "shortcutOutlineIndent": {
+        "message": "Het item inspringen, of terug uitspringen"
+    },
+    "shortcutOutlineMove": {
+        "message": "Het item omhoog of omlaag verplaatsen"
+    },
+    "shortcutOutlineRemove": {
+        "message": "In een leeg item: het weghalen"
+    },
+    "shortcutOutlineDelete": {
+        "message": "Het item verwijderen, met wat eronder staat (vraagt eerst)"
+    },
     "shortcutsFormHead": {
         "message": "In het bladwijzerformulier"
     },
@@ -1415,9 +1507,6 @@
     },
     "tagCloudHead": {
         "message": "Je 100 meest gebruikte tags"
-    },
-    "editTags": {
-        "message": "Tags beheren"
     },
     "noTags": {
         "message": "Je hebt nog geen tags."
@@ -1841,33 +1930,6 @@
     },
     "optionCleanUrls": {
         "message": "Een nieuwe bladwijzer zonder trackingparameters (utm_…, fbclid en dergelijke), en op het webadres dat de pagina het hare noemt (canonical) als dat op dezelfde site is"
-    },
-    "siteRulesHead": {
-        "message": "Regels per site"
-    },
-    "siteRulesIntro": {
-        "message": "Wat een nieuwe bladwijzer van een site krijgt in het formulier: tags, privé of openbaar, later lezen of niet. Een regel voor example.com geldt ook voor zijn subdomeinen, zoals blog.example.com."
-    },
-    "siteRulesAdd": {
-        "message": "Regel toevoegen"
-    },
-    "siteRulesSite": {
-        "message": "Site, bv. github.com"
-    },
-    "siteRulesTags": {
-        "message": "Tags"
-    },
-    "ruleAsUsualPrivacy": {
-        "message": "Privé: zoals gewoonlijk"
-    },
-    "rulePublic": {
-        "message": "Openbaar"
-    },
-    "ruleAsUsualUnread": {
-        "message": "Later lezen: zoals gewoonlijk"
-    },
-    "ruleNotReadLater": {
-        "message": "Niet later lezen"
     },
     "similarTags": {
         "message": "Gelijkaardige tags"

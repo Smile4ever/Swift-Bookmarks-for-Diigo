@@ -49,6 +49,7 @@
       <a href="#discover" data-i18n="discoverMenu"></a>
       <a href="#sync" id="navSync" data-i18n="guideSyncHead"></a>
       <a href="#more" data-i18n="guideMoreHead"></a>
+      <a href="#shortcuts" id="navShortcuts" data-i18n="shortcutsHead"></a>
       <a href="#privacy" data-i18n="privacyHead"></a>
     </nav>
 
@@ -121,7 +122,23 @@
       <section class="card" id="tags">
         <h1 data-i18n="guideTagsHead"></h1>
         <p data-i18n="guideTagsText"></p>
+        <ul class="more">
+          <li data-i18n="guideTagsCloud"></li>
+          <li data-i18n="guideTagsRename"></li>
+          <li data-i18n="guideTagsSimilar"></li>
+        </ul>
+        <!-- made by scripts/screenshots.mjs, with a made-up library (images/guide) -->
+        <div class="shots">
+          <img src="../images/guide/tag-cloud.png" alt="" loading="lazy" width="1280" height="800">
+          <img src="../images/guide/similar-tags.png" alt="" loading="lazy" width="1280" height="800">
+        </div>
         <p data-i18n="guideOutlinersText"></p>
+        <p data-i18n="guideOutlinersMore"></p>
+        <div class="shots"><img src="../images/guide/outliner.png" alt="" loading="lazy" width="1280" height="800"></div>
+        <p class="actions">
+          <a href="library.html#view=outliners" class="button" data-i18n="viewOutliners"></a>
+          <a href="#shortcuts" class="button" data-i18n="shortcutsHead"></a>
+        </p>
       </section>
 
       <section class="card" id="discover">
@@ -151,6 +168,18 @@
           <li data-i18n="guideMoreDiigo"></li>
           <li data-i18n="guideMoreSettings"></li>
         </ul>
+      </section>
+
+      <!-- the keys and what they do, filled in by guide.js (showShortcuts); not on Firefox for Android, without a
+           keyboard -->
+      <section class="card" id="shortcuts">
+        <h1 data-i18n="shortcutsHead"></h1>
+        <h2 data-i18n="shortcutsFormHead"></h2>
+        <table class="shortcuts" id="formShortcuts"></table>
+        <h2 data-i18n="shortcutsLibraryHead"></h2>
+        <table class="shortcuts" id="libraryShortcuts"></table>
+        <h2 data-i18n="shortcutsOutlinerHead"></h2>
+        <table class="shortcuts" id="outlinerShortcuts"></table>
       </section>
 
       <section class="card" id="privacy">

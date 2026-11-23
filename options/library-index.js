@@ -502,12 +502,56 @@ async function deleteItems(ids, signal, progress) {
       batch.forEach(id => index.delete(id));
       meta = {...meta, total: meta.total - batch.length};
       await saveIndex({remove: batch, trashPut: copies});
+      // a screenshot gone: the link to it out of the description of its bookmark
+      await dropScreenshotLinks(copies).catch(e => logError('Screenshot: description', e));
     } else {
       failed += batch.length;
     }
     progress(batch, ok);
   }
   return {deleted, failed};
+}
+
+// Screenshots deleted (by Delete screenshot, or Delete of the image itself): the link to each out of the description
+// of the bookmarks that link to it (index-item.js: screenshotLinks), saved as Diigo's edit window saves a bookmark
+// (singleSave), in the index too. A line that is only the link, with or without a label before it (Screenshot: …),
+// goes; elsewhere only the link. Put back finds the screenshot again by the web address in its own description.
+async function dropScreenshotLinks(deleted) {
+  const shots = deleted.filter(item => item.type == 'image' &&
+    (item.tags || []).some(tag => tag.toLowerCase() == SCREENSHOT_TAG));
+  if (!shots.length) return;
+  const isShotLink = url => shots.some(shot => (shot.url && url == shot.url) ||
+    url.match(/diigo\.com\/item\/image\/([\w-]+)/)?.[1] == shot.id);
+  for (const bookmark of [...index.values()].filter(item => (item.type || 'bookmark') == 'bookmark')) {
+    const linked = screenshotLinks(bookmark);
+    if (![...linked.urls].some(isShotLink)) continue;
+    const description = withoutScreenshotLinks(bookmark.description, isShotLink);
+    if (description == bookmark.description) continue;
+    const edit = singleSave({...bookmark, description}, bookmark.tags);
+    if (!await postSave(edit.url, new URLSearchParams(edit.params)).catch(() => null)) continue;
+    bookmark.description = description;
+    await saveIndex({put: [bookmark]});
+  }
+}
+
+// a description without the links isShotLink(url) says, as dropScreenshotLinks says it
+function withoutScreenshotLinks(text, isShotLink) {
+  const link = /https?:\/\/[^\s<>"']+/g;
+  const clean = url => url.replace(/[.,;)]+$/, '');
+  const lines = [];
+  for (const line of String(text || '').split('\n')) {
+    const links = (line.match(link) || []).map(clean);
+    if (!links.some(isShotLink)) {
+      lines.push(line);
+      continue;
+    }
+    // the punctuation after a link stays: (link) leaves ()
+    const rest = line.replace(link, url => isShotLink(clean(url)) ? url.slice(clean(url).length) : url);
+    // only a label left (Screenshot:, Schermafbeelding :, 屏幕截图：): the whole line
+    if (/^[^\n]{0,40}[:：]\s*[.,;)]*\s*$/.test(rest.trim()) || !rest.replace(/[\s.,;:：)]/g, '')) continue;
+    lines.push(rest.replace(/\s+$/, ''));
+  }
+  return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
 

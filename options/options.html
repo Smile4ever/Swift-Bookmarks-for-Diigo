@@ -41,11 +41,11 @@
     <nav class="side" id="side">
       <a href="#library" data-i18n="libraryMenu">Swift Library</a>
       <a href="#form" data-i18n="formOptionsHead">The bookmark form</a>
-      <a href="#site" data-i18n="optionsHead">On diigo.com</a>
       <a href="#sync" id="navSync" data-i18n="syncHead">Bookmarks of this browser to Diigo</a>
       <a href="#tags" data-i18n="optionsTagsHead">Hidden tags</a>
       <a href="#privacy" data-i18n="privacyHead">Privacy</a>
-      <a href="#shortcuts" data-i18n="shortcutsHead">Shortcuts</a>
+      <a href="#site" data-i18n="optionsHead">On diigo.com</a>
+      <a href="#index" data-i18n="indexHead">Index</a>
       <a href="#log" data-i18n="logHead">Log</a>
     </nav>
 
@@ -59,35 +59,31 @@
       <section class="card" id="library">
         <h1 data-i18n="libraryMenu">Swift Library</h1>
         <p class="intro" data-i18n="libraryOptionsIntro"></p>
-        <!-- the index of the Swift Library (library-index.js), brought up to date or built again here (options.js:
-             updateFromOptions, buildFromOptions), with how far and Stop -->
-        <div class="index-box">
-          <p class="index-status" id="indexStatus" role="status"></p>
-          <p class="actions">
-            <button type="button" class="button primary" id="indexUpdate" data-i18n="indexUpdate">Update</button>
-            <button type="button" class="button" id="indexBuild" data-i18n="indexRebuild">Build again</button>
-            <button type="button" class="button" id="indexStop" data-i18n="cleanupStop" hidden>Stop</button>
-          </p>
-        </div>
+        <!-- the switches in groups: the list and Start, screenshots, Bulk edit and Delete; the preview pictures are under Privacy -->
+        <h2 data-i18n="libraryOptionsListHead">The list and Start</h2>
         <div class="options">
-          <label class="option"><span data-i18n="optionBulkExitAfter"></span><input type="checkbox" id="bulkExitAfter"></label>
-          <label class="option"><span data-i18n="optionBulkClearFilters"></span><input type="checkbox" id="bulkClearFilters"></label>
-          <label class="option"><span data-i18n="optionDeleteDelay"></span><input type="checkbox" id="deleteDelay"></label>
-          <label class="option"><span data-i18n="optionTodoRandom"></span><input type="checkbox" id="todoRandom"></label>
-          <label class="option"><span data-i18n="optionHideScreenshots"></span><input type="checkbox" id="hideScreenshots"></label>
-          <label class="option"><span data-i18n="optionScreenshotThumbs"></span><input type="checkbox" id="screenshotThumbs"></label>
-          <label class="option"><span data-i18n="optionPreviewThumbs"></span><input type="checkbox" id="previewThumbs"></label>
           <label class="option"><span data-i18n="optionSplitAdd"></span><input type="checkbox" id="splitAdd"></label>
           <label class="option"><span data-i18n="optionHidePrivateFlag"></span><input type="checkbox" id="hidePrivateFlag"></label>
           <label class="option"><span data-i18n="optionHideShareToOutliner"></span><input type="checkbox" id="hideShareToOutliner"></label>
+          <label class="option"><span data-i18n="optionTodoRandom"></span><input type="checkbox" id="todoRandom"></label>
+        </div>
+        <h2 data-i18n="libraryOptionsPicturesHead">Screenshots</h2>
+        <div class="options">
+          <label class="option"><span data-i18n="optionScreenshotThumbs"></span><input type="checkbox" id="screenshotThumbs"></label>
+          <label class="option"><span data-i18n="optionHideScreenshots"></span><input type="checkbox" id="hideScreenshots"></label>
+        </div>
+        <h2 data-i18n="libraryOptionsBulkHead">Bulk edit and Delete</h2>
+        <div class="options">
+          <label class="option"><span data-i18n="optionDeleteDelay"></span><input type="checkbox" id="deleteDelay"></label>
+          <label class="option"><span data-i18n="optionBulkExitAfter"></span><input type="checkbox" id="bulkExitAfter"></label>
+          <label class="option"><span data-i18n="optionBulkClearFilters"></span><input type="checkbox" id="bulkClearFilters"></label>
         </div>
         <h2 data-i18n="cleanupHead">Delete the bookmarks of a site</h2>
         <p class="intro" data-i18n="cleanupOptionsIntro"></p>
         <p class="actions"><a href="library.html#view=all&amp;bulk=1" class="button" data-i18n="cleanupOpen"></a></p>
       </section>
 
-      <!-- what the bookmark form (form/form.js) fills in for a new bookmark; siteRules of options/settings.js, filled in
-           by options.js: a row per rule -->
+      <!-- what the bookmark form (form/form.js) fills in for a new bookmark -->
       <section class="card" id="form">
         <h1 data-i18n="formOptionsHead">The bookmark form</h1>
         <p class="intro" data-i18n="formOptionsIntro"></p>
@@ -101,22 +97,6 @@
           </label>
           <label class="option"><span data-i18n="optionPageDescription"></span><input type="checkbox" id="pageDescription"></label>
           <label class="option"><span data-i18n="optionCleanUrls"></span><input type="checkbox" id="cleanUrls"></label>
-        </div>
-        <h2 data-i18n="siteRulesHead">Rules per site</h2>
-        <p class="intro" data-i18n="siteRulesIntro"></p>
-        <ol id="siteRules" class="top-menu site-rules"></ol>
-        <p class="actions"><button type="button" id="siteRulesAdd" data-i18n="siteRulesAdd"></button></p>
-      </section>
-
-      <!-- what the add-on still adds to diigo.com itself (diigo-site/); the id of each field is its key in
-           options/settings.js, with a switch at the right of each (.option) -->
-      <section class="card" id="site">
-        <h1 data-i18n="optionsHead">On diigo.com</h1>
-        <p class="intro" data-i18n="optionsIntro"></p>
-        <div class="options">
-          <label class="option"><span data-i18n="optionMyLibraryToSwift"></span><input type="checkbox" id="myLibraryToSwift"></label>
-          <label class="option"><span data-i18n="optionToolsToSwift"></span><input type="checkbox" id="toolsToSwift"></label>
-          <label class="option"><span data-i18n="optionSignInToSwift"></span><input type="checkbox" id="signInToSwift"></label>
         </div>
       </section>
 
@@ -146,6 +126,7 @@
           <!-- that hidden isn't private (guide.html: #hidden) -->
           <p class="intro" data-i18n="guideHiddenWarn"></p>
           <textarea id="hiddenTags" rows="4" spellcheck="false"></textarea>
+          <label class="option"><span data-i18n="optionHideOnDiigo"></span><input type="checkbox" id="hideOnDiigo"></label>
         </details>
       </section>
 
@@ -159,14 +140,37 @@
         <div class="options">
           <label class="option"><span data-i18n="optionDeadLinks"></span><input type="checkbox" id="deadLinks"></label>
           <label class="option"><span data-i18n="optionAutoCheckLinks"></span><input type="checkbox" id="autoCheckLinks"></label>
+          <label class="option"><span data-i18n="optionCheckHiddenLinks"></span><input type="checkbox" id="checkHiddenLinks"></label>
+          <label class="option"><span data-i18n="optionPreviewThumbs"></span><input type="checkbox" id="previewThumbs"></label>
+          <label class="option"><span data-i18n="optionNoHiddenThumbs"></span><input type="checkbox" id="noHiddenThumbs"></label>
         </div>
       </section>
 
-      <!-- filled in by options.js -->
-      <section class="card" id="shortcuts">
-        <h1 data-i18n="shortcutsHead">Shortcuts</h1>
-        <h2 data-i18n="shortcutsFormHead">In the bookmark form</h2>
-        <table class="shortcuts" id="formShortcuts"></table>
+      <!-- what the add-on still adds to diigo.com itself (diigo-site/); the id of each field is its key in
+           options/settings.js, with a switch at the right of each (.option) -->
+      <section class="card" id="site">
+        <h1 data-i18n="optionsHead">On diigo.com</h1>
+        <p class="intro" data-i18n="optionsIntro"></p>
+        <div class="options">
+          <label class="option"><span data-i18n="optionMyLibraryToSwift"></span><input type="checkbox" id="myLibraryToSwift"></label>
+          <label class="option"><span data-i18n="optionToolsToSwift"></span><input type="checkbox" id="toolsToSwift"></label>
+          <label class="option"><span data-i18n="optionSignInToSwift"></span><input type="checkbox" id="signInToSwift"></label>
+        </div>
+      </section>
+
+      <!-- the index of the Swift Library (library-index.js), brought up to date or built again here (options.js:
+           updateFromOptions, buildFromOptions), with how far and Stop; near the end, as it keeps itself up to date -->
+      <section class="card" id="index">
+        <h1 data-i18n="indexHead">Index</h1>
+        <p class="intro" data-i18n="indexOptionsIntro"></p>
+        <div class="index-box">
+          <p class="index-status" id="indexStatus" role="status"></p>
+          <p class="actions">
+            <button type="button" class="button primary" id="indexUpdate" data-i18n="indexUpdate">Update</button>
+            <button type="button" class="button" id="indexBuild" data-i18n="indexRebuild">Build again</button>
+            <button type="button" class="button" id="indexStop" data-i18n="cleanupStop" hidden>Stop</button>
+          </p>
+        </div>
       </section>
 
       <!-- the errors of the add-on, kept in memory by background.js (addLogEntry), as the log of Neat URL (log.js) -->

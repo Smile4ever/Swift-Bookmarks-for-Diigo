@@ -17,6 +17,12 @@
     "optionPreviewThumbs": {
         "message": "A bookmark without a screenshot: the preview image of its page (as social sites show a link), or its icon, as a small picture before it. Read once from the page (the site sees a request from this browser) and kept in this browser; a click opens the page."
     },
+    "optionNoHiddenThumbs": {
+        "message": "An item with a hidden tag, shown by Show hidden or a search: no picture before it (no screenshot, preview image or image of its own)."
+    },
+    "optionHideOnDiigo": {
+        "message": "On diigo.com too: in your library there, no bookmarks with a hidden tag and no hidden tags in the list of tags, unless you search for such a tag."
+    },
     "screenshotDescription": {
         "message": "Screenshot of the page $TITLE$\n$URL$",
         "placeholders": {
@@ -423,7 +429,7 @@
         "message": "Give a bookmark the tag hidden and it is left out of the Swift Library, the address bar, Swift Discover and the suggestions of the form: handy for what you'd rather not see pop up when someone looks over your shoulder. To see them, search for the tag in full (hidden) or tick Show hidden above the list. Choose your own hidden tags in Swift Options; tags that only hidden bookmarks have are hidden too, so they don't give them away."
     },
     "guideHiddenWarn": {
-        "message": "Hidden is not private: on diigo.com itself, and for others when the bookmark is public, it stays visible. Make it private too if no one else should see it."
+        "message": "Hidden is not private: others still see a public bookmark on diigo.com, and you see it there in a browser without this add-on. Make it private too if no one else should see it."
     },
     "guideHiddenChoose": {
         "message": "Choose hidden tags"
@@ -458,6 +464,18 @@
     "guideTagsText": {
         "message": "All your tags with a box to find one, the 300 most used as a cloud, a tag renamed everywhere at once, and tags that are nearly the same (recipe and recipes) merged into one."
     },
+    "guideTagsCloud": {
+        "message": "All tags, under Tags in the side bar: every tag as a cloud, the more you use it the larger, with a box to find one. A click shows what has it."
+    },
+    "guideTagsRename": {
+        "message": "Rename a tag: choose it in the side bar, then ✎ next to it. It changes on all your items at once, in Diigo too."
+    },
+    "guideTagsSimilar": {
+        "message": "Similar tags, in Clean up on Start: tags with or without a hyphen, space or accent, or one the plural of the other. Choose the one to keep and Merge, or Not the same to leave them be."
+    },
+    "guideOutlinersMore": {
+        "message": "Open one to write in it with the keyboard, as on Diigo: Enter for a new item, Tab to move it in, Shift+Enter for its note (all shortcuts are below). From your library adds bookmarks as links, and Share to outliner adds them from Edit or Bulk edit. Changes are on Diigo a moment later."
+    },
     "guideOutlinersText": {
         "message": "Your outliners of Diigo are in the side bar of the Swift Library too: a tree to write in with the keyboard, with items from your library."
     },
@@ -487,6 +505,9 @@
     },
     "privacyIntro": {
         "message": "The add-on sends nothing to its maker. It talks to diigo.com for you, with your sign-in there, and the copy of your library (the index) stays in this browser. These settings are kept with the account of your browser (Firefox Sync, Google or Microsoft) when it syncs, so your other computers get them too; the folders to sync stay on this computer."
+    },
+    "optionCheckHiddenLinks": {
+        "message": "Also check the links of bookmarks with a hidden tag by themselves. Off: their sites get no request from this browser for them, unless you click their ·."
     },
     "optionAutoCheckLinks": {
         "message": "Check each link by itself as it shows in the list. Off: a link is only checked when you ask for it, with a click on its ·, Check all links, or looking for dead links in the side bar; what was checked before still shows."
@@ -522,6 +543,12 @@
             }
         }
     },
+    "indexHead": {
+        "message": "Index"
+    },
+    "indexOptionsIntro": {
+        "message": "The copy of your Diigo library in this browser, which the Swift Library works from. It keeps itself up to date, so this is only for when something seems off: Update fetches what changed on Diigo, Build again reads your whole library anew."
+    },
     "logHead": {
         "message": "Log"
     },
@@ -532,7 +559,7 @@
         "message": "Report a problem"
     },
     "logReportText": {
-        "message": "Does something not work? Save the log and attach the file to a new issue on GitHub. The file contains the errors below, the version of the add-on, your browser and your settings, without your hidden tags, rules per site and folders; use the filter to save only the errors that matter."
+        "message": "Does something not work? Save the log and attach the file to a new issue on GitHub. The file contains the errors below, the version of the add-on, your browser and your settings, without your hidden tags and folders; use the filter to save only the errors that matter."
     },
     "logSave": {
         "message": "Save log for a bug report"
@@ -662,10 +689,7 @@
         "message": "Hide Share to outliner: in the bookmark form and in the Swift Library (adding, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Four buttons at the top of the side bar instead of the + button with a menu: Bookmark, Image, PDF and Note, so you add with one click"
-    },
-    "topMenuRemove": {
-        "message": "Remove"
+        "message": "Five buttons at the top of the side bar instead of the + button with a menu: Bookmark, Image, PDF, Note and Outliner, so you add with one click"
     },
     "cleanupHead": {
         "message": "Search and clean up your bookmarks"
@@ -862,6 +886,9 @@
     "searchFieldTitle": {
         "message": "Title"
     },
+    "searchFieldContent": {
+        "message": "Text of a note"
+    },
     "searchFieldDescription": {
         "message": "Description"
     },
@@ -929,6 +956,15 @@
     },
     "libraryMenu": {
         "message": "Swift Library"
+    },
+    "libraryOptionsListHead": {
+        "message": "The list and Start"
+    },
+    "libraryOptionsPicturesHead": {
+        "message": "Screenshots"
+    },
+    "libraryOptionsBulkHead": {
+        "message": "Bulk edit and Delete"
     },
     "libraryOptionsIntro": {
         "message": "Your whole Diigo library from the index in this browser: searching, sorting and the tags at once, also with thousands of bookmarks."
@@ -1092,6 +1128,9 @@
     "libraryRandomIntro": {
         "message": "10 of your bookmarks at random, none with a hidden tag. Click Random at the left again for 10 others."
     },
+    "libraryRandomNone": {
+        "message": "No bookmarks yet."
+    },
     "libraryRandom": {
         "message": "Random"
     },
@@ -1204,6 +1243,17 @@
         "placeholders": {
             "count": {
                 "content": "$1"
+            }
+        }
+    },
+    "libraryDeletingPending": {
+        "message": "Diigo is deleting what is in the trash · $DONE$ of $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
             }
         }
     },
@@ -1360,6 +1410,48 @@
         "message": "Shortcuts",
         "description": "Heading on the options page"
     },
+    "shortcutsLibraryHead": {
+        "message": "In the Swift Library"
+    },
+    "shortcutsOutlinerHead": {
+        "message": "In an outliner"
+    },
+    "shortcutFind": {
+        "message": "To the search box, also in Swift Discover (again: the find bar of the browser)"
+    },
+    "shortcutSaveEdit": {
+        "message": "Save, in Edit and in the windows to add an item"
+    },
+    "shortcutBulkSelect": {
+        "message": "Bulk edit: tick one more below or above"
+    },
+    "shortcutBulkEnds": {
+        "message": "Bulk edit: tick all of them down to the end or up to the top"
+    },
+    "shortcutBulkDelete": {
+        "message": "Bulk edit: delete what is ticked (in the trash: remove it for good)"
+    },
+    "shortcutCloseMenu": {
+        "message": "Close the ⋯ menu of an item"
+    },
+    "shortcutOutlineNew": {
+        "message": "A new item below (at the start of the text: above)"
+    },
+    "shortcutOutlineNote": {
+        "message": "To the note of the item, and back"
+    },
+    "shortcutOutlineIndent": {
+        "message": "Indent the item, or outdent it"
+    },
+    "shortcutOutlineMove": {
+        "message": "Move the item up or down"
+    },
+    "shortcutOutlineRemove": {
+        "message": "In an empty item: remove it"
+    },
+    "shortcutOutlineDelete": {
+        "message": "Delete the item with those under it (asks first)"
+    },
     "shortcutsFormHead": {
         "message": "In the bookmark form"
     },
@@ -1433,10 +1525,6 @@
     },
     "tagCloudHead": {
         "message": "Your 100 most used tags"
-    },
-    "editTags": {
-        "message": "Manage tags",
-        "description": "Link to the tags of the user on diigo.com"
     },
     "noTags": {
         "message": "You don't have any tags yet."
@@ -1901,33 +1989,6 @@
     },
     "optionCleanUrls": {
         "message": "A new bookmark without tracking parameters (utm_…, fbclid and the like), and at the web address the page calls its own (canonical) when that is on the same site"
-    },
-    "siteRulesHead": {
-        "message": "Rules per site"
-    },
-    "siteRulesIntro": {
-        "message": "What a new bookmark of a site gets in the form: tags, private or public, read later or not. A rule for example.com is also for its subdomains, such as blog.example.com."
-    },
-    "siteRulesAdd": {
-        "message": "Add a rule"
-    },
-    "siteRulesSite": {
-        "message": "Site, e.g. github.com"
-    },
-    "siteRulesTags": {
-        "message": "Tags"
-    },
-    "ruleAsUsualPrivacy": {
-        "message": "Private: as usual"
-    },
-    "rulePublic": {
-        "message": "Public"
-    },
-    "ruleAsUsualUnread": {
-        "message": "Read later: as usual"
-    },
-    "ruleNotReadLater": {
-        "message": "Not read later"
     },
     "similarTags": {
         "message": "Similar tags"

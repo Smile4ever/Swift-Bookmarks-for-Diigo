@@ -202,6 +202,7 @@ function clearTrashFilters() {
 function showEmptying(done, count) {
   $('emptyTrash').disabled = emptying;
   if (emptying) showStatus(message('libraryEmptying', [String(done), String(count)]));
+  showNoticeProgress(done, emptying ? count : null);
 }
 
 async function emptyTrash() {

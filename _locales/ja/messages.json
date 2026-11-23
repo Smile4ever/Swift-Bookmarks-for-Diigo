@@ -17,6 +17,12 @@
     "optionPreviewThumbs": {
         "message": "スクリーンショットのないブックマーク：ページのプレビュー画像（SNS がリンクを表示するときのもの）、またはそのアイコンを小さな画像として前に表示。ページから一度だけ読み込み（サイトにはこのブラウザーからのリクエストが届きます）、このブラウザーに保存。クリックでページを開きます。"
     },
+    "optionNoHiddenThumbs": {
+        "message": "非表示タグのある項目（「非表示も表示」や検索で表示されたもの）：前に画像を表示しません（スクリーンショット、プレビュー画像、項目自身の画像のいずれも）。"
+    },
+    "optionHideOnDiigo": {
+        "message": "diigo.com でも：そこでのライブラリに、非表示タグのあるブックマークも、タグ一覧の非表示タグも表示しません。そのタグを検索したときは除きます。"
+    },
     "screenshotDescription": {
         "message": "ページ「$TITLE$」のスクリーンショット\n$URL$",
         "placeholders": {
@@ -423,7 +429,7 @@
         "message": "ブックマークにタグ hidden を付けると、Swift Library、アドレスバー、Swift Discover、フォームの提案に出なくなります。誰かに画面をのぞかれたときに出てほしくないものに便利です。見るには、タグを完全な形 (hidden) で検索するか、一覧の上の「非表示も表示」にチェックを入れます。自分の非表示タグは Swift オプションで選べます。非表示のブックマークだけが持つタグも、それらを明かさないよう非表示になります。"
     },
     "guideHiddenWarn": {
-        "message": "非表示は非公開ではありません: diigo.com 自体では、またブックマークが公開なら他の人にも、見えたままです。誰にも見られたくないなら、非公開にもしてください。"
+        "message": "非表示は非公開ではありません：公開ブックマークは diigo.com で他の人に引き続き見え、このアドオンのないブラウザーではあなたにも見えます。誰にも見られたくない場合は非公開にもしてください。"
     },
     "guideHiddenChoose": {
         "message": "非表示のタグを選ぶ"
@@ -458,6 +464,18 @@
     "guideTagsText": {
         "message": "すべてのタグと検索ボックス、よく使う 300 個のタグクラウド、タグを一度に全体で名前変更、ほぼ同じタグ (recipe と recipes) を一つに統合。"
     },
+    "guideTagsCloud": {
+        "message": "サイドバーのタグの下にある「すべてのタグ」：すべてのタグをクラウドで表示。よく使うタグほど大きく、検索ボックスで探せます。クリックするとそのタグの付いた項目を表示します。"
+    },
+    "guideTagsRename": {
+        "message": "タグの名前を変更：サイドバーでタグを選び、横の ✎ をクリック。すべての項目で一度に変わり、Diigo にも反映されます。"
+    },
+    "guideTagsSimilar": {
+        "message": "スタートの「整理」にある「似ているタグ」：ハイフン・スペース・アクセントの有無だけが違うタグや、単数形と複数形のタグ。残すほうを選んで「統合」、またはそのままにするなら「同じではない」。"
+    },
+    "guideOutlinersMore": {
+        "message": "開くと、Diigo と同じようにキーボードで書けます：Enter で新しい項目、Tab でインデント、Shift+Enter でメモ（ショートカットはすべて下にあります）。「ライブラリから」でブックマークをリンクとして追加でき、「アウトライナーに追加」なら編集や一括編集から追加できます。変更は少し後に Diigo に保存されます。"
+    },
     "guideOutlinersText": {
         "message": "Diigo のアウトライナーも Swift Library のサイドバーにあります: キーボードで書けるツリーで、ライブラリの項目も入れられます。"
     },
@@ -487,6 +505,9 @@
     },
     "privacyIntro": {
         "message": "アドオンは作者に何も送りません。サインインを使ってあなたの代わりに diigo.com とやり取りし、ライブラリのコピー (インデックス) はこのブラウザーに残ります。これらの設定は、ブラウザーが同期している場合はそのアカウント (Firefox Sync、Google、Microsoft) に保存され、他のコンピューターにも届きます。同期するフォルダーはこのコンピューターに残ります。"
+    },
+    "optionCheckHiddenLinks": {
+        "message": "非表示タグのあるブックマークのリンクも自動で確認します。オフ：その · をクリックしない限り、このブラウザーからそのサイトへリクエストは送られません。"
     },
     "optionAutoCheckLinks": {
         "message": "一覧に表示されたリンクを自動で確認します。オフ: リンクは頼んだときだけ確認されます (· のクリック、「すべてのリンクを確認」、サイドバーでのリンク切れ探し)。以前に確認した結果は表示されたままです。"
@@ -522,6 +543,12 @@
             }
         }
     },
+    "indexHead": {
+        "message": "インデックス"
+    },
+    "indexOptionsIntro": {
+        "message": "Swift Library が使う、このブラウザー内の Diigo ライブラリのコピーです。自動で最新に保たれるので、何かおかしいと感じたときだけ使います。「更新」は Diigo で変わった分を取得し、「作り直す」はライブラリ全体を読み込み直します。"
+    },
     "logHead": {
         "message": "ログ"
     },
@@ -532,7 +559,7 @@
         "message": "問題を報告"
     },
     "logReportText": {
-        "message": "うまく動かないことがありますか？ログを保存し、GitHub の新しい issue にファイルを添付してください。ファイルには下のエラー、アドオンのバージョン、ブラウザー、設定が含まれます（非表示タグ、サイトごとのルール、フォルダーは除く）。フィルターで必要なエラーだけを保存できます。"
+        "message": "うまく動かないことがありますか？ログを保存し、GitHub の新しい issue にファイルを添付してください。ファイルには下のエラー、アドオンのバージョン、ブラウザー、設定が含まれます（非表示タグとフォルダーは除く）。フィルターで必要なエラーだけを保存できます。"
     },
     "logSave": {
         "message": "バグ報告用にログを保存"
@@ -652,10 +679,7 @@
         "message": "Share to outliner を隠す: ブックマークフォームと Swift Library（追加、Edit、Bulk edit）"
     },
     "optionSplitAdd": {
-        "message": "+ ボタンとメニューの代わりに、サイドバー上部に 4 つのボタン: Bookmark、Image、PDF、Note。ワンクリックで追加できます"
-    },
-    "topMenuRemove": {
-        "message": "削除"
+        "message": "+ ボタンとメニューの代わりに、サイドバー上部に 5 つのボタン：ブックマーク、画像、PDF、メモ、Outliner。ワンクリックで追加できます"
     },
     "cleanupHead": {
         "message": "ブックマークの検索と整理"
@@ -852,6 +876,9 @@
     "searchFieldTitle": {
         "message": "タイトル"
     },
+    "searchFieldContent": {
+        "message": "メモの本文"
+    },
     "searchFieldDescription": {
         "message": "説明"
     },
@@ -919,6 +946,15 @@
     },
     "libraryMenu": {
         "message": "Swift Library"
+    },
+    "libraryOptionsListHead": {
+        "message": "リストとスタート"
+    },
+    "libraryOptionsPicturesHead": {
+        "message": "スクリーンショット"
+    },
+    "libraryOptionsBulkHead": {
+        "message": "一括編集と削除"
     },
     "libraryOptionsIntro": {
         "message": "このブラウザーのインデックスから Diigo ライブラリ全体を表示: 何千件のブックマークでも検索、並べ替え、タグがすぐに使えます。"
@@ -1082,6 +1118,9 @@
     "libraryRandomIntro": {
         "message": "ライブラリからランダムに選んだ 10 件のブックマーク（非表示タグ付きは除く）。左の「ランダム」をもう一度押すと別の 10 件を選びます。"
     },
+    "libraryRandomNone": {
+        "message": "ブックマークはまだありません。"
+    },
     "libraryRandom": {
         "message": "ランダム"
     },
@@ -1194,6 +1233,17 @@
         "placeholders": {
             "count": {
                 "content": "$1"
+            }
+        }
+    },
+    "libraryDeletingPending": {
+        "message": "Diigo がゴミ箱の項目を削除しています · $DONE$ / $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
             }
         }
     },
@@ -1349,6 +1399,48 @@
     "shortcutsHead": {
         "message": "ショートカット"
     },
+    "shortcutsLibraryHead": {
+        "message": "Swift Library で"
+    },
+    "shortcutsOutlinerHead": {
+        "message": "アウトライナーで"
+    },
+    "shortcutFind": {
+        "message": "検索ボックスへ（Swift Discover でも）。もう一度押すとブラウザーの検索バー"
+    },
+    "shortcutSaveEdit": {
+        "message": "保存（編集と、項目を追加するウィンドウで）"
+    },
+    "shortcutBulkSelect": {
+        "message": "一括編集：下または上にもう 1 つチェック"
+    },
+    "shortcutBulkEnds": {
+        "message": "一括編集：末尾まで、または先頭まですべてチェック"
+    },
+    "shortcutBulkDelete": {
+        "message": "一括編集：チェックしたものを削除（ゴミ箱では完全に削除）"
+    },
+    "shortcutCloseMenu": {
+        "message": "項目の ⋯ メニューを閉じる"
+    },
+    "shortcutOutlineNew": {
+        "message": "下に新しい項目（テキストの先頭では上に）"
+    },
+    "shortcutOutlineNote": {
+        "message": "項目のメモへ移動、もう一度で戻る"
+    },
+    "shortcutOutlineIndent": {
+        "message": "項目をインデント、またはインデント解除"
+    },
+    "shortcutOutlineMove": {
+        "message": "項目を上または下へ移動"
+    },
+    "shortcutOutlineRemove": {
+        "message": "空の項目で：その項目を削除"
+    },
+    "shortcutOutlineDelete": {
+        "message": "項目を下位の項目ごと削除（先に確認）"
+    },
     "shortcutsFormHead": {
         "message": "ブックマークのフォームで"
     },
@@ -1415,9 +1507,6 @@
     },
     "tagCloudHead": {
         "message": "よく使うタグ 100 個"
-    },
-    "editTags": {
-        "message": "タグを管理"
     },
     "noTags": {
         "message": "まだタグがありません。"
@@ -1841,33 +1930,6 @@
     },
     "optionCleanUrls": {
         "message": "新しいブックマークをトラッキング用パラメーター（utm_…、fbclid など）なしで、同じサイト上ならページ自身が示すアドレス（canonical）で保存する"
-    },
-    "siteRulesHead": {
-        "message": "サイトごとのルール"
-    },
-    "siteRulesIntro": {
-        "message": "あるサイトの新しいブックマークにフォームで付けるもの: タグ、非公開か公開か、後で読むかどうか。example.com のルールは blog.example.com などのサブドメインにも適用されます。"
-    },
-    "siteRulesAdd": {
-        "message": "ルールを追加"
-    },
-    "siteRulesSite": {
-        "message": "サイト（例: github.com）"
-    },
-    "siteRulesTags": {
-        "message": "タグ"
-    },
-    "ruleAsUsualPrivacy": {
-        "message": "非公開: いつもどおり"
-    },
-    "rulePublic": {
-        "message": "公開"
-    },
-    "ruleAsUsualUnread": {
-        "message": "後で読む: いつもどおり"
-    },
-    "ruleNotReadLater": {
-        "message": "後で読まない"
     },
     "similarTags": {
         "message": "似ているタグ"

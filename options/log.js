@@ -54,8 +54,8 @@ async function loadLog() {
   showLog();
 }
 
-// What helps with a bug report; your own lists (hidden tags, rules per site, folders) stay out
-const PRIVATE_SETTINGS = ['hiddenTags', 'alsoHiddenTags', 'siteRules', 'syncFolders'];
+// What helps with a bug report; your own lists (hidden tags, folders) stay out
+const PRIVATE_SETTINGS = ['hiddenTags', 'alsoHiddenTags', 'syncFolders'];
 
 async function technicalDetails() {
   const settings = await loadSettings().catch(() => ({}));

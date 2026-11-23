@@ -21,6 +21,17 @@ for (const page of fs.readdirSync(OPTIONS).filter(file => file.endsWith('.html')
         assert.ok(!(e instanceof SyntaxError) && !/already been declared/.test(e.message), `${script}: ${e.message}`);
       }
     }
+    // a function of the same name in two scripts is no error: the later one silently takes the place of the first
+    const where = new Map();
+    const twice = [];
+    for (const script of scripts) {
+      const code = fs.readFileSync(path.join(OPTIONS, script), 'utf8');
+      for (const [, name] of code.matchAll(/^(?:async )?function\*? ?([\w$]+)\s*\(/gm)) {
+        if (where.has(name) && where.get(name) != script) twice.push(`${name}: ${where.get(name)} and ${script}`);
+        where.set(name, script);
+      }
+    }
+    assert.deepStrictEqual(twice, []);
   });
 }
 

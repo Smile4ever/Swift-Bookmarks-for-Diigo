@@ -17,6 +17,12 @@
     "optionPreviewThumbs": {
         "message": "Ein Lesezeichen ohne Screenshot: das Vorschaubild seiner Seite (wie soziale Netzwerke einen Link zeigen) oder sein Symbol, als kleines Bild davor. Einmal von der Seite gelesen (die Website sieht eine Anfrage dieses Browsers) und in diesem Browser gespeichert; ein Klick öffnet die Seite."
     },
+    "optionNoHiddenThumbs": {
+        "message": "Ein Eintrag mit einem verborgenen Tag, gezeigt durch Verborgene zeigen oder eine Suche: kein Bild davor (kein Screenshot, kein Vorschaubild, kein eigenes Bild)."
+    },
+    "optionHideOnDiigo": {
+        "message": "Auch auf diigo.com: in deiner Bibliothek dort keine Lesezeichen mit einem verborgenen Tag und keine verborgenen Tags in der Liste der Tags, außer du suchst nach so einem Tag."
+    },
     "screenshotDescription": {
         "message": "Screenshot der Seite $TITLE$\n$URL$",
         "placeholders": {
@@ -423,7 +429,7 @@
         "message": "Gib einem Lesezeichen den Tag hidden, und es fehlt in der Swift Library, der Adressleiste, Swift Discover und den Vorschlägen des Formulars: praktisch für das, was nicht auftauchen soll, wenn dir jemand über die Schulter schaut. Um sie zu sehen, suche den Tag vollständig (hidden) oder hake Verborgene zeigen über der Liste an. Eigene versteckte Tags wählst du in den Swift Einstellungen; Tags, die nur versteckte Lesezeichen haben, werden ebenfalls versteckt, damit sie diese nicht verraten."
     },
     "guideHiddenWarn": {
-        "message": "Versteckt ist nicht privat: auf diigo.com selbst, und für andere, wenn das Lesezeichen öffentlich ist, bleibt es sichtbar. Mach es auch privat, wenn es niemand sonst sehen soll."
+        "message": "Verborgen ist nicht privat: Andere sehen ein öffentliches Lesezeichen auf diigo.com weiterhin, und du siehst es dort in einem Browser ohne dieses Add-on. Mach es auch privat, wenn niemand sonst es sehen soll."
     },
     "guideHiddenChoose": {
         "message": "Versteckte Tags wählen"
@@ -458,6 +464,18 @@
     "guideTagsText": {
         "message": "Alle deine Tags mit einem Feld zum Finden, die 300 meistgenutzten als Wolke, ein Tag überall auf einmal umbenannt und fast gleiche Tags (Rezept und Rezepte) zu einem zusammengeführt."
     },
+    "guideTagsCloud": {
+        "message": "Alle Tags, unter Tags in der Seitenleiste: jeder Tag in einer Wolke, je öfter du ihn verwendest, desto größer, mit einem Feld, um einen zu finden. Ein Klick zeigt, was ihn hat."
+    },
+    "guideTagsRename": {
+        "message": "Einen Tag umbenennen: wähle ihn in der Seitenleiste, dann ✎ daneben. Er ändert sich auf einmal bei all deinen Einträgen, auch in Diigo."
+    },
+    "guideTagsSimilar": {
+        "message": "Ähnliche Tags, in Aufräumen auf Start: Tags mit oder ohne Bindestrich, Leerzeichen oder Akzent, oder der eine die Mehrzahl des anderen. Wähle den, der bleibt, und Zusammenführen, oder Nicht dasselbe, um sie zu lassen."
+    },
+    "guideOutlinersMore": {
+        "message": "Öffne einen, um mit der Tastatur darin zu schreiben, wie auf Diigo: Enter für einen neuen Eintrag, Tab zum Einrücken, Umschalt+Enter für seine Notiz (alle Tastenkürzel stehen unten). Aus deiner Bibliothek fügt Lesezeichen als Links hinzu, und Zu Outliner hinzufügen tut das aus Bearbeiten oder Mehrere bearbeiten. Änderungen sind kurz danach auf Diigo."
+    },
     "guideOutlinersText": {
         "message": "Deine Outliner von Diigo stehen auch in der Seitenleiste der Swift Library: ein Baum zum Schreiben mit der Tastatur, mit Einträgen aus deiner Bibliothek."
     },
@@ -487,6 +505,9 @@
     },
     "privacyIntro": {
         "message": "Die Erweiterung sendet nichts an ihren Entwickler. Sie spricht für dich mit diigo.com, mit deiner Anmeldung dort, und die Kopie deiner Bibliothek (der Index) bleibt in diesem Browser. Diese Einstellungen werden beim Konto deines Browsers gespeichert (Firefox Sync, Google oder Microsoft), wenn er synchronisiert, sodass deine anderen Computer sie auch bekommen; die zu synchronisierenden Ordner bleiben auf diesem Computer."
+    },
+    "optionCheckHiddenLinks": {
+        "message": "Auch die Links von Lesezeichen mit einem verborgenen Tag von selbst prüfen. Aus: ihre Websites bekommen dafür keine Anfrage von diesem Browser, außer du klickst auf ihr ·."
     },
     "optionAutoCheckLinks": {
         "message": "Jeden Link von selbst prüfen, sobald er in der Liste erscheint. Aus: ein Link wird nur geprüft, wenn du darum bittest, mit einem Klick auf sein ·, Alle Links prüfen oder der Suche nach toten Links in der Seitenleiste; was vorher geprüft wurde, bleibt sichtbar."
@@ -522,6 +543,12 @@
             }
         }
     },
+    "indexHead": {
+        "message": "Index"
+    },
+    "indexOptionsIntro": {
+        "message": "Die Kopie deiner Diigo-Bibliothek in diesem Browser, mit der die Swift Library arbeitet. Sie hält sich selbst aktuell, das hier ist also nur für den Fall, dass etwas nicht zu stimmen scheint: Aktualisieren holt, was sich auf Diigo geändert hat, Neu erstellen liest deine ganze Bibliothek neu ein."
+    },
     "logHead": {
         "message": "Protokoll"
     },
@@ -532,7 +559,7 @@
         "message": "Ein Problem melden"
     },
     "logReportText": {
-        "message": "Funktioniert etwas nicht? Speichere das Protokoll und hänge die Datei an ein neues Issue auf GitHub. Die Datei enthält die Fehler unten, die Version des Add-ons, deinen Browser und deine Einstellungen, ohne deine ausgeblendeten Tags, Regeln pro Website und Ordner; mit dem Filter speicherst du nur die Fehler, um die es geht."
+        "message": "Funktioniert etwas nicht? Speichere das Protokoll und hänge die Datei an ein neues Issue auf GitHub. Die Datei enthält die Fehler unten, die Version des Add-ons, deinen Browser und deine Einstellungen, ohne deine ausgeblendeten Tags und Ordner; mit dem Filter speicherst du nur die Fehler, um die es geht."
     },
     "logSave": {
         "message": "Protokoll für einen Fehlerbericht speichern"
@@ -652,10 +679,7 @@
         "message": "Share to outliner ausblenden: im Lesezeichenformular und in der Swift Library (Hinzufügen, Bearbeiten, Mehrfachbearbeitung)"
     },
     "optionSplitAdd": {
-        "message": "Vier Schaltflächen oben in der Seitenleiste statt der Schaltfläche + mit Menü: Bookmark, Image, PDF und Note, damit du mit einem Klick hinzufügst"
-    },
-    "topMenuRemove": {
-        "message": "Entfernen"
+        "message": "Fünf Schaltflächen oben in der Seitenleiste statt der Schaltfläche + mit Menü: Lesezeichen, Bild, PDF, Notiz und Outliner, damit du mit einem Klick hinzufügst"
     },
     "cleanupHead": {
         "message": "Lesezeichen suchen und aufräumen"
@@ -852,6 +876,9 @@
     "searchFieldTitle": {
         "message": "Titel"
     },
+    "searchFieldContent": {
+        "message": "Text einer Notiz"
+    },
     "searchFieldDescription": {
         "message": "Beschreibung"
     },
@@ -919,6 +946,15 @@
     },
     "libraryMenu": {
         "message": "Swift Library"
+    },
+    "libraryOptionsListHead": {
+        "message": "Die Liste und Start"
+    },
+    "libraryOptionsPicturesHead": {
+        "message": "Screenshots"
+    },
+    "libraryOptionsBulkHead": {
+        "message": "Mehrere bearbeiten und Löschen"
     },
     "libraryOptionsIntro": {
         "message": "Deine ganze Diigo-Bibliothek aus dem Index in diesem Browser: Suchen, Sortieren und die Tags sofort, auch mit Tausenden Lesezeichen."
@@ -1082,6 +1118,9 @@
     "libraryRandomIntro": {
         "message": "10 zufällige Lesezeichen aus deiner Bibliothek, keines mit einem versteckten Tag. Klicke links erneut auf Zufällig für 10 andere."
     },
+    "libraryRandomNone": {
+        "message": "Noch keine Lesezeichen."
+    },
     "libraryRandom": {
         "message": "Zufällig"
     },
@@ -1194,6 +1233,17 @@
         "placeholders": {
             "count": {
                 "content": "$1"
+            }
+        }
+    },
+    "libraryDeletingPending": {
+        "message": "Diigo löscht, was im Papierkorb liegt · $DONE$ von $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
             }
         }
     },
@@ -1349,6 +1399,48 @@
     "shortcutsHead": {
         "message": "Tastenkürzel"
     },
+    "shortcutsLibraryHead": {
+        "message": "In der Swift Library"
+    },
+    "shortcutsOutlinerHead": {
+        "message": "In einem Outliner"
+    },
+    "shortcutFind": {
+        "message": "Zum Suchfeld, auch in Swift Discover (noch einmal: die Suchleiste des Browsers)"
+    },
+    "shortcutSaveEdit": {
+        "message": "Speichern, in Bearbeiten und in den Fenstern zum Hinzufügen"
+    },
+    "shortcutBulkSelect": {
+        "message": "Mehrere bearbeiten: noch eines darunter oder darüber ankreuzen"
+    },
+    "shortcutBulkEnds": {
+        "message": "Mehrere bearbeiten: alle bis zum Ende oder bis oben ankreuzen"
+    },
+    "shortcutBulkDelete": {
+        "message": "Mehrere bearbeiten: Angekreuztes löschen (im Papierkorb: endgültig entfernen)"
+    },
+    "shortcutCloseMenu": {
+        "message": "Das ⋯-Menü eines Eintrags schließen"
+    },
+    "shortcutOutlineNew": {
+        "message": "Ein neuer Eintrag darunter (am Anfang des Texts: darüber)"
+    },
+    "shortcutOutlineNote": {
+        "message": "Zur Notiz des Eintrags und zurück"
+    },
+    "shortcutOutlineIndent": {
+        "message": "Den Eintrag einrücken oder ausrücken"
+    },
+    "shortcutOutlineMove": {
+        "message": "Den Eintrag nach oben oder unten verschieben"
+    },
+    "shortcutOutlineRemove": {
+        "message": "In einem leeren Eintrag: ihn entfernen"
+    },
+    "shortcutOutlineDelete": {
+        "message": "Den Eintrag samt allem darunter löschen (fragt zuerst)"
+    },
     "shortcutsFormHead": {
         "message": "Im Lesezeichenformular"
     },
@@ -1415,9 +1507,6 @@
     },
     "tagCloudHead": {
         "message": "Deine 100 meistverwendeten Tags"
-    },
-    "editTags": {
-        "message": "Tags verwalten"
     },
     "noTags": {
         "message": "Du hast noch keine Tags."
@@ -1841,33 +1930,6 @@
     },
     "optionCleanUrls": {
         "message": "Ein neues Lesezeichen ohne Tracking-Parameter (utm_…, fbclid und dergleichen) und unter der Webadresse, die die Seite ihre eigene nennt (canonical), wenn sie auf derselben Website ist"
-    },
-    "siteRulesHead": {
-        "message": "Regeln pro Website"
-    },
-    "siteRulesIntro": {
-        "message": "Was ein neues Lesezeichen einer Website im Formular bekommt: Tags, privat oder öffentlich, später lesen oder nicht. Eine Regel für example.com gilt auch für ihre Subdomains wie blog.example.com."
-    },
-    "siteRulesAdd": {
-        "message": "Regel hinzufügen"
-    },
-    "siteRulesSite": {
-        "message": "Website, z. B. github.com"
-    },
-    "siteRulesTags": {
-        "message": "Tags"
-    },
-    "ruleAsUsualPrivacy": {
-        "message": "Privat: wie immer"
-    },
-    "rulePublic": {
-        "message": "Öffentlich"
-    },
-    "ruleAsUsualUnread": {
-        "message": "Später lesen: wie immer"
-    },
-    "ruleNotReadLater": {
-        "message": "Nicht später lesen"
     },
     "similarTags": {
         "message": "Ähnliche Tags"

@@ -3,7 +3,8 @@
 // pages of the bookmarks) is answered with made-up data (DEMO below), so no account is needed and nothing of yours
 // shows. Diigo's own images (its logo, its icons, the avatar) can't be asked for by a script (diigo.com answers 403):
 // they come from scripts/screenshot-assets/ when they are there (saved from a browser; not in the repository).
-// Usage: npm run build && npm run screenshots   → images/store/*.png
+// Usage: npm run build && npm run screenshots   → images/store/*.png and images/guide/*.png
+//        node scripts/screenshots.mjs guide     → only those of Swift Guide (images/guide), the store ones as they are
 import puppeteer from 'puppeteer';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -11,6 +12,9 @@ import {fileURLToPath} from 'node:url';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'images', 'store');
+// the pictures of Swift Guide (options/guide.html) that aren't in the stores
+const GUIDE_OUT = path.join(ROOT, 'images', 'guide');
+const ONLY = process.argv[2] || '';  // guide: only those of Swift Guide
 const ASSETS = path.join(ROOT, 'scripts', 'screenshot-assets');
 const WIDTH = 1280, HEIGHT = 800;
 const USER = 'swiftdemo';
@@ -41,16 +45,16 @@ const BOOKMARKS = [
   ['Productivity: The Two Minute Rule', 'https://blog.example/two-minute-rule', 'productivity', 33],
   ['Mountain Panorama', 'https://www.diigo.com/item/image/demo2', 'photography alps', 36, {type: 'image'}],
   ['Regular Expressions Cheat Sheet', 'https://dev.example/regex/cheat-sheet', 'reference javascript', 40],
-  ['Tapas: Small Plates from Spain', 'https://www.cooking.example/spanish/tapas', 'recipes spanish', 45],
+  ['Tapas: Small Plates from Spain', 'https://www.cooking.example/spanish/tapas', 'recipe spanish', 45],
   ['Annual Report 2025', 'https://www.diigo.com/item/pdf/demo3', 'work reports', 50, {type: 'pdf'}],
   ['Lisbon on Foot', 'https://travel.example/portugal/lisbon-walks', 'travel', 55, {status: 301}],
   ['Deep Learning Book, Chapter 1', 'https://learn.example/dl/chapter-1', 'machine-learning reading', 60],
   ['Accessible Colour Palettes', 'https://design.example/colour/accessible', 'design accessibility', 70],
   ['Git Branching, Visually', 'https://dev.example/git/branching', 'git reference', 80],
-  ['The Art of the Omelette', 'https://www.cooking.example/eggs/omelette', 'recipes', 90],
+  ['The Art of the Omelette', 'https://www.cooking.example/eggs/omelette', 'recipe e-mail', 90],
   ['Night Photography Basics', 'https://photo.example/night-basics', 'photography tutorial', 100],
   ['Iceland Ring Road Itinerary', 'https://travel.example/iceland/ring-road', 'travel iceland', 120],
-  ['Writing Clear Documentation', 'https://blog.example/clear-docs', 'writing productivity', 140],
+  ['Writing Clear Documentation', 'https://blog.example/clear-docs', 'writing productivity email', 140],
 ];
 // more of the same, older, so the library and its tags look lived in
 const MORE_TOPICS = [['recipes', 'cooking', ['dinner', 'baking', 'vegetarian', 'italian']],
@@ -166,7 +170,12 @@ function libraryAnswer(params) {
 }
 
 const OUTLINERS = {
-  501: {title: 'Trip to Japan', points: ['Kyoto: temples in the morning', 'Tokyo: Shibuya, Asakusa, Ueno', 'Book the ryokan', 'Rail pass']},
+  // an item: its text, or [its text, its items, its note]
+  501: {title: 'Trip to Japan', points: [
+    ['Kyoto', ['Temples in the morning, before the crowds', 'Fushimi Inari at sunrise', 'Nishiki market for lunch']],
+    ['Tokyo', ['Shibuya and Harajuku', 'Asakusa and the Senso-ji', ['Day trip to Nikko', [], 'The train from Asakusa, two hours']]],
+    ['To book', ['The ryokan in Hakone', 'Rail pass, 14 days']],
+  ]},
   502: {title: 'Release checklist', points: ['Tests pass', 'Screenshots in English', 'Changelog', 'Upload to the stores']},
 };
 
@@ -178,9 +187,17 @@ function outlinerAnswer(pathname) {
   const id = pathname.split('/')[2];
   const outliner = OUTLINERS[id];
   if (!outliner) return {code: 1, data: {}};
+  // the tree as Diigo gives it: each item on its own, with the id of the one it is under
+  const bulletpoints = [];
+  const add = (points, parent) => points.forEach((point, position) => {
+    const [content, children = [], description = ''] = Array.isArray(point) ? point : [point];
+    const own = `p${id}-${bulletpoints.length}`;
+    bulletpoints.push({bullet_client_id: own, parent_client_id: parent, position, content, description, expand: 1});
+    add(children, own);
+  });
+  add(outliner.points, 0);
   return {code: 1, data: {meta: {title: outliner.title, max_action_id: 1, version_id: 1}, user: {user_id: 7, permission: ['read', 'write']},
-    bulletpoints: outliner.points.map((content, i) => ({bullet_client_id: `p${id}${i}`, parent_client_id: 0, position: i,
-      content, description: '', expand: 1})), actions: []}};
+    bulletpoints, actions: []}};
 }
 
 // What to answer a request with: {status, headers, body}, or null to let it go to the network (Diigo's own images)
@@ -266,9 +283,9 @@ async function newPage(browser) {
 }
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-async function shot(page, name) {
-  await page.screenshot({path: path.join(OUT, name)});
-  console.log(name);
+async function shot(page, name, dir = OUT) {
+  await page.screenshot({path: path.join(dir, name)});
+  console.log(path.basename(dir) + '/' + name);
 }
 
 // a page with the bookmark form on it, as the toolbar button opens it (background.js: showForm); the frame of the form
@@ -293,6 +310,7 @@ async function pageWithForm(browser, worker, url) {
 
 async function main() {
   fs.mkdirSync(OUT, {recursive: true});
+  fs.mkdirSync(GUIDE_OUT, {recursive: true});
   const {browser, worker, base} = await launch();
   try {
     // the Swift Library first: it builds the index, which the form and Swift Discover use too
@@ -300,6 +318,27 @@ async function main() {
     await library.goto(base + 'options/library.html#view=all');
     await library.waitForSelector('#items .item', {timeout: 30000});
     await wait(4000);
+
+    // Swift Guide, Tags and outliners: the cloud of All tags, Similar tags, and an outliner opened
+    await library.evaluate(() => showCloud());
+    await wait(800);
+    await shot(library, 'tag-cloud.png', GUIDE_OUT);
+    await library.evaluate(() => $('cloudDialog').close());
+    await library.evaluate(() => showSimilarTags());
+    await library.waitForSelector('#similarDialog[open]', {timeout: 15000});
+    await wait(1500);
+    await shot(library, 'similar-tags.png', GUIDE_OUT);
+    await library.evaluate(() => $('similarDialog').close());
+    await library.goto(base + 'options/library.html#view=outliners&outliner=501');
+    await library.reload();
+    await wait(4000);
+    await shot(library, 'outliner.png', GUIDE_OUT);
+    if (ONLY == 'guide') return;
+
+    await library.goto(base + 'options/library.html#view=all');
+    await library.reload();
+    await library.waitForSelector('#items .item', {timeout: 30000});
+    await wait(3000);
     await shot(library, '4-library.png');
 
     // 6: the menu of a dead link, in Dead links

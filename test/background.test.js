@@ -426,13 +426,13 @@ test('the lists of what you said go to storage.sync once, together with what ano
 
 test('a setting too large for storage.sync stays here only', async () => {
   const {context, storage, synced, special} = loadBackground();
-  synced.siteRules = [{site: 'old.example'}];
-  special['storage.sync.set'] = items => 'siteRules' in items ? Promise.reject(new Error('QUOTA_BYTES_PER_ITEM')) :
+  synced.hiddenTags = ['old'];
+  special['storage.sync.set'] = items => 'hiddenTags' in items ? Promise.reject(new Error('QUOTA_BYTES_PER_ITEM')) :
     Promise.resolve(Object.assign(synced, items));
-  await context.saveSettings({siteRules: [{site: 'new.example'}], splitAdd: false});
-  assert.ok(!('siteRules' in synced));
+  await context.saveSettings({hiddenTags: ['new'], splitAdd: false});
+  assert.ok(!('hiddenTags' in synced));
   assert.strictEqual(synced.splitAdd, false);
-  assert.strictEqual((await context.loadSettings()).siteRules[0].site, 'new.example');
+  assert.strictEqual((await context.loadSettings()).hiddenTags[0], 'new');
   assert.strictEqual(storage.splitAdd, false);
 });
 

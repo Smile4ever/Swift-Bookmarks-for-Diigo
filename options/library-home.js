@@ -225,7 +225,8 @@ function itemMenuButton(item) {
     if (hidden.length) choice('itemUnhide', {type: 'removeTags', tags: hidden});
     else if (settings.hiddenTags.length) choice('itemHide', {type: 'addTags', tags: [settings.hiddenTags[0]]});
     // Delete screenshot: the screenshots of a bookmark (index-item.js: screenshotsOf), as Delete does it (to the trash,
-    // so Put back brings them back); its description keeps the link, for Put back
+    // so Put back brings them back); once they are gone, the link to them out of its description (library-index.js:
+    // dropScreenshotLinks)
     const shots = item.type == 'bookmark' && !item.deletedAt
       ? screenshotsOf(item, liveItems()) : [];
     if (shots.length) {

@@ -393,8 +393,7 @@ input[type=checkbox] {
   accent-color: var(--blue);
 }
 
-textarea,
-.top-menu :is(.top-menu-label, .top-menu-url) {
+textarea {
   border: 1px solid var(--box);
   border-radius: 4px;
   background: transparent;
@@ -409,101 +408,7 @@ textarea {
   resize: vertical;
 }
 
-:is(textarea, .top-menu input):focus {
-  border-color: var(--blue);
-  outline: none;
-}
-
-
-/* ---- the menu at the top of diigo.com: a row per item, with ↑ ↓ (and ✕ for a link of your own) at the right ---- */
-
-.top-menu {
-  margin: 0 0 14px;
-  padding: 0;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  list-style: none;
-}
-
-.top-menu li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 10px;
-}
-
-.top-menu li + li {
-  border-top: 1px solid var(--line);
-}
-
-.top-menu label {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.top-menu input[type=checkbox] {
-  width: 16px;
-  height: 16px;
-  margin: 0;
-}
-
-.top-menu :is(.top-menu-label, .top-menu-url) {
-  min-width: 0;
-  padding: 4px 8px;
-}
-
-.top-menu .top-menu-label {
-  flex: 1;
-}
-
-.top-menu .top-menu-url {
-  flex: 2;
-}
-
-.top-menu button {
-  padding: 2px 9px;
-}
-
-.top-menu button:disabled {
-  visibility: hidden;
-}
-
-/* the rules per site: a site, its tags, private and read later, and ✕; two lines on a narrow window */
-
-.site-rules:empty {
-  display: none;
-}
-
-.site-rules li {
-  flex-wrap: wrap;
-}
-
-.site-rules :is(input, select) {
-  min-width: 0;
-  padding: 4px 8px;
-  border: 1px solid var(--box);
-  border-radius: 4px;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-}
-
-.site-rules select option {
-  background: var(--card, #fff);
-}
-
-.site-rules .rule-site {
-  flex: 1 1 140px;
-}
-
-.site-rules .rule-tags {
-  flex: 2 1 180px;
-}
-
-.site-rules :is(input, select):focus {
+textarea:focus {
   border-color: var(--blue);
   outline: none;
 }

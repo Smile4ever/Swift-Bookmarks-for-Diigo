@@ -67,9 +67,7 @@ function show({keepScroll = false, push = false} = {}) {
   safely('duplicates', () => $('duplicatesBar').hidden = state.view != 'duplicates');
   safely('titles', () => $('notitleBar').hidden = state.view != 'notitle');
   safely('dead links', showDeadBar);
-  safely('random', () => {
-    $('randomBar').hidden = !state.random;
-  });
+  safely('random', showRandomBar);
   if (state.view == 'trash') safely('trash size', showTrashSize);
   // out of the trash: the message of Empty closed (library-trash.js)
   safely('trash', leftTrash);
@@ -387,7 +385,11 @@ function itemElement(item) {
   // to draw it anew in its place (redrawItems)
   li.dataset.id = item.id;
   li.redraw = itemElement;
-  if (item.thumb && item.type && item.type != 'bookmark') li.append(thumbElement(item));
+  // with a hidden tag (noHiddenThumbs): no picture, only its room, nothing read from its page either
+  const noPicture = settings.noHiddenThumbs !== false && screenshotOfHidden(settings, item.tags || []);
+  if (noPicture) {
+    if (thumbRoom() || item.thumb) li.append(placeholderElement(item));
+  } else if (item.thumb && item.type && item.type != 'bookmark') li.append(thumbElement(item));
   // a bookmark with a screenshot of its page (screenshotThumbs): that, a click opens it as an image; else the preview
   // image of its page (previewThumbs); else, with small pictures, the room of one (placeholderElement)
   else if ((!item.type || item.type == 'bookmark') && settings.screenshotThumbs !== false && screenshotFor(item)) {

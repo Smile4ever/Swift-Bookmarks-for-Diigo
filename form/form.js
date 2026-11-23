@@ -199,7 +199,6 @@ function showSuggestions() {
 // the 100 most used tags in alphabetical order, the more used the larger
 function showCloud() {
   const box = $('cloud-tags');
-  $('edit-tags').href = 'https://www.diigo.com/cloud/' + encodeURIComponent(data.user);
   if (!data.userTags.length) {
     box.textContent = t('noTags');
     return;
@@ -436,23 +435,6 @@ function showSimilar() {
   $('similar').hidden = !data.similar.length;
 }
 
-// What the rules of the options page say for a new bookmark of this site (settings.js: siteRules): their tags in the
-// field, and private or read later as they say; a later rule for the same site over an earlier one
-function siteRulesFor(url) {
-  let host = '';
-  try {
-    host = new URL(url).hostname.toLowerCase().replace(/^www\./, '');
-  } catch (e) {
-  }
-  const fits = rule => {
-    const site = (rule.site || '').trim().toLowerCase().replace(/^www\./, '');
-    return !!site && !!host && (host == site || host.endsWith('.' + site));
-  };
-  const rules = (settings.siteRules || []).filter(fits);
-  const last = key => rules.map(rule => rule[key]).filter(value => typeof value == 'boolean').at(-1);
-  return {tags: [...new Set(rules.flatMap(rule => rule.tags || []))], private: last('private'), unread: last('unread')};
-}
-
 if (asking) {
   document.body.classList.add('asking');
   $('spinner').hidden = true;
@@ -514,11 +496,6 @@ function show(answer, loaded) {
   $('private').checked = bm.private;
   $('unread').checked = bm.unread;
 
-  // a new one: what the rules of its site say
-  const rules = bm.saved ? {tags: []} : siteRulesFor(bm.url);
-  if (typeof rules.private == 'boolean') $('private').checked = rules.private;
-  if (typeof rules.unread == 'boolean') $('unread').checked = rules.unread;
-
   // Move, when the page is a bookmark of the browser too
   $('move').hidden = !data.browserBookmarks?.length;
 
@@ -527,7 +504,6 @@ function show(answer, loaded) {
   showSharing();
   showSimilar();
   // the cursor after the tags of the bookmark, where the next tag goes
-  const tags = [...bm.tags, ...rules.tags.filter(tag => !bm.tags.some(other => other.toLowerCase() == tag.toLowerCase()))];
-  if (tags.length) setTagText(joinTags(tags));
+  if (bm.tags.length) setTagText(joinTags(bm.tags));
   else markChosenTags();
 }

@@ -47,12 +47,17 @@ test('every file of a manifest is in its build and exists', () => {
 
 test('diigo.com gets every script of diigo-site/, common.js first and diigo-site.js, which runs them, last', () => {
   const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8'));
-  const scripts = manifest.content_scripts.find(script => script.matches.includes('https://www.diigo.com/*')).js;
+  // hide-page.js on its own, in the page itself (world MAIN), as early as it can be, on www.diigo.com only
+  const inPage = manifest.content_scripts.filter(script => script.world == 'MAIN');
+  assert.deepStrictEqual(inPage.map(script => [script.js, script.matches, script.run_at]),
+    [[['diigo-site/hide-page.js'], ['https://www.diigo.com/*'], 'document_start']]);
+  const scripts = manifest.content_scripts.find(script => script.world != 'MAIN' && script.matches.includes('https://www.diigo.com/*')).js;
   const site = scripts.filter(file => file.startsWith('diigo-site/'));
-  const onDisk = fs.readdirSync(path.join(ROOT, 'diigo-site')).filter(file => file.endsWith('.js')).map(file => 'diigo-site/' + file);
+  const onDisk = fs.readdirSync(path.join(ROOT, 'diigo-site')).filter(file => file.endsWith('.js') && file != 'hide-page.js')
+    .map(file => 'diigo-site/' + file);
   assert.deepStrictEqual([...site].sort(), onDisk.sort());
   // Discover on diigo.com is left as Diigo made it: Swift Discover is a page of the add-on
-  assert.strictEqual(manifest.content_scripts.length, 1);
+  assert.strictEqual(manifest.content_scripts.length, 2);
   assert.strictEqual(scripts[0], 'options/settings.js');
   assert.strictEqual(site[0], 'diigo-site/common.js');
   assert.strictEqual(site.at(-1), 'diigo-site/diigo-site.js');

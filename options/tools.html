@@ -109,11 +109,34 @@
         </div>
       </div>
     </section>
+
+    <!-- only in a development install (tools-test.js): many bookmarks at once, to find the limits of a Diigo account;
+         in English only, as it is for the maker -->
+    <section class="tool-category limit-test" id="limitTest" hidden>
+      <h2>Limit test (development install only)</h2>
+      <div class="tool-card">
+        <p>Saves this many bookmarks to the Diigo account you're signed in with, one after the other, as the bookmark form
+          saves them: private, at <code>https://example.com/swift-limit-test/&lt;n&gt;</code>, with the tag
+          <code>swift-limit-test</code>. The numbers go on where the last run stopped (kept per account in this browser),
+          so each one is a new bookmark. It stops at the first one Diigo doesn't save and shows what Diigo answered.
+          Delete them afterwards in the Swift Library: search for the tag, Bulk edit, Delete.</p>
+        <p class="limit-row">
+          <label>Start at # <input type="number" id="limitFrom" min="1" value="1"></label>
+          <label>Bookmarks <input type="number" id="limitCount" min="1" max="5000" value="100"></label>
+          <label>Pause (ms) <input type="number" id="limitPause" min="0" max="10000" value="300"></label>
+          <button type="button" class="button" id="limitStart">Start</button>
+          <button type="button" class="button" id="limitStop" hidden>Stop</button>
+        </p>
+        <p id="limitStatus" aria-live="polite"></p>
+        <pre id="limitAnswer" hidden></pre>
+      </div>
+    </section>
   </main>
 
   <script src="settings.js"></script>
   <script src="index-item.js"></script>
   <script src="user-menu.js"></script>
   <script src="tools.js"></script>
+  <script src="tools-test.js"></script>
 </body>
 </html>

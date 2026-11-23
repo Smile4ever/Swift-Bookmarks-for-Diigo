@@ -17,6 +17,12 @@
     "optionPreviewThumbs": {
         "message": "Un marcador sin captura de pantalla: la imagen de vista previa de su página (como las redes sociales muestran un enlace), o su icono, como imagen pequeña delante. Se lee una vez de la página (el sitio ve una solicitud de este navegador) y se guarda en este navegador; un clic abre la página."
     },
+    "optionNoHiddenThumbs": {
+        "message": "Un elemento con una etiqueta oculta, mostrado por Mostrar ocultos o una búsqueda: sin imagen delante (ni captura, ni imagen de vista previa, ni imagen propia)."
+    },
+    "optionHideOnDiigo": {
+        "message": "También en diigo.com: en tu biblioteca allí, ningún marcador con una etiqueta oculta ni etiquetas ocultas en la lista de etiquetas, salvo que busques esa etiqueta."
+    },
     "screenshotDescription": {
         "message": "Captura de la página $TITLE$\n$URL$",
         "placeholders": {
@@ -423,7 +429,7 @@
         "message": "Pon a un marcador la etiqueta hidden y desaparece de la Swift Library, la barra de direcciones, Swift Discover y las sugerencias del formulario: útil para lo que prefieres que no aparezca cuando alguien mira por encima de tu hombro. Para verlos, busca la etiqueta completa (hidden) o marca Mostrar ocultos encima de la lista. Elige tus propias etiquetas ocultas en Swift Opciones; las etiquetas que solo tienen marcadores ocultos también se ocultan, para no delatarlos."
     },
     "guideHiddenWarn": {
-        "message": "Oculto no es privado: en diigo.com mismo, y para otros si el marcador es público, sigue visible. Hazlo también privado si nadie más debe verlo."
+        "message": "Oculto no es privado: otros siguen viendo un marcador público en diigo.com, y tú lo ves allí en un navegador sin este complemento. Hazlo también privado si nadie más debe verlo."
     },
     "guideHiddenChoose": {
         "message": "Elegir etiquetas ocultas"
@@ -458,6 +464,18 @@
     "guideTagsText": {
         "message": "Todas tus etiquetas con un cuadro para encontrar una, las 300 más usadas como nube, una etiqueta renombrada en todas partes a la vez, y etiquetas casi iguales (receta y recetas) unidas en una."
     },
+    "guideTagsCloud": {
+        "message": "Todas las etiquetas, bajo Etiquetas en la barra lateral: cada etiqueta en una nube, más grande cuanto más la usas, con un cuadro para encontrar una. Un clic muestra lo que la tiene."
+    },
+    "guideTagsRename": {
+        "message": "Cambiar el nombre de una etiqueta: elígela en la barra lateral y luego ✎ a su lado. Cambia de una vez en todos tus elementos, también en Diigo."
+    },
+    "guideTagsSimilar": {
+        "message": "Etiquetas parecidas, en Limpiar en Inicio: etiquetas con o sin guion, espacio o acento, o una el plural de la otra. Elige la que se queda y Combinar, o No son iguales para dejarlas."
+    },
+    "guideOutlinersMore": {
+        "message": "Abre uno para escribir en él con el teclado, como en Diigo: Intro para un elemento nuevo, Tab para sangrarlo, Mayús+Intro para su nota (todos los atajos están abajo). De tu biblioteca añade marcadores como enlaces, y Añadir a un outliner lo hace desde Editar o Edición múltiple. Los cambios están en Diigo un momento después."
+    },
     "guideOutlinersText": {
         "message": "Tus outliners de Diigo también están en la barra lateral de la Swift Library: un árbol para escribir con el teclado, con elementos de tu biblioteca."
     },
@@ -487,6 +505,9 @@
     },
     "privacyIntro": {
         "message": "La extensión no envía nada a su autor. Habla con diigo.com por ti, con tu sesión allí, y la copia de tu biblioteca (el índice) se queda en este navegador. Estos ajustes se guardan con la cuenta de tu navegador (Firefox Sync, Google o Microsoft) cuando sincroniza, para que tus otros ordenadores también los tengan; las carpetas para sincronizar se quedan en este ordenador."
+    },
+    "optionCheckHiddenLinks": {
+        "message": "Comprobar también por sí solos los enlaces de marcadores con una etiqueta oculta. Desactivado: sus sitios no reciben ninguna solicitud de este navegador para ellos, salvo que hagas clic en su ·."
     },
     "optionAutoCheckLinks": {
         "message": "Comprobar cada enlace por sí solo en cuanto aparece en la lista. Desactivado: un enlace solo se comprueba cuando lo pides, con un clic en su ·, Comprobar todos los enlaces, o buscando enlaces rotos en la barra lateral; lo comprobado antes sigue a la vista."
@@ -522,6 +543,12 @@
             }
         }
     },
+    "indexHead": {
+        "message": "Índice"
+    },
+    "indexOptionsIntro": {
+        "message": "La copia de tu biblioteca de Diigo en este navegador, con la que trabaja la Swift Library. Se mantiene al día sola, así que esto es solo para cuando algo no parece cuadrar: Actualizar trae lo que cambió en Diigo, Crear de nuevo vuelve a leer toda tu biblioteca."
+    },
     "logHead": {
         "message": "Registro"
     },
@@ -532,7 +559,7 @@
         "message": "Informar de un problema"
     },
     "logReportText": {
-        "message": "¿Algo no funciona? Guarda el registro y adjunta el archivo a un nuevo issue en GitHub. El archivo contiene los errores de abajo, la versión del complemento, tu navegador y tus ajustes, sin tus etiquetas ocultas, reglas por sitio ni carpetas; usa el filtro para guardar solo los errores que importan."
+        "message": "¿Algo no funciona? Guarda el registro y adjunta el archivo a un nuevo issue en GitHub. El archivo contiene los errores de abajo, la versión del complemento, tu navegador y tus ajustes, sin tus etiquetas ocultas ni carpetas; usa el filtro para guardar solo los errores que importan."
     },
     "logSave": {
         "message": "Guardar el registro para un informe de error"
@@ -652,10 +679,7 @@
         "message": "Ocultar Share to outliner: en el formulario de marcador y en la Swift Library (añadir, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Cuatro botones arriba en la barra lateral en lugar del botón + con un menú: Bookmark, Image, PDF y Note, para añadir con un clic"
-    },
-    "topMenuRemove": {
-        "message": "Quitar"
+        "message": "Cinco botones arriba en la barra lateral en lugar del botón + con un menú: Marcador, Imagen, PDF, Nota y Outliner, para añadir con un clic"
     },
     "cleanupHead": {
         "message": "Buscar y limpiar tus marcadores"
@@ -852,6 +876,9 @@
     "searchFieldTitle": {
         "message": "Título"
     },
+    "searchFieldContent": {
+        "message": "Texto de una nota"
+    },
     "searchFieldDescription": {
         "message": "Descripción"
     },
@@ -919,6 +946,15 @@
     },
     "libraryMenu": {
         "message": "Swift Library"
+    },
+    "libraryOptionsListHead": {
+        "message": "La lista e Inicio"
+    },
+    "libraryOptionsPicturesHead": {
+        "message": "Capturas"
+    },
+    "libraryOptionsBulkHead": {
+        "message": "Edición múltiple y Borrar"
     },
     "libraryOptionsIntro": {
         "message": "Toda tu biblioteca de Diigo desde el índice de este navegador: buscar, ordenar y las etiquetas al instante, también con miles de marcadores."
@@ -1082,6 +1118,9 @@
     "libraryRandomIntro": {
         "message": "10 de tus marcadores al azar, ninguno con una etiqueta oculta. Haz clic de nuevo a la izquierda en Al azar para otros 10."
     },
+    "libraryRandomNone": {
+        "message": "Aún no hay marcadores."
+    },
     "libraryRandom": {
         "message": "Al azar"
     },
@@ -1194,6 +1233,17 @@
         "placeholders": {
             "count": {
                 "content": "$1"
+            }
+        }
+    },
+    "libraryDeletingPending": {
+        "message": "Diigo está eliminando lo que hay en la papelera · $DONE$ de $COUNT$",
+        "placeholders": {
+            "done": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
             }
         }
     },
@@ -1349,6 +1399,48 @@
     "shortcutsHead": {
         "message": "Atajos"
     },
+    "shortcutsLibraryHead": {
+        "message": "En la Swift Library"
+    },
+    "shortcutsOutlinerHead": {
+        "message": "En un outliner"
+    },
+    "shortcutFind": {
+        "message": "Al cuadro de búsqueda, también en Swift Discover (otra vez: la barra de búsqueda del navegador)"
+    },
+    "shortcutSaveEdit": {
+        "message": "Guardar, en Editar y en las ventanas para añadir un elemento"
+    },
+    "shortcutBulkSelect": {
+        "message": "Edición múltiple: marcar uno más abajo o arriba"
+    },
+    "shortcutBulkEnds": {
+        "message": "Edición múltiple: marcar todos hasta el final o hasta arriba"
+    },
+    "shortcutBulkDelete": {
+        "message": "Edición múltiple: eliminar lo marcado (en la papelera: quitarlo para siempre)"
+    },
+    "shortcutCloseMenu": {
+        "message": "Cerrar el menú ⋯ de un elemento"
+    },
+    "shortcutOutlineNew": {
+        "message": "Un elemento nuevo debajo (al principio del texto: encima)"
+    },
+    "shortcutOutlineNote": {
+        "message": "A la nota del elemento, y de vuelta"
+    },
+    "shortcutOutlineIndent": {
+        "message": "Sangrar el elemento, o quitarle la sangría"
+    },
+    "shortcutOutlineMove": {
+        "message": "Mover el elemento arriba o abajo"
+    },
+    "shortcutOutlineRemove": {
+        "message": "En un elemento vacío: quitarlo"
+    },
+    "shortcutOutlineDelete": {
+        "message": "Eliminar el elemento con los que tiene debajo (pregunta antes)"
+    },
     "shortcutsFormHead": {
         "message": "En el formulario"
     },
@@ -1415,9 +1507,6 @@
     },
     "tagCloudHead": {
         "message": "Tus 100 etiquetas más usadas"
-    },
-    "editTags": {
-        "message": "Gestionar etiquetas"
     },
     "noTags": {
         "message": "Todavía no tienes etiquetas."
@@ -1841,33 +1930,6 @@
     },
     "optionCleanUrls": {
         "message": "Un marcador nuevo sin parámetros de seguimiento (utm_…, fbclid y similares), y en la dirección web que la página llama suya (canonical) cuando está en el mismo sitio"
-    },
-    "siteRulesHead": {
-        "message": "Reglas por sitio"
-    },
-    "siteRulesIntro": {
-        "message": "Lo que recibe en el formulario un marcador nuevo de un sitio: etiquetas, privado o público, leer más tarde o no. Una regla para example.com también vale para sus subdominios, como blog.example.com."
-    },
-    "siteRulesAdd": {
-        "message": "Añadir una regla"
-    },
-    "siteRulesSite": {
-        "message": "Sitio, p. ej. github.com"
-    },
-    "siteRulesTags": {
-        "message": "Etiquetas"
-    },
-    "ruleAsUsualPrivacy": {
-        "message": "Privado: como siempre"
-    },
-    "rulePublic": {
-        "message": "Público"
-    },
-    "ruleAsUsualUnread": {
-        "message": "Leer más tarde: como siempre"
-    },
-    "ruleNotReadLater": {
-        "message": "No leer más tarde"
     },
     "similarTags": {
         "message": "Etiquetas parecidas"

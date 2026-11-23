@@ -80,6 +80,15 @@ function deleteNow(done) {
   return deletePending(done);
 }
 
+// While Diigo deletes those that waited (after DELETE_DELAY): the bar below the blue one says how far, with a bar
+// (showPendingProgress), as with many of them it takes a while; Empty trash says it itself (done).
+let deletingPending = false;
+
+function showPendingProgress(done, total) {
+  showStatus(message('libraryDeletingPending', [String(done), String(total)]));
+  showNoticeProgress(done, total);
+}
+
 async function deletePending(done) {
   if (controller) {
     return new Promise(resolve => pendingTimer = setTimeout(() => resolve(deletePending(done)), 2000));
@@ -89,12 +98,15 @@ async function deletePending(done) {
   const signal = start();
   let result = {deleted: 0, failed: 0};
   const deletedIds = [];
+  deletingPending = !done && ids.length > 0;
+  if (deletingPending) showPendingProgress(0, ids.length);
   try {
     let count = 0;
     result = await deleteItems(ids, signal, (batch, ok) => {
       if (ok) deletedIds.push(...batch);
       count += batch.length;
       done?.(count);
+      if (deletingPending) showPendingProgress(count, ids.length);
     });
     if (forget && deletedIds.length) {
       deletedIds.forEach(id => trash.delete(id));
@@ -103,6 +115,11 @@ async function deletePending(done) {
   } catch (e) {
     reportProblem(e, 'delete');
   } finally {
+    if (deletingPending) {
+      deletingPending = false;
+      showNoticeProgress(0, null);
+      showStatus('');
+    }
     stop();
     forgetPending = false;
     // what Diigo didn't delete is in the list again
