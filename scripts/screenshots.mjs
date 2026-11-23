@@ -114,6 +114,7 @@ const SAVED_PAGE = 'https://www.cooking.example/italian/spaghetti-carbonara';
 const demoPage = (title, description) => `<!doctype html><html><head><meta charset="utf-8">
 <title>${title}</title>
 <meta name="description" content="${description}">
+<meta property="og:image" content="${thumbUrl('https://www.cooking.example/' + encodeURIComponent(title))}">
 <meta name="keywords" content="recipes, italian, pasta, dinner">
 <style>
   body { margin: 0; font: 17px/1.6 Georgia, serif; color: #2b2b2b; background: #fbf8f3; }
@@ -133,6 +134,26 @@ const demoPage = (title, description) => `<!doctype html><html><head><meta chars
   <h2>Ingredients</h2>
   <ul><li>400 g fresh pasta</li><li>300 g mushrooms</li><li>2 cloves of garlic</li><li>80 g parmigiano</li></ul>
 </main></body></html>`;
+// The preview image of a page (og:image), for its small picture in the Swift Library (previewThumbs): a picture drawn
+// here for each page, its colours by its site and a shape by its name, so the list looks lived in
+const thumbUrl = url => 'https://images.example/thumb/' + encodeURIComponent(new URL(url).hostname + new URL(url).pathname) + '.svg';
+const SITE_COLOURS = {
+  'cooking.example': ['#f3d9a4', '#c0662b'], 'learn.example': ['#b9d7f5', '#3b6fb6'], 'travel.example': ['#bfe3d0', '#2f8a63'],
+  'dev.example': ['#d6d0f5', '#5b4bb0'], 'design.example': ['#f7c8d8', '#b5446e'], 'photo.example': ['#ffe0a3', '#d9822b'],
+  'books.example': ['#e6d5c3', '#8a5a3c'], 'blog.example': ['#d3e4e8', '#3f7482'], 'events.example': ['#e0e0e0', '#707070'],
+};
+function thumbSvg(name) {
+  const site = Object.keys(SITE_COLOURS).find(host => name.includes(host)) || 'blog.example';
+  const [light, dark] = SITE_COLOURS[site];
+  let hash = 0;
+  for (const c of name) hash = (hash * 31 + c.charCodeAt(0)) >>> 0;
+  const x = 60 + hash % 200, y = 40 + (hash >> 8) % 100, r = 40 + (hash >> 16) % 50;
+  const shape = hash % 3 == 0 ? `<circle cx="${x}" cy="${y}" r="${r}" fill="${dark}" opacity=".75"/>`
+    : hash % 3 == 1 ? `<rect x="${x - r}" y="${y - r / 2}" width="${r * 2}" height="${r * 1.4}" rx="12" fill="${dark}" opacity=".7"/>`
+    : `<path d="M0 200 L${x} ${y} L${x + 90} 150 L320 ${y + 20} L320 200Z" fill="${dark}" opacity=".8"/>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200"><rect width="320" height="200" fill="${light}"/>${shape}</svg>`;
+}
+
 const PAGES = {
   [NEW_PAGE]: demoPage('Fresh Tagliatelle with Mushrooms', 'Fresh egg pasta with a creamy mushroom sauce, ready in 25 minutes.'),
   [SAVED_PAGE]: demoPage('Classic Spaghetti Carbonara', 'A classic Roman pasta with eggs, pecorino, guanciale and black pepper.'),
@@ -217,13 +238,17 @@ function answerFor(url, method, postData) {
     if (u.pathname.startsWith('/outliner')) return json(outlinerAnswer(u.pathname));
     return json({code: 1});
   }
-  if (u.host == 'images.example') return {status: 200, headers: {'Content-Type': 'image/svg+xml'}, body: PANORAMA};
+  if (u.host == 'images.example') {
+    const body = u.pathname.startsWith('/thumb/') ? thumbSvg(decodeURIComponent(u.pathname)) : PANORAMA;
+    return {status: 200, headers: {'Content-Type': 'image/svg+xml'}, body};
+  }
   if (u.hostname.endsWith('.example')) {
     if (PAGES[u.href]) return {status: 200, headers: {'Content-Type': 'text/html; charset=utf-8'}, body: PAGES[u.href]};
     const status = statusOf(u.href.replace(/\/$/, '')) || 200;
     if (status == 301) return {status: 301, headers: {Location: 'https://travel.example/lisbon/walking-tours'}, body: ''};
     const title = u.pathname.split('/').pop().replace(/-/g, ' ');
-    return {status, headers: {'Content-Type': 'text/html'}, body: status == 404 ? '<title>Not found</title>' : `<title>${title}</title>`};
+    return {status, headers: {'Content-Type': 'text/html'}, body: status == 404 ? '<title>Not found</title>'
+      : `<title>${title}</title><meta property="og:image" content="${thumbUrl(u.href)}">`};
   }
   return null;
 }

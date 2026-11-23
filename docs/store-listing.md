@@ -46,7 +46,7 @@ leaves the store ones as they are.
 | 1-form.png | The bookmark form on the page: your tags that appear in the title are suggested; one click adds them. |
 | 2-saved.png | A page that is already in your library: the form shows what you saved, and when. |
 | 3-tag-cloud.png | Your 100 most used tags, the more used the larger. |
-| 4-library.png | The Swift Library: your whole Diigo library at once, with the status of each link (200, 404). |
+| 4-library.png | The Swift Library: your whole Diigo library at once, with a picture of each page and the status of its link (200, 404). |
 | 5-discover.png | Swift Discover: the Hot Bookmarks of the Diigo community, without what you have, in the order For you. |
 | 6-archive.png | Click the status code of a dead link to look it up in the Wayback Machine or on archive.is. |
 
@@ -183,7 +183,8 @@ collection. AMO asks for a privacy policy when an add-on sends data; use the tex
 | `scripting` | Puts the bookmark form on the page when you click the toolbar button, press the shortcut or use the right-click menu. |
 | `storage` | Keeps the options, the tags of your last bookmark, the bookmarks still to sync, and the Hot Bookmarks of Swift Discover with those you marked Not interested. |
 | `tabs` | Reads the URL and title of the tab, for the bookmark and to show on the toolbar button whether the page is already saved. |
-| Host permission `<all_urls>` | The form can be put on any page you want to bookmark; the add-on asks diigo.com whether a page is saved; it reads the title of a linked page for "Save link to Diigo"; and it checks whether the links in your library still work. |
+| `webRequest` | Notices the requests diigo.com itself makes when you save, edit or delete something there, so the add-on's copy of your library stays up to date and what you delete goes to its trash. While a screenshot is taken, it watches the requests of that one tab, to wait until the page has fully loaded. It only observes: it never blocks or changes a request. |
+| Host permission `<all_urls>` | The form can be put on any page you want to bookmark; the add-on asks diigo.com whether a page is saved; it reads the title of a linked page for "Save link to Diigo"; it checks whether the links in your library still work, and reads the preview image of their pages for the small picture at each bookmark; and it takes a screenshot of a page when you ask for one. |
 
 **Remote code**: No, the add-on uses no remote code.
 
