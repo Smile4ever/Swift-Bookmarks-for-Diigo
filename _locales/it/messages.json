@@ -59,8 +59,40 @@
     "itemMenu": {
         "message": "Altro per questo elemento"
     },
+    "itemRecreate": {
+        "message": "Ricrea"
+    },
+    "itemRecreateConfirm": {
+        "message": "Ricreare «$TITLE$»? Un nuovo elemento con lo stesso contenuto e la data di oggi; il vecchio viene eliminato definitivamente, con ciò che ha solo lui (evidenziazioni, il suo posto negli outliner, un link di condivisione).",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemRecreated": {
+        "message": "Ricreato."
+    },
+    "itemRecreateNoCopy": {
+        "message": "Diigo non ha creato un nuovo elemento: ha salvato di nuovo il vecchio, senza modifiche. Non è stato eliminato nulla."
+    },
     "itemPin": {
         "message": "Fissa su Inizio"
+    },
+    "itemAddToOutliner": {
+        "message": "Aggiungi a outliner"
+    },
+    "itemAddedToOutliner": {
+        "message": "Aggiunto all'outliner"
+    },
+    "itemShare": {
+        "message": "Condividi"
+    },
+    "itemSharedToGroup": {
+        "message": "Condiviso con il gruppo"
+    },
+    "itemNoGroups": {
+        "message": "Non sei ancora in nessun gruppo Diigo."
     },
     "itemHide": {
         "message": "Nascondi (tag nascosto)"
@@ -253,6 +285,9 @@
     "sideRecent": {
         "message": "Recenti"
     },
+    "cloudShowHidden": {
+        "message": "Mostra tag nascosti"
+    },
     "sideAllTags": {
         "message": "Tutti i tag"
     },
@@ -266,7 +301,7 @@
         "message": "Non solo segnalibri"
     },
     "guideTypesIntro": {
-        "message": "Una libreria Diigo contiene più che pagine web. La Swift Library mostra con un'icona prima del titolo di che tipo è ogni elemento, e sotto Tutto nella barra laterale scegli un tipo. I pulsanti per aggiungere in cima alla barra laterale creano ciascuno di essi, tranne Kindle."
+        "message": "Una libreria Diigo contiene più che pagine web. La Swift Library mostra con un'icona prima del titolo di che tipo è ogni elemento, e sotto Tutto nella barra laterale scegli un tipo. I pulsanti per aggiungere in alto a destra creano ciascuno di essi, tranne Kindle."
     },
     "guideTypeBookmark": {
         "message": "Segnalibri: pagine web, salvate con il modulo o aggiunte qui, con lo stato della loro pagina prima del titolo."
@@ -679,7 +714,7 @@
         "message": "Nascondi Share to outliner: nel modulo del segnalibro e nella Swift Library (aggiunta, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Cinque pulsanti in cima alla barra laterale al posto del pulsante + con un menu: Segnalibro, Immagine, PDF, Nota e Outliner, per aggiungere con un clic"
+        "message": "Cinque pulsanti in alto a destra al posto del pulsante + con un menu: Segnalibro, Immagine, PDF, Nota e Outliner, per aggiungere con un clic"
     },
     "cleanupHead": {
         "message": "Cerca e riordina i tuoi segnalibri"
@@ -1207,6 +1242,17 @@
         "message": "Impossibile ripristinarne $COUNT$:",
         "placeholders": {
             "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryBusyWait": {
+        "message": "Occupato con l'indice o con l'eliminazione: riprova quando ha finito."
+    },
+    "libraryForgetConfirm": {
+        "message": "Eliminare definitivamente «$TITLE$» dal cestino?",
+        "placeholders": {
+            "title": {
                 "content": "$1"
             }
         }

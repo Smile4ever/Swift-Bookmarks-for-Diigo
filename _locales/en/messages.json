@@ -59,8 +59,40 @@
     "itemMenu": {
         "message": "More for this item"
     },
+    "itemRecreate": {
+        "message": "Recreate"
+    },
+    "itemRecreateConfirm": {
+        "message": "Recreate “$TITLE$”? A new item with the same content and today’s date; the old one is deleted for good, with what only it has (highlights, its place in outliners, a share link).",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemRecreated": {
+        "message": "Recreated."
+    },
+    "itemRecreateNoCopy": {
+        "message": "Diigo made no new item: it saved the old one again, unchanged. Nothing was deleted."
+    },
     "itemPin": {
         "message": "Pin to Start"
+    },
+    "itemAddToOutliner": {
+        "message": "Add to outliner"
+    },
+    "itemAddedToOutliner": {
+        "message": "Added to the outliner"
+    },
+    "itemShare": {
+        "message": "Share"
+    },
+    "itemSharedToGroup": {
+        "message": "Shared to the group"
+    },
+    "itemNoGroups": {
+        "message": "You are in no Diigo group yet."
     },
     "itemHide": {
         "message": "Hide (hidden tag)"
@@ -253,6 +285,9 @@
     "sideRecent": {
         "message": "Recent"
     },
+    "cloudShowHidden": {
+        "message": "Show hidden tags"
+    },
     "sideAllTags": {
         "message": "All tags"
     },
@@ -266,7 +301,7 @@
         "message": "Not only bookmarks"
     },
     "guideTypesIntro": {
-        "message": "A Diigo library holds more than web pages. The Swift Library shows what kind each item is with an icon before its title, and under All in the side bar you choose one kind. The add buttons at the top of the side bar make each of them, except Kindle."
+        "message": "A Diigo library holds more than web pages. The Swift Library shows what kind each item is with an icon before its title, and under All in the side bar you choose one kind. The add buttons at the top right make each of them, except Kindle."
     },
     "guideTypeBookmark": {
         "message": "Bookmarks: web pages, saved with the bookmark form or added here, with the status of their page before the title."
@@ -689,7 +724,7 @@
         "message": "Hide Share to outliner: in the bookmark form and in the Swift Library (adding, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Five buttons at the top of the side bar instead of the + button with a menu: Bookmark, Image, PDF, Note and Outliner, so you add with one click"
+        "message": "Five buttons at the top right instead of the + button with a menu: Bookmark, Image, PDF, Note and Outliner, so you add with one click"
     },
     "cleanupHead": {
         "message": "Search and clean up your bookmarks"
@@ -1217,6 +1252,17 @@
         "message": "$COUNT$ couldn't be put back:",
         "placeholders": {
             "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryBusyWait": {
+        "message": "Busy with the index or deleting: try again once that is done."
+    },
+    "libraryForgetConfirm": {
+        "message": "Remove “$TITLE$” from the trash for good?",
+        "placeholders": {
+            "title": {
                 "content": "$1"
             }
         }

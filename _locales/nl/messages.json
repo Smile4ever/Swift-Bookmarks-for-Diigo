@@ -59,8 +59,40 @@
     "itemMenu": {
         "message": "Meer voor dit item"
     },
+    "itemRecreate": {
+        "message": "Opnieuw aanmaken"
+    },
+    "itemRecreateConfirm": {
+        "message": "“$TITLE$” opnieuw aanmaken? Een nieuw item met dezelfde inhoud en de datum van vandaag; het oude wordt definitief verwijderd, met wat alleen dat heeft (markeringen, zijn plaats in outliners, een share link).",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemRecreated": {
+        "message": "Opnieuw aangemaakt."
+    },
+    "itemRecreateNoCopy": {
+        "message": "Diigo maakte geen nieuw item: het bewaarde het oude opnieuw, ongewijzigd. Er is niets verwijderd."
+    },
     "itemPin": {
         "message": "Vastzetten op Start"
+    },
+    "itemAddToOutliner": {
+        "message": "Toevoegen aan outliner"
+    },
+    "itemAddedToOutliner": {
+        "message": "Toegevoegd aan de outliner"
+    },
+    "itemShare": {
+        "message": "Delen"
+    },
+    "itemSharedToGroup": {
+        "message": "Gedeeld met de groep"
+    },
+    "itemNoGroups": {
+        "message": "Je zit nog in geen enkele Diigo-groep."
     },
     "itemHide": {
         "message": "Verbergen (verborgen tag)"
@@ -253,6 +285,9 @@
     "sideRecent": {
         "message": "Recent"
     },
+    "cloudShowHidden": {
+        "message": "Verborgen tags tonen"
+    },
     "sideAllTags": {
         "message": "Alle tags"
     },
@@ -266,7 +301,7 @@
         "message": "Niet alleen bladwijzers"
     },
     "guideTypesIntro": {
-        "message": "Een Diigo-bibliotheek bevat meer dan webpagina's. De Swift Library toont met een icoon voor de titel wat voor item het is, en onder Alles in de zijbalk kies je één soort. De knoppen om toe te voegen bovenaan de zijbalk maken elk ervan, behalve Kindle."
+        "message": "Een Diigo-bibliotheek bevat meer dan webpagina's. De Swift Library toont met een icoon voor de titel wat voor item het is, en onder Alles in de zijbalk kies je één soort. De knoppen om toe te voegen rechtsboven maken elk ervan, behalve Kindle."
     },
     "guideTypeBookmark": {
         "message": "Bladwijzers: webpagina's, bewaard met het bladwijzerformulier of hier toegevoegd, met de status van hun pagina voor de titel."
@@ -679,7 +714,7 @@
         "message": "Share to outliner verbergen: in het bladwijzerformulier en in de Swift Library (toevoegen, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Vijf knoppen bovenaan de zijbalk in plaats van de knop + met een menu: Bladwijzer, Afbeelding, PDF, Notitie en Outliner, zodat je met één klik toevoegt"
+        "message": "Vijf knoppen rechtsboven in plaats van de knop + met een menu: Bladwijzer, Afbeelding, PDF, Notitie en Outliner, zodat je met één klik toevoegt"
     },
     "cleanupHead": {
         "message": "Bladwijzers zoeken en opruimen"
@@ -1207,6 +1242,17 @@
         "message": "$COUNT$ konden niet teruggezet worden:",
         "placeholders": {
             "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryBusyWait": {
+        "message": "Bezig met de index of met verwijderen: probeer opnieuw zodra dat klaar is."
+    },
+    "libraryForgetConfirm": {
+        "message": "“$TITLE$” definitief uit de prullenbak weggooien?",
+        "placeholders": {
+            "title": {
                 "content": "$1"
             }
         }

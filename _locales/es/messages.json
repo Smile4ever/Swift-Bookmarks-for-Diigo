@@ -59,8 +59,40 @@
     "itemMenu": {
         "message": "Más para este elemento"
     },
+    "itemRecreate": {
+        "message": "Volver a crear"
+    },
+    "itemRecreateConfirm": {
+        "message": "¿Volver a crear «$TITLE$»? Un elemento nuevo con el mismo contenido y la fecha de hoy; el antiguo se elimina definitivamente, con lo que solo él tiene (resaltados, su lugar en outliners, un enlace para compartir).",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemRecreated": {
+        "message": "Creado de nuevo."
+    },
+    "itemRecreateNoCopy": {
+        "message": "Diigo no creó un elemento nuevo: volvió a guardar el antiguo, sin cambios. No se eliminó nada."
+    },
     "itemPin": {
         "message": "Fijar en Inicio"
+    },
+    "itemAddToOutliner": {
+        "message": "Añadir a outliner"
+    },
+    "itemAddedToOutliner": {
+        "message": "Añadido al outliner"
+    },
+    "itemShare": {
+        "message": "Compartir"
+    },
+    "itemSharedToGroup": {
+        "message": "Compartido con el grupo"
+    },
+    "itemNoGroups": {
+        "message": "Aún no estás en ningún grupo de Diigo."
     },
     "itemHide": {
         "message": "Ocultar (etiqueta oculta)"
@@ -253,6 +285,9 @@
     "sideRecent": {
         "message": "Recientes"
     },
+    "cloudShowHidden": {
+        "message": "Mostrar etiquetas ocultas"
+    },
     "sideAllTags": {
         "message": "Todas las etiquetas"
     },
@@ -266,7 +301,7 @@
         "message": "No solo marcadores"
     },
     "guideTypesIntro": {
-        "message": "Una biblioteca de Diigo tiene más que páginas web. La Swift Library muestra con un icono delante del título qué tipo es cada elemento, y bajo Todo en la barra lateral eliges un tipo. Los botones para añadir arriba en la barra lateral crean cada uno de ellos, menos Kindle."
+        "message": "Una biblioteca de Diigo tiene más que páginas web. La Swift Library muestra con un icono delante del título qué tipo es cada elemento, y bajo Todo en la barra lateral eliges un tipo. Los botones para añadir arriba a la derecha crean cada uno de ellos, menos Kindle."
     },
     "guideTypeBookmark": {
         "message": "Marcadores: páginas web, guardadas con el formulario o añadidas aquí, con el estado de su página delante del título."
@@ -679,7 +714,7 @@
         "message": "Ocultar Share to outliner: en el formulario de marcador y en la Swift Library (añadir, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Cinco botones arriba en la barra lateral en lugar del botón + con un menú: Marcador, Imagen, PDF, Nota y Outliner, para añadir con un clic"
+        "message": "Cinco botones arriba a la derecha en lugar del botón + con un menú: Marcador, Imagen, PDF, Nota y Outliner, para añadir con un clic"
     },
     "cleanupHead": {
         "message": "Buscar y limpiar tus marcadores"
@@ -1207,6 +1242,17 @@
         "message": "$COUNT$ no se pudieron restaurar:",
         "placeholders": {
             "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryBusyWait": {
+        "message": "Ocupado con el índice o borrando: vuelve a intentarlo cuando termine."
+    },
+    "libraryForgetConfirm": {
+        "message": "¿Eliminar definitivamente «$TITLE$» de la papelera?",
+        "placeholders": {
+            "title": {
                 "content": "$1"
             }
         }

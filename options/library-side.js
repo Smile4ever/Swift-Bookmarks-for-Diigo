@@ -315,14 +315,16 @@ function showTags() {
   // no tags beside the outliners, which have none
   wrapper.append(navigation(), ...state.view == 'outliners' ? [] : [searching ? relatedTags() : topTags()]);
   $('side').replaceChildren(wrapper);
-  placeAddTypes();
 }
 
 // All tags: a cloud of the CLOUD_TAGS most used ones (Diigo's Top 300), in the order of the alphabet, the more
 // bookmarks the larger. With something in the box above it: all tags with that in their name, the least used too, as
-// large as they are in the cloud. Hidden tags only when typed in full.
+// large as they are in the cloud. Hidden tags only when typed in full, or with Show hidden tags (off each time it opens,
+// as someone may look along): then all of them, marked, besides the most used others.
 function showCloud() {
   $('cloudFind').value = '';
+  $('cloudHidden').checked = false;
+  $('cloudHiddenBox').hidden = !tagCounts(liveItems()).some(tag => hiddenTag(tag.name));
   fillCloud();
   $('cloudDialog').showModal();
   $('cloudFind').focus();
@@ -330,17 +332,18 @@ function showCloud() {
 
 function fillCloud() {
   const find = lower($('cloudFind').value.trim());
+  const withHidden = $('cloudHidden').checked;
   const all = tagCounts(liveItems());
   const tags = (find
-    ? all.filter(tag => lower(tag.name).includes(find) && (!hiddenTag(tag.name) || lower(tag.name) == find))
-    : visibleTags(all).slice(0, CLOUD_TAGS)
+    ? all.filter(tag => lower(tag.name).includes(find) && (withHidden || !hiddenTag(tag.name) || lower(tag.name) == find))
+    : [...visibleTags(all).slice(0, CLOUD_TAGS), ...withHidden ? all.filter(tag => hiddenTag(tag.name)) : []]
   ).sort((a, b) => a.name.localeCompare(b.name, undefined, {sensitivity: 'base'}));
   // the sizes of the whole library: a tag is as large when searched for as in the cloud
   const counts = all.map(tag => tag.count);
   const [least, most] = [Math.log(counts.length ? counts.at(-1) : 1), Math.log(Math.max(1, counts[0] || 1))];
   $('cloudNone').hidden = tags.length > 0;
   $('cloud').replaceChildren(...tags.map(tag => {
-    const button = element('button', 'cloudTag', tag.name);
+    const button = element('button', 'cloudTag' + (hiddenTag(tag.name) ? ' hidden-tag' : ''), tag.name);
     button.type = 'button';
     button.title = message('cloudCount', String(tag.count));
     button.style.fontSize = 12 + 14 * (most > least ? (Math.log(tag.count) - least) / (most - least) : 0) + 'px';

@@ -59,8 +59,40 @@
     "itemMenu": {
         "message": "この項目の操作"
     },
+    "itemRecreate": {
+        "message": "作り直す"
+    },
+    "itemRecreateConfirm": {
+        "message": "「$TITLE$」を作り直しますか? 同じ内容で今日の日付の新しい項目を作り、古い項目は、それにしかないもの (ハイライト、Outliner 内の位置、共有リンク) とともに完全に削除されます。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemRecreated": {
+        "message": "作り直しました。"
+    },
+    "itemRecreateNoCopy": {
+        "message": "Diigo は新しい項目を作りませんでした。古い項目を変更せずに保存し直しました。何も削除されていません。"
+    },
     "itemPin": {
         "message": "スタートにピン留め"
+    },
+    "itemAddToOutliner": {
+        "message": "Outliner に追加"
+    },
+    "itemAddedToOutliner": {
+        "message": "Outliner に追加しました"
+    },
+    "itemShare": {
+        "message": "共有"
+    },
+    "itemSharedToGroup": {
+        "message": "グループで共有しました"
+    },
+    "itemNoGroups": {
+        "message": "まだ Diigo のグループに参加していません。"
     },
     "itemHide": {
         "message": "非表示にする (非表示のタグ)"
@@ -253,6 +285,9 @@
     "sideRecent": {
         "message": "最近"
     },
+    "cloudShowHidden": {
+        "message": "非表示のタグを表示"
+    },
     "sideAllTags": {
         "message": "すべてのタグ"
     },
@@ -266,7 +301,7 @@
         "message": "ブックマークだけではありません"
     },
     "guideTypesIntro": {
-        "message": "Diigo ライブラリにはウェブページ以外のものも入っています。Swift Library では各項目の種類がタイトルの前のアイコンで示され、サイドバーの すべて の下で種類を一つ選べます。サイドバー上部の追加ボタンで、Kindle 以外のどれでも作れます。"
+        "message": "Diigo ライブラリにはウェブページ以外のものも入っています。Swift Library では各項目の種類がタイトルの前のアイコンで示され、サイドバーの すべて の下で種類を一つ選べます。右上の追加ボタンで、Kindle 以外のどれでも作れます。"
     },
     "guideTypeBookmark": {
         "message": "ブックマーク: フォームで保存した、またはここで追加したウェブページ。タイトルの前にページの状態が表示されます。"
@@ -679,7 +714,7 @@
         "message": "Share to outliner を隠す: ブックマークフォームと Swift Library（追加、Edit、Bulk edit）"
     },
     "optionSplitAdd": {
-        "message": "+ ボタンとメニューの代わりに、サイドバー上部に 5 つのボタン：ブックマーク、画像、PDF、メモ、Outliner。ワンクリックで追加できます"
+        "message": "+ ボタンとメニューの代わりに、右上に 5 つのボタン：ブックマーク、画像、PDF、メモ、Outliner。ワンクリックで追加できます"
     },
     "cleanupHead": {
         "message": "ブックマークの検索と整理"
@@ -1207,6 +1242,17 @@
         "message": "$COUNT$ 件を元に戻せませんでした:",
         "placeholders": {
             "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryBusyWait": {
+        "message": "インデックスの処理中か削除中です。終わったらもう一度お試しください。"
+    },
+    "libraryForgetConfirm": {
+        "message": "「$TITLE$」をゴミ箱から完全に削除しますか?",
+        "placeholders": {
+            "title": {
                 "content": "$1"
             }
         }

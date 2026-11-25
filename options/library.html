@@ -18,6 +18,19 @@
     <div class="nav-inner">
       <a class="logo" href="library.html" aria-label="Swift Library" title="Swift Library"></a>
       <ul id="mainNav"></ul>
+      <!-- what to add, as Diigo's + and its menu (AddHandler); five buttons in a row with splitAdd, in the menu at
+           the top, before your name (library-add.js: addItem, placeAddTypes). Hidden until the settings say which,
+           so the + doesn't show for a moment before the five buttons take its place -->
+      <span id="addMenu" class="add-menu" hidden>
+        <button type="button" id="add" class="add" aria-haspopup="true" aria-expanded="false" data-i18n="libraryAdd">Add</button>
+        <span class="add-types" id="addTypes">
+          <button type="button" class="add" data-add="bookmark" data-i18n="libraryAddBookmark" data-i18n-title="libraryAddBookmark">Bookmark</button>
+          <button type="button" class="add" data-add="image" data-i18n="libraryAddImage" data-i18n-title="libraryAddImage">Image</button>
+          <button type="button" class="add" data-add="pdf" data-i18n="libraryAddPdf" data-i18n-title="libraryAddPdf">PDF</button>
+          <button type="button" class="add" data-add="note" data-i18n="libraryAddNote" data-i18n-title="libraryAddNote">Note</button>
+          <button type="button" class="add" data-add="outliner" data-i18n="libraryAddOutliner" data-i18n-title="libraryAddOutliner">Outliner</button>
+        </span>
+      </span>
       <!-- your name and its menu, as on diigo.com (user-menu.js) -->
       <!-- the way back to diigo.com: your library there, or its home page signed out (user-menu.js) -->
       <a class="to-diigo" id="toDiigo" href="https://www.diigo.com/"></a>
@@ -40,19 +53,6 @@
       <select id="sort" data-i18n-label="librarySort"></select>
       <select id="privacy" data-i18n-label="libraryPrivacy"></select>
       <select id="saved" data-i18n-label="searchFieldSaved"></select>
-      <!-- what to add, as Diigo's + and its menu (AddHandler); four buttons with splitAdd, at the top of the side bar as on
-           diigo.com (library-add.js: addItem, placeAddTypes). Hidden until the settings say where, so the + doesn't
-           show for a moment before the four buttons take its place -->
-      <span id="addMenu" class="add-menu" hidden>
-        <button type="button" id="add" class="add" aria-haspopup="true" aria-expanded="false" data-i18n="libraryAdd">Add</button>
-        <span class="add-types" id="addTypes">
-          <button type="button" class="add" data-add="bookmark" data-i18n="libraryAddBookmark" data-i18n-title="libraryAddBookmark">Bookmark</button>
-          <button type="button" class="add" data-add="image" data-i18n="libraryAddImage" data-i18n-title="libraryAddImage">Image</button>
-          <button type="button" class="add" data-add="pdf" data-i18n="libraryAddPdf" data-i18n-title="libraryAddPdf">PDF</button>
-          <button type="button" class="add" data-add="note" data-i18n="libraryAddNote" data-i18n-title="libraryAddNote">Note</button>
-          <button type="button" class="add" data-add="outliner" data-i18n="libraryAddOutliner" data-i18n-title="libraryAddOutliner">Outliner</button>
-        </span>
-      </span>
     </div>
   </header>
 
@@ -214,6 +214,8 @@
   <dialog id="cloudDialog" class="cloud-dialog">
     <div class="cloud-head"><span data-i18n="sideAllTags">All tags</span><button type="button" id="cloudClose" aria-label="×">×</button></div>
     <input type="search" id="cloudFind" class="cloud-find" spellcheck="false" autocomplete="off" data-i18n-label="libraryTagFilter">
+    <!-- your hidden tags in the cloud too, marked; off each time it opens, only when there are any (library-side.js: fillCloud) -->
+    <label class="cloud-hidden" id="cloudHiddenBox" hidden><input type="checkbox" id="cloudHidden"> <span data-i18n="cloudShowHidden">Show hidden tags</span></label>
     <p id="cloudNone" class="cloud-none" data-i18n="cloudNoMatch" hidden>No tag has that in its name.</p>
     <div id="cloud" class="tag-cloud"></div>
   </dialog>

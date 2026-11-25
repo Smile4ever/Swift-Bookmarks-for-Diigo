@@ -501,15 +501,17 @@ function itemElement(item) {
 
 // The first NOTE_LINES lines of the text of a note, as plain text (a rich one as the lines it shows: library-code.js:
 // noteCode), without the empty lines at the end; … when there is more. Code (by the end of its title) in a font for
-// code, with its indents.
+// code, with its indents, in the colours of its language, as in its editor (library-code.js: highlight).
 const NOTE_LINES = 10;
 
 function notePreview(item) {
   const html = item.rich || looksLikeHtml(item.content);
   const lines = (html ? noteCode(item.content) : String(item.content || '')).replace(/\s+$/, '').split('\n');
   if (!lines.join('').trim()) return null;
-  const shown = lines.slice(0, NOTE_LINES);
-  const preview = element('p', 'note-preview' + (codeLanguage(item.title) ? ' code' : ''), shown.join('\n'));
+  const shown = lines.slice(0, NOTE_LINES).join('\n');
+  const language = codeLanguage(item.title);
+  const preview = element('p', 'note-preview' + (language ? ' code' : ''), language ? '' : shown);
+  if (language) preview.append(highlight(shown, language));
   if (lines.length > NOTE_LINES) preview.append(element('span', 'note-more', '\n…'));
   return preview;
 }

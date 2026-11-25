@@ -59,8 +59,40 @@
     "itemMenu": {
         "message": "Mehr für diesen Eintrag"
     },
+    "itemRecreate": {
+        "message": "Neu anlegen"
+    },
+    "itemRecreateConfirm": {
+        "message": "„$TITLE$“ neu anlegen? Ein neuer Eintrag mit demselben Inhalt und dem heutigen Datum; der alte wird endgültig gelöscht, mit allem, was nur er hat (Markierungen, sein Platz in Outlinern, ein Freigabelink).",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemRecreated": {
+        "message": "Neu angelegt."
+    },
+    "itemRecreateNoCopy": {
+        "message": "Diigo hat keinen neuen Eintrag angelegt: Es hat den alten unverändert erneut gespeichert. Es wurde nichts gelöscht."
+    },
     "itemPin": {
         "message": "Auf Start anheften"
+    },
+    "itemAddToOutliner": {
+        "message": "Zu Outliner hinzufügen"
+    },
+    "itemAddedToOutliner": {
+        "message": "Zum Outliner hinzugefügt"
+    },
+    "itemShare": {
+        "message": "Teilen"
+    },
+    "itemSharedToGroup": {
+        "message": "Mit der Gruppe geteilt"
+    },
+    "itemNoGroups": {
+        "message": "Du bist noch in keiner Diigo-Gruppe."
     },
     "itemHide": {
         "message": "Verstecken (versteckter Tag)"
@@ -253,6 +285,9 @@
     "sideRecent": {
         "message": "Zuletzt"
     },
+    "cloudShowHidden": {
+        "message": "Versteckte Tags anzeigen"
+    },
     "sideAllTags": {
         "message": "Alle Tags"
     },
@@ -266,7 +301,7 @@
         "message": "Nicht nur Lesezeichen"
     },
     "guideTypesIntro": {
-        "message": "Eine Diigo-Bibliothek enthält mehr als Webseiten. Die Swift Library zeigt mit einem Symbol vor dem Titel, welche Art von Eintrag es ist, und unter Alle in der Seitenleiste wählst du eine Art. Die Schaltflächen zum Hinzufügen oben in der Seitenleiste erstellen jede davon, außer Kindle."
+        "message": "Eine Diigo-Bibliothek enthält mehr als Webseiten. Die Swift Library zeigt mit einem Symbol vor dem Titel, welche Art von Eintrag es ist, und unter Alle in der Seitenleiste wählst du eine Art. Die Schaltflächen zum Hinzufügen oben rechts erstellen jede davon, außer Kindle."
     },
     "guideTypeBookmark": {
         "message": "Lesezeichen: Webseiten, mit dem Lesezeichen-Formular gespeichert oder hier hinzugefügt, mit dem Status ihrer Seite vor dem Titel."
@@ -679,7 +714,7 @@
         "message": "Share to outliner ausblenden: im Lesezeichenformular und in der Swift Library (Hinzufügen, Bearbeiten, Mehrfachbearbeitung)"
     },
     "optionSplitAdd": {
-        "message": "Fünf Schaltflächen oben in der Seitenleiste statt der Schaltfläche + mit Menü: Lesezeichen, Bild, PDF, Notiz und Outliner, damit du mit einem Klick hinzufügst"
+        "message": "Fünf Schaltflächen oben rechts statt der Schaltfläche + mit Menü: Lesezeichen, Bild, PDF, Notiz und Outliner, damit du mit einem Klick hinzufügst"
     },
     "cleanupHead": {
         "message": "Lesezeichen suchen und aufräumen"
@@ -1207,6 +1242,17 @@
         "message": "$COUNT$ konnten nicht wiederhergestellt werden:",
         "placeholders": {
             "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryBusyWait": {
+        "message": "Mit dem Index oder dem Löschen beschäftigt: versuche es erneut, sobald das fertig ist."
+    },
+    "libraryForgetConfirm": {
+        "message": "„$TITLE$“ endgültig aus dem Papierkorb entfernen?",
+        "placeholders": {
+            "title": {
                 "content": "$1"
             }
         }

@@ -59,8 +59,40 @@
     "itemMenu": {
         "message": "Plus pour cet élément"
     },
+    "itemRecreate": {
+        "message": "Recréer"
+    },
+    "itemRecreateConfirm": {
+        "message": "Recréer « $TITLE$ » ? Un nouvel élément avec le même contenu et la date du jour ; l’ancien est supprimé définitivement, avec ce que lui seul a (surlignages, sa place dans les outliners, un lien de partage).",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemRecreated": {
+        "message": "Recréé."
+    },
+    "itemRecreateNoCopy": {
+        "message": "Diigo n’a pas créé de nouvel élément : il a de nouveau enregistré l’ancien, sans changement. Rien n’a été supprimé."
+    },
     "itemPin": {
         "message": "Épingler sur l'accueil"
+    },
+    "itemAddToOutliner": {
+        "message": "Ajouter à un outliner"
+    },
+    "itemAddedToOutliner": {
+        "message": "Ajouté à l'outliner"
+    },
+    "itemShare": {
+        "message": "Partager"
+    },
+    "itemSharedToGroup": {
+        "message": "Partagé avec le groupe"
+    },
+    "itemNoGroups": {
+        "message": "Vous n'êtes encore dans aucun groupe Diigo."
     },
     "itemHide": {
         "message": "Masquer (tag masqué)"
@@ -253,6 +285,9 @@
     "sideRecent": {
         "message": "Récents"
     },
+    "cloudShowHidden": {
+        "message": "Afficher les tags masqués"
+    },
     "sideAllTags": {
         "message": "Tous les tags"
     },
@@ -266,7 +301,7 @@
         "message": "Pas seulement des marque-pages"
     },
     "guideTypesIntro": {
-        "message": "Une bibliothèque Diigo contient plus que des pages web. La Swift Library montre le type de chaque élément par une icône devant son titre, et sous Tout dans la barre latérale vous choisissez un type. Les boutons d'ajout en haut de la barre latérale créent chacun d'eux, sauf Kindle."
+        "message": "Une bibliothèque Diigo contient plus que des pages web. La Swift Library montre le type de chaque élément par une icône devant son titre, et sous Tout dans la barre latérale vous choisissez un type. Les boutons d'ajout en haut à droite créent chacun d'eux, sauf Kindle."
     },
     "guideTypeBookmark": {
         "message": "Marque-pages : des pages web, enregistrées avec le formulaire ou ajoutées ici, avec le statut de leur page devant le titre."
@@ -679,7 +714,7 @@
         "message": "Masquer Share to outliner : dans le formulaire de favori et dans la Swift Library (ajout, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Cinq boutons en haut de la barre latérale au lieu du bouton + avec un menu : Signet, Image, PDF, Note et Outliner, pour ajouter en un clic"
+        "message": "Cinq boutons en haut à droite au lieu du bouton + avec un menu : Signet, Image, PDF, Note et Outliner, pour ajouter en un clic"
     },
     "cleanupHead": {
         "message": "Chercher et nettoyer vos favoris"
@@ -1207,6 +1242,17 @@
         "message": "$COUNT$ n'ont pas pu être restaurés :",
         "placeholders": {
             "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryBusyWait": {
+        "message": "Occupé avec l'index ou une suppression : réessayez une fois terminé."
+    },
+    "libraryForgetConfirm": {
+        "message": "Supprimer définitivement « $TITLE$ » de la corbeille ?",
+        "placeholders": {
+            "title": {
                 "content": "$1"
             }
         }

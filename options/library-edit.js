@@ -25,7 +25,9 @@ function saveError(result) {
 }
 
 // a text field of the popups (cardField)
-const input = (type, value) => Object.assign(element('input'), {type, value: value || '', spellcheck: false});
+// without the browser's own list of what was typed before (form history), which would cover the suggestions of the
+// add-on below the tags (autocomplete), as the bookmark form has it (form/form.html)
+const input = (type, value) => Object.assign(element('input'), {type, value: value || '', spellcheck: false, autocomplete: 'off'});
 
 // ---- tags suggested in the popups, as the bookmark form suggests them (form/form.js: showSuggestions, showRelated) ----
 

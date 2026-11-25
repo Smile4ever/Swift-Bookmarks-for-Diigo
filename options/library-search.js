@@ -239,8 +239,11 @@ const SUGGESTED = 10;
 // without one chosen is the field's own (search, or Apply tags), so a new tag is never swapped for an existing one.
 // The word taken keeps its - (what is not there) and gets quotes when it has a space.
 // key: which SUGGESTIONS, or a function that says it (the search box: after its field)
+// The list is taken once, at the start: place() moves it into a popup, and the next popup's content (replaceChildren)
+// takes it out of the page, so $('suggest') would no longer find it; place() puts it back where it is needed.
+const suggestList = $('suggest');
 function autocomplete(input, key) {
-  const list = $('suggest');
+  const list = suggestList;
   let names = [];
   let choice = -1;
   const keyOf = () => typeof key == 'function' ? key() : key;

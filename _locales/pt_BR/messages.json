@@ -59,8 +59,40 @@
     "itemMenu": {
         "message": "Mais para este item"
     },
+    "itemRecreate": {
+        "message": "Recriar"
+    },
+    "itemRecreateConfirm": {
+        "message": "Recriar “$TITLE$”? Um item novo com o mesmo conteúdo e a data de hoje; o antigo é excluído definitivamente, com o que só ele tem (destaques, seu lugar em outliners, um link de compartilhamento).",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemRecreated": {
+        "message": "Recriado."
+    },
+    "itemRecreateNoCopy": {
+        "message": "O Diigo não criou um item novo: salvou de novo o antigo, sem mudanças. Nada foi excluído."
+    },
     "itemPin": {
         "message": "Fixar no Início"
+    },
+    "itemAddToOutliner": {
+        "message": "Adicionar a outliner"
+    },
+    "itemAddedToOutliner": {
+        "message": "Adicionado ao outliner"
+    },
+    "itemShare": {
+        "message": "Compartilhar"
+    },
+    "itemSharedToGroup": {
+        "message": "Compartilhado com o grupo"
+    },
+    "itemNoGroups": {
+        "message": "Você ainda não está em nenhum grupo do Diigo."
     },
     "itemHide": {
         "message": "Esconder (tag oculta)"
@@ -253,6 +285,9 @@
     "sideRecent": {
         "message": "Recentes"
     },
+    "cloudShowHidden": {
+        "message": "Mostrar tags ocultas"
+    },
     "sideAllTags": {
         "message": "Todas as tags"
     },
@@ -266,7 +301,7 @@
         "message": "Não só favoritos"
     },
     "guideTypesIntro": {
-        "message": "Uma biblioteca do Diigo tem mais que páginas web. A Swift Library mostra com um ícone antes do título de que tipo é cada item, e em Tudo na barra lateral você escolhe um tipo. Os botões de adicionar no topo da barra lateral criam cada um deles, menos Kindle."
+        "message": "Uma biblioteca do Diigo tem mais que páginas web. A Swift Library mostra com um ícone antes do título de que tipo é cada item, e em Tudo na barra lateral você escolhe um tipo. Os botões de adicionar no canto superior direito criam cada um deles, menos Kindle."
     },
     "guideTypeBookmark": {
         "message": "Favoritos: páginas web, salvas com o formulário ou adicionadas aqui, com o estado da página antes do título."
@@ -679,7 +714,7 @@
         "message": "Ocultar Share to outliner: no formulário de favorito e na Swift Library (adicionar, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Cinco botões no topo da barra lateral em vez do botão + com um menu: Favorito, Imagem, PDF, Nota e Outliner, para adicionar com um clique"
+        "message": "Cinco botões no canto superior direito em vez do botão + com um menu: Favorito, Imagem, PDF, Nota e Outliner, para adicionar com um clique"
     },
     "cleanupHead": {
         "message": "Procurar e limpar seus favoritos"
@@ -1207,6 +1242,17 @@
         "message": "$COUNT$ não puderam ser restaurados:",
         "placeholders": {
             "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryBusyWait": {
+        "message": "Ocupado com o índice ou excluindo: tente de novo quando terminar."
+    },
+    "libraryForgetConfirm": {
+        "message": "Remover definitivamente “$TITLE$” da lixeira?",
+        "placeholders": {
+            "title": {
                 "content": "$1"
             }
         }

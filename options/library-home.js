@@ -195,7 +195,8 @@ function todoBlock(todo) {
 
 // The menu ⋯ of an item (in the list and on Start): Pin to Start or Unpin (the tag pinned), and Hide or Show (the first
 // of your hidden tags, settings.js: hiddenTags; showing takes all of them away), in Diigo and in the index (homeEdit),
-// so there is no need to type the tag. In the place of the menu of the archives (library-links.js: archiveMenu), as
+// so there is no need to type the tag; Mark as unread or read; then Add to outliner, Share to group and Recreate
+// (library-add.js). In the place of the menu of the archives (library-links.js: archiveMenu), as
 // one menu at a time, closed the same way.
 function itemMenuButton(item) {
   const button = element('button', 'item-menu', '⋯');
@@ -224,6 +225,26 @@ function itemMenuButton(item) {
     const hidden = item.tags.filter(tag => settings.hiddenTags.some(other => lower(other) == lower(tag)));
     if (hidden.length) choice('itemUnhide', {type: 'removeTags', tags: hidden});
     else if (settings.hiddenTags.length) choice('itemHide', {type: 'addTags', tags: [settings.hiddenTags[0]]});
+    // Mark as unread, or as read: a bookmark or a PDF, the kinds Diigo keeps unread (as Bulk edit: library-bulk.js)
+    if ((!item.type || ['bookmark', 'pdf'].includes(item.type)) && !item.deletedAt && !item.pendingDelete) {
+      if (item.unread) choice('bulkRead', {type: 'read'});
+      else choice('bulkUnread', {type: 'unread'});
+    }
+    // Add to outliner and Share to group, each in a popup, and Recreate (library-add.js); not in the trash
+    const action = (key, run) => {
+      const b = element('button', '', message(key));
+      b.type = 'button';
+      b.addEventListener('click', () => {
+        closeArchiveMenu();
+        if (!$('popup').open) run(item);
+      });
+      archiveMenu.append(b);
+    };
+    if (!item.deletedAt && !item.pendingDelete) {
+      if (!settings.hideShareToOutliner) action('itemAddToOutliner', addToOutliner);
+      if (sharesToGroup(item)) action('shareToGroup', shareToGroup);
+      if (recreatable(item)) action('itemRecreate', recreateItem);
+    }
     // Delete screenshot: the screenshots of a bookmark (index-item.js: screenshotsOf), as Delete does it (to the trash,
     // so Put back brings them back); once they are gone, the link to them out of its description (library-index.js:
     // dropScreenshotLinks)
@@ -640,8 +661,8 @@ function editableBlock(entry, block, i, layout) {
 // field), in which order and how many
 function editOwnBlock(entry = null) {
   const {card, fields, error, shut} = popupCard(entry ? 'homeBlockChange' : 'homeAddBlock', entry ? 'save' : 'libraryAdd');
-  const title = Object.assign(element('input'), {type: 'text', value: entry?.title || '', spellcheck: false});
-  const value = Object.assign(element('input'), {type: 'text', value: entry?.value || '', spellcheck: false});
+  const title = Object.assign(element('input'), {type: 'text', value: entry?.title || '', spellcheck: false, autocomplete: 'off'});
+  const value = Object.assign(element('input'), {type: 'text', value: entry?.value || '', spellcheck: false, autocomplete: 'off'});
   const select = (label, options, chosen) => {
     const s = element('select');
     s.setAttribute('aria-label', message(label));

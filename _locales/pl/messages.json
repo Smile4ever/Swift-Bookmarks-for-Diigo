@@ -59,8 +59,40 @@
     "itemMenu": {
         "message": "Więcej dla tego elementu"
     },
+    "itemRecreate": {
+        "message": "Utwórz ponownie"
+    },
+    "itemRecreateConfirm": {
+        "message": "Utworzyć ponownie „$TITLE$”? Nowy element z tą samą treścią i dzisiejszą datą; stary zostanie trwale usunięty razem z tym, co ma tylko on (wyróżnienia, miejsce w outlinerach, link udostępniania).",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemRecreated": {
+        "message": "Utworzono ponownie."
+    },
+    "itemRecreateNoCopy": {
+        "message": "Diigo nie utworzyło nowego elementu: zapisało ponownie stary, bez zmian. Nic nie zostało usunięte."
+    },
     "itemPin": {
         "message": "Przypnij na Starcie"
+    },
+    "itemAddToOutliner": {
+        "message": "Dodaj do outlinera"
+    },
+    "itemAddedToOutliner": {
+        "message": "Dodano do outlinera"
+    },
+    "itemShare": {
+        "message": "Udostępnij"
+    },
+    "itemSharedToGroup": {
+        "message": "Udostępniono grupie"
+    },
+    "itemNoGroups": {
+        "message": "Nie należysz jeszcze do żadnej grupy Diigo."
     },
     "itemHide": {
         "message": "Ukryj (ukryty tag)"
@@ -253,6 +285,9 @@
     "sideRecent": {
         "message": "Ostatnie"
     },
+    "cloudShowHidden": {
+        "message": "Pokaż ukryte tagi"
+    },
     "sideAllTags": {
         "message": "Wszystkie tagi"
     },
@@ -266,7 +301,7 @@
         "message": "Nie tylko zakładki"
     },
     "guideTypesIntro": {
-        "message": "Biblioteka Diigo to więcej niż strony internetowe. Swift Library pokazuje ikoną przed tytułem, jakiego rodzaju jest każdy element, a pod Wszystko w panelu bocznym wybierasz jeden rodzaj. Przyciski dodawania u góry panelu bocznego tworzą każdy z nich oprócz Kindle."
+        "message": "Biblioteka Diigo to więcej niż strony internetowe. Swift Library pokazuje ikoną przed tytułem, jakiego rodzaju jest każdy element, a pod Wszystko w panelu bocznym wybierasz jeden rodzaj. Przyciski dodawania w prawym górnym rogu tworzą każdy z nich oprócz Kindle."
     },
     "guideTypeBookmark": {
         "message": "Zakładki: strony internetowe zapisane formularzem lub dodane tutaj, ze stanem strony przed tytułem."
@@ -679,7 +714,7 @@
         "message": "Ukryj Share to outliner: w formularzu zakładki i w Swift Library (dodawanie, Edit, Bulk edit)"
     },
     "optionSplitAdd": {
-        "message": "Pięć przycisków u góry paska bocznego zamiast przycisku + z menu: Zakładka, Obraz, PDF, Notatka i Outliner, aby dodawać jednym kliknięciem"
+        "message": "Pięć przycisków w prawym górnym rogu zamiast przycisku + z menu: Zakładka, Obraz, PDF, Notatka i Outliner, aby dodawać jednym kliknięciem"
     },
     "cleanupHead": {
         "message": "Szukaj i porządkuj zakładki"
@@ -1207,6 +1242,17 @@
         "message": "Nie udało się przywrócić: $COUNT$.",
         "placeholders": {
             "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryBusyWait": {
+        "message": "Trwa praca z indeksem lub usuwanie: spróbuj ponownie, gdy się skończy."
+    },
+    "libraryForgetConfirm": {
+        "message": "Trwale usunąć „$TITLE$” z kosza?",
+        "placeholders": {
+            "title": {
                 "content": "$1"
             }
         }

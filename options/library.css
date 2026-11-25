@@ -248,7 +248,7 @@ button {
 }
 
 /* New bookmark */
-.bar .add {
+.MainNav .add {
   padding: 6px 14px;
   border: 1px solid rgba(255, 255, 255, .8);
   border-radius: 16px;
@@ -256,11 +256,11 @@ button {
   font-size: 14px;
 }
 
-.bar .add::before {
+.MainNav .add::before {
   content: "+ ";
 }
 
-.bar .add:hover {
+.MainNav .add:hover {
   background: rgba(255, 255, 255, .15);
 }
 
@@ -341,7 +341,7 @@ button {
 }
 
 /* only the round buttons, as on diigo.com; the name is the tooltip (and still there for a screen reader) */
-/* exactly as big as the circle: no border of .bar .add, no gap next to the name that isn't seen */
+/* exactly as big as the circle: no border of .MainNav .add, no gap next to the name that isn't seen */
 .split-add .add-types .add {
   justify-content: center;
   gap: 0;
@@ -364,25 +364,24 @@ button {
   filter: brightness(1.1);
 }
 
-/* at the top of the side bar (library-add.js: placeAddTypes), the first one in line with the icons of its items below
-   it (the 40px of .sideBarWrapper and the 20px of .sideBarNavigate li a): the five (Bookmark, Image, PDF, Note,
-   Outliner) in one row, a little smaller than Diigo's four: 5 × 30px and 4 × 6px fit in the 184px left of its 260px */
-.split-add .SideBar > .add-types {
-  flex-wrap: nowrap;
-  gap: 6px;
-  padding: 16px 16px 8px 60px;
+/* in the menu at the top, before your name (library.html), the + too without splitAdd; as high as its line */
+.MainNav .add-menu {
+  flex: none;
+  margin-right: 24px;
 }
 
-.split-add .SideBar > .add-types .add {
+.split-add .MainNav .add-types {
+  gap: 6px;
+}
+
+.split-add .MainNav .add-types .add {
   width: 30px;
   height: 30px;
 }
 
-/* the 25px icon of the sprite, with 2.5px of colour around it */
-.split-add .SideBar > .add-types .add::before {
+.split-add .MainNav .add-types .add::before {
   padding: 2.5px;
 }
-
 
 /* ---- what went wrong ---- */
 
@@ -1505,6 +1504,26 @@ a.selected .c-icon.kindle { background-position: -360px -50px; }
   margin: 16px 20px 0;
   color: var(--grey);
   font-size: 14px;
+}
+
+/* Show hidden tags in All tags, under the box to find one; a hidden tag in the cloud dashed underneath */
+.cloud-hidden {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 20px 0;
+  color: var(--grey);
+  font-size: 13px;
+}
+
+.cloud-hidden[hidden] {
+  display: none;
+}
+
+.tag-cloud .hidden-tag {
+  font-style: italic;
+  text-decoration: underline dashed;
+  text-underline-offset: 3px;
 }
 
 .cloud-head button {

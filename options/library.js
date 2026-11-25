@@ -139,6 +139,9 @@ function showTotal() {
 // Stop. Else why there is none: signed out (Sign in on diigo.com), it failed (what Diigo or the browser said, Try
 // again) or it was stopped (Build index).
 const setup = {state: 'building', done: 0, total: 0, pages: 0, of: 0, started: 0, error: ''};
+// how often the list is drawn again while the first index is being built (build): often enough to see it fill, not so
+// often that a large library redraws it on every page
+const BUILD_REDRAW = 600;
 const lang = browser.i18n.getUILanguage();
 
 // 40 seconds, 3 minutes
@@ -208,11 +211,23 @@ async function build({keepScroll = false} = {}) {
   Object.assign(setup, {state: 'building', done: 0, total: 0, pages: 0, of: 0, started: Date.now(), error: ''});
   const signal = start();
   safely('setup', showSetup);
+  // the first build (live): the list shows the items as they load (buildIndex sets the index straight away), not a
+  // longer wait on the setup screen; drawn again at most every BUILD_REDRAW ms, so a large library doesn't redraw it
+  // on every page
+  let lastDrawn = 0;
   try {
-    const gone = await buildIndex(user, signal, (pages, of, total) => {
+    const gone = await buildIndex(user, signal, (pages, of, total, live) => {
       showStatus(message('indexBuilding', [String(pages), String(of)]));
       Object.assign(setup, {pages, of, total, done: Math.min(total, pages * PAGE_SIZE)});
       safely('setup', showSetup);
+      if (live && (pages == 1 || pages == of || Date.now() - lastDrawn > BUILD_REDRAW)) {
+        lastDrawn = Date.now();
+        // the index is ready to show now (buildIndex set meta): un-hide the list in the place of the setup screen
+        safely('building list', () => {
+          showIndex();
+          show({keepScroll: true});
+        });
+      }
       // far fewer than before (library-index.js: SHRINK_LIMIT): asked, unless built by itself (checkCount), when
       // the index stays as it was
     }, {allowShrink: (count, before) => !keepScroll && confirm(message('indexShrinkConfirm', [String(count), String(before)]))});

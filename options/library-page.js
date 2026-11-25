@@ -63,6 +63,7 @@ $('cloudClose').addEventListener('click', () => $('cloudDialog').close());
 $('similarClose').addEventListener('click', () => $('similarDialog').close());
 $('cloudFind').placeholder = message('libraryTagFilter');
 $('cloudFind').addEventListener('input', () => safely('all tags', fillCloud));
+$('cloudHidden').addEventListener('change', () => safely('all tags', fillCloud));
 $('add').addEventListener('click', () => openAddMenu(!$('addMenu').classList.contains('open')));
 addTypes.addEventListener('click', e => e.target.dataset.add && addItem(e.target.dataset.add));
 $('addMenu').addEventListener('keydown', e => {

@@ -1,3 +1,17 @@
+2026.11.25
+=====
+* The Swift Library shows your bookmarks while it builds its index the first time, growing as the pages load, instead of a wait on the setting-up screen until it is all there. Building again over an index you already have is unchanged: that one stays until the new one is ready.
+* The add buttons (Bookmark, Image, PDF, Note, Outliner) in the menu at the top of the Swift Library, before your name, in every view, instead of at the top of the side bar; without five buttons (Swift Options), the + with its menu is there.
+* To diigo.com in the menu of your name, as its first item, leading to your library there; signed out, it stays next to where your name would be.
+* More in the ⋯ of an item (in the list and on Start): Mark as unread or Mark as read (bookmarks and PDFs); Add to outliner, at the end of the outliner you choose (any kind of item); Share to group (a public bookmark, as the bookmark form shares one); Recreate, after a question: a bookmark or a note made again as a new one with all it has, and the old one deleted for good, with what only it had (highlights, its place in outliners).
+* Empty trash no longer gets the files of images and PDFs that were still waiting to be deleted: they are deleted for good, so the trash has no use for them.
+* Remove for good in Bulk edit of the trash also removes what Diigo hadn't deleted yet (Delete without asking): Diigo deletes it now, and the trash doesn't keep it; before, those were left out without a word, and with only those ticked nothing happened. While the Swift Library is busy (the index, deleting) it says so instead of doing nothing.
+* Fixed: in the popups of the Swift Library (Edit, Add, Duplicate…) the browser's own list of what was typed before no longer covers the suggestions of your tags.
+* Remove for good of one item in the trash asks first, as Remove for good of Bulk edit does.
+* Show hidden tags in All tags of the Swift Library: your hidden tags in the cloud too, in italics and dashed underneath; off each time it opens, and only there when you have hidden tags.
+* A note that is code (its title ends in .css, .py, .html…) also in colours in its first lines below its title, in the list and in Pinned on Start, as in its editor.
+* Fixed: a popup with tags in the Swift Library (such as Edit) after an earlier one no longer fails with "list is null": the suggestions below the tags had gone with the earlier popup.
+
 2026.11.23
 =====
 * A small picture at each bookmark in the Swift Library: the preview image of its page, as social sites show a link (og:image), or its icon when it has none; read from the page once, together with the check of its link, and kept in this browser for a month, so it costs no room in Diigo. A screenshot goes before it; a click opens the page. Without a picture, the room of one with the first letter of its site, so each item starts at the same place. A switch in Swift Options, on by default.

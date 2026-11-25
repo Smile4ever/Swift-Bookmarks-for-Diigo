@@ -175,13 +175,24 @@ const SHRINK_MIN = 20;
 async function buildIndex(user, signal, progress, {allowShrink = () => false} = {}) {
   const pagesSignal = new AbortController();
   signal.addEventListener('abort', () => pagesSignal.abort());
+  // a usable index of this user to protect (not someone else's, not an empty one): build aside and swap at the end, so
+  // the old one stays if Diigo gives too few or the build fails. Without one (the first build), there is nothing to
+  // protect, so show the items straight away, into the live index, as they load (progress's `live`).
+  const hadIndex = meta?.user == user && index.size > 0;
+  const before = hadIndex ? index.size : 0;
   const first = await libraryPage(0, 'created', signal).catch(pageFailed(0, signal));
   const pages = Math.max(1, Math.ceil((first.total || 0) / PAGE_SIZE));
   const byId = new Map();
+  const live = !hadIndex;
+  if (live) {
+    index = byId;
+    meta = {user, built: Date.now(), updated: Date.now(), total: first.total || 0, newest: 0, version: INDEX_VERSION};
+  }
   let pagesDone = 0;
   const take = page => {
     page.items.map(indexItem).filter(item => item.id).forEach(item => byId.set(item.id, item));
-    progress(++pagesDone, pages, first.total || 0);
+    if (live) meta.total = first.total || byId.size;
+    progress(++pagesDone, pages, first.total || 0, live);
   };
   take(first);
   let next = 1;
@@ -196,7 +207,6 @@ async function buildIndex(user, signal, progress, {allowShrink = () => false} = 
     throw e;
   })));
   const items = [...byId.values()];
-  const before = meta?.user == user ? index.size : 0;
   if (!items.length && before) throw new Error(message('indexKeptEmpty', String(before)));
   if (before >= SHRINK_MIN && items.length < before * SHRINK_LIMIT && !await allowShrink(items.length, before)) {
     throw new Error(message('indexKeptShrunk', [String(items.length), String(before)]));
@@ -481,13 +491,14 @@ async function diigoPost(url, params, signal) {
 
 // in Diigo and in the index, DELETE_AT_ONCE at a time, with a copy of each in the trash, with the file of an image or
 // a PDF (got before, as it's gone after); progress(ids of the batch, deleted or not). The answer is {deleted, failed},
-// how many.
-async function deleteItems(ids, signal, progress) {
+// how many. keepFiles false: deleted for good (Empty trash: library-delete.js, deleteNow), so the trash won't keep
+// them and their file isn't asked for: that would only give the item a link of its own on Diigo (itemFileUrl).
+async function deleteItems(ids, signal, progress, {keepFiles = true} = {}) {
   let deleted = 0, failed = 0;
   for (let i = 0; i < ids.length && !signal.aborted; i += DELETE_AT_ONCE) {
     const batch = ids.slice(i, i + DELETE_AT_ONCE);
     const files = {};
-    for (const id of batch.filter(id => WITH_FILE.includes(index.get(id)?.type))) {
+    for (const id of keepFiles ? batch.filter(id => WITH_FILE.includes(index.get(id)?.type)) : []) {
       const kept = await itemFile(id, signal);
       if (kept) files[id] = {file: kept.file, fileName: kept.name};
     }

@@ -41,7 +41,7 @@ const DEFAULT_SETTINGS = {
   checkHiddenLinks: false,
   // off by default: Share to outliner hidden, in the bookmark form and when adding in the Swift Library
   hideShareToOutliner: false,
-  // the five add buttons at the top of the side bar of the Swift Library, in place of + and its menu
+  // the five add buttons at the top right of the Swift Library, in place of + and its menu
   splitAdd: true,
   // in the list of the Swift Library no Private next to each private item, as most are; Public next to a public one
   // instead (options/library-list.js: itemElement)

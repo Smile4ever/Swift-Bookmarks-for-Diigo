@@ -340,16 +340,13 @@ function openAddMenu(open) {
   if (open) addTypes.querySelector('button').focus();
 }
 
-// splitAdd: the five buttons at the top of the side bar; in the bar (as the + and its menu without splitAdd) while
-// there's no side bar, before the index is built. Moved, not drawn again: their clicks stay with them. Kept here, not
-// found by its id: showTags takes it out of the page with the rest of the side bar, and puts it back with this.
+// What to add, in the menu at the top before your name (library.html): with splitAdd the five buttons in a row, else the + and its menu
+// (library.css: .split-add); shown once the settings are known. Kept here, not found by its id each time.
 const addTypes = $('addTypes');
 
 function placeAddTypes() {
-  const inSide = !!settings.splitAdd && !$('main').hidden;
-  if (inSide) $('side').prepend(addTypes);
-  else if (addTypes.parentNode != $('addMenu')) $('addMenu').append(addTypes);
-  $('addMenu').hidden = inSide;
+  if (addTypes.parentNode != $('addMenu')) $('addMenu').append(addTypes);
+  $('addMenu').hidden = false;
 }
 
 // one popup at a time, as on diigo.com
@@ -357,4 +354,122 @@ function addItem(kind) {
   openAddMenu(false);
   if ($('popup').open) return;
   ADD[kind]();
+}
+
+
+// ---- the menu ⋯ of an item (library-home.js: itemMenuButton): Add to outliner, Share to group, Recreate ----
+
+// what to choose in the popup, one menu: when there is nothing in it, why instead of the menu and no button
+function choicePopup(headingKey, saveKey, select, run) {
+  const {card, fields, error, save, shut} = popupCard(headingKey, saveKey);
+  fields.append(select);
+  card.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!select.value) return select.focus();
+    save.disabled = true;
+    error.hidden = true;
+    const why = await run(select.value);
+    save.disabled = false;
+    if (why == null) return shut();
+    error.textContent = why;
+    error.hidden = false;
+  });
+  select.focus();
+  return {fields, save};
+}
+
+// Add to outliner: any kind of item, at the end of the outliner, as From your library adds one (library-outliners.js:
+// addItems); its menu filled once Diigo gave your outliners
+function addToOutliner(item) {
+  const select = outlinerPart.shareSelect();
+  select.hidden = false;
+  choicePopup('itemAddToOutliner', 'add', select, async id => {
+    if (!await outlinerPart.addItems(id, [item])) return message('outlinersNotSaved', $('status').textContent || '?');
+    showStatus(message('itemAddedToOutliner'));
+    return null;
+  });
+}
+
+// Share to group: a public bookmark, as the bookmark form shares one (Share to group is hidden there for a private
+// one): saved again as it is, with the group, through the toolbar API, which is what shares to a group
+// (background.js: saveBookmark)
+const sharesToGroup = item => (!item.type || item.type == 'bookmark') && !item.private && /^https?:/i.test(item.url);
+
+function shareToGroup(item) {
+  const select = element('select');
+  select.setAttribute('aria-label', message('shareToGroup'));
+  select.append(new Option(message('shareToGroup'), ''));
+  const {fields, save} = choicePopup('shareToGroup', 'itemShare', select, async group => {
+    const result = await browser.runtime.sendMessage({type: 'save', url: item.url, title: item.title,
+      description: item.description || '', tags: item.tags, private: false, unread: !!item.unread, group})
+      .catch(e => ({message: e.message}));
+    if (!result?.ok) return message('libraryItemNotSaved', result?.message || String(result?.status ?? '?'));
+    showStatus(message('itemSharedToGroup'));
+    return null;
+  });
+  save.disabled = true;
+  browser.runtime.sendMessage({type: 'sharing'}).then(lists => {
+    const groups = lists?.groups || [];
+    select.append(...groups.map(group => new Option(group.displayName, group.name)));
+    if (groups.length) return save.disabled = false;
+    select.replaceWith(element('p', '', message('itemNoGroups')));
+    save.hidden = true;
+  }).catch(() => {});
+  return fields;
+}
+
+// Recreate: the item made again as a new one with what it has, and the old one deleted, for good (not in the trash,
+// without its file: deleteItems, keepFiles), with what only it had: highlights, its place in outliners, a share link
+// (PRIVACY.md); after a question that says so. A bookmark as Diigo's site saves one (singleSave), without a link_id, so
+// a new one at the same web address (Diigo lets a web address have more bookmarks), not through the toolbar API, which
+// by web address would change the bookmark there; when Diigo saved the old one again after all, it was saved as it was
+// and nothing is deleted (itemRecreateNoCopy). A note as a new note with its title, text and tags. Not an image or a
+// PDF: their file comes only through batch_share_links (index-item.js: itemFileUrl), which would give it a share link.
+const recreatable = item => (!item.type || item.type == 'bookmark') && !!item.url || isNoteWithText(item);
+
+async function newItemLike(item) {
+  if (item.type == 'note') {
+    const note = await postNote({title: item.title, content: item.content, rich: item.rich, tags: item.tags});
+    return note ? {fresh: note} : {why: message('libraryNoteNotSaved', diigoAnswer || '?')};
+  }
+  const first = singleSave({...item, id: ''}, item.tags);
+  const saved = await postSave(first.url, new URLSearchParams(first.params)).catch(e => {
+    diigoAnswer = e?.message || String(e);
+    return null;
+  });
+  if (!saved) return {why: message('libraryItemNotSaved', diigoAnswer || '?')};
+  if (String(saved.link_id) == item.id) return {why: message('itemRecreateNoCopy')};
+  const fresh = indexItem(saved);
+  index.set(fresh.id, fresh);
+  await saveIndex({put: [fresh]});
+  return {fresh};
+}
+
+async function recreateItem(item) {
+  if (controller) return showStatus(message('libraryBusyWait'), true);
+  if (!confirm(message('itemRecreateConfirm', item.title || item.url || item.id))) return;
+  const signal = start();
+  let text = '', failed = false;
+  try {
+    const {why} = await newItemLike(item);
+    if (why) {
+      text = why;
+      failed = true;
+      return;
+    }
+    const {deleted} = await deleteItems([item.id], signal, () => {}, {keepFiles: false});
+    // gone for good: out of the trash, where deleteItems put it
+    if (deleted) {
+      trash.delete(item.id);
+      await saveIndex({trashRemove: [item.id]});
+    }
+    text = message('itemRecreated') + (deleted ? '' : ' ' + message('cleanupFailed', '1'));
+    failed = !deleted;
+  } catch (e) {
+    reportProblem(e, 'recreate');
+  } finally {
+    stop();
+    show({keepScroll: true});
+    if (text) showStatus(text, failed);
+  }
 }

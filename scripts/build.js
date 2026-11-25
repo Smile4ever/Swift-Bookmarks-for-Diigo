@@ -7,8 +7,22 @@
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
+const {execSync} = require('child_process');
 
 const ROOT = path.join(__dirname, '..');
+
+// Only what git tracks is built: a file that is ignored (.gitignore) or untracked isn't shipped, so local-only files
+// in a folder that is copied whole (such as options) stay out of the add-on. Empty when git isn't there: then all is
+// copied, as before.
+const ignored = (() => {
+  try {
+    return new Set(execSync('git ls-files --others --ignored --exclude-standard -z', {cwd: ROOT})
+      .toString('utf8').split('\0').filter(Boolean));
+  } catch (e) {
+    return new Set();
+  }
+})();
+const shipped = src => !ignored.has(path.relative(ROOT, src).split(path.sep).join('/'));
 
 // images/store: the pictures of the add-on stores, also in Swift Guide (options/guide.html); images/guide: those of
 // Swift Guide only
@@ -36,7 +50,7 @@ const TARGETS = {
 function copy(relative, outDir) {
   const target = path.join(outDir, relative);
   fs.mkdirSync(path.dirname(target), {recursive: true});
-  fs.cpSync(path.join(ROOT, relative), target, {recursive: true});
+  fs.cpSync(path.join(ROOT, relative), target, {recursive: true, filter: shipped});
 }
 
 function listFiles(dir, prefix = '') {

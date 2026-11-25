@@ -59,8 +59,40 @@
     "itemMenu": {
         "message": "此项目的更多操作"
     },
+    "itemRecreate": {
+        "message": "重新创建"
+    },
+    "itemRecreateConfirm": {
+        "message": "要重新创建“$TITLE$”吗？将创建内容相同、日期为今天的新项目；旧项目会被永久删除，连同只属于它的内容（高亮、在 Outliner 中的位置、分享链接）。",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemRecreated": {
+        "message": "已重新创建。"
+    },
+    "itemRecreateNoCopy": {
+        "message": "Diigo 没有创建新项目：它重新保存了旧项目，未作更改。没有删除任何内容。"
+    },
     "itemPin": {
         "message": "置顶到开始页"
+    },
+    "itemAddToOutliner": {
+        "message": "添加到 Outliner"
+    },
+    "itemAddedToOutliner": {
+        "message": "已添加到 Outliner"
+    },
+    "itemShare": {
+        "message": "分享"
+    },
+    "itemSharedToGroup": {
+        "message": "已分享到小组"
+    },
+    "itemNoGroups": {
+        "message": "你还没有加入任何 Diigo 小组。"
     },
     "itemHide": {
         "message": "隐藏（隐藏标签）"
@@ -253,6 +285,9 @@
     "sideRecent": {
         "message": "最近"
     },
+    "cloudShowHidden": {
+        "message": "显示隐藏的标签"
+    },
     "sideAllTags": {
         "message": "全部标签"
     },
@@ -266,7 +301,7 @@
         "message": "不只是书签"
     },
     "guideTypesIntro": {
-        "message": "Diigo 书签库不只有网页。Swift Library 在标题前用图标显示每个项目的类型，在侧边栏的 全部 下可以选择一种类型。侧边栏顶部的添加按钮可以创建除 Kindle 外的每一种。"
+        "message": "Diigo 书签库不只有网页。Swift Library 在标题前用图标显示每个项目的类型，在侧边栏的 全部 下可以选择一种类型。右上角的添加按钮可以创建除 Kindle 外的每一种。"
     },
     "guideTypeBookmark": {
         "message": "书签：用书签表单保存或在这里添加的网页，标题前显示其页面状态。"
@@ -679,7 +714,7 @@
         "message": "隐藏 Share to outliner：在书签表单中以及在 Swift Library 中（添加、Edit、Bulk edit）"
     },
     "optionSplitAdd": {
-        "message": "在侧边栏顶部用五个按钮代替带菜单的 + 按钮：书签、图片、PDF、笔记和 Outliner，一键添加"
+        "message": "在右上角用五个按钮代替带菜单的 + 按钮：书签、图片、PDF、笔记和 Outliner，一键添加"
     },
     "cleanupHead": {
         "message": "搜索和清理书签"
@@ -1207,6 +1242,17 @@
         "message": "有 $COUNT$ 个无法恢复：",
         "placeholders": {
             "count": {
+                "content": "$1"
+            }
+        }
+    },
+    "libraryBusyWait": {
+        "message": "正在处理索引或删除：完成后请重试。"
+    },
+    "libraryForgetConfirm": {
+        "message": "要从回收站中永久删除“$TITLE$”吗？",
+        "placeholders": {
+            "title": {
                 "content": "$1"
             }
         }

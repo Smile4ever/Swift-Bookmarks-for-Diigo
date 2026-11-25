@@ -107,7 +107,7 @@ async function deletePending(done) {
       count += batch.length;
       done?.(count);
       if (deletingPending) showPendingProgress(count, ids.length);
-    });
+    }, {keepFiles: !forget});
     if (forget && deletedIds.length) {
       deletedIds.forEach(id => trash.delete(id));
       await saveIndex({trashRemove: deletedIds});

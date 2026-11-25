@@ -32,7 +32,9 @@ function trashActions(item, li) {
   if (restore.tagName == 'BUTTON') restore.addEventListener('click', () => restoreItem(item, li));
   const forget = element('button', 'delete', message('libraryForget'));
   forget.type = 'button';
+  // after a question, as Remove for good of Bulk edit (forgetPicked)
   forget.addEventListener('click', async () => {
+    if (!confirm(message('libraryForgetConfirm', item.title || item.url || message('libraryForget')))) return;
     trash.delete(item.id);
     await saveIndex({trashRemove: [item.id]});
     leaveList(item, li);
@@ -161,17 +163,45 @@ async function restorePicked() {
   }
 }
 
-// Remove for good, after a question: out of the trash, as Remove for good of each; not those Diigo hasn't deleted yet,
-// which only have Put back: they stay ticked
+// Remove for good, after a question: out of the trash, as Remove for good of each. Those Diigo hasn't deleted yet
+// (library-delete.js: pending) are deleted by Diigo now and not kept, as Empty trash does them, without their file
+// (deleteItems: keepFiles); an outliner waiting stays ticked. While the page is busy (building or updating the index,
+// deleting) it says so instead of doing nothing.
 async function forgetPicked() {
   const picked = pickedItems();
-  const ids = picked.filter(item => !item.pendingDelete && trash.has(item.id)).map(item => item.id);
-  if (!ids.length || controller || !confirm(message('bulkForgetConfirm', String(ids.length)))) return;
-  ids.forEach(id => trash.delete(id));
-  await saveIndex({trashRemove: ids});
-  endProgress(ids);
-  afterBulk(ids.length == picked.length);
-  showStatus(message('libraryEmptied', String(ids.length)));
+  if (!picked.length) return;
+  if (controller) return showStatus(message('libraryBusyWait'), true);
+  const kept = picked.filter(item => !item.pendingDelete && trash.has(item.id)).map(item => item.id);
+  const waiting = picked.filter(item => item.pendingDelete && item.type != 'outliner' && pending.has(item.id))
+    .map(item => item.id);
+  const count = kept.length + waiting.length;
+  if (!count || !confirm(message('bulkForgetConfirm', String(count)))) return;
+  kept.forEach(id => trash.delete(id));
+  await saveIndex({trashRemove: kept});
+  const gone = [...kept];
+  let failed = 0;
+  if (waiting.length) {
+    waiting.forEach(id => pending.delete(id));
+    pendingVersion++;
+    if (!pending.size) clearTimeout(pendingTimer);
+    const signal = start();
+    const deleted = [];
+    try {
+      const result = await deleteItems(waiting, signal, (batch, ok) => ok && deleted.push(...batch), {keepFiles: false});
+      failed = result.failed;
+      deleted.forEach(id => trash.delete(id));
+      await saveIndex({trashRemove: deleted});
+      gone.push(...deleted);
+    } catch (e) {
+      reportProblem(e, 'delete');
+    } finally {
+      stop();
+    }
+  }
+  endProgress(gone);
+  afterBulk(gone.length == picked.length);
+  const text = message('libraryEmptied', String(gone.length));
+  showStatus(failed ? text + ' ' + message('cleanupFailed', String(failed)) : text, !!failed);
 }
 
 // all of it, also what Diigo hasn't deleted yet (library-delete.js): Diigo deletes those now, and they don't stay.
