@@ -48,7 +48,7 @@ const INTERESTING_TAGS = 30;
 const TITLES_AT_ONCE = 4;
 
 let user = '';                   // signed in on diigo.com
-let settings = DEFAULT_SETTINGS;  // see options/settings.js: hiddenTags
+let settings = DEFAULT_SETTINGS;  // see pages/settings.js: hiddenTags
 let found = [];                  // what was loaded, in Diigo's order (rank); see parseBuzz
 let nextPage = 0;                // the page of Diigo to load next; -1 when there is none
 let loadedAt = 0;
@@ -73,7 +73,7 @@ function element(tag, className, text) {
 // ---- what is shown: a search, filters, the order, and which ----
 
 // shows: which, see SHOWS; tags: Diigo's tags of the community; site; mine: one of your tags (tagsIn)
-const state = {query: '', sort: 'hot', shows: 'new', tags: [], site: '', mine: '', showDismissed: false};
+const state = {query: '', sort: 'forYou', shows: 'new', tags: [], site: '', mine: '', showDismissed: false};
 
 const inLibrary = item => yours.has(item.key) || savedNow.has(item.key);
 const SHOWS = {new: item => !inLibrary(item), all: () => true, saved: inLibrary};
@@ -148,7 +148,7 @@ function saveState(push) {
 function loadState() {
   const params = new URLSearchParams(location.hash.slice(1));
   state.query = params.get('q') || '';
-  state.sort = params.get('sort') in SORTS ? params.get('sort') : 'hot';
+  state.sort = params.get('sort') in SORTS ? params.get('sort') : 'forYou';
   state.shows = params.get('shows') in SHOWS ? params.get('shows') : 'new';
   state.tags = params.getAll('tag');
   state.site = params.get('site') || '';
@@ -286,6 +286,14 @@ function joinQuoted(names) {
   return [...new Set(tags.map(tag => tag.replace(/^"+|"+$/g, '').replace(/\s+/g, ' ').trim()).filter(Boolean))];
 }
 
+// Diigo's Hot Bookmarks HTML has the title and description double-encoded: textContent gives e.g. "it&#039;s" (the
+// &amp; was decoded, &#039; left). Decode once more, as the text of a document of its own (DOMParser: inert, nothing in
+// it runs or loads), so entities become their characters (&#039; -> '). Not innerHTML, which the add-on linter flags.
+function decodeEntities(value) {
+  if (!value || !value.includes('&')) return value || '';
+  return new DOMParser().parseFromString(String(value), 'text/html').documentElement.textContent;
+}
+
 function parseBuzz(html, pageNum) {
   const doc = new DOMParser().parseFromString(html, 'text/html');
   const items = [...doc.querySelectorAll('.ditemItem')].map((el, i) => {
@@ -296,9 +304,9 @@ function parseBuzz(html, pageNum) {
     const year = when && (when[3].length == 2 ? '20' + when[3] : when[3]);
     return {
       url,
-      title: link?.textContent.replace(/\s+/g, ' ').trim() || url,
-      description: el.querySelector('.desc .content')?.textContent.trim() || '',
-      tags: joinQuoted([...el.querySelectorAll('span[id^="tags_"] a')].map(a => a.textContent.trim()).filter(Boolean)),
+      title: decodeEntities(link?.textContent.replace(/\s+/g, ' ').trim()) || url,
+      description: decodeEntities(el.querySelector('.desc .content')?.textContent.trim()),
+      tags: joinQuoted([...el.querySelectorAll('span[id^="tags_"] a')].map(a => decodeEntities(a.textContent.trim())).filter(Boolean)),
       people: Number(el.querySelector('.savePeopleCount strong')?.textContent) || 1,
       by: others?.querySelector('a[href^="/user/"]')?.textContent.trim() || '',
       saved: when ? Date.parse(`${when[1]} ${when[2]}, ${year}`) || 0 : 0,

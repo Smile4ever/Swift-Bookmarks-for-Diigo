@@ -204,7 +204,18 @@ function loadState() {
 
 function addTag(name) {
   state.random = '';
+  // a tag from Untagged (All tags, a tag of an item in another view): to All, as nothing untagged has a tag
+  if (state.view == 'untagged') state.view = 'all';
   if (!state.tags.some(tag => lower(tag) == lower(name))) state.tags.push(name);
+  show({push: true});
+}
+
+// Only this tag, as a tag of the side bar or of All tags does (library-side.js), as Diigo searches for it. From the
+// trash to the bookmarks with that tag, as those are the tags shown; from Untagged to All, as nothing untagged has one.
+function onlyTag(name) {
+  state.random = '';
+  state.tags = [name];
+  if (state.view == 'trash' || state.view == 'untagged') state.view = 'all';
   show({push: true});
 }
 

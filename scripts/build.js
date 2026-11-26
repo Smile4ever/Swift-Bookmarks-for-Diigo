@@ -24,9 +24,9 @@ const ignored = (() => {
 })();
 const shipped = src => !ignored.has(path.relative(ROOT, src).split(path.sep).join('/'));
 
-// images/store: the pictures of the add-on stores, also in Swift Guide (options/guide.html); images/guide: those of
+// images/store: the pictures of the add-on stores, also in Swift Guide (pages/guide.html); images/guide: those of
 // Swift Guide only
-const COMMON_FILES = ['_locales', 'icons', 'images/store', 'images/guide', 'background/background.js', 'background/sync.js', 'content', 'diigo-site', 'form', 'options'];
+const COMMON_FILES = ['_locales', 'icons', 'images/store', 'images/guide', 'background/background.js', 'background/sync.js', 'content', 'diigo-site', 'form', 'pages'];
 
 const TARGETS = {
   firefox: {

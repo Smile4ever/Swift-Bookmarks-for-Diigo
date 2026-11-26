@@ -1,4 +1,4 @@
-// Runs on www.diigo.com, and on groups.diigo.com (My Groups) for the menu at the top, after options/settings.js and the
+// Runs on www.diigo.com, and on groups.diigo.com (My Groups) for the menu at the top, after pages/settings.js and the
 // other scripts of diigo-site/ (manifest.json, in this order):
 // - common.js: what they share (settings, user)
 // - delete-window.js: what Diigo's delete window deletes goes to the trash of the Swift Library
@@ -13,9 +13,24 @@
 // isn't shown on diigo.com, where it would look like Diigo's own; what Diigo's delete window deletes goes to it all the
 // same (delete-window.js), to put back in the Swift Library.
 
+// the words of pdf-view.js (a PDF opened from the Swift Library), which runs in the page itself without browser.i18n;
+// on every page, as which script runs first isn't fixed and pdf-view.js takes its flag out of the address at once
+for (const [key, name] of [['swiftPdfReader', 'pdfViewReader'], ['swiftPdfLoading', 'pdfViewLoading'],
+  ['swiftPdfFailed', 'pdfViewFailed']]) {
+  document.documentElement.dataset[key] = browser.i18n.getMessage(name);
+}
+
+// The address of the file of a PDF, found by pdf-view.js in the page itself (#swift-pdf-file), to background.js
+// (pdfFound), which only takes it from a tab it opened for that
+window.addEventListener('message', e => {
+  if (e.source != window || e.origin != location.origin || typeof e.data?.swiftPdfFile != 'string') return;
+  browser.runtime.sendMessage({type: 'pdfFound', url: e.data.swiftPdfFile}).catch(() => {});
+});
+
 function update() {
   updateHeader();
   hideItems();
+  showHiddenToggle();
 }
 
 function applySettings(newSettings) {

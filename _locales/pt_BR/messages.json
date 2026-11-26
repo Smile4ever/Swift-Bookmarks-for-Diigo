@@ -20,6 +20,9 @@
     "optionNoHiddenThumbs": {
         "message": "Um item com uma tag oculta, mostrado por Mostrar ocultos ou por uma busca: sem imagem à frente (nem captura de tela, nem imagem de prévia, nem imagem própria)."
     },
+    "optionPublicViaPrivate": {
+        "message": "Salvar novos favoritos públicos primeiro como privados e depois torná-los públicos (uma precaução de privacidade)"
+    },
     "optionHideOnDiigo": {
         "message": "Também no diigo.com: na sua biblioteca lá, nenhum favorito com uma tag oculta e nenhuma tag oculta na lista de tags, a menos que você pesquise essa tag."
     },
@@ -63,7 +66,7 @@
         "message": "Recriar"
     },
     "itemRecreateConfirm": {
-        "message": "Recriar “$TITLE$”? Um item novo com o mesmo conteúdo e a data de hoje; o antigo é excluído definitivamente, com o que só ele tem (destaques, seu lugar em outliners, um link de compartilhamento).",
+        "message": "Recriar “$TITLE$”? Um item novo com o mesmo conteúdo e a data de hoje; o antigo é excluído definitivamente, com o que só ele tem (destaques, seu lugar em outliners).",
         "placeholders": {
             "title": {
                 "content": "$1"
@@ -75,6 +78,29 @@
     },
     "itemRecreateNoCopy": {
         "message": "O Diigo não criou um item novo: salvou de novo o antigo, sem mudanças. Nada foi excluído."
+    },
+    "itemMakeLink": {
+        "message": "Criar link público"
+    },
+    "itemMakeLinkConfirm": {
+        "message": "Criar um link público para “$TITLE$”? Qualquer pessoa com o link pode abrir este item, mesmo que seja privado e sem fazer login. Não dá para desfazer: a única forma é excluir o item (Recriar mantém o item e exclui o antigo, com o link). Criar o link?",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMakeLinkWarn": {
+        "message": "Este link é público e não pode ser desfeito. Exclua o item, ou recrie-o, para desfazer."
+    },
+    "itemMakeLinkCopy": {
+        "message": "Copiar link"
+    },
+    "itemMakeLinkCopied": {
+        "message": "Copiado"
+    },
+    "itemMakeLinkFailed": {
+        "message": "O Diigo não deu nenhum link."
     },
     "itemPin": {
         "message": "Fixar no Início"
@@ -310,7 +336,7 @@
         "message": "Notas: texto seu, simples ou formatado, escrito e editado aqui e mostrado na página com um clique no título. Uma nota cujo título termina em .py, .css, .html ou parecido é código, mostrado em cores. As notas são sempre privadas no Diigo."
     },
     "guideTypeFile": {
-        "message": "Imagens e PDFs: enviados aqui com título, descrição e tags (um PDF de até 64 MB); uma imagem aparece na página. Excluídos aqui, o arquivo fica na lixeira, para poder restaurá-los."
+        "message": "Imagens e PDFs: enviados aqui com título, descrição e tags (um PDF de até 64 MB). Uma imagem aparece na página; um PDF abre numa nova aba, no leitor de PDF do seu navegador. Excluídos aqui, o arquivo fica na lixeira, para poder restaurá-los."
     },
     "guideTypeKindle": {
         "message": "Kindle: seus destaques do Kindle, importados no diigo.com. Não podem ser criados nem editados aqui; da lixeira, voltam importando-os de novo."
@@ -524,13 +550,22 @@
         "message": "Na barra de endereços: digite d, um espaço e algumas palavras para encontrar os seus favoritos."
     },
     "guideMoreDiigo": {
-        "message": "No diigo.com: Ir para a Swift Library no fim do menu do topo, e a Swift Library depois de entrar. O resto do diigo.com fica como o Diigo o tem; em Swift Opções você pode fazer My Library e Tools abrirem as páginas Swift."
+        "message": "No diigo.com: Ir para a Swift Library no fim do menu do topo, e a Swift Library depois de entrar. Se você tem tags ocultas, Mostrar ocultos no canto inferior direito da sua biblioteca lá mostra esses favoritos naquela aba. O resto do diigo.com fica como o Diigo o tem; em Swift Opções você pode fazer My Library e Tools abrirem as páginas Swift."
+    },
+    "guideMoreItemMenu": {
+        "message": "O ⋯ de um item: Marcar como lido ou não lido, Adicionar ao outliner, Compartilhar com grupo, Recriar (feito de novo como um novo item, o antigo excluído) e Criar link público, após um aviso claro, para quando você quer mesmo compartilhá-lo."
+    },
+    "guideMorePictures": {
+        "message": "Uma imagem em cada favorito: a imagem de prévia da página, ou o ícone dela, guardada neste navegador. Salvar também uma captura, no formulário ou em Editar, salva o que a página mostra como imagem privada no Diigo, só quando você marca."
+    },
+    "guideMoreOffline": {
+        "message": "Diigo fora do ar? Na tela de login da Swift Library, Consultar a biblioteca offline mostra sua biblioteca como a extensão a guardou por último. Ao entrar de novo, ela continua sozinha."
     },
     "guideMoreSettings": {
         "message": "As suas configurações vão junto para os seus outros computadores com a conta do seu navegador."
     },
     "guidePrivacyText": {
-        "message": "A extensão não envia nada ao seu autor. Ela fala com o diigo.com por você, com o seu login lá, e a cópia da sua biblioteca fica neste navegador. O que mais vai para onde, e as escolhas sobre isso, estão em Swift Opções em Privacidade."
+        "message": "A extensão não envia nada ao seu autor. Ela fala com o diigo.com por você, com o seu login lá, e a cópia da sua biblioteca fica neste navegador. Um novo favorito público é salvo primeiro como privado e só depois tornado público, e a extensão nunca cria sozinha um link público para um item. O que mais vai para onde, e as escolhas sobre isso, estão em Swift Opções em Privacidade."
     },
     "guideDiigoTour": {
         "message": "O tour do próprio Diigo pelo que o Diigo faz: Learn more no diigo.com"
@@ -1149,6 +1184,24 @@
     },
     "libraryImageOpen": {
         "message": "A própria imagem, numa nova aba"
+    },
+    "libraryPdfOpen": {
+        "message": "O próprio PDF, em uma nova aba"
+    },
+    "pdfViewReader": {
+        "message": "Leitor do Diigo"
+    },
+    "askOk": {
+        "message": "OK"
+    },
+    "askCancel": {
+        "message": "Cancelar"
+    },
+    "pdfViewLoading": {
+        "message": "Carregando PDF…"
+    },
+    "pdfViewFailed": {
+        "message": "Não foi possível carregar o PDF aqui."
     },
     "libraryRandomIntro": {
         "message": "10 dos seus favoritos ao acaso, nenhum com uma tag oculta. Clique de novo à esquerda em Aleatório para outros 10."
@@ -2166,6 +2219,20 @@
     },
     "setupSignIn": {
         "message": "Entrar no diigo.com"
+    },
+    "setupOffline": {
+        "message": "Consultar a biblioteca offline"
+    },
+    "libraryOffline": {
+        "message": "Offline: sua biblioteca como a extensão a guardou por último. Salvar, excluir e outras alterações não chegam ao Diigo até você entrar de novo no diigo.com; aí esta página continua sozinha."
+    },
+    "libraryDiigoDown": {
+        "message": "O Diigo não está acessível agora ($WHY$). Tente mais tarde; sua biblioteca continua na extensão.",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
     },
     "linkIgnore": {
         "message": "Não está quebrado: ignorar este link"

@@ -1,12 +1,12 @@
-// The settings of the options page. Used by options/options.js, form/form.js, the scripts of diigo-site/ and the
+// The settings of the options page. Used by pages/options.js, form/form.js, the scripts of diigo-site/ and the
 // background scripts.
 // Loaded first in those pages, so it also gives Chrome and Edge, which only have chrome.*, the browser.* of Firefox.
 globalThis.browser = globalThis.browser || globalThis.chrome;
 
-// the tag of a screenshot of a page (background.js: pageScreenshot; options/index-item.js: screenshotsOf)
+// the tag of a screenshot of a page (background.js: pageScreenshot; pages/index-item.js: screenshotsOf)
 const SCREENSHOT_TAG = 'screenshot';
 
-// the blocks of Start in the Swift Library (options/library-home.js), in their order by default
+// the blocks of Start in the Swift Library (pages/library-home.js), in their order by default
 const HOME_BLOCKS = ['pinned', 'recent', 'changed', 'shared', 'unread', 'stale', 'todo', 'random', 'day', 'trash', 'cleanup'];
 
 const DEFAULT_SETTINGS = {
@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS = {
   // addHiddenDefault)
   hiddenTags: ['hidden'],
   // not set on the options page but found by the add-on: the tags only on bookmarks with a hidden tag, which would give
-  // those away, so they are hidden as well (options/index-item.js: alsoHiddenOf), in lower case
+  // those away, so they are hidden as well (pages/index-item.js: alsoHiddenOf), in lower case
   alsoHiddenTags: [],
 
   // Going to your library on diigo.com (/user/<name>) opens the Swift Library in its place: a link, a bookmark, the
@@ -23,20 +23,20 @@ const DEFAULT_SETTINGS = {
   // My Library in the menu at the top of diigo.com has (diigo-site/header.js: never taken over), as do the ways to it
   // of the Swift pages (My Library, Public Library, To diigo.com). On by default.
   myLibraryToSwift: true,
-  // Tools there opens the Tools page of the add-on in the same way (options/tools.html: without Google Play and Import
+  // Tools there opens the Tools page of the add-on in the same way (pages/tools.html: without Google Play and Import
   // kindle highlights, with this add-on). My Outliners stays Diigo's own: your outliners are in the Swift Library.
   // off by default, as My Library
   toolsToSwift: false,
   // signed in on diigo.com, the page Diigo leads to after it (your library, /user/<name>) is the Swift Library instead
   // (background.js: signedInAt)
   signInToSwift: true,
-  // the status code of the page of each bookmark in the Swift Library (options/library-links.js)
+  // the status code of the page of each bookmark in the Swift Library (pages/library-links.js)
   deadLinks: true,
   // with deadLinks: each link checked by itself as it shows in the list (the site sees a request from this browser);
   // off, only what was checked before shows, and a link is checked when you ask for it (a click on its ·, Check all
   // links, or looking for dead links in the side bar)
   autoCheckLinks: true,
-  // also those of bookmarks with a hidden tag, by themselves (options/library-links.js: linkOfHidden); a click on
+  // also those of bookmarks with a hidden tag, by themselves (pages/library-links.js: linkOfHidden); a click on
   // their · checks one all the same
   checkHiddenLinks: false,
   // off by default: Share to outliner hidden, in the bookmark form and when adding in the Swift Library
@@ -44,7 +44,7 @@ const DEFAULT_SETTINGS = {
   // the five add buttons at the top right of the Swift Library, in place of + and its menu
   splitAdd: true,
   // in the list of the Swift Library no Private next to each private item, as most are; Public next to a public one
-  // instead (options/library-list.js: itemElement)
+  // instead (pages/library-list.js: itemElement)
   hidePrivateFlag: true,
 
   // what the toolbar button opens (background.js: onButton): form, the bookmark form (the Swift Library on a page that
@@ -59,33 +59,36 @@ const DEFAULT_SETTINGS = {
   // (rel=canonical) when that is on the same site (background.js: preferredUrl)
   cleanUrls: true,
 
-  // Bulk edit in the Swift Library (options/library-bulk.js: afterBulk): off once an action is done, and the filters away
+  // Bulk edit in the Swift Library (pages/library-bulk.js: afterBulk): off once an action is done, and the filters away
   // when nothing is left to show
   bulkExitAfter: true,
   bulkClearFilters: true,
-  // To do on Start (options/library-home.js: todoBlock): some of them at random, with Other, instead of the oldest
+  // To do on Start (pages/library-home.js: todoBlock): some of them at random, with Other, instead of the oldest
   todoRandom: false,
   // the screenshots of pages (images with the tag screenshot) out of the Swift Library, as with a hidden tag
   // (isHiddenTag): Show hidden or a search for screenshot shows them; they are at their bookmark (screenshotThumbs)
   hideScreenshots: true,
-  // a bookmark with a screenshot of its page: that as a small picture before it in the list (options/library-list.js)
+  // a bookmark with a screenshot of its page: that as a small picture before it in the list (pages/library-list.js)
   screenshotThumbs: true,
   // a bookmark without one: the preview image of its page (og:image, as social sites show a link), else its icon, as a
   // small picture before it; read from the page once (the site sees a request from this browser, as autoCheckLinks)
-  // and kept in this browser (options/library-list.js: previewThumb)
+  // and kept in this browser (pages/library-list.js: previewThumb)
   previewThumbs: true,
   // an item with a hidden tag (but screenshot itself: screenshotOfHidden), shown by Show hidden or a search: no picture
-  // before it (no screenshot, preview image or image of its own), only its room (options/library-list.js: itemElement)
+  // before it (no screenshot, preview image or image of its own), only its room (pages/library-list.js: itemElement)
   noHiddenThumbs: true,
   // your library on diigo.com without what has a hidden tag, and without the hidden tags in its list of tags, unless
   // you search for such a tag (diigo-site/hide.js, diigo-site/hide-page.js)
   hideOnDiigo: true,
-  // Start of the Swift Library (options/library-home.js: homeLayout), as you made it with Customize Start: its blocks
+  // a new public bookmark is saved private first and then set public (background.js: diigoSave), as a privacy
+  // precaution
+  publicViaPrivate: true,
+  // Start of the Swift Library (pages/library-home.js: homeLayout), as you made it with Customize Start: its blocks
   // in this order, shown: false leaves one out; and blocks of your own, {id: 'own-…', title, field, value, sort,
   // count, shown}: what a search (field and value, as the search box has them) finds, newest, oldest, last changed or
   // at random (sort), count of them
   homeLayout: HOME_BLOCKS.map(id => ({id, shown: true})),
-  // Delete in the Swift Library without asking, but only after 30 seconds, with Undo (options/library-delete.js)
+  // Delete in the Swift Library without asking, but only after 30 seconds, with Undo (pages/library-delete.js)
   deleteDelay: true,
 
 
@@ -200,7 +203,7 @@ function timeLimit(signal, ms = REQUEST_TIME) {
   return signal ? AbortSignal.any([signal, limit]) : limit;
 }
 
-// ---- the log of errors: the Log card of the options page (options/log.js) ----
+// ---- the log of errors: the Log card of the options page (pages/log.js) ----
 
 // An error as text: its message, or what it is; details (a web address, what Diigo answered) too, short
 const logText = value => {

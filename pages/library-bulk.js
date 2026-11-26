@@ -256,7 +256,7 @@ const movedTo = item => linkCategory(item) == 'moved' && !!linkStates.get(item.u
 // those ticked that moved, at their new web address, after asking how many; ticked no longer once done
 async function newUrlsPicked() {
   const moved = pickedItems().filter(movedTo);
-  if (!moved.length || controller || !confirm(message('linkUseNewUrlConfirm', String(moved.length)))) return;
+  if (!moved.length || controller || !await askConfirm(message('linkUseNewUrlConfirm', String(moved.length)))) return;
   await useNewUrls(moved);
   moved.forEach(item => chosen.delete(item.id));
   afterBulk(true);
@@ -347,7 +347,7 @@ async function deletePicked() {
     deleteLater(ids);
     return afterBulk(true);
   }
-  if (controller || !confirm(message('cleanupConfirm', String(ids.length)))) return;
+  if (controller || !await askConfirm(message('cleanupConfirm', String(ids.length)), {danger: true})) return;
   const signal = start();
   let result = {deleted: 0, failed: 0};
   const deletedIds = [];

@@ -20,6 +20,9 @@
     "optionNoHiddenThumbs": {
         "message": "Un elemento con un tag nascosto, mostrato da Mostra nascosti o da una ricerca: nessuna immagine davanti (né screenshot, né immagine di anteprima, né immagine propria)."
     },
+    "optionPublicViaPrivate": {
+        "message": "Salvare i nuovi segnalibri pubblici prima come privati e poi renderli pubblici (una precauzione per la privacy)"
+    },
     "optionHideOnDiigo": {
         "message": "Anche su diigo.com: nella tua libreria lì, nessun segnalibro con un tag nascosto e nessun tag nascosto nell’elenco dei tag, a meno che tu non cerchi quel tag."
     },
@@ -63,7 +66,7 @@
         "message": "Ricrea"
     },
     "itemRecreateConfirm": {
-        "message": "Ricreare «$TITLE$»? Un nuovo elemento con lo stesso contenuto e la data di oggi; il vecchio viene eliminato definitivamente, con ciò che ha solo lui (evidenziazioni, il suo posto negli outliner, un link di condivisione).",
+        "message": "Ricreare «$TITLE$»? Un nuovo elemento con lo stesso contenuto e la data di oggi; il vecchio viene eliminato definitivamente, con ciò che ha solo lui (evidenziazioni, il suo posto negli outliner).",
         "placeholders": {
             "title": {
                 "content": "$1"
@@ -75,6 +78,29 @@
     },
     "itemRecreateNoCopy": {
         "message": "Diigo non ha creato un nuovo elemento: ha salvato di nuovo il vecchio, senza modifiche. Non è stato eliminato nulla."
+    },
+    "itemMakeLink": {
+        "message": "Crea link pubblico"
+    },
+    "itemMakeLinkConfirm": {
+        "message": "Creare un link pubblico a «$TITLE$»? Chiunque abbia il link può aprire questo elemento, anche se è privato e senza accedere. Non si può annullare: l’unico modo è eliminare l’elemento (Ricrea mantiene l’elemento ed elimina quello vecchio, con il suo link). Creare il link?",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMakeLinkWarn": {
+        "message": "Questo link è pubblico e non può essere annullato. Elimina l’elemento, o ricrealo, per annullarlo."
+    },
+    "itemMakeLinkCopy": {
+        "message": "Copia link"
+    },
+    "itemMakeLinkCopied": {
+        "message": "Copiato"
+    },
+    "itemMakeLinkFailed": {
+        "message": "Diigo non ha dato alcun link."
     },
     "itemPin": {
         "message": "Fissa su Inizio"
@@ -310,7 +336,7 @@
         "message": "Note: testo tuo, semplice o formattato, scritto e modificato qui e mostrato nella pagina con un clic sul titolo. Una nota il cui titolo finisce in .py, .css, .html o simili è codice, mostrato a colori. Le note su Diigo sono sempre private."
     },
     "guideTypeFile": {
-        "message": "Immagini e PDF: caricati qui con titolo, descrizione e tag (un PDF fino a 64 MB); un'immagine si vede nella pagina. Eliminati qui, il loro file resta nel cestino, così si possono ripristinare."
+        "message": "Immagini e PDF: caricati qui con titolo, descrizione e tag (un PDF fino a 64 MB). Un'immagine si vede nella pagina; un PDF si apre in una nuova scheda, nel visualizzatore PDF del browser. Eliminati qui, il loro file resta nel cestino, così si possono ripristinare."
     },
     "guideTypeKindle": {
         "message": "Kindle: le tue evidenziazioni Kindle, importate su diigo.com. Non si possono creare né modificare qui; dal cestino tornano importandole di nuovo."
@@ -524,13 +550,22 @@
         "message": "Nella barra degli indirizzi: scrivi d, uno spazio e qualche parola per trovare i tuoi segnalibri."
     },
     "guideMoreDiigo": {
-        "message": "Su diigo.com: Vai alla Swift Library in fondo al menu in alto, e la Swift Library dopo l'accesso. Il resto di diigo.com resta com'è; in Swift Opzioni puoi far aprire le pagine Swift a My Library e Tools."
+        "message": "Su diigo.com: Vai alla Swift Library in fondo al menu in alto, e la Swift Library dopo l'accesso. Se hai tag nascosti, Mostra nascosti in basso a destra della tua libreria lì mostra quei segnalibri in quella scheda. Il resto di diigo.com resta com'è; in Swift Opzioni puoi far aprire le pagine Swift a My Library e Tools."
+    },
+    "guideMoreItemMenu": {
+        "message": "Il ⋯ di un elemento: Segna come letto o non letto, Aggiungi all'outliner, Condividi con gruppo, Ricrea (rifatto come nuovo elemento, il vecchio eliminato) e Crea link pubblico, dopo un chiaro avviso, per quando vuoi davvero condividerlo."
+    },
+    "guideMorePictures": {
+        "message": "Un'immagine a ogni segnalibro: l'immagine di anteprima della sua pagina, o la sua icona, conservata in questo browser. Salva anche uno screenshot, nel modulo o in Modifica, salva ciò che mostra la pagina come immagine privata in Diigo, solo se lo spunti."
+    },
+    "guideMoreOffline": {
+        "message": "Diigo non raggiungibile? Nella schermata di accesso della Swift Library, Consulta la libreria offline mostra la tua libreria come l'estensione l'ha salvata l'ultima volta. Di nuovo connesso, prosegue da sola."
     },
     "guideMoreSettings": {
         "message": "Le tue impostazioni ti seguono sugli altri computer con l'account del tuo browser."
     },
     "guidePrivacyText": {
-        "message": "L'estensione non invia nulla al suo autore. Parla con diigo.com per te, con il tuo accesso lì, e la copia della tua libreria resta in questo browser. Cos'altro va dove, e le scelte in merito, sono in Swift Opzioni sotto Privacy."
+        "message": "L'estensione non invia nulla al suo autore. Parla con diigo.com per te, con il tuo accesso lì, e la copia della tua libreria resta in questo browser. Un nuovo segnalibro pubblico viene prima salvato come privato e solo poi reso pubblico, e l'estensione non crea mai da sola un link pubblico a un elemento. Cos'altro va dove, e le scelte in merito, sono in Swift Opzioni sotto Privacy."
     },
     "guideDiigoTour": {
         "message": "Il tour di Diigo su ciò che fa Diigo: Learn more su diigo.com"
@@ -1149,6 +1184,24 @@
     },
     "libraryImageOpen": {
         "message": "L’immagine stessa, in una nuova scheda"
+    },
+    "libraryPdfOpen": {
+        "message": "Il PDF stesso, in una nuova scheda"
+    },
+    "pdfViewReader": {
+        "message": "Lettore di Diigo"
+    },
+    "askOk": {
+        "message": "OK"
+    },
+    "askCancel": {
+        "message": "Annulla"
+    },
+    "pdfViewLoading": {
+        "message": "Caricamento del PDF…"
+    },
+    "pdfViewFailed": {
+        "message": "Non è stato possibile caricare il PDF qui."
     },
     "libraryRandomIntro": {
         "message": "10 dei tuoi segnalibri a caso, nessuno con un tag nascosto. Fai di nuovo clic a sinistra su A caso per altri 10."
@@ -2166,6 +2219,20 @@
     },
     "setupSignIn": {
         "message": "Accedi su diigo.com"
+    },
+    "setupOffline": {
+        "message": "Consulta la libreria offline"
+    },
+    "libraryOffline": {
+        "message": "Offline: la tua libreria come l’estensione l’ha salvata l’ultima volta. Salvataggi, eliminazioni e altre modifiche non arrivano a Diigo finché non accedi di nuovo su diigo.com; allora questa pagina prosegue da sola."
+    },
+    "libraryDiigoDown": {
+        "message": "Diigo non è raggiungibile ora ($WHY$). Riprova più tardi; la tua libreria è ancora nell’estensione.",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
     },
     "linkIgnore": {
         "message": "Non è morto: ignora questo link"

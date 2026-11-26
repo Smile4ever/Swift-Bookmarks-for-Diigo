@@ -8,6 +8,7 @@
   <link rel="icon" href="../icons/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="swift-nav.css">
   <link rel="stylesheet" href="options.css">
+  <link rel="stylesheet" href="ask.css">
 </head>
 <body>
   <!-- Swift Options, one of the pages of the add-on: the menu at the top of diigo.com as on the others (swift-nav.css),
@@ -55,7 +56,7 @@
         <p><span data-i18n="optionsGuideText"></span> <a href="guide.html" class="button" data-i18n="guideMenu">Swift Guide</a></p>
       </section>
 
-      <!-- options/library.html, a page of its own; filters and Bulk edit are a part of it -->
+      <!-- pages/library.html, a page of its own; filters and Bulk edit are a part of it -->
       <section class="card" id="library">
         <h1 data-i18n="libraryMenu">Swift Library</h1>
         <p class="intro" data-i18n="libraryOptionsIntro"></p>
@@ -143,11 +144,12 @@
           <label class="option"><span data-i18n="optionCheckHiddenLinks"></span><input type="checkbox" id="checkHiddenLinks"></label>
           <label class="option"><span data-i18n="optionPreviewThumbs"></span><input type="checkbox" id="previewThumbs"></label>
           <label class="option"><span data-i18n="optionNoHiddenThumbs"></span><input type="checkbox" id="noHiddenThumbs"></label>
+          <label class="option"><span data-i18n="optionPublicViaPrivate"></span><input type="checkbox" id="publicViaPrivate"></label>
         </div>
       </section>
 
       <!-- what the add-on still adds to diigo.com itself (diigo-site/); the id of each field is its key in
-           options/settings.js, with a switch at the right of each (.option) -->
+           pages/settings.js, with a switch at the right of each (.option) -->
       <section class="card" id="site">
         <h1 data-i18n="optionsHead">On diigo.com</h1>
         <p class="intro" data-i18n="optionsIntro"></p>
@@ -203,6 +205,7 @@
   </div>
 
   <script src="settings.js"></script>
+  <script src="ask.js"></script>
   <script src="index-item.js"></script>
   <script src="library-index.js"></script>
   <script src="user-menu.js"></script>

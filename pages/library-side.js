@@ -258,13 +258,7 @@ function topTags() {
   }
   const tags = side.sort == 'top' ? visibleTags(tagCounts(items)).slice(0, TOP_TAGS) : recentTags(items);
   // a click: the bookmarks with that tag, as Diigo searches for it
-  box.append(...tags.map(tag => tagLine(tag, {onClick: () => {
-    state.random = '';
-    state.tags = [tag.name];
-    // from the trash: to the bookmarks with that tag, as those are the tags shown
-    if (state.view == 'trash') state.view = 'all';
-    show({push: true});
-  }})));
+  box.append(...tags.map(tag => tagLine(tag, {onClick: () => onlyTag(tag.name)})));
   const moreTags = element('div', 'moreTagsLine');
   const all = element('a', 'allTag', message('sideAllTags'));
   all.href = '#';
@@ -349,10 +343,7 @@ function fillCloud() {
     button.style.fontSize = 12 + 14 * (most > least ? (Math.log(tag.count) - least) / (most - least) : 0) + 'px';
     button.addEventListener('click', () => {
       $('cloudDialog').close();
-      state.random = '';
-      state.tags = [tag.name];
-      if (state.view == 'trash') state.view = 'all';
-      show({push: true});
+      onlyTag(tag.name);
     });
     return button;
   }));

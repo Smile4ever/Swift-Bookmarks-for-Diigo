@@ -1,4 +1,4 @@
-// background/sync.js, run after options/settings.js and background/background.js in a sandbox with a made-up browser.* API
+// background/sync.js, run after pages/settings.js and background/background.js in a sandbox with a made-up browser.* API
 const test = require('node:test');
 const assert = require('node:assert');
 const fs = require('fs');
@@ -57,7 +57,7 @@ function loadSync(storage = null) {
     },
   });
   const context = vm.createContext({browser: api(), console, URL, URLSearchParams, AbortController, AbortSignal, setTimeout, fetch: () => Promise.reject(new Error('no network in tests'))});
-  for (const file of ['options/settings.js', 'background/background.js', 'background/sync.js']) {
+  for (const file of ['pages/settings.js', 'background/background.js', 'background/sync.js']) {
     vm.runInContext(fs.readFileSync(path.join(ROOT, file), 'utf8'), context, {filename: file});
   }
   return {context, listeners};

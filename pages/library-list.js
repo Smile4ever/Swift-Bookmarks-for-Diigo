@@ -162,9 +162,12 @@ function appendShown(item) {
 function plainItem(item) {
   const li = element('li', 'item');
   const link = element('a', 'title', text(item?.title) || text(item?.url) || text(item?.id));
-  link.href = text(item?.url);
-  link.target = '_blank';
-  link.rel = 'noopener noreferrer';
+  // not an image: that is never opened on Diigo (titleUrl)
+  if (item?.type != 'image') {
+    link.href = text(item?.url);
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+  }
   li.append(link);
   return li;
 }
@@ -211,22 +214,50 @@ function element(tag, className, text) {
 // The item on Diigo, as Diigo's own library opens every item (/user/<name>/b/<link_id>)
 const diigoItemUrl = item => `https://www.diigo.com/user/${encodeURIComponent(user)}/b/${item.id}`;
 
-// Where the title leads: a bookmark to its page; a note, image, PDF or Kindle item to itself on Diigo, as its url is
-// not where you read it (for a note it can be a link of Diigo's own, /item/note/…). One in the trash to its url, as it
-// is gone from Diigo.
-const titleUrl = item => item.deletedAt || item.pendingDelete || (!item.type || item.type == 'bookmark') && item.url
-  ? item.url : diigoItemUrl(item);
+// Where the title leads: a bookmark to its page; a note, PDF or Kindle item to itself on Diigo, as its url is not where
+// you read it (for a note it can be a link of Diigo's own, /item/note/…). One in the trash to its url, as it is gone
+// from Diigo. An image nowhere (''): it is only shown in the Swift Library (viewImage), never opened on Diigo, also not
+// with Ctrl or the middle button, as a privacy precaution.
+const titleUrl = item => item.type == 'image' ? ''
+  : item.deletedAt || item.pendingDelete || (!item.type || item.type == 'bookmark') && item.url ? item.url
+  : diigoItemUrl(item);
 
-// A note whose text the index has opens here, to read (library-edit.js: viewNote), and so does an image (viewImage),
-// also from the trash; with Ctrl, Shift, Alt or Cmd, or the middle button, the link as it is: on Diigo.
+// the title of an item as a link to where it leads (titleUrl), in a new tab; an image without one: a button that shows
+// it here (noteTitle), with the keyboard too
+function titleLink(title, item) {
+  const url = titleUrl(item);
+  if (url) {
+    title.href = url;
+    title.target = '_blank';
+    title.rel = 'noopener noreferrer';
+    return;
+  }
+  title.tabIndex = 0;
+  title.setAttribute('role', 'button');
+  title.classList.add('no-link');
+}
+
+// A note whose text the index has opens here, to read (library-edit.js: viewNote), and so do an image (viewImage) and
+// a PDF (viewPdf: a live one in Diigo's reader in a new tab, one from the trash inline); with Ctrl, Shift, Alt or Cmd,
+// or the middle button, the link as it is: on Diigo. Not an image: it has no link (titleUrl), so any click, and Enter,
+// shows it here.
 function noteTitle(title, item, li) {
-  const view = item.type == 'note' && 'content' in item ? viewNote : item.type == 'image' ? viewImage : null;
+  const view = item.type == 'note' && 'content' in item ? viewNote : item.type == 'image' ? viewImage
+    : item.type == 'pdf' ? viewPdf : null;
   if (!view) return;
+  const image = item.type == 'image';
   title.addEventListener('click', e => {
-    if (e.button || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey || $('popup').open) return;
+    if ($('popup').open || !image && (e.button || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)) return;
     e.preventDefault();
     view(item, li);
   });
+  if (image) {
+    title.addEventListener('keydown', e => {
+      if (e.key != 'Enter' || $('popup').open) return;
+      e.preventDefault();
+      view(item, li);
+    });
+  }
 }
 
 // The thumbnail of an image, as Diigo's library shows one (thumbnail_url, at the size of its list: image_size=160),
@@ -320,7 +351,8 @@ function previewElement(item, {image, icon}) {
   picture.title = item.url;
   picture.addEventListener('click', e => {
     e.stopPropagation();
-    window.open(titleUrl(item), '_blank', 'noopener,noreferrer');
+    const url = titleUrl(item);
+    if (url) window.open(url, '_blank', 'noopener,noreferrer');
   });
   return picture;
 }
@@ -406,9 +438,7 @@ function itemElement(item) {
     bulkOnClick(li, item);
   }
   const title = element('a', 'title', item.title || item.url);
-  title.href = titleUrl(item);
-  title.target = '_blank';
-  title.rel = 'noopener noreferrer';
+  titleLink(title, item);
   if (item.unread) title.classList.add('unread');
   const icon = typeIcon(item);
   if (icon) title.prepend(icon);
@@ -474,8 +504,8 @@ function itemElement(item) {
   if (editable(item)) actions.append(editButton(item, li));
   // ⋯: pin to Start, hide (library-home.js: itemMenuButton)
   actions.append(itemMenuButton(item));
-  // no On Diigo here: the title of a PDF or a Kindle item leads there already (titleUrl), a note or an image opens in
-  // the Swift Library with On Diigo in it (library-edit.js: viewNote, viewImage)
+  // no On Diigo here: the title of a Kindle item leads there already (titleUrl), while a note, an image or a PDF opens
+  // in the Swift Library (library-edit.js: viewNote with On Diigo in it; viewImage; viewPdf)
   const remove = element('button', 'delete', message('libraryDelete'));
   remove.type = 'button';
   remove.addEventListener('click', () => deleteOne(item, li));
@@ -524,7 +554,7 @@ async function deleteScreenshots(item, shots) {
     deleteLater(ids);
     return show({keepScroll: true});
   }
-  if (controller || !confirm(message('screenshotDeleteConfirm', item.title || item.url))) return;
+  if (controller || !await askConfirm(message('screenshotDeleteConfirm', item.title || item.url), {danger: true})) return;
   const signal = start();
   try {
     const {deleted} = await deleteItems(ids, signal, () => {});
@@ -545,7 +575,7 @@ async function deleteOne(item, li) {
     leaveList(item, li);
     return safely('bulk edit', showPicked);
   }
-  if (controller || !confirm(message('libraryConfirm', item.title || item.url))) return;
+  if (controller || !await askConfirm(message('libraryConfirm', item.title || item.url), {danger: true})) return;
   const signal = start();
   try {
     const {deleted} = await deleteItems([item.id], signal, () => {});

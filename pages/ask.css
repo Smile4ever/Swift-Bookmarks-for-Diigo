@@ -1,0 +1,84 @@
+/* A question before something is done (ask.js: askConfirm), as the popups of the Swift Library (library.css: .popup,
+   .card): a white card over a dark backdrop, the question in a calm size with room around it, and Cancel and OK at the
+   bottom right; OK blue, or red when it can't be undone (.danger). Light also in a dark system, as those popups. */
+
+.ask {
+  width: min(480px, calc(100vw - 32px));
+  max-width: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.ask::backdrop {
+  background: rgba(0, 0, 0, .55);
+}
+
+.ask-card {
+  margin: 0;
+  padding: 24px 24px 16px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .25), 0 1px 3px rgba(0, 0, 0, .12);
+  color: #222;
+  color-scheme: light;
+  font: 15px/1.55 "Open Sans", "Segoe UI", system-ui, sans-serif;
+}
+
+/* a red line along the top when it can't be undone */
+.ask-card.danger {
+  border-top: 4px solid #d32f2f;
+}
+
+.ask-text {
+  margin: 0 0 22px;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.ask-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.ask-buttons button {
+  min-width: 88px;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 4px;
+  font: 600 14px "Open Sans", "Segoe UI", system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.ask-cancel {
+  background: transparent;
+  color: #1e70c1;
+}
+
+.ask-cancel:hover {
+  background: #eef4fb;
+}
+
+.ask-ok {
+  background: #1e88e5;
+  color: #fff;
+}
+
+.ask-ok:hover {
+  background: #1976d2;
+}
+
+.danger .ask-ok {
+  background: #d32f2f;
+}
+
+.danger .ask-ok:hover {
+  background: #b71c1c;
+}
+
+.ask-buttons button:focus-visible {
+  outline: 2px solid #1e88e5;
+  outline-offset: 2px;
+}

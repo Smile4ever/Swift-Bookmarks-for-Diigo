@@ -64,14 +64,14 @@ Search the app for a class name from the page (`outlinerGroupSelect`, `EditBookm
 
 The Swift Library is made for bookmarks, but lists every item type:
 
-* **Opening**: the title of a note opens it in the Swift Library to read, with Edit (`options/library-edit.js`:
+* **Opening**: the title of a note opens it in the Swift Library to read, with Edit (`pages/library-edit.js`:
   `viewNote`). Ctrl+click or the middle button, and the title of an image, a PDF or a Kindle item, lead to the item on
-  Diigo (`/user/<name>/b/<link_id>`), as Diigo's own library opens every item (`options/library-list.js`: `titleUrl`).
+  Diigo (`/user/<name>/b/<link_id>`), as Diigo's own library opens every item (`pages/library-list.js`: `titleUrl`).
 * **Edit**: notes only (title, text, tags), with `/item/save/note`. Images, PDFs and Kindle items not: the toolbar API
   the add-on saves bookmarks with is about bookmarks.
 * **Trash**: a deleted note, image or PDF goes to the trash like a bookmark. Put back saves a note again as a new note
   with its text (the index keeps it since version 3), and an image or a PDF from its file, which the trash keeps when it
-  fits in the browser's storage (`options/index-item.js`: `roomFor`).
+  fits in the browser's storage (`pages/index-item.js`: `roomFor`).
 * **Bulk edit** changes their tags, privacy and read state. When `batch_edit_tags` fails, an image or a PDF is saved on
   its own (`/item/save/image`, `/item/save/pdf`); a note not, as that would save its text as the index has it.
 
@@ -106,7 +106,7 @@ Seen in the network tab:
 with one before the first; not `tags`, as the add-on first thought), `private` (0 or 1), `readed` (0: unread),
 `annotations`, `thumbnail_url` (an image: its thumbnail, sized with `image_size=` in it, as Diigo's list asks 160), and `created_at` and `updated_at` (seconds since 1970); a note also has `note_content` (its text, HTML when
 `is_rich_note` is 1). With `sort=updated` the last
-changed come first, which is how `options/library-index.js` updates its index with only what changed (it builds the index
+changed come first, which is how `pages/library-index.js` updates its index with only what changed (it builds the index
 with `sort=created`, oldest first, so new bookmarks don't shift the pages while it runs). Also used for Random bookmark
 (`background/background.js`).
 
@@ -114,16 +114,16 @@ Used by the add-on, from the app's code:
 
 | request                                    | what                                        |
 |--------------------------------------------|---------------------------------------------|
-| `POST /item/save/bookmark`, `link_id`, `url`, `new_url`, `title`, `description`, `tags`, `private`, `unread` | save a bookmark as Diigo's edit window does (`EditItem`), also with another URL (`new_url`, only when it changed), which the toolbar API can't; `tags` as typed in Diigo, separated by spaces. The answer is `{items: [the bookmark]}`, which can have another `link_id`. Used by `options/library-index.js` for another URL |
-| `POST /item/save/note`, `title`, `content`, `note_type`, `mode`, `tags`, `link_id` | save a note, as the app does (`newNote`, also from its note editor): with its `link_id`, or empty for a new one; `content` its text, `note_type` `rich` (HTML) or empty, `mode` 2 (notes are private), `tags` with commas and quotes (`"one","two"`). The answer is `{items: [the note]}`. Used by `options/library-index.js` (`postNote`) to add and edit a note in the Swift Library and to put one back from the trash |
-| `GET /interact_api/batch_share_links`, `links` | the links of an item, as its Share window asks them: `{<link_id>: {item_url, file_url}}`; `file_url` is the file of an image or a PDF. Used for the trash (`options/index-item.js`: `itemFile`), before it is deleted |
+| `POST /item/save/bookmark`, `link_id`, `url`, `new_url`, `title`, `description`, `tags`, `private`, `unread` | save a bookmark as Diigo's edit window does (`EditItem`), also with another URL (`new_url`, only when it changed), which the toolbar API can't; `tags` as typed in Diigo, separated by spaces. The answer is `{items: [the bookmark]}`, which can have another `link_id`. Used by `pages/library-index.js` for another URL |
+| `POST /item/save/note`, `title`, `content`, `note_type`, `mode`, `tags`, `link_id` | save a note, as the app does (`newNote`, also from its note editor): with its `link_id`, or empty for a new one; `content` its text, `note_type` `rich` (HTML) or empty, `mode` 2 (notes are private), `tags` with commas and quotes (`"one","two"`). The answer is `{items: [the note]}`. Used by `pages/library-index.js` (`postNote`) to add and edit a note in the Swift Library and to put one back from the trash |
+| `GET /interact_api/batch_share_links`, `links` | the links of an item, as its Share window asks them: `{<link_id>: {item_url, file_url}}`; `file_url` is the file of an image or a PDF. Used only for Make public link (`pages/library-add.js`: `makePublicLink`), when you choose it |
 | `POST /item/save/image` | multipart, as the app uploads an image (`newImage`): `qqfile` (the file), `qqfilename` (its name with `_1` after it), `private` (always `true`: the app makes an image public after; `false` made Diigo answer 500), `tags`, `lists`, `groups`; answers `{items: [the image]}` (`code` -2: not taken). Form-encoded with `link_id`, `title`, `description`, `tags`, `private` it saves an edited image, as its edit window does. Used to add images in the Swift Library (`addFile`), to put one back from the trash (`restoreFile`) and by Bulk edit |
 | `POST /item/save/pdf`, `link_id`, `title`, `description`, `tags`, `private`, `unread` | save an edited PDF, as the edit window does; used by Bulk edit and to put a PDF back |
 | `POST /item/save` | multipart, as the app uploads a PDF (`newPDF`): `qqfile`, `qqfilename`, `private`, `tags`, `dtype` `pdf`, `description`, `unread`, `lists`, `groups`; answers `{items: [the PDF]}`, or `code` -2 at the upload limit. Diigo's Add PDF window refuses a file of 64 MB or more before it uploads. Used to add PDFs in the Swift Library (`addFile`) and to put one back from the trash (`restoreFile`) |
-| `POST /ditem_mana2/delete_b`, `link_id=1,2,3` | delete items: their `link_id`s, separated by commas, as the app does for several at once (`deleteItems`); used by Bulk edit in `options/library-bulk.js`, 50 at a time. Also how diigo.com itself deletes, wherever: `background/background.js` reads its `link_id` (webRequest, `DIIGO_DELETES`) and takes those items out of the index once Diigo answered |
-| `POST /ditem_mana2/mark_readed`, `link_id=1,2,3`, `readed` | mark items read (`readed=1`) or unread (`0`); used by Bulk edit (`options/library-index.js`: `editItems`) |
+| `POST /ditem_mana2/delete_b`, `link_id=1,2,3` | delete items: their `link_id`s, separated by commas, as the app does for several at once (`deleteItems`); used by Bulk edit in `pages/library-bulk.js`, 50 at a time. Also how diigo.com itself deletes, wherever: `background/background.js` reads its `link_id` (webRequest, `DIIGO_DELETES`) and takes those items out of the index once Diigo answered |
+| `POST /ditem_mana2/mark_readed`, `link_id=1,2,3`, `readed` | mark items read (`readed=1`) or unread (`0`); used by Bulk edit (`pages/library-index.js`: `editItems`) |
 | `POST /ditem_mana2/convert_mode`, `link_id=1,2,3`, `mode` | make items public (`mode=0`) or private (`2`); answers `{link_ids}`; used by Bulk edit |
-| `POST /tag_mana2/update_tags?old_tag=<tag>&new=<tag>`, also as fields | rename a tag on all your items, as the app does (`Et` in its code): both names encoded with `encodeURIComponent`, in the address and (encoded once more) as the fields `old_tag` and `new`; the answer is `1`. Used by Rename tag in the Swift Library (`options/library-tags.js`: `renameTag`), with Merge as for Similar tags when Diigo doesn't take it |
+| `POST /tag_mana2/update_tags?old_tag=<tag>&new=<tag>`, also as fields | rename a tag on all your items, as the app does (`Et` in its code): both names encoded with `encodeURIComponent`, in the address and (encoded once more) as the fields `old_tag` and `new`; the answer is `1`. Used by Rename tag in the Swift Library (`pages/library-tags.js`: `renameTag`), with Merge as for Similar tags when Diigo doesn't take it |
 | `POST /ditem_mana2/batch_edit_tags`, `editTags`, `editTagOption`, `infos` | tags of several items: `editTags` as typed in Diigo (separated by spaces), `editTagOption` 1 adds them, 0 replaces all tags by them (there is no option to take some away), `infos` `{"link_id_a": [1, 2, 3]}` as JSON. From the add-on it answered 500 (an error page), even for one tag on one bookmark, just as the site sends it (October 2026); Bulk edit then saves each bookmark with `/item/save/bookmark` |
 
 Also in the app's code, not tried:
@@ -158,7 +158,7 @@ the library uses, and whether it stops loading pages when one comes back shorter
 
 Diigo's outliner is an app of its own at `/outliner`, which the library shows in a frame (`/outliner/<code>/<title>`,
 `<code>` the id as `(1234 * id + 98765).toString(36)`). Its code is public: `/outliner/w/scripts/wp.<hash>.js` and
-`/outliner/javascripts/main.js` (read November 2026, from a shared outliner). Outliners in the Swift Library (`options/library-outliners.js`)
+`/outliner/javascripts/main.js` (read November 2026, from a shared outliner). Outliners in the Swift Library (`pages/library-outliners.js`)
 talks to it as that app does, with the sign-in of diigo.com and `X-Requested-With: XMLHttpRequest`; answers are JSON
 with `code: 1`.
 
@@ -180,7 +180,7 @@ In `content`, an item of your library is a `<span class="diigoItemFlag">` with J
 
 At the top right of the library, your name opens a menu: Public Library (`/profile/<name>`), Settings (`/setting`),
 Support (`/common/contact`), Discover (`/buzz/hot`), Help (`/help`, which leads to help.diigo.com) and Sign
-Out (`/sign-out`). The add-on draws the same menu in the Swift Library and Swift Discover (`options/user-menu.js`), with
+Out (`/sign-out`). The add-on draws the same menu in the Swift Library and Swift Discover (`pages/user-menu.js`), with
 Swift Discover for Discover. The addresses were checked signed out (November 2026): each exists, or leads to sign in.
 
 Public Library is a route of the React app (`profile/:name`, a `Link`): loaded as a page, `/profile/<name>` is the
@@ -190,7 +190,7 @@ old classic page the server draws. The add-on leads to `/user/<name>#dqa-public-
 ## Hot Bookmarks (Discover)
 
 `/buzz/hot` is an older page that Diigo draws on its server, the same for everyone, signed in or not (November 2026).
-Swift Discover (`options/discover.js`: `parseBuzz`) reads it as HTML:
+Swift Discover (`pages/discover.js`: `parseBuzz`) reads it as HTML:
 
 * `?count=100&page_num=0`: 20, 50 or 100 per page (the menu at the bottom sets a cookie; `count` in the address works
   too), `page_num` from 0. The pagination at the bottom has `Next ›` while there is a next page.

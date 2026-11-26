@@ -1,5 +1,5 @@
 // An item of the index of the Swift Library as it is made from what diigo.com gives, the tags hidden along with the
-// hidden ones, and the file of an image or a PDF. Shared by options/library-index.js (the Swift Library) and
+// hidden ones, and the file of an image or a PDF. Shared by pages/library-index.js (the Swift Library) and
 // background/background.js (refreshIndex, what is saved on diigo.com; the trash of Diigo's delete window), loaded
 // before them.
 
@@ -57,14 +57,14 @@ function indexItem(item) {
     annotated: Array.isArray(item.annotations) ? item.annotations.length > 0 : !!item.annotated,
     created: seconds(item.created_at),
     updated: seconds(item.updated_at),
-    // a note: its text (HTML when rich), to put it back from the trash (options/library-index.js: restoreNote)
+    // a note: its text (HTML when rich), to put it back from the trash (pages/library-index.js: restoreNote)
     ...text(item.type_name) == 'note' ? {content: text(item.note_content), rich: yes(item.is_rich_note)} : {},
     // an image (or another item Diigo has one of): its thumbnail, as Diigo's library shows it (since version 4)
     ...text(item.thumbnail_url) ? {thumb: text(item.thumbnail_url)} : {},
   };
 }
 
-// The text of a note as you read it, to search in (options/library-search.js: matches): a rich one (HTML) without its tags, a line for each paragraph, its &entities; as the characters
+// The text of a note as you read it, to search in (pages/library-search.js: matches): a rich one (HTML) without its tags, a line for each paragraph, its &entities; as the characters
 // they are; in lower case. '' for any other item. Worked out once per item, as a search asks it of each note at every
 // key typed (kept while the item has the same text: an edited note is another item).
 const noteTexts = new WeakMap();
@@ -157,30 +157,46 @@ async function roomFor(bytes) {
   return (estimate.usage || 0) + bytes <= estimate.quota * (1 - STORAGE_SPARE);
 }
 
-// The file of an image or a PDF, for the trash before it is deleted, as the trash can't get it back from Diigo after:
-// Diigo's link to it (batch_share_links, as its Share window asks it: {<link_id>: {item_url, file_url}}), then the
-// file. {file, name}, or null when Diigo doesn't give it, or when it doesn't fit (roomFor).
-// the web address of the file of an image or a PDF on Diigo (batch_share_links: file_url), or '' when Diigo gives none;
-// also for showing an image in the Swift Library (library-edit.js: viewImage)
-async function itemFileUrl(linkId, signal) {
-  const params = new URLSearchParams({links: linkId});
-  const response = await fetch(`https://www.diigo.com/interact_api/batch_share_links?${params}`, {
-    credentials: 'include', headers: {'X-Requested-With': 'XMLHttpRequest'}, signal: timeLimit(signal),
-  });
-  return JSON.parse(await response.text())?.[linkId]?.file_url || '';
-}
+// The file of an image or a PDF, for the trash before it is deleted, as the trash can't get it back from Diigo after,
+// and for Recreate (itemFile): an image as its thumbnail at a large size (largeImage), as the Swift Library shows it
+// (library-edit.js: viewImage); a PDF as Diigo's own reader gets it (pdfFileUrl). Neither asks Diigo for the links of
+// the item, as a privacy precaution. {file, name}, or null when Diigo doesn't give it, or when it doesn't fit (roomFor).
 
-async function itemFile(linkId, signal) {
+// the image_size a thumbnail is asked at to show or keep an image: large, so it is clear; Diigo gives what it has up
+// to its own cap
+const LARGE_IMAGE_SIZE = 2000;
+const largeImage = item => item?.thumb ? item.thumb.replace(/([?&]image_size=)[^&#;]*/i, '$1' + LARGE_IMAGE_SIZE) : '';
+
+// The web address of the file of a PDF as Diigo's own reader gets it: the signed link to it for a few minutes that its
+// page makes, read there in a tab in the background (background.js: readerPdfUrl). From a page of the add-on, asked of
+// the background script.
+const pdfFileUrl = linkId => typeof readerPdfUrl == 'function' ? readerPdfUrl({linkId})
+  : browser.runtime.sendMessage({type: 'readerPdfUrl', linkId});
+
+// item: {id, type, title}; room false: also when the trash has no room for it (Recreate, which doesn't keep it)
+async function itemFile(item, signal, {room = true} = {}) {
+  const pdf = item?.type == 'pdf';
   try {
-    const url = await itemFileUrl(linkId, signal);
+    const url = pdf ? await pdfFileUrl(item.id) : largeImage(item);
     if (!url) return null;
-    const file = await fetch(url, {credentials: 'include', signal: timeLimit(signal, FILE_TIME)})
+    // the link of a PDF is signed: it needs no sign-in, and gets none
+    const file = await fetch(url, {credentials: pdf ? 'omit' : 'include', signal: timeLimit(signal, FILE_TIME)})
       .then(answer => answer.ok ? answer.blob() : null);
-    if (!file?.size || !await roomFor(file.size)) return null;
-    const name = decodeURIComponent(new URL(url).pathname.split('/').pop() || '') || 'file';
-    return {file, name};
+    if (!file?.size || room && !await roomFor(file.size)) return null;
+    if (pdf) {
+      // its first bytes: a PDF, not an error page
+      const head = String.fromCharCode(...new Uint8Array(await file.slice(0, 5).arrayBuffer()));
+      if (head != '%PDF-') return null;
+      const base = String(item.title || 'document').replace(/[\\/:*?"<>|]+/g, ' ').trim().slice(0, 100) || 'document';
+      return {file: new Blob([file], {type: 'application/pdf'}), name: /\.pdf$/i.test(base) ? base : base + '.pdf'};
+    }
+    // an image, not an error page
+    if (!/^image\//.test(file.type)) return null;
+    const base = String(item.title || 'image').replace(/[\\/:*?"<>|]+/g, ' ').trim().slice(0, 100) || 'image';
+    const ext = {'image/png': 'png', 'image/gif': 'gif', 'image/webp': 'webp'}[file.type] || 'jpg';
+    return {file, name: base.toLowerCase().endsWith('.' + ext) ? base : `${base}.${ext}`};
   } catch (e) {
-    logError('Trash: the file of an item', e, linkId);
+    logError('Trash: the file of an item', e, item?.id);
     return null;
   }
 }
@@ -191,7 +207,7 @@ async function itemFile(linkId, signal) {
 // description; so the bookmark of that page knows its screenshots, also one in its description by a link (as before
 // the description had the web address). Its tags are those of the bookmark, and screenshot (screenshotTags): hidden
 // with it, found with it; kept so when the add-on changes the tags of the bookmark (background.js: syncScreenshots,
-// options/library-index.js: editItems). SCREENSHOT_TAG: in settings.js.
+// pages/library-index.js: editItems). SCREENSHOT_TAG: in settings.js.
 function screenshotsOf(bookmark, items) {
   if (!bookmark?.url || bookmark.type == 'image') return [];
   const linked = screenshotLinks(bookmark);

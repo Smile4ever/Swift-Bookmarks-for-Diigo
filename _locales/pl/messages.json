@@ -20,6 +20,9 @@
     "optionNoHiddenThumbs": {
         "message": "Element z ukrytym tagiem, pokazany przez Pokaż ukryte lub wyszukiwanie: bez obrazka przed nim (bez zrzutu ekranu, obrazu podglądu ani własnego obrazu)."
     },
+    "optionPublicViaPrivate": {
+        "message": "Nowe publiczne zakładki zapisywać najpierw jako prywatne, a potem udostępniać (środek ostrożności dla prywatności)"
+    },
     "optionHideOnDiigo": {
         "message": "Także na diigo.com: w Twojej bibliotece tam żadnych zakładek z ukrytym tagiem i żadnych ukrytych tagów na liście tagów, chyba że szukasz takiego tagu."
     },
@@ -63,7 +66,7 @@
         "message": "Utwórz ponownie"
     },
     "itemRecreateConfirm": {
-        "message": "Utworzyć ponownie „$TITLE$”? Nowy element z tą samą treścią i dzisiejszą datą; stary zostanie trwale usunięty razem z tym, co ma tylko on (wyróżnienia, miejsce w outlinerach, link udostępniania).",
+        "message": "Utworzyć ponownie „$TITLE$”? Nowy element z tą samą treścią i dzisiejszą datą; stary zostanie trwale usunięty razem z tym, co ma tylko on (wyróżnienia, miejsce w outlinerach).",
         "placeholders": {
             "title": {
                 "content": "$1"
@@ -75,6 +78,29 @@
     },
     "itemRecreateNoCopy": {
         "message": "Diigo nie utworzyło nowego elementu: zapisało ponownie stary, bez zmian. Nic nie zostało usunięte."
+    },
+    "itemMakeLink": {
+        "message": "Utwórz link publiczny"
+    },
+    "itemMakeLinkConfirm": {
+        "message": "Utworzyć publiczny link do „$TITLE$”? Każdy z linkiem może otworzyć ten element, także prywatny i bez logowania. Nie można tego cofnąć: jedynym sposobem jest usunięcie elementu (Utwórz ponownie zachowuje element i usuwa stary wraz z jego linkiem). Utworzyć link?",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMakeLinkWarn": {
+        "message": "Ten link jest publiczny i nie można go cofnąć. Usuń element lub utwórz go ponownie, aby cofnąć."
+    },
+    "itemMakeLinkCopy": {
+        "message": "Kopiuj link"
+    },
+    "itemMakeLinkCopied": {
+        "message": "Skopiowano"
+    },
+    "itemMakeLinkFailed": {
+        "message": "Diigo nie zwróciło linku."
     },
     "itemPin": {
         "message": "Przypnij na Starcie"
@@ -310,7 +336,7 @@
         "message": "Notatki: własny tekst, zwykły lub sformatowany, pisany i edytowany tutaj i pokazywany na stronie po kliknięciu tytułu. Notatka, której tytuł kończy się na .py, .css, .html itp., to kod, pokazywany w kolorach. Notatki w Diigo są zawsze prywatne."
     },
     "guideTypeFile": {
-        "message": "Obrazy i PDF-y: przesyłane tutaj z tytułem, opisem i tagami (PDF do 64 MB); obraz jest pokazywany na stronie. Usunięte tutaj zostawiają plik w koszu, więc można je przywrócić."
+        "message": "Obrazy i PDF-y: przesyłane tutaj z tytułem, opisem i tagami (PDF do 64 MB). Obraz jest pokazywany na stronie; PDF otwiera się w nowej karcie, w przeglądarce PDF Twojej przeglądarki. Usunięte tutaj zostawiają plik w koszu, więc można je przywrócić."
     },
     "guideTypeKindle": {
         "message": "Kindle: Twoje zaznaczenia z Kindle, importowane na diigo.com. Nie można ich tu tworzyć ani edytować; z kosza wracają przez ponowny import."
@@ -524,13 +550,22 @@
         "message": "W pasku adresu: wpisz d, spację i kilka słów, aby znaleźć swoje zakładki."
     },
     "guideMoreDiigo": {
-        "message": "Na diigo.com: Przejdź do Swift Library na końcu menu u góry i Swift Library po zalogowaniu. Reszta diigo.com zostaje taka, jak ma ją Diigo; w Swift Opcje możesz sprawić, by My Library i Tools otwierały strony Swift."
+        "message": "Na diigo.com: Przejdź do Swift Library na końcu menu u góry i Swift Library po zalogowaniu. Jeśli masz ukryte tagi, Pokaż ukryte w prawym dolnym rogu Twojej biblioteki tam pokazuje te zakładki w tej karcie. Reszta diigo.com zostaje taka, jak ma ją Diigo; w Swift Opcje możesz sprawić, by My Library i Tools otwierały strony Swift."
+    },
+    "guideMoreItemMenu": {
+        "message": "⋯ elementu: Oznacz jako przeczytane lub nieprzeczytane, Dodaj do outlinera, Udostępnij grupie, Utwórz ponownie (jako nowy element, stary usunięty) i Utwórz publiczny link, po wyraźnym ostrzeżeniu, gdy naprawdę chcesz go udostępnić."
+    },
+    "guideMorePictures": {
+        "message": "Obrazek przy każdej zakładce: obraz podglądu jej strony lub jej ikona, przechowywane w tej przeglądarce. Zapisz też zrzut ekranu, w formularzu lub w Edytuj, zapisuje to, co pokazuje strona, jako prywatny obraz w Diigo, tylko gdy to zaznaczysz."
+    },
+    "guideMoreOffline": {
+        "message": "Diigo nie działa? Na ekranie logowania Swift Library Przeglądaj bibliotekę offline pokazuje Twoją bibliotekę w stanie, w jakim dodatek ją ostatnio zapisał. Po ponownym zalogowaniu strona sama przejdzie dalej."
     },
     "guideMoreSettings": {
         "message": "Twoje ustawienia trafiają na Twoje inne komputery razem z kontem przeglądarki."
     },
     "guidePrivacyText": {
-        "message": "Dodatek niczego nie wysyła swojemu autorowi. Rozmawia z diigo.com w Twoim imieniu, z Twoim logowaniem tam, a kopia Twojej biblioteki zostaje w tej przeglądarce. Co jeszcze trafia dokąd i jakie masz wybory, znajdziesz w Swift Opcje w sekcji Prywatność."
+        "message": "Dodatek niczego nie wysyła swojemu autorowi. Rozmawia z diigo.com w Twoim imieniu, z Twoim logowaniem tam, a kopia Twojej biblioteki zostaje w tej przeglądarce. Nowa publiczna zakładka jest najpierw zapisywana jako prywatna, a dopiero potem upubliczniana, a dodatek nigdy sam nie tworzy publicznego linku do elementu. Co jeszcze trafia dokąd i jakie masz wybory, znajdziesz w Swift Opcje w sekcji Prywatność."
     },
     "guideDiigoTour": {
         "message": "Wycieczka samego Diigo po tym, co robi Diigo: Learn more na diigo.com"
@@ -1149,6 +1184,24 @@
     },
     "libraryImageOpen": {
         "message": "Sam obraz, w nowej karcie"
+    },
+    "libraryPdfOpen": {
+        "message": "Sam plik PDF, w nowej karcie"
+    },
+    "pdfViewReader": {
+        "message": "Czytnik Diigo"
+    },
+    "askOk": {
+        "message": "OK"
+    },
+    "askCancel": {
+        "message": "Anuluj"
+    },
+    "pdfViewLoading": {
+        "message": "Wczytywanie PDF…"
+    },
+    "pdfViewFailed": {
+        "message": "Nie udało się wczytać tu pliku PDF."
     },
     "libraryRandomIntro": {
         "message": "10 losowych zakładek z Twojej biblioteki, żadna z ukrytym tagiem. Kliknij ponownie po lewej Losowe, aby wylosować 10 innych."
@@ -2166,6 +2219,20 @@
     },
     "setupSignIn": {
         "message": "Zaloguj się na diigo.com"
+    },
+    "setupOffline": {
+        "message": "Przeglądaj bibliotekę offline"
+    },
+    "libraryOffline": {
+        "message": "Offline: twoja biblioteka w stanie, w jakim dodatek ją ostatnio zapisał. Zapisywanie, usuwanie i inne zmiany nie trafią do Diigo, dopóki nie zalogujesz się ponownie na diigo.com; wtedy ta strona sama przejdzie dalej."
+    },
+    "libraryDiigoDown": {
+        "message": "Diigo jest teraz niedostępne ($WHY$). Spróbuj później; twoja biblioteka wciąż jest w dodatku.",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
     },
     "linkIgnore": {
         "message": "Nie jest martwy: ignoruj ten link"

@@ -1,4 +1,4 @@
-// Public Library from the pages of the add-on (options/user-menu.js). Diigo's library opens /profile/<name> in its
+// Public Library from the pages of the add-on (pages/user-menu.js). Diigo's library opens /profile/<name> in its
 // React app itself (a Link in the menu of your name), without loading a page: loaded as a page, the server gives the
 // old classic one instead. So the add-on leads to your library, /user/<name>#dqa-public-library, and here the link of
 // that menu is clicked, as you would, once the library has drawn it. Diigo changed its menu and there is none after a

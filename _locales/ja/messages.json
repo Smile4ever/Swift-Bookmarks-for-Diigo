@@ -20,6 +20,9 @@
     "optionNoHiddenThumbs": {
         "message": "非表示タグのある項目（「非表示も表示」や検索で表示されたもの）：前に画像を表示しません（スクリーンショット、プレビュー画像、項目自身の画像のいずれも）。"
     },
+    "optionPublicViaPrivate": {
+        "message": "新しい公開ブックマークをまず非公開で保存してから公開にする（プライバシーのための予防措置）"
+    },
     "optionHideOnDiigo": {
         "message": "diigo.com でも：そこでのライブラリに、非表示タグのあるブックマークも、タグ一覧の非表示タグも表示しません。そのタグを検索したときは除きます。"
     },
@@ -63,7 +66,7 @@
         "message": "作り直す"
     },
     "itemRecreateConfirm": {
-        "message": "「$TITLE$」を作り直しますか? 同じ内容で今日の日付の新しい項目を作り、古い項目は、それにしかないもの (ハイライト、Outliner 内の位置、共有リンク) とともに完全に削除されます。",
+        "message": "「$TITLE$」を作り直しますか? 同じ内容で今日の日付の新しい項目を作り、古い項目は、それにしかないもの (ハイライト、Outliner 内の位置) とともに完全に削除されます。",
         "placeholders": {
             "title": {
                 "content": "$1"
@@ -75,6 +78,29 @@
     },
     "itemRecreateNoCopy": {
         "message": "Diigo は新しい項目を作りませんでした。古い項目を変更せずに保存し直しました。何も削除されていません。"
+    },
+    "itemMakeLink": {
+        "message": "公開リンクを作成"
+    },
+    "itemMakeLinkConfirm": {
+        "message": "「$TITLE$」への公開リンクを作成しますか？リンクを知っていれば誰でも、たとえ非公開でも、サインインせずにこの項目を開けます。取り消せません。元に戻すには項目を削除するしかありません（作り直すと項目は残り、リンク付きの古い項目が削除されます）。リンクを作成しますか？",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMakeLinkWarn": {
+        "message": "このリンクは公開されており、取り消せません。取り消すには項目を削除するか、作り直してください。"
+    },
+    "itemMakeLinkCopy": {
+        "message": "リンクをコピー"
+    },
+    "itemMakeLinkCopied": {
+        "message": "コピーしました"
+    },
+    "itemMakeLinkFailed": {
+        "message": "Diigo はリンクを返しませんでした。"
     },
     "itemPin": {
         "message": "スタートにピン留め"
@@ -310,7 +336,7 @@
         "message": "ノート: 自分で書くテキスト (プレーンまたは書式付き)。ここで書いて編集し、タイトルをクリックするとページ内に表示されます。タイトルが .py、.css、.html などで終わるノートはコードとして色付きで表示されます。ノートは Diigo では常に非公開です。"
     },
     "guideTypeFile": {
-        "message": "画像と PDF: タイトル、説明、タグを付けてここからアップロードします (PDF は 64 MB まで)。画像はページ内に表示されます。ここで削除してもファイルはゴミ箱に残るので、元に戻せます。"
+        "message": "画像と PDF: タイトル、説明、タグを付けてここからアップロードします (PDF は 64 MB まで)。画像はページ内に表示され、PDF は新しいタブでブラウザーの PDF ビューアーで開きます。ここで削除してもファイルはゴミ箱に残るので、元に戻せます。"
     },
     "guideTypeKindle": {
         "message": "Kindle: diigo.com でインポートした Kindle のハイライト。ここでは作成も編集もできません。ゴミ箱からは再インポートで元に戻ります。"
@@ -524,13 +550,22 @@
         "message": "アドレスバーで: d、スペース、いくつかの語を入力するとブックマークが見つかります。"
     },
     "guideMoreDiigo": {
-        "message": "diigo.com では: 上部メニューの最後に「Swift Library へ」があり、サインイン後は Swift Library が開きます。それ以外の diigo.com はそのままです。Swift オプションで My Library と Tools で Swift ページを開くようにできます。"
+        "message": "diigo.com では: 上部メニューの最後に「Swift Library へ」があり、サインイン後は Swift Library が開きます。非表示タグがあると、そこのライブラリ右下の「非表示を表示」でそのタブにそれらのブックマークが表示されます。それ以外の diigo.com はそのままです。Swift オプションで My Library と Tools で Swift ページを開くようにできます。"
+    },
+    "guideMoreItemMenu": {
+        "message": "アイテムの ⋯: 既読・未読にする、アウトライナーに追加、グループと共有、作り直す (新しいアイテムとして作り直し、古いものは削除)、そして明確な警告の後の公開リンクを作成 (本当に共有したいときに)。"
+    },
+    "guideMorePictures": {
+        "message": "各ブックマークに画像: ページのプレビュー画像またはアイコンを、このブラウザーに保存します。フォームや編集の「スクリーンショットも保存」は、チェックしたときだけ、ページの表示内容を非公開の画像として Diigo に保存します。"
+    },
+    "guideMoreOffline": {
+        "message": "Diigo がダウン? Swift Library のサインイン画面の「オフラインでライブラリを見る」で、アドオンが最後に保存したライブラリを表示します。再びサインインすると自動で続きます。"
     },
     "guideMoreSettings": {
         "message": "設定はブラウザーのアカウントで他のコンピューターにも引き継がれます。"
     },
     "guidePrivacyText": {
-        "message": "アドオンは作者に何も送りません。サインインを使ってあなたの代わりに diigo.com とやり取りし、ライブラリのコピーはこのブラウザーに残ります。ほかに何がどこへ行くか、その選択は Swift オプションの「プライバシー」にあります。"
+        "message": "アドオンは作者に何も送りません。サインインを使ってあなたの代わりに diigo.com とやり取りし、ライブラリのコピーはこのブラウザーに残ります。新しい公開ブックマークはまず非公開で保存され、その後で公開されます。アドオンが自分でアイテムの公開リンクを作ることはありません。ほかに何がどこへ行くか、その選択は Swift オプションの「プライバシー」にあります。"
     },
     "guideDiigoTour": {
         "message": "Diigo 自身による Diigo の紹介: diigo.com の Learn more"
@@ -1149,6 +1184,24 @@
     },
     "libraryImageOpen": {
         "message": "画像そのものを新しいタブで"
+    },
+    "libraryPdfOpen": {
+        "message": "PDF 自体を新しいタブで開く"
+    },
+    "pdfViewReader": {
+        "message": "Diigo のリーダー"
+    },
+    "askOk": {
+        "message": "OK"
+    },
+    "askCancel": {
+        "message": "キャンセル"
+    },
+    "pdfViewLoading": {
+        "message": "PDF を読み込み中…"
+    },
+    "pdfViewFailed": {
+        "message": "ここでは PDF を読み込めませんでした。"
     },
     "libraryRandomIntro": {
         "message": "ライブラリからランダムに選んだ 10 件のブックマーク（非表示タグ付きは除く）。左の「ランダム」をもう一度押すと別の 10 件を選びます。"
@@ -2166,6 +2219,20 @@
     },
     "setupSignIn": {
         "message": "diigo.com にサインイン"
+    },
+    "setupOffline": {
+        "message": "オフラインでライブラリを見る"
+    },
+    "libraryOffline": {
+        "message": "オフライン: アドオンが最後に保存したライブラリです。diigo.com に再びサインインするまで、保存・削除などの変更は Diigo に届きません。サインインするとこのページは自動で続きます。"
+    },
+    "libraryDiigoDown": {
+        "message": "現在 Diigo に接続できません（$WHY$）。後でもう一度お試しください。ライブラリはアドオンに残っています。",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
     },
     "linkIgnore": {
         "message": "リンク切れではない: このリンクを無視"

@@ -1,7 +1,7 @@
 // What the add-on works out for you: clean web addresses, what a page says of itself, the tags you use together,
-// bookmarks at nearly the same web address, similar tags. options/settings.js, options/index-item.js and
+// bookmarks at nearly the same web address, similar tags. pages/settings.js, pages/index-item.js and
 // background/background.js run in a sandbox with a made-up browser.* API, as in background.test.js; the index of the
-// Swift Library (options/library-index.js) on its own.
+// Swift Library (pages/library-index.js) on its own.
 const test = require('node:test');
 const assert = require('node:assert');
 const fs = require('fs');
@@ -23,7 +23,7 @@ function load(...files) {
   return context;
 }
 
-const background = () => load('options/settings.js', 'options/index-item.js', 'background/background.js');
+const background = () => load('pages/settings.js', 'pages/index-item.js', 'background/background.js');
 // a value of the sandbox as one of this realm, for deepStrictEqual
 const plain = value => JSON.parse(JSON.stringify(value));
 
@@ -100,7 +100,7 @@ test('bookmarks at nearly the same web address, not the page itself', () => {
 });
 
 test('similar tags: separators, accents and plurals, the most used first', () => {
-  const {similarTagGroups} = load('options/settings.js', 'options/index-item.js', 'options/library-index.js');
+  const {similarTagGroups} = load('pages/settings.js', 'pages/index-item.js', 'pages/library-index.js');
   const counts = [
     {name: 'recipes', count: 9}, {name: 'recipe', count: 3}, {name: 'e-mail', count: 4}, {name: 'email', count: 6},
     {name: 'Node.js', count: 2}, {name: 'nodejs', count: 1}, {name: 'café', count: 1}, {name: 'cafe', count: 1},
@@ -115,7 +115,7 @@ test('similar tags: separators, accents and plurals, the most used first', () =>
 });
 
 test('merging tags: those with the same tags after in one request, all tags given at once', () => {
-  const {bulkRequests} = load('options/settings.js', 'options/index-item.js', 'options/library-index.js');
+  const {bulkRequests} = load('pages/settings.js', 'pages/index-item.js', 'pages/library-index.js');
   const items = [
     {id: '1', tags: ['recipe', 'italian'], type: 'bookmark'},
     {id: '2', tags: ['Recipes', 'italian'], type: 'bookmark'},
@@ -128,7 +128,7 @@ test('merging tags: those with the same tags after in one request, all tags give
 });
 
 test('the trash keeps the file of a PDF only when it fits, with a fifth to spare', async () => {
-  const context = load('options/settings.js', 'options/index-item.js');
+  const context = load('pages/settings.js', 'pages/index-item.js');
   const roomWith = async (estimate, bytes) => {
     context.navigator = {storage: {estimate: () => Promise.resolve(estimate)}};
     return context.roomFor(bytes);
@@ -167,7 +167,7 @@ function pieces(fragment) {
 }
 
 const code = () => {
-  const context = load('options/library-code.js');
+  const context = load('pages/library-code.js');
   context.document = fakeDocument();
   return context;
 };
@@ -239,7 +239,7 @@ test('no menu to set for diigo.com; the Swift pages have all of them in theirs',
 });
 
 test('dead links you said are not dead: one link, or all of a site, not dead any more', () => {
-  const context = load('options/settings.js', 'options/index-item.js', 'options/library-index.js', 'options/library-links.js');
+  const context = load('pages/settings.js', 'pages/index-item.js', 'pages/library-index.js', 'pages/library-links.js');
   const run = code => vm.runInContext(code, context);
   run(`linkStates = new Map([
     ['https://a.example/x', {state: 'dead', status: 404}],
@@ -298,7 +298,7 @@ test('a site that answers 429 waits as long as it says, within bounds', () => {
 });
 
 test('bookmarks without a real title: none, their web address, or one such as Untitled', () => {
-  const {untitled} = load('options/settings.js', 'options/index-item.js', 'options/library-index.js', 'options/library-edit.js');
+  const {untitled} = load('pages/settings.js', 'pages/index-item.js', 'pages/library-index.js', 'pages/library-edit.js');
   const bookmark = (title, url = 'https://example.com/page/') => ({type: 'bookmark', url, title});
   for (const title of ['', '  ', 'Untitled', 'untitled document', '(Untitled)', 'New Tab', 'No title',
     'https://example.com/page', 'example.com/page', 'http://www.example.com/page/']) {
@@ -313,7 +313,7 @@ test('bookmarks without a real title: none, their web address, or one such as Un
 });
 
 test('the tags of yours a title or web address mentions, as the form suggests and a synced bookmark gets', () => {
-  const {tagsMentioned} = load('options/settings.js');
+  const {tagsMentioned} = load('pages/settings.js');
   const names = ['machine-learning', 'python', 'js', 'recipes'];
   assert.deepStrictEqual(Array.from(tagsMentioned('Machine Learning with Python', 'https://example.com/post', names)),
     ['machine-learning', 'python']);
@@ -322,7 +322,7 @@ test('the tags of yours a title or web address mentions, as the form suggests an
 });
 
 test('an index is kept when Diigo gives no items, and replaced when it gives some', async () => {
-  const context = load('options/settings.js', 'options/index-item.js', 'options/library-index.js');
+  const context = load('pages/settings.js', 'pages/index-item.js', 'pages/library-index.js');
   let answer = {items: [], total: 0};
   context.fetch = async () => ({json: async () => answer});
   vm.runInContext(`index = new Map([['a', {id: 'a', updated: 1}], ['b', {id: 'b', updated: 2}]]);
@@ -346,7 +346,7 @@ test('an index is kept when Diigo gives no items, and replaced when it gives som
 });
 
 test('an index is kept when Diigo gives far fewer items, unless that is allowed', async () => {
-  const context = load('options/settings.js', 'options/index-item.js', 'options/library-index.js');
+  const context = load('pages/settings.js', 'pages/index-item.js', 'pages/library-index.js');
   const bookmark = i => ({link_id: 'n' + i, url: `https://example.com/${i}`, updated_at: '2026-11-22 10:00:00', tags: ''});
   context.fetch = async () => ({json: async () => ({items: [1, 2, 3, 4, 5].map(bookmark), total: 5})});
   vm.runInContext(`index = new Map(Array.from({length: 30}, (_, i) => ['o' + i, {id: 'o' + i, updated: 1}]));
@@ -365,7 +365,7 @@ test('an index is kept when Diigo gives far fewer items, unless that is allowed'
 });
 
 test('hiding a bookmark in the Swift Library hides its screenshot too, and taking the tag away shows it again', async () => {
-  const context = load('options/settings.js', 'options/index-item.js', 'options/library-index.js');
+  const context = load('pages/settings.js', 'pages/index-item.js', 'pages/library-index.js');
   const posts = [];
   context.fetch = async (url, options) => {
     posts.push({url: String(url), params: Object.fromEntries(options.body)});
@@ -390,7 +390,7 @@ test('hiding a bookmark in the Swift Library hides its screenshot too, and takin
 });
 
 test('a screenshot deleted: the link to it out of the description of its bookmark', async () => {
-  const context = load('options/settings.js', 'options/index-item.js', 'options/library-index.js');
+  const context = load('pages/settings.js', 'pages/index-item.js', 'pages/library-index.js');
   const posts = [];
   context.fetch = async (url, options) => {
     posts.push({url: String(url), params: Object.fromEntries(options.body)});
@@ -414,7 +414,7 @@ test('a screenshot deleted: the link to it out of the description of its bookmar
 });
 
 test('screenshots are hidden as with a hidden tag, by default, unless switched off', () => {
-  const context = load('options/settings.js');
+  const context = load('pages/settings.js');
   const hidden = (settings, tag) => vm.runInContext(`isHiddenTag(${JSON.stringify(settings)}, ${JSON.stringify(tag)})`, context);
   assert.strictEqual(vm.runInContext('DEFAULT_SETTINGS.hideScreenshots && DEFAULT_SETTINGS.screenshotThumbs', context), true);
   assert.strictEqual(hidden({hiddenTags: [], hideScreenshots: true}, 'Screenshot'), true);
@@ -423,7 +423,7 @@ test('screenshots are hidden as with a hidden tag, by default, unless switched o
 });
 
 test('no picture at an item with a hidden tag, by default; the tag screenshot itself does not count', () => {
-  const context = load('options/settings.js');
+  const context = load('pages/settings.js');
   assert.strictEqual(vm.runInContext('DEFAULT_SETTINGS.noHiddenThumbs', context), true);
   const noPicture = tags => vm.runInContext(`screenshotOfHidden({hiddenTags: ['secret'], hideScreenshots: true},
     ${JSON.stringify(tags)})`, context);
@@ -434,7 +434,7 @@ test('no picture at an item with a hidden tag, by default; the tag screenshot it
 
 
 test('the text of a note to search in: plain as it is, rich without its HTML, in lower case; nothing for others', () => {
-  const {noteText} = load('options/settings.js', 'options/index-item.js');
+  const {noteText} = load('pages/settings.js', 'pages/index-item.js');
   assert.strictEqual(noteText({type: 'note', content: 'Buy MILK\nand bread'}), 'buy milk\nand bread');
   assert.strictEqual(noteText({type: 'note', rich: true,
     content: '<p>Tom &amp; Jerry</p><p><strong>Caf&eacute;</strong> &#233;t&#xE9;<br>x&nbsp;y</p>'}),

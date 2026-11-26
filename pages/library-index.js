@@ -138,12 +138,21 @@ function newestOf(items) {
 // ---- the library from Diigo ----
 
 // sort: created (oldest first: what's saved while it runs doesn't shift the pages) or updated (last changed first);
-// tried again twice when Diigo doesn't answer
+// tried again twice when Diigo doesn't answer. An error with down: true when diigo.com itself can't be reached (no
+// connection, no answer in time, or an error of its server: 5xx, Cloudflare's 52x), not when it answers without your
+// library (signed out): pageFailed says which.
 async function libraryPage(pageNum, sort, signal) {
   const params = new URLSearchParams({page_num: pageNum, sort, count: PAGE_SIZE});
   for (let attempt = 0; ; attempt++) {
     try {
-      const response = await fetch(`${LIBRARY_URL}?${params}`, {credentials: 'include', signal: timeLimit(signal)});
+      let response;
+      try {
+        response = await fetch(`${LIBRARY_URL}?${params}`, {credentials: 'include', signal: timeLimit(signal)});
+      } catch (e) {
+        if (!signal.aborted) e.down = true;
+        throw e;
+      }
+      if (response.status >= 500) throw Object.assign(new Error(`HTTP ${response.status}`), {down: true});
       const answer = await response.json();
       if (Array.isArray(answer.items)) return answer;
       throw new Error('no items');
@@ -156,6 +165,7 @@ async function libraryPage(pageNum, sort, signal) {
 
 const pageFailed = (pageNum, signal) => e => {
   if (signal.aborted) throw e;
+  if (e?.down) throw new Error(message('libraryDiigoDown', e.message || String(e)));
   throw new Error(message(pageNum ? 'cleanupPageFailed' : 'cleanupSignedOut', String(pageNum + 1)));
 };
 
@@ -492,14 +502,14 @@ async function diigoPost(url, params, signal) {
 // in Diigo and in the index, DELETE_AT_ONCE at a time, with a copy of each in the trash, with the file of an image or
 // a PDF (got before, as it's gone after); progress(ids of the batch, deleted or not). The answer is {deleted, failed},
 // how many. keepFiles false: deleted for good (Empty trash: library-delete.js, deleteNow), so the trash won't keep
-// them and their file isn't asked for: that would only give the item a link of its own on Diigo (itemFileUrl).
+// them and their file isn't asked for (itemFile).
 async function deleteItems(ids, signal, progress, {keepFiles = true} = {}) {
   let deleted = 0, failed = 0;
   for (let i = 0; i < ids.length && !signal.aborted; i += DELETE_AT_ONCE) {
     const batch = ids.slice(i, i + DELETE_AT_ONCE);
     const files = {};
     for (const id of keepFiles ? batch.filter(id => WITH_FILE.includes(index.get(id)?.type)) : []) {
-      const kept = await itemFile(id, signal);
+      const kept = await itemFile(index.get(id), signal);
       if (kept) files[id] = {file: kept.file, fileName: kept.name};
     }
     if (signal.aborted) break;

@@ -2,7 +2,7 @@
 
 // ---- dead links: the status code before the title, and the archives from it ----
 
-// With deadLinks (options/settings.js): the status code of the page of
+// With deadLinks (pages/settings.js): the status code of the page of
 // each bookmark (200, 404...) before its title, ERR when the site doesn't answer, ? when it took too long; a dead one
 // (404, 410) red, its title struck through. The background script checks them (checkLink), a few at a time, each web
 // address once while it runs, so drawing the list again asks nothing new. A click on the code: where to look the

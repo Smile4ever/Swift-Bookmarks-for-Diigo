@@ -39,10 +39,10 @@ test('the description of the add-on fits in the Chrome Web Store (132 characters
 test('every text of the pages and the manifest exists', () => {
   const sources = {
     'form/form.html': /data-i18n(?:-title)?="([^"]+)"/g,
-    'options/options.html': /data-i18n="([^"]+)"/g,
-    'options/library.html': /data-i18n(?:-label|-title)?="([^"]+)"/g,
-    'options/discover.html': /data-i18n(?:-label|-title)?="([^"]+)"/g,
-    'options/guide.html': /data-i18n="([^"]+)"/g,
+    'pages/options.html': /data-i18n="([^"]+)"/g,
+    'pages/library.html': /data-i18n(?:-label|-title)?="([^"]+)"/g,
+    'pages/discover.html': /data-i18n(?:-label|-title)?="([^"]+)"/g,
+    'pages/guide.html': /data-i18n="([^"]+)"/g,
     'manifest.json': /__MSG_(\w+)__/g,
   };
   for (const [file, pattern] of Object.entries(sources)) {
@@ -56,20 +56,20 @@ test('every text the scripts ask for exists', () => {
   // getMessage('id'), t('id') and message('id'), and the ids in the lists of options.js and diigo-site/
   const pattern = /(?:getMessage|\bt|\bmessage)\('(\w+)'[,)]|\b(?:message|text|click): '(\w+)'|'(hint\w+)'/g;
   const idsIn = file => [...fs.readFileSync(path.join(ROOT, file), 'utf8').matchAll(pattern)].map(match => match[1] || match[2] || match[3]);
-  const scripts = ['background/background.js', 'background/sync.js', 'form/form.js', 'options/options.js',
-    'options/library-index.js', 'options/discover.js', 'options/guide.js'];
+  const scripts = ['background/background.js', 'background/sync.js', 'form/form.js', 'pages/options.js',
+    'pages/library-index.js', 'pages/discover.js', 'pages/guide.js'];
   for (const file of scripts) {
     const ids = idsIn(file);
     assert.ok(ids.length, file);
     assert.deepStrictEqual(ids.filter(id => !(id in english)), [], file);
   }
-  // the parts of the Swift Library (options/library*.js but its index) together: some have no texts
-  const libraryScripts = fs.readdirSync(path.join(ROOT, 'options'))
-    .filter(file => /^library(-(?!index\b)[\w-]+)?\.js$/.test(file)).map(file => 'options/' + file);
-  assert.ok(libraryScripts.length > 1, 'options/library*.js');
+  // the parts of the Swift Library (pages/library*.js but its index) together: some have no texts
+  const libraryScripts = fs.readdirSync(path.join(ROOT, 'pages'))
+    .filter(file => /^library(-(?!index\b)[\w-]+)?\.js$/.test(file)).map(file => 'pages/' + file);
+  assert.ok(libraryScripts.length > 1, 'pages/library*.js');
   const libraryIds = libraryScripts.flatMap(idsIn);
-  assert.ok(libraryIds.length, 'options/library*.js');
-  assert.deepStrictEqual(libraryIds.filter(id => !(id in english)), [], 'options/library*.js');
+  assert.ok(libraryIds.length, 'pages/library*.js');
+  assert.deepStrictEqual(libraryIds.filter(id => !(id in english)), [], 'pages/library*.js');
   // the scripts of diigo-site/ together: some have no texts
   const siteScripts = fs.readdirSync(path.join(ROOT, 'diigo-site')).filter(file => file.endsWith('.js')).map(file => 'diigo-site/' + file);
   const siteIds = siteScripts.flatMap(idsIn);
@@ -79,7 +79,7 @@ test('every text the scripts ask for exists', () => {
 
 test('the texts of the menus of Swift Discover exist', () => {
   // in lists of discover.js, by name: SORT_TEXTS and SHOW_TEXTS
-  const source = fs.readFileSync(path.join(ROOT, 'options/discover.js'), 'utf8');
+  const source = fs.readFileSync(path.join(ROOT, 'pages/discover.js'), 'utf8');
   const ids = [...source.matchAll(/^const (?:SORT|SHOW)_TEXTS = \{([^}]*)\}/gm)]
     .flatMap(match => [...match[1].matchAll(/'(\w+)'/g)].map(id => id[1]));
   assert.strictEqual(ids.length, 7);

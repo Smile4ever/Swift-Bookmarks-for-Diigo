@@ -34,7 +34,7 @@ function trashActions(item, li) {
   forget.type = 'button';
   // after a question, as Remove for good of Bulk edit (forgetPicked)
   forget.addEventListener('click', async () => {
-    if (!confirm(message('libraryForgetConfirm', item.title || item.url || message('libraryForget')))) return;
+    if (!await askConfirm(message('libraryForgetConfirm', item.title || item.url || message('libraryForget')), {danger: true})) return;
     trash.delete(item.id);
     await saveIndex({trashRemove: [item.id]});
     leaveList(item, li);
@@ -84,6 +84,11 @@ function leaveList(item, li) {
   removeItem(li);
   shown = shown.filter(other => other != item);
   listed--;
+  // one that counted after Show hidden (library-search.js: shownItems) no longer does
+  const asked = askedHiddenTags();
+  if (item.tags?.some(hiddenTag) && !item.tags.some(tag => asked.has(lower(tag)))) {
+    hiddenCount = Math.max(0, hiddenCount - 1);
+  }
   showCount();
   showTags();
   if (state.view == 'trash') safely('trash size', showTrashSize);
@@ -175,13 +180,14 @@ async function forgetPicked() {
   const waiting = picked.filter(item => item.pendingDelete && item.type != 'outliner' && pending.has(item.id))
     .map(item => item.id);
   const count = kept.length + waiting.length;
-  if (!count || !confirm(message('bulkForgetConfirm', String(count)))) return;
+  if (!count || !await askConfirm(message('bulkForgetConfirm', String(count)), {danger: true})) return;
   kept.forEach(id => trash.delete(id));
   await saveIndex({trashRemove: kept});
   const gone = [...kept];
   let failed = 0;
   if (waiting.length) {
     waiting.forEach(id => pending.delete(id));
+    keepPending();
     pendingVersion++;
     if (!pending.size) clearTimeout(pendingTimer);
     const signal = start();
@@ -237,7 +243,7 @@ function showEmptying(done, count) {
 
 async function emptyTrash() {
   const count = totalOf('trash');
-  if (emptying || !count || !confirm(message('libraryEmptyConfirm', String(count)))) return;
+  if (emptying || !count || !await askConfirm(message('libraryEmptyConfirm', String(count)), {danger: true})) return;
   emptying = true;
   safely('filters', clearTrashFilters);
   // what Diigo didn't delete (or Stop left) is in the list again, so not counted as gone

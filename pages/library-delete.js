@@ -2,23 +2,50 @@
 
 // ---- deleting after a while: time to think it over, in the trash ----
 
-// With deleteDelay (options/settings.js), Delete (of one bookmark, or with Bulk edit) asks nothing: the bookmarks go to
+// With deleteDelay (pages/settings.js), Delete (of one bookmark, or with Bulk edit) asks nothing: the bookmarks go to
 // the trash at once, with a short message that they can be put back there, but Diigo only deletes them after
 // DELETE_DELAY. Till then the trash shows them as not deleted yet (pendingTrash), and Put back only takes them out of
 // pending: Diigo never knew. Once Diigo deleted them they are in the trash as any other (library-index.js:
 // deleteItems). One wait for all of them: another Delete in the meantime starts it over. Busy with the index then,
-// they wait for that. Leaving the page before, the browser asks first (library-page.js), as they aren't deleted then.
+// they wait for that. Those waiting are kept in the browser too (keepPending), so leaving the page loses nothing and
+// asks nothing: the next time the Swift Library opens, it goes on with them (resumePending).
 // Without deleteDelay: a question first, and deleted at once, as Diigo does.
 const DELETE_DELAY = 30 * 1000;
 const pending = new Map();  // id -> when Delete was chosen (milliseconds)
 let pendingVersion = 0;     // one more with each change of it (library-trash.js: duplicateKeys)
 let pendingTimer = 0;
 
+// Those waiting, kept in the browser (storage.local) with whose library they are of, after each change of pending
+const PENDING_KEY = 'pendingDeletes';
+
+function keepPending() {
+  const kept = pending.size ? browser.storage.local.set({[PENDING_KEY]: {user, items: Object.fromEntries(pending)}})
+    : browser.storage.local.remove(PENDING_KEY);
+  kept.catch(e => logError('Trash: waiting to be deleted', e));
+}
+
+// The Swift Library opened (library-page.js: openFor): those that waited when a page of it was left are waiting again,
+// for what is left of their DELETE_DELAY (none: deleted now); only of who is signed in, and still in the index
+async function resumePending() {
+  const kept = (await browser.storage.local.get(PENDING_KEY).catch(() => ({})))[PENDING_KEY];
+  if (!kept || kept.user != user) return;
+  for (const [id, time] of Object.entries(kept.items || {})) {
+    if (index.has(id) && !pending.has(id)) pending.set(id, Number(time) || Date.now());
+  }
+  keepPending();
+  if (!pending.size) return;
+  pendingVersion++;
+  clearTimeout(pendingTimer);
+  pendingTimer = setTimeout(deletePending, Math.max(0, Math.max(...pending.values()) + DELETE_DELAY - Date.now()));
+  show({keepScroll: true});
+}
+
 function deleteLater(ids) {
   for (const id of ids) {
     pending.set(id, Date.now());
     chosen.delete(id);
   }
+  keepPending();
   pendingVersion++;
   clearTimeout(pendingTimer);
   pendingTimer = setTimeout(deletePending, DELETE_DELAY);
@@ -35,6 +62,7 @@ function undoDelete() {
   // an outliner of that Delete (library-outliners.js)
   if (outlinerPart.undo()) return show({keepScroll: true});
   for (const id of toastIds) pending.delete(id);
+  keepPending();
   toastIds = [];
   pendingVersion++;
   if (!pending.size) clearTimeout(pendingTimer);
@@ -45,6 +73,7 @@ function undoDelete() {
 function cancelDelete(item, li) {
   if (item.type == 'outliner') return outlinerPart.cancel(item, li);
   pending.delete(item.id);
+  keepPending();
   pendingVersion++;
   if (!pending.size) clearTimeout(pendingTimer);
   leaveList(item, li);
@@ -124,6 +153,7 @@ async function deletePending(done) {
     forgetPending = false;
     // what Diigo didn't delete is in the list again
     pending.clear();
+    keepPending();
     pendingVersion++;
     show({keepScroll: true});
     // what worked was said at Delete already; only what didn't

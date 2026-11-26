@@ -1,5 +1,5 @@
 // Swift Options (options.html), also the options page in the extension settings of the browser: a field per setting of
-// options/settings.js, saved as soon as it changes. A page of the add-on as the others, with the menu at the top
+// pages/settings.js, saved as soon as it changes. A page of the add-on as the others, with the menu at the top
 // (showMainNav, which follows the menu as you change it here), a box to find an option (findOption) and the side bar
 // marking the section in view (markSection).
 
@@ -117,7 +117,7 @@ async function indexFromOptions(work) {
 // far fewer items than before (library-index.js: SHRINK_LIMIT): only after a question
 const buildFromOptions = () => indexFromOptions(signal =>
   buildIndex(user, signal, (pages, of) => showIndexState(message('indexBuilding', [String(pages), String(of)])),
-    {allowShrink: (count, before) => confirm(message('indexShrinkConfirm', [String(count), String(before)]))})
+    {allowShrink: (count, before) => askConfirm(message('indexShrinkConfirm', [String(count), String(before)]))})
     .then(gone => ({gone})));
 // without an index to bring up to date (none yet, of an older version or of someone else): built
 const updateFromOptions = () => !meta?.newest || !indexReady(user) ? buildFromOptions() : indexFromOptions(signal =>

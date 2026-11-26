@@ -24,7 +24,7 @@ let controller = null;  // while building, updating or deleting
 let indexStale = false; // the background script changed the index meanwhile: read again after (library-page.js)
 let stopped = false;    // by you, with Stop
 let user = '';          // signed in on diigo.com
-let settings = DEFAULT_SETTINGS;  // see options/settings.js: hiddenTags
+let settings = DEFAULT_SETTINGS;  // see pages/settings.js: hiddenTags
 
 const hiddenTag = tag => isHiddenTag(settings, tag);
 
@@ -187,8 +187,29 @@ function showSetup() {
   $('setupBuild').hidden = state != 'failed' && state != 'stopped';
   $('setupBuild').textContent = message(state == 'failed' ? 'setupRetry' : 'indexBuild');
   $('setupSignIn').hidden = state != 'signedOut';
+  showOfflineButton(state == 'signedOut' && !!meta?.user && meta.version == INDEX_VERSION);
   $('setupStop').hidden = !building || !controller;
   showNotice();
+}
+
+// View the library offline, under Sign in: for when diigo.com is down or can't be reached, and the add-on takes you
+// for signed out (no sign-in to read). Only with an index of this version in the browser; clickable only after
+// OFFLINE_WAIT, so a sign-in that comes in a moment (this page goes on by itself then) isn't skipped by a quick click.
+// The library is then that index, as it was last kept (library-page.js: openOffline).
+const OFFLINE_WAIT = 3000;
+let offlineTimer = 0;
+function showOfflineButton(shown) {
+  const button = $('setupOffline');
+  if (!shown) {
+    clearTimeout(offlineTimer);
+    offlineTimer = 0;
+    button.hidden = true;
+    return;
+  }
+  if (!button.hidden) return;
+  button.hidden = false;
+  button.disabled = true;
+  offlineTimer = setTimeout(() => button.disabled = false, OFFLINE_WAIT);
 }
 
 function showIndex() {
@@ -230,7 +251,7 @@ async function build({keepScroll = false} = {}) {
       }
       // far fewer than before (library-index.js: SHRINK_LIMIT): asked, unless built by itself (checkCount), when
       // the index stays as it was
-    }, {allowShrink: (count, before) => !keepScroll && confirm(message('indexShrinkConfirm', [String(count), String(before)]))});
+    }, {allowShrink: (count, before) => !keepScroll && askConfirm(message('indexShrinkConfirm', [String(count), String(before)]))});
     // what Diigo no longer has: in the trash, and said so
     showStatus(gone ? message('indexGoneToTrash', String(gone)) : '');
     show({keepScroll});

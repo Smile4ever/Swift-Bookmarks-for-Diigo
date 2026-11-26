@@ -410,8 +410,8 @@ async function formForRandom(tab) {
   showForm(tab, {url: opened.url, title: opened.title});
 }
 
-// also used by background/sync.js
-function diigoSave(bm) {
+// one save through the toolbar API (bm_saveBookmark)
+function diigoSaveOnce(bm) {
   return callDiigo('bm_saveBookmark', {
     url: bm.url,
     urlId: bm.urlId || '',
@@ -426,6 +426,19 @@ function diigoSave(bm) {
     lists: bm.outliner ? [bm.outliner] : [],
     shareExistingAnnotations: false,
   });
+}
+
+// Save a bookmark through the toolbar API; also used by background/sync.js. With publicViaPrivate (settings.js, on by
+// default) a new public bookmark is saved private first and then set public, as a privacy precaution. Only for a NEW
+// bookmark (no urlId, no linkId): for an existing one this does nothing useful and is skipped, so it isn't briefly
+// made private on a later save (for instance Share to group of one you already have). The private first save drops the
+// group and outliner (a private bookmark can't be shared to them); they go on the public save.
+async function diigoSave(bm) {
+  if (bm.private || bm.urlId || bm.linkId || (await loadSettings()).publicViaPrivate === false) return diigoSaveOnce(bm);
+  const first = await diigoSaveOnce({...bm, private: true, group: '', outliner: ''});
+  if (!first.ok) return first;
+  const urlId = first.answer?.result?.urlId || first.answer?.urlId || '';
+  return diigoSaveOnce({...bm, private: false, urlId});
 }
 
 async function saveBookmark(bm, tab) {
@@ -466,7 +479,7 @@ async function saveBookmark(bm, tab) {
   };
 }
 
-// A screenshot of a page that isn't open (Edit in the Swift Library: options/library-edit.js), as the bookmark form
+// A screenshot of a page that isn't open (Edit in the Swift Library: pages/library-edit.js), as the bookmark form
 // takes one (pageScreenshot): the page in a new tab next to the one asking, the tab you see for a moment, till it
 // has loaded (not longer than SCREENSHOT_WAIT) and a moment more for what it draws then (SCREENSHOT_SETTLE); closed
 // after, and the tab that asked shown again. The answer is the web address of the screenshot on Diigo, or ''.
@@ -575,7 +588,7 @@ const screenshotRequest = (request, tab) => screenshotOf(request, tab).catch(e =
   return '';
 });
 
-// A bookmark saved as Diigo's own edit window saves one (options/library-index.js: saveWithNewUrl): by its link_id, at
+// A bookmark saved as Diigo's own edit window saves one (pages/library-index.js: saveWithNewUrl): by its link_id, at
 // its web address (url, or new_url when the field of the form has another one now), the rest as the form has it. The
 // answer as diigoSave's, for saveBookmark.
 const BOOKMARK_SAVE_URL = 'https://www.diigo.com/item/save/bookmark';
@@ -601,7 +614,7 @@ async function saveByLinkId(bm) {
 }
 
 // A screenshot of what the tab shows, without the form (content.js: formVisible), as Diigo's Add Image uploads an
-// image (options/library-index.js: uploadFile): private, with the tags of the bookmark and screenshot, named after its
+// image (pages/library-index.js: uploadFile): private, with the tags of the bookmark and screenshot, named after its
 // title. The answer is the web address of the image on Diigo, or '' when Diigo didn't take it.
 const IMAGE_SAVE_URL = 'https://www.diigo.com/item/save/image';
 
@@ -650,7 +663,7 @@ async function pageScreenshot(tab, bm, {ready = true} = {}) {
     return '';
   }
   // its description: the title and web address of its page, for you, and so its bookmark knows it (screenshotsOf);
-  // saved after, as Diigo's Add Image takes none (as options/library-index.js: addFile)
+  // saved after, as Diigo's Add Image takes none (as pages/library-index.js: addFile)
   const description = browser.i18n.getMessage('screenshotDescription', [bm.title || bm.url, bm.url]) ||
     `${bm.title || bm.url}\n${bm.url}`;
   await saveImage({id: saved.link_id, title: name.replace(/\.jpg$/, ''), description, private: true}, tags)
@@ -658,7 +671,7 @@ async function pageScreenshot(tab, bm, {ready = true} = {}) {
   return /^https?:/.test(saved.url || '') ? saved.url : `https://www.diigo.com/item/image/${saved.link_id}`;
 }
 
-// an image of your library saved again, as Diigo's edit window saves one (options/library-index.js: singleSave)
+// an image of your library saved again, as Diigo's edit window saves one (pages/library-index.js: singleSave)
 async function saveImage(image, tags) {
   const body = new URLSearchParams({link_id: image.id, title: image.title || '', description: image.description || '',
     tags: quotedTags(tags), private: image.private !== false});
@@ -712,7 +725,7 @@ async function libraryPage(pageNum, {count, sort}) {
 
 // ---- the trash of the Swift Library, for what is deleted elsewhere: Diigo's delete window, the bookmark form ----
 
-// The index of options/library-index.js (IndexedDB library-index, opened by openIndexDb of options/index-item.js),
+// The index of pages/library-index.js (IndexedDB library-index, opened by openIndexDb of pages/index-item.js),
 // which this background script shares as a page of the add-on. Each item is copied from the index when it's there (by link_id, else URL),
 // with all it has, and taken out of it; else made of what the page showed (title, URL, tags; private, as it's not
 // known). Fails quietly: the bookmark is deleted on Diigo all the same.
@@ -779,9 +792,9 @@ async function trashNow({items}) {
 }
 
 // The files of the images and PDFs about to be deleted in Diigo's delete window (diigo-site/delete-window.js): asked
-// for when Delete is chosen, before Diigo deletes them once it's confirmed, as the trash can't get them after
-// (itemFile). link_id -> the promise of {file, name} or null; only for images and PDFs in the index. Those not deleted after all are
-// forgotten after a while.
+// for once DELETE is clicked, not before (Cancel asks nothing), and before Diigo deletes them, as the trash can't get
+// them after (itemFile); the click waits for this answer. link_id -> the promise of {file, name} or null; only for
+// images and PDFs in the index. Kept for trashItems, forgotten after a while.
 const keptFiles = new Map();
 
 async function keepFiles({items}) {
@@ -789,22 +802,76 @@ async function keepFiles({items}) {
     const db = await openLibraryIndex();
     const indexed = await idbDone(db.transaction('items').objectStore('items').getAll());
     db.close();
-    const withFile = new Set(indexed.filter(item => WITH_FILE.includes(item.type)).map(item => item.id));
+    const withFile = new Map(indexed.filter(item => WITH_FILE.includes(item.type)).map(item => [item.id, item]));
+    const getting = [];
     for (const {linkId} of items || []) {
       const id = String(linkId || '');
-      if (!withFile.has(id) || keptFiles.has(id)) continue;
-      keptFiles.set(id, itemFile(id));
-      setTimeout(() => keptFiles.delete(id), 10 * 60 * 1000);
+      if (!withFile.has(id)) continue;
+      if (!keptFiles.has(id)) {
+        keptFiles.set(id, itemFile(withFile.get(id)));
+        setTimeout(() => keptFiles.delete(id), 10 * 60 * 1000);
+      }
+      getting.push(keptFiles.get(id));
     }
+    // answered once they are there: delete-window.js lets Diigo delete them only then
+    await Promise.all(getting);
   } catch (e) {
     logError('Trash: the files of images and PDFs', e);
   }
 }
 
+// ---- the file of a PDF, as Diigo's own reader gets it ----
+
+// Diigo's reader (the page of the item, signed in) loads a PDF from a signed link it makes itself, for a few minutes;
+// that link works without a sign-in. So the file of a PDF for the trash or Recreate (index-item.js: itemFile) is got
+// there: its page opened in a tab in the background with #swift-pdf-file, where diigo-site/pdf-view.js catches the
+// address the reader loads the PDF from and sends it here (pdfFound); the tab is closed again. One at a time; '' when
+// the page gives none in time.
+const PDF_TAB_TIME = 30000;
+const PDF_LINK = /^https:\/\/s3\.amazonaws\.com\/diigo\//;
+const pdfWaiting = new Map();  // tab id -> resolve
+let pdfQueue = Promise.resolve();
+
+function readerPdfUrl({linkId}) {
+  const run = pdfQueue.then(() => readerPdfNow(String(linkId || '')));
+  pdfQueue = run.catch(() => '');
+  return run;
+}
+
+async function readerPdfNow(linkId) {
+  if (!/^\d+$/.test(linkId)) return '';
+  if (!user) await readCookie();
+  if (!user) return '';
+  let tab = null, resolve;
+  const found = new Promise(done => {
+    resolve = done;
+    setTimeout(() => done(''), PDF_TAB_TIME);
+  });
+  try {
+    tab = await browser.tabs.create({
+      url: `https://www.diigo.com/user/${encodeURIComponent(user)}/b/${linkId}#swift-pdf-file`, active: false,
+    });
+    pdfWaiting.set(tab.id, resolve);
+    return await found;
+  } finally {
+    if (tab) {
+      pdfWaiting.delete(tab.id);
+      browser.tabs.remove(tab.id).catch(() => {});
+    }
+  }
+}
+
+// from diigo-site/diigo-site.js, for pdf-view.js: only from a tab opened for it, only a link of that kind
+function pdfFound({url}, tab) {
+  const resolve = tab && pdfWaiting.get(tab.id);
+  if (resolve && PDF_LINK.test(String(url || ''))) resolve(String(url));
+}
+
+
 // ---- the index of the Swift Library, for what is saved elsewhere: on diigo.com itself, with the bookmark form ----
 
 // What diigo.com saves (a new bookmark, note, image or PDF, an edit, tags, read or private) is in the index a moment
-// later, brought up to date as options/library-index.js does it (updateIndex): the library by last change, page by
+// later, brought up to date as pages/library-index.js does it (updateIndex): the library by last change, page by
 // page, until a page reaches what the index has already. Only an index of who is signed in, of this version; a fast
 // library that is open reads it again (indexChanged). The requests of diigo.com are seen as they end (webRequest), the
 // bookmark form asks for it itself (saveBookmark). Fails quietly: the next update of the Swift Library brings it.
@@ -920,13 +987,13 @@ browser.webRequest?.onCompleted.addListener(details => {
 browser.webRequest?.onErrorOccurred.addListener(details => deleting.delete(details.requestId),
   {urls: DIIGO_DELETES, types: ['xmlhttprequest']});
 
-// options/library.html, the library of the add-on: the tab it is open in already in this window (that of tab), with
+// pages/library.html, the library of the add-on: the tab it is open in already in this window (that of tab), with
 // what is asked for in its address, else as it is; or a new tab next to tab; or in tab itself with here (My Library on
 // diigo.com, diigo-site/header.js: takeOverMyLibrary, and after signing in). view: what it shows (trash), or random:
-// some of your bookmarks at random (options/library-search.js: fillRandom picks them for an id it doesn't know)
+// some of your bookmarks at random (pages/library-search.js: fillRandom picks them for an id it doesn't know)
 async function openLibrary({view, here} = {}, tab) {
   const hash = view == 'random' ? '#random=new' : view ? '#view=' + encodeURIComponent(view) : '';
-  const page = browser.runtime.getURL('options/library.html');
+  const page = browser.runtime.getURL('pages/library.html');
   const url = page + hash;
   if (here && tab) return browser.tabs.update(tab.id, {url});
   const inWindow = tab?.windowId != null ? {windowId: tab.windowId} : {currentWindow: true};
@@ -935,21 +1002,21 @@ async function openLibrary({view, here} = {}, tab) {
   return browser.tabs.create({url, index: tab ? tab.index + 1 : undefined});
 }
 
-// options/discover.html, Swift Discover, in a new tab next to tab
+// pages/discover.html, Swift Discover, in a new tab next to tab
 function openDiscover(request, tab) {
-  browser.tabs.create({url: browser.runtime.getURL('options/discover.html'), index: tab ? tab.index + 1 : undefined});
+  browser.tabs.create({url: browser.runtime.getURL('pages/discover.html'), index: tab ? tab.index + 1 : undefined});
 }
 
-// options/tools.html, the Tools page of the add-on: in a new tab next to tab, or in tab itself with here (Tools on
+// pages/tools.html, the Tools page of the add-on: in a new tab next to tab, or in tab itself with here (Tools on
 // diigo.com, diigo-site/header.js)
 function openPage(page, {here} = {}, tab) {
   const url = browser.runtime.getURL(page);
   if (here && tab) browser.tabs.update(tab.id, {url});
   else browser.tabs.create({url, index: tab ? tab.index + 1 : undefined});
 }
-const openTools = (request, tab) => openPage('options/tools.html', request, tab);
-// options/guide.html, the guide of the add-on: what it does more than Diigo, in the place of Diigo's Learn more
-const openGuide = (request, tab) => openPage('options/guide.html', request, tab);
+const openTools = (request, tab) => openPage('pages/tools.html', request, tab);
+// pages/guide.html, the guide of the add-on: what it does more than Diigo, in the place of Diigo's Learn more
+const openGuide = (request, tab) => openPage('pages/guide.html', request, tab);
 // the options page, as the browser opens it (in a tab of its own: options_ui, open_in_tab)
 const openOptions = () => browser.runtime.openOptionsPage();
 
@@ -1149,7 +1216,7 @@ async function omniboxSuggest(input, suggest) {
 // a bookmark opens its page; Enter on the words themselves opens them as a search in the Swift Library
 function omniboxOpen(input, disposition) {
   const url = /^https?:\/\//i.test(input.trim()) ? input.trim()
-    : browser.runtime.getURL('options/library.html') + '#' + new URLSearchParams({q: input.trim()});
+    : browser.runtime.getURL('pages/library.html') + '#' + new URLSearchParams({q: input.trim()});
   if (disposition == 'currentTab') browser.tabs.update({url});
   else browser.tabs.create({url, active: disposition != 'newBackgroundTab'});
 }
@@ -1161,7 +1228,7 @@ if (browser.omnibox) {
 }
 
 
-// ---- dead links, for the Swift Library (options/library-links.js) ----
+// ---- dead links, for the Swift Library (pages/library-links.js) ----
 
 const linkChecks = new Map(); // url -> Promise of {state, status}, while the background script runs
 const linkCheckQueue = [];
@@ -1330,7 +1397,7 @@ function runLinkChecks() {
   }
 }
 
-// What was found is kept in the database of the index (the store links of openIndexDb, options/index-item.js), as the
+// What was found is kept in the database of the index (the store links of openIndexDb, pages/index-item.js), as the
 // background script doesn't run for long (a service worker in Chrome, an event page in Firefox) and its linkChecks are
 // gone with it: so a page is asked again only once its answer is older than LINK_KEEP says, not each time the library
 // or the Swift Library shows it. A page that works is asked again after a week; one that is gone (404, 410) after 3
@@ -1417,7 +1484,7 @@ async function linkCheck(url, again = false) {
 }
 
 // The preview image of the page of a bookmark (pagePreviewOf), for its small picture in the Swift Library (previewThumbs,
-// options/library-list.js): as kept (the store previews, as links), else from the page, with its link check
+// pages/library-list.js): as kept (the store previews, as links), else from the page, with its link check
 // (linkCheck), so it is asked once for both. Kept PREVIEW_KEEP; none found, PREVIEW_NONE_KEEP, as a site that doesn't
 // answer may come back.
 const PREVIEW_KEEP = 30 * DAY_MS;
@@ -1453,7 +1520,7 @@ async function pagePreview({url}) {
   return result.preview || none;
 }
 
-// your groups and outliners, for Add PDF and Add Image of the Swift Library (options/library-add.js), loaded first when
+// your groups and outliners, for Add PDF and Add Image of the Swift Library (pages/library-add.js), loaded first when
 // they are not there yet or are older than for the form
 async function sharingLists() {
   if (user && (!userTagsTime || Date.now() - userTagsTime > 15 * 60 * 1000)) await loadUserTags();
@@ -1461,7 +1528,7 @@ async function sharingLists() {
   return {groups: userGroups, outliners: userOutliners};
 }
 
-// ---- the log of errors (settings.js: logError), shown on the options page (options/log.js) ----
+// ---- the log of errors (settings.js: logError), shown on the options page (pages/log.js) ----
 
 // The last LOG_MAX in storage.session: in memory only, gone when the browser restarts, as the log of Neat URL. One
 // change at a time, as errors can come in a row.
@@ -1485,11 +1552,11 @@ const requests = {
   logError: ({entry}) => entry && addLogEntry({...entry, where: String(entry.where || '?')}),
   removeBrowserBookmarks,
   open: openBookmark, save: saveBookmark, delete: deleteBookmark, user: signedInUser, checkLink, preview: pagePreview, openLibrary,
-  openDiscover, openTools, openOptions, openGuide, screenshot: screenshotRequest, title: ({url}) => pageTitle(url), pageInfo: ({url}) => pageInfo(url), trash: trashItems, keepFiles, sharing: sharingLists,
+  openDiscover, openTools, openOptions, openGuide, screenshot: screenshotRequest, title: ({url}) => pageTitle(url), pageInfo: ({url}) => pageInfo(url), trash: trashItems, keepFiles, readerPdfUrl, pdfFound, sharing: sharingLists,
   testSave,
 };
 
-// The limit test of Swift Tools (options/tools-test.js), only in a development install: one bookmark saved as the form
+// The limit test of Swift Tools (pages/tools-test.js), only in a development install: one bookmark saved as the form
 // saves one (diigoSave), without what the form does after (last tags, the index); the answer of Diigo as it is, to see
 // what it says once an account is at its limit. Not from a web page.
 async function testSave({bm}, tab) {
@@ -1658,7 +1725,7 @@ browser.runtime.onInstalled.addListener(({reason}) => {
     await addHiddenDefault().catch(() => {});
   });
   if (browser.contextMenus) createMenus();
-  // installed: the guide of the add-on, what it does more than Diigo's own (options/guide.html); updated from before
+  // installed: the guide of the add-on, what it does more than Diigo's own (pages/guide.html); updated from before
   // it: once a bar in the Swift Library that it's there (guideNews, library-page.js: showGuideNews)
   if (reason == 'install') {
     browser.storage.local.set({guideNewsSeen: true}).catch(() => {});

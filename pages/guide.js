@@ -10,7 +10,7 @@ for (const el of document.querySelectorAll('[data-i18n]')) el.textContent = mess
 document.title += ' - Swift Bookmarks for Diigo';
 
 let user = '';                   // signed in on diigo.com
-let settings = DEFAULT_SETTINGS;  // see options/settings.js
+let settings = DEFAULT_SETTINGS;  // see pages/settings.js
 
 function element(tag, className, content) {
   const el = document.createElement(tag);

@@ -33,7 +33,7 @@ async function runLimitTest() {
   const pause = Math.min(10000, Math.max(0, parseInt($('limitPause').value, 10) || 0));
   if (!user) return showLimitStatus('Sign in on diigo.com first.');
   const last = from + count - 1;
-  if (!confirm(`Save ${count} test bookmarks (#${from} to #${last}) to the Diigo account ${user}?`)) return;
+  if (!await askConfirm(`Save ${count} test bookmarks (#${from} to #${last}) to the Diigo account ${user}?`)) return;
   limitStop = false;
   $('limitStart').hidden = true;
   $('limitStop').hidden = false;

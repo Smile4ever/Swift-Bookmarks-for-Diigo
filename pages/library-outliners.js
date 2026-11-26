@@ -429,6 +429,17 @@ const outlinerPart = (() => {
       String(item.title || item.url || '').replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
     link.contentEditable = 'false';
     link.dataset.flag = flag;
+    // an image: never to Diigo (as library-list.js: titleUrl), shown here from the index (viewImage), as a privacy
+    // precaution
+    if (item.type == 'image') {
+      link.classList.add('no-link');
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const found = index.get(String(item.linkId));
+        if (found && !$('popup').open) viewImage(found);
+      });
+      return link;
+    }
     // a bookmark to its page, the rest to the item on Diigo, as Diigo's outliner does (getDiigoItemRedirctURL)
     link.href = item.type == 'bookmark' && /^https?:/i.test(item.url || '') ? String(item.url).replace(/&amp;/g, '&')
       : `${OUTLINER_URL}/diigo_items/${current.id}/${encodeURIComponent(item.userId)}/${encodeURIComponent(item.linkId)}`;
@@ -775,9 +786,9 @@ const outlinerPart = (() => {
   }
 
   // the items under it first, so none is left without its parent
-  function removeBullet(item, {ask: asking = false, focus = true} = {}) {
+  async function removeBullet(item, {ask: asking = false, focus = true} = {}) {
     const under = descendants(item);
-    if (asking && under.length && !confirm(message('outlinersItemDeleteAsk', String(under.length)))) return;
+    if (asking && under.length && !await askConfirm(message('outlinersItemDeleteAsk', String(under.length)), {danger: true})) return;
     const shown = visibleItems();
     const above = shown[shown.indexOf(item) - 1];
     for (const gone of [...under].reverse().concat(item)) {
@@ -900,10 +911,34 @@ const outlinerPart = (() => {
   // An outliner deleted goes to the trash at once, with its name and items (fetched first when it isn't the one
   // shown), and leaves the list; Diigo deletes it after DELETE_DELAY, and only then the trash keeps it as one that is
   // gone (an item of the trash: type outliner, outline: its tree). Till then Undo, or Put back in the trash, simply
-  // cancels it. Leaving the page before, the browser asks first (library-page.js), as it isn't deleted then.
-  const waiting = new Map();  // outliner id -> its copy for the trash
+  // cancels it. Those waiting are kept in the browser too (keepWaiting), so leaving the page loses nothing and asks
+  // nothing: the next time the Swift Library opens, it goes on with them (resume).
+  const waiting = new Map();  // outliner id -> its copy for the trash, with since: when Delete was chosen
   let waitTimer = 0;
   let toastOutliners = [];
+
+  // in the browser (storage.local), with whose they are, after each change of waiting
+  const WAITING_KEY = 'pendingOutliners';
+  function keepWaiting() {
+    const kept = waiting.size ? browser.storage.local.set({[WAITING_KEY]: {user, items: Object.fromEntries(waiting)}})
+      : browser.storage.local.remove(WAITING_KEY);
+    kept.catch(e => logError('Outliners: waiting to be deleted', e));
+  }
+
+  // the Swift Library opened (library-page.js: openFor): those that waited when a page of it was left wait again, for
+  // what is left of their DELETE_DELAY (none: deleted now), out of the list; only of who is signed in
+  async function resume() {
+    const kept = (await browser.storage.local.get(WAITING_KEY).catch(() => ({})))[WAITING_KEY];
+    if (!kept || kept.user != user) return;
+    for (const [id, copy] of Object.entries(kept.items || {})) if (!waiting.has(id)) waiting.set(id, copy);
+    keepWaiting();
+    if (!waiting.size) return;
+    outliners = outliners.filter(outliner => !waiting.has(outliner.id));
+    const last = Math.max(...[...waiting.values()].map(copy => Number(copy.since) || Date.now()));
+    clearTimeout(waitTimer);
+    waitTimer = setTimeout(deleteWaiting, Math.max(0, last + DELETE_DELAY - Date.now()));
+    show({keepScroll: true});
+  }
 
   const copyId = id => 'outliner-' + id;
 
@@ -926,8 +961,9 @@ const outlinerPart = (() => {
     waiting.set(outliner.id, {
       id: copyId(outliner.id), outlinerId: outliner.id, type: 'outliner', title: outliner.title, url: '',
       description: '', tags: [], private: true, unread: false, created: outliner.updated || now / 1000,
-      updated: outliner.updated || now / 1000, outline: tree, preview: treeLines(tree),
+      updated: outliner.updated || now / 1000, outline: tree, preview: treeLines(tree), since: now,
     });
+    keepWaiting();
     outliners = outliners.filter(other => other.id != outliner.id);
     if (current?.id == outliner.id) {
       queue = [];
@@ -948,6 +984,7 @@ const outlinerPart = (() => {
     const copy = waiting.get(id);
     if (!copy) return;
     waiting.delete(id);
+    keepWaiting();
     if (!waiting.size) clearTimeout(waitTimer);
     outliners.push({id, title: copy.title, updated: copy.updated, preview: copy.preview});
     outliners.sort((a, b) => b.updated - a.updated);
@@ -977,9 +1014,11 @@ const outlinerPart = (() => {
         const answer = await ask(`/${encodeURIComponent(id)}/delete`, {form: {}});
         if (answer.code !== undefined && answer.code != 1) throw failed(answer);
         waiting.delete(id);
+        keepWaiting();
         deleted++;
         if (keep) {
-          const gone = {...copy, deletedAt: Date.now()};
+          const {since, ...rest} = copy;
+        const gone = {...rest, deletedAt: Date.now()};
           trash.set(gone.id, gone);
           await saveIndex({trashPut: [gone]});
         }
@@ -994,7 +1033,7 @@ const outlinerPart = (() => {
   }
 
   // those waiting, as the trash shows them (library-delete.js: pendingTrash)
-  const pendingCopies = () => [...waiting.values()].map(copy => ({...copy, deletedAt: Date.now(),
+  const pendingCopies = () => [...waiting.values()].map(copy => ({...copy, deletedAt: copy.since || Date.now(),
     pendingDelete: true}));
 
   // Put back from the trash: the outliner made again, with its name, and its items in their order and places, as
@@ -1068,7 +1107,7 @@ const outlinerPart = (() => {
   }
 
   // A menu of your outliners, "Share to outliner" first (nothing chosen), as the bookmark form has it: hidden without
-  // any, or with the option hideShareToOutliner (options/settings.js); filled once Diigo gave the list.
+  // any, or with the option hideShareToOutliner (pages/settings.js); filled once Diigo gave the list.
   function shareSelect() {
     const select = element('select', 'share-outliner');
     select.setAttribute('aria-label', message('shareToOutliner'));
@@ -1239,14 +1278,14 @@ const outlinerPart = (() => {
   document.addEventListener('visibilitychange', () => shownHere() && document.visibilityState == 'visible' &&
     send({pull: true}));
 
-  // changes not on Diigo yet, or outliners not deleted yet, when the page goes: the browser asks first
+  // changes not on Diigo yet, when the page goes: the browser asks first (those waiting to be deleted are kept: resume)
   const unsaved = () => {
     if (queue.length) send();
-    return queue.length > 0 || sending || waiting.size > 0;
+    return queue.length > 0 || sending;
   };
 
   return {
-    render, title, totalText, addOutliner, reset, undo, cancel, restore, pendingCopies, unsaved,
+    render, title, totalText, addOutliner, reset, undo, cancel, restore, pendingCopies, unsaved, resume,
     deleteNow: () => deleteWaiting({keep: false}), count: () => listed ? outliners.length : 0, ensureList,
     previewElement, icon, addItems, shareSelect,
   };

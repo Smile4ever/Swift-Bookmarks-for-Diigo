@@ -34,3 +34,34 @@ a.dqa-swift-button svg {
   height: 20px;
   flex: none;
 }
+
+/* Show hidden on diigo.com (hide.js: showHiddenToggle): the same small, faint checkbox as Show hidden in the Swift
+   Library (pages/library.css: .show-hidden) — faint until you point at it or tick it. At the bottom right of your
+   own library, with a light backing so it reads over the page. */
+#dqa-show-hidden {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, .85);
+  color: #555;
+  font: 12px/1.2 system-ui, sans-serif;
+  opacity: .5;
+  cursor: pointer;
+}
+
+#dqa-show-hidden:is(:hover, :focus-within, :has(:checked)) {
+  opacity: 1;
+}
+
+#dqa-show-hidden input {
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  cursor: pointer;
+}

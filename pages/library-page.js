@@ -100,9 +100,10 @@ $('toastTrash').addEventListener('click', () => {
   $('toast').hidden = true;
   setView('trash');
 });
-// bookmarks waiting to be deleted (library-delete.js) aren't, when the page goes: the browser asks first
-// and changes to an outliner not on Diigo yet, or outliners waiting to be deleted (library-outliners.js)
-addEventListener('beforeunload', e => (pending.size || outlinerPart.unsaved()) && e.preventDefault());
+// changes to an outliner not on Diigo yet (library-outliners.js): the browser asks first when the page goes. Not for
+// items or outliners waiting to be deleted: those are kept and deleted the next time (library-delete.js: keepPending,
+// resumePending; library-outliners.js: keepWaiting, resume).
+addEventListener('beforeunload', e => outlinerPart.unsaved() && e.preventDefault());
 // the menu of the archives (library-links.js): closed by a click elsewhere, Esc, or the list drawn again
 document.addEventListener('pointerdown', e => archiveMenu && !archiveMenu.contains(e.target) &&
   e.target != archiveMenu.owner && closeArchiveMenu(), true);
@@ -123,9 +124,9 @@ $('bulkApplyTags').addEventListener('click', editTags);
 $('bulkRead').addEventListener('click', () =>
   editPicked($('bulkRead').textContent, {type: toggles(pickedItems()).read}));
 // Make public asks first: everyone can see them then; Make private doesn't need to
-$('bulkPrivacy').addEventListener('click', () => {
+$('bulkPrivacy').addEventListener('click', async () => {
   const type = toggles(pickedItems()).privacy;
-  if (type == 'public' && !confirm(message('bulkPublicConfirm', String(pickedItems().length)))) return;
+  if (type == 'public' && !await askConfirm(message('bulkPublicConfirm', String(pickedItems().length)), {danger: true})) return;
   editPicked($('bulkPrivacy').textContent, {type});
 });
 $('bulkStop').addEventListener('click', () => {
@@ -240,16 +241,43 @@ function openFor(name) {
   if (name && indexReady(name)) {
     show();
     update();
+    // what waited to be deleted when a page of the Swift Library was left (library-delete.js)
+    resumePending().catch(e => reportProblem(e, 'delete'));
+    outlinerPart.resume().catch(e => reportProblem(e, 'outliners'));
   } else if (name) {
     build();
   }
 }
 
+// View the library offline (library.js: showOfflineButton): the index in the browser shown as whose it is (meta.user),
+// as it was last kept, without asking Diigo anything (no update, no build, no outliners). Said so in the bar above it;
+// what needs Diigo (saving, deleting) fails until you are signed in again, which ends it (userChanged, below).
+let offline = false;
+$('setupOffline').addEventListener('click', () => {
+  if (!meta?.user || meta.version != INDEX_VERSION) return;
+  offline = true;
+  user = meta.user;
+  safely('menu', showMainNav);
+  safely('index', showIndex);
+  show();
+  // stays (not gone after STATUS_TIME), and isn't an error for the log
+  showStatus(message('libraryOffline'));
+  clearTimeout(statusTimer);
+});
+
 // Signed out, in or as someone else on diigo.com meanwhile (background.js: setUser): this page follows. Signed out,
 // what it was doing (building, updating, Bulk edit) stops, and the library makes room for Sign in; signed in again, it
 // opens as it does when the page opens.
+// Offline (openOffline) and then signed in: as a page that opens, the index updated; signed out still: stays offline.
 browser.runtime.onMessage.addListener(request => {
-  if (request?.type != 'userChanged' || request.user == user) return;
+  if (request?.type != 'userChanged') return;
+  if (offline) {
+    if (!request.user) return;
+    offline = false;
+    showStatus('');
+  } else if (request.user == user) {
+    return;
+  }
   user = request.user || '';
   outlinerPart.reset();
   // the links of who was signed in are no longer to check (library-links.js: checkAllLinks)

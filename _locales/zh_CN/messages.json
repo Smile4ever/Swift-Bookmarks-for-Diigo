@@ -20,6 +20,9 @@
     "optionNoHiddenThumbs": {
         "message": "带有隐藏标签的项目（通过“显示隐藏的”或搜索显示）：前面不显示图片（不显示屏幕截图、预览图或其自身的图片）。"
     },
+    "optionPublicViaPrivate": {
+        "message": "新的公开书签先以私密方式保存，再设为公开（一种隐私预防措施）"
+    },
     "optionHideOnDiigo": {
         "message": "在 diigo.com 上也是如此：你在那里的书签库中不显示带有隐藏标签的书签，标签列表中也不显示隐藏标签，除非你搜索这样的标签。"
     },
@@ -63,7 +66,7 @@
         "message": "重新创建"
     },
     "itemRecreateConfirm": {
-        "message": "要重新创建“$TITLE$”吗？将创建内容相同、日期为今天的新项目；旧项目会被永久删除，连同只属于它的内容（高亮、在 Outliner 中的位置、分享链接）。",
+        "message": "要重新创建“$TITLE$”吗？将创建内容相同、日期为今天的新项目；旧项目会被永久删除，连同只属于它的内容（高亮、在 Outliner 中的位置）。",
         "placeholders": {
             "title": {
                 "content": "$1"
@@ -75,6 +78,29 @@
     },
     "itemRecreateNoCopy": {
         "message": "Diigo 没有创建新项目：它重新保存了旧项目，未作更改。没有删除任何内容。"
+    },
+    "itemMakeLink": {
+        "message": "创建公开链接"
+    },
+    "itemMakeLinkConfirm": {
+        "message": "要为“$TITLE$”创建公开链接吗？任何拥有该链接的人都能打开此项目，即使它是私密的，也无需登录。无法撤销：唯一的办法是删除该项目（重新创建会保留项目并删除带链接的旧项目）。要创建链接吗？",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMakeLinkWarn": {
+        "message": "此链接是公开的，无法撤销。要撤销请删除该项目，或重新创建它。"
+    },
+    "itemMakeLinkCopy": {
+        "message": "复制链接"
+    },
+    "itemMakeLinkCopied": {
+        "message": "已复制"
+    },
+    "itemMakeLinkFailed": {
+        "message": "Diigo 没有返回链接。"
     },
     "itemPin": {
         "message": "置顶到开始页"
@@ -310,7 +336,7 @@
         "message": "笔记：你自己的文字，纯文本或带格式，在这里撰写和编辑，点击标题即可在页面中查看。标题以 .py、.css、.html 等结尾的笔记是代码，以彩色显示。笔记在 Diigo 上始终是私密的。"
     },
     "guideTypeFile": {
-        "message": "图片和 PDF：在这里上传，并附上标题、描述和标签（PDF 最大 64 MB）；图片会在页面中显示。在这里删除后，其文件会保留在回收站中，因此可以还原。"
+        "message": "图片和 PDF：在这里上传，并附上标题、描述和标签（PDF 最大 64 MB）。图片会在页面中显示；PDF 会在新标签页中用浏览器自带的 PDF 查看器打开。在这里删除后，其文件会保留在回收站中，因此可以还原。"
     },
     "guideTypeKindle": {
         "message": "Kindle：在 diigo.com 上导入的 Kindle 标注。不能在这里创建或编辑；从回收站恢复需要重新导入。"
@@ -524,13 +550,22 @@
         "message": "在地址栏中：输入 d、一个空格和几个词即可找到你的书签。"
     },
     "guideMoreDiigo": {
-        "message": "在 diigo.com 上：顶部菜单末尾有“前往 Swift Library”，登录后会进入 Swift Library。diigo.com 的其余部分保持原样；你可以在 Swift 选项中让 My Library 和 Tools 打开 Swift 页面。"
+        "message": "在 diigo.com 上：顶部菜单末尾有“前往 Swift Library”，登录后会进入 Swift Library。如果你有隐藏标签，那里书签库右下角的“显示隐藏”会在该标签页中显示这些书签。diigo.com 的其余部分保持原样；你可以在 Swift 选项中让 My Library 和 Tools 打开 Swift 页面。"
+    },
+    "guideMoreItemMenu": {
+        "message": "条目的 ⋯：标为已读或未读、添加到大纲、分享到群组、重新创建（作为新条目重建，旧条目删除），以及在明确警告后创建公开链接，供你确实想分享时使用。"
+    },
+    "guideMorePictures": {
+        "message": "每个书签旁的图片：其页面的预览图或图标，保存在此浏览器中。表单或编辑中的“同时保存截图”仅在你勾选时，才会把页面显示的内容作为私密图片保存到 Diigo。"
+    },
+    "guideMoreOffline": {
+        "message": "Diigo 无法访问？在 Swift Library 的登录界面，“离线查看书签库”会显示扩展上次保存的书签库。重新登录后，页面会自动继续。"
     },
     "guideMoreSettings": {
         "message": "你的设置会随浏览器账户同步到你的其他电脑。"
     },
     "guidePrivacyText": {
-        "message": "扩展不会向作者发送任何内容。它使用你在 diigo.com 的登录代你与 diigo.com 通信，书签库的副本保留在此浏览器中。其他数据去向及相关选项，请见 Swift 选项中的“隐私”。"
+        "message": "扩展不会向作者发送任何内容。它使用你在 diigo.com 的登录代你与 diigo.com 通信，书签库的副本保留在此浏览器中。新的公开书签会先保存为私密，然后才设为公开；扩展从不自行为条目创建公开链接。其他数据去向及相关选项，请见 Swift 选项中的“隐私”。"
     },
     "guideDiigoTour": {
         "message": "Diigo 自己对 Diigo 功能的介绍：diigo.com 上的 Learn more"
@@ -1149,6 +1184,24 @@
     },
     "libraryImageOpen": {
         "message": "在新标签页中打开图片本身"
+    },
+    "libraryPdfOpen": {
+        "message": "在新标签页中打开 PDF 本身"
+    },
+    "pdfViewReader": {
+        "message": "Diigo 阅读器"
+    },
+    "askOk": {
+        "message": "确定"
+    },
+    "askCancel": {
+        "message": "取消"
+    },
+    "pdfViewLoading": {
+        "message": "正在加载 PDF…"
+    },
+    "pdfViewFailed": {
+        "message": "无法在此加载 PDF。"
     },
     "libraryRandomIntro": {
         "message": "从你的书签库中随机选出的 10 个书签（不含带隐藏标签的）。再次点击左侧的“随机”可换 10 个。"
@@ -2166,6 +2219,20 @@
     },
     "setupSignIn": {
         "message": "在 diigo.com 登录"
+    },
+    "setupOffline": {
+        "message": "离线查看书签库"
+    },
+    "libraryOffline": {
+        "message": "离线：这是扩展上次保存的书签库。在你重新登录 diigo.com 之前，保存、删除等更改不会到达 Diigo；登录后此页面会自动继续。"
+    },
+    "libraryDiigoDown": {
+        "message": "现在无法连接 Diigo（$WHY$）。请稍后再试；你的书签库仍在扩展中。",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
     },
     "linkIgnore": {
         "message": "没有失效：忽略此链接"

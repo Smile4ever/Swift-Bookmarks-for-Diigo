@@ -20,6 +20,9 @@
     "optionNoHiddenThumbs": {
         "message": "An item with a hidden tag, shown by Show hidden or a search: no picture before it (no screenshot, preview image or image of its own)."
     },
+    "optionPublicViaPrivate": {
+        "message": "Save new public bookmarks privately first, then make them public (a privacy precaution)"
+    },
     "optionHideOnDiigo": {
         "message": "On diigo.com too: in your library there, no bookmarks with a hidden tag and no hidden tags in the list of tags, unless you search for such a tag."
     },
@@ -63,7 +66,7 @@
         "message": "Recreate"
     },
     "itemRecreateConfirm": {
-        "message": "Recreate “$TITLE$”? A new item with the same content and today’s date; the old one is deleted for good, with what only it has (highlights, its place in outliners, a share link).",
+        "message": "Recreate “$TITLE$”? A new item with the same content and today’s date; the old one is deleted for good, with what only it has (highlights, its place in outliners).",
         "placeholders": {
             "title": {
                 "content": "$1"
@@ -75,6 +78,29 @@
     },
     "itemRecreateNoCopy": {
         "message": "Diigo made no new item: it saved the old one again, unchanged. Nothing was deleted."
+    },
+    "itemMakeLink": {
+        "message": "Make public link"
+    },
+    "itemMakeLinkConfirm": {
+        "message": "Make a public link to “$TITLE$”? Anyone with the link can open this item, also when it is private and without signing in. You cannot take it back: the only way to undo it is to delete the item (Recreate keeps the item and deletes the old one, with its link). Make the link?",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMakeLinkWarn": {
+        "message": "This link is public and cannot be taken back. Delete the item, or Recreate it, to undo it."
+    },
+    "itemMakeLinkCopy": {
+        "message": "Copy link"
+    },
+    "itemMakeLinkCopied": {
+        "message": "Copied"
+    },
+    "itemMakeLinkFailed": {
+        "message": "Diigo gave no link."
     },
     "itemPin": {
         "message": "Pin to Start"
@@ -310,7 +336,7 @@
         "message": "Notes: text of your own, plain or with formatting, written and edited here and shown in the page with a click on its title. A note whose title ends in .py, .css, .html or the like is code, shown in colours. Notes are always private on Diigo."
     },
     "guideTypeFile": {
-        "message": "Images and PDFs: uploaded here with a title, description and tags (a PDF up to 64 MB); an image shows in the page. Deleted here, their file stays in the trash, so they can be put back."
+        "message": "Images and PDFs: uploaded here with a title, description and tags (a PDF up to 64 MB). An image shows in the page; a PDF opens in a new tab, in your browser's own PDF viewer. Deleted here, their file stays in the trash, so they can be put back."
     },
     "guideTypeKindle": {
         "message": "Kindle: your Kindle highlights, imported on diigo.com. They can't be made or edited here; from the trash they come back by importing them again."
@@ -524,13 +550,22 @@
         "message": "In the address bar: type d, a space and some words to find your bookmarks."
     },
     "guideMoreDiigo": {
-        "message": "On diigo.com: Go to Swift Library at the end of the menu at the top, and the Swift Library after you sign in. The rest of diigo.com stays as Diigo has it; in Swift Options you can let My Library and Tools open the Swift pages."
+        "message": "On diigo.com: Go to Swift Library at the end of the menu at the top, and the Swift Library after you sign in. When you have hidden tags, Show hidden at the bottom right of your library there shows those bookmarks in that tab. The rest of diigo.com stays as Diigo has it; in Swift Options you can let My Library and Tools open the Swift pages."
+    },
+    "guideMoreItemMenu": {
+        "message": "The ⋯ of an item: Mark as read or unread, Add to outliner, Share to group, Recreate (made again as a new item, the old one deleted), and Make public link, after a clear warning, for when you do want to share it."
+    },
+    "guideMorePictures": {
+        "message": "A picture at each bookmark: the preview image of its page, or its icon, kept in this browser. Also save a screenshot, in the form or in Edit, saves what the page shows as a private image in Diigo, only when you tick it."
+    },
+    "guideMoreOffline": {
+        "message": "Diigo down? On the sign-in screen of the Swift Library, View the library offline shows your library as the add-on last kept it. Signed in again, it goes on by itself."
     },
     "guideMoreSettings": {
         "message": "Your settings go along to your other computers with the account of your browser."
     },
     "guidePrivacyText": {
-        "message": "The add-on sends nothing to its maker. It talks to diigo.com for you, with your sign-in there, and the copy of your library stays in this browser. What else goes where, and the choices about it, are in Swift Options under Privacy."
+        "message": "The add-on sends nothing to its maker. It talks to diigo.com for you, with your sign-in there, and the copy of your library stays in this browser. A new public bookmark is saved private first and only then made public, and the add-on never makes a public link to an item by itself. What else goes where, and the choices about it, are in Swift Options under Privacy."
     },
     "guideDiigoTour": {
         "message": "Diigo's own tour of what Diigo does: Learn more on diigo.com"
@@ -1159,6 +1194,24 @@
     },
     "libraryImageOpen": {
         "message": "The image itself, in a new tab"
+    },
+    "libraryPdfOpen": {
+        "message": "The PDF itself, in a new tab"
+    },
+    "pdfViewReader": {
+        "message": "Diigo's reader"
+    },
+    "askOk": {
+        "message": "OK"
+    },
+    "askCancel": {
+        "message": "Cancel"
+    },
+    "pdfViewLoading": {
+        "message": "Loading PDF…"
+    },
+    "pdfViewFailed": {
+        "message": "The PDF couldn't be loaded here."
     },
     "libraryRandomIntro": {
         "message": "10 of your bookmarks at random, none with a hidden tag. Click Random at the left again for 10 others."
@@ -2226,6 +2279,20 @@
     },
     "setupSignIn": {
         "message": "Sign in on diigo.com"
+    },
+    "setupOffline": {
+        "message": "View the library offline"
+    },
+    "libraryOffline": {
+        "message": "Offline: your library as the add-on last kept it. Saving, deleting and other changes don't reach Diigo until you are signed in on diigo.com again; then this page goes on by itself."
+    },
+    "libraryDiigoDown": {
+        "message": "Diigo can't be reached right now ($WHY$). Try again later; your library is still in the add-on.",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
     },
     "linkIgnore": {
         "message": "Not dead: ignore this link"

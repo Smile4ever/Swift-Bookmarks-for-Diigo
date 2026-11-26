@@ -1875,6 +1875,28 @@ a.selected .c-icon.kindle { background-position: -360px -50px; }
   margin: 0 0 12px;
 }
 
+.card .choice-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  font-size: 15px;
+}
+
+.card .choice-item .c-icon {
+  flex: none;
+}
+
+.card .choice-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
 /* Suggested and Often with these below the tags (library-edit.js: tagSuggestions), as in the bookmark form
    (form/form.css: #suggested, #related): a click on a tag adds it, on Suggested all of them */
 .card .tag-suggest {
@@ -2836,6 +2858,14 @@ a.selected .c-icon.kindle { background-position: -360px -50px; }
   box-shadow: 0 1px 4px rgba(0, 0, 0, .12);
 }
 
+/* View the library offline, its first seconds (library.js: showOfflineButton) */
+.setup-buttons button:disabled {
+  opacity: .45;
+  cursor: default;
+  filter: none;
+  box-shadow: none;
+}
+
 .setup-buttons :is(button, a):focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 2px;
@@ -3206,4 +3236,27 @@ a.selected .c-icon.kindle { background-position: -360px -50px; }
     background: #3a3320;
     color: #f0d27a;
   }
+}
+
+/* Make public link: the link shown with a Copy button (library-add.js: makePublicLink) */
+.make-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.make-link-url {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  user-select: text;
+  font-size: 15px;
+}
+
+/* the title of an image: no link (library-list.js: titleLink), it is shown here; still looks and points like one */
+a.title.no-link,
+.bullet-content a.diigo-item.no-link {
+  cursor: pointer;
 }

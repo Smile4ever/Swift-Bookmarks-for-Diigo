@@ -20,6 +20,9 @@
     "optionNoHiddenThumbs": {
         "message": "Een item met een verborgen tag, getoond door Verborgen tonen of een zoekopdracht: geen afbeelding ervoor (geen schermafbeelding, voorbeeldafbeelding of eigen afbeelding)."
     },
+    "optionPublicViaPrivate": {
+        "message": "Nieuwe publieke bladwijzers eerst privé opslaan en dan publiek maken (een privacyvoorzorg)"
+    },
     "optionHideOnDiigo": {
         "message": "Ook op diigo.com: in je bibliotheek daar geen bladwijzers met een verborgen tag en geen verborgen tags in de lijst met tags, tenzij je naar zo’n tag zoekt."
     },
@@ -63,7 +66,7 @@
         "message": "Opnieuw aanmaken"
     },
     "itemRecreateConfirm": {
-        "message": "“$TITLE$” opnieuw aanmaken? Een nieuw item met dezelfde inhoud en de datum van vandaag; het oude wordt definitief verwijderd, met wat alleen dat heeft (markeringen, zijn plaats in outliners, een share link).",
+        "message": "“$TITLE$” opnieuw aanmaken? Een nieuw item met dezelfde inhoud en de datum van vandaag; het oude wordt definitief verwijderd, met alles wat alleen daaraan hangt (markeringen, de plaats in outliners).",
         "placeholders": {
             "title": {
                 "content": "$1"
@@ -75,6 +78,29 @@
     },
     "itemRecreateNoCopy": {
         "message": "Diigo maakte geen nieuw item: het bewaarde het oude opnieuw, ongewijzigd. Er is niets verwijderd."
+    },
+    "itemMakeLink": {
+        "message": "Publieke link maken"
+    },
+    "itemMakeLinkConfirm": {
+        "message": "Een publieke link maken naar “$TITLE$”? Iedereen met de link kan dit item openen, ook als het privé is en zonder in te loggen. Je kunt het niet terugdraaien: alleen het item verwijderen maakt de link ongedaan (Opnieuw aanmaken houdt het item en verwijdert het oude, met zijn link). Link maken?",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMakeLinkWarn": {
+        "message": "Deze link is publiek en kan niet worden teruggedraaid. Verwijder het item, of maak het opnieuw aan, om het ongedaan te maken."
+    },
+    "itemMakeLinkCopy": {
+        "message": "Link kopiëren"
+    },
+    "itemMakeLinkCopied": {
+        "message": "Gekopieerd"
+    },
+    "itemMakeLinkFailed": {
+        "message": "Diigo gaf geen link."
     },
     "itemPin": {
         "message": "Vastzetten op Start"
@@ -310,7 +336,7 @@
         "message": "Notities: eigen tekst, gewoon of met opmaak, hier geschreven en bewerkt en in de pagina getoond met een klik op de titel. Een notitie waarvan de titel eindigt op .py, .css, .html en dergelijke is code, in kleuren getoond. Notities zijn op Diigo altijd privé."
     },
     "guideTypeFile": {
-        "message": "Afbeeldingen en pdf's: hier geüpload met een titel, beschrijving en tags (een pdf tot 64 MB); een afbeelding wordt in de pagina getoond. Verwijder je ze hier, dan blijft hun bestand in de prullenbak, zodat je ze kunt terugzetten."
+        "message": "Afbeeldingen en pdf's: hier geüpload met een titel, beschrijving en tags (een pdf tot 64 MB). Een afbeelding wordt in de pagina getoond; een pdf opent in een nieuw tabblad, in de eigen pdf-viewer van je browser. Verwijder je ze hier, dan blijft hun bestand in de prullenbak, zodat je ze kunt terugzetten."
     },
     "guideTypeKindle": {
         "message": "Kindle: je Kindle-markeringen, geïmporteerd op diigo.com. Ze kunnen hier niet gemaakt of bewerkt worden; uit de prullenbak komen ze terug door ze opnieuw te importeren."
@@ -524,13 +550,22 @@
         "message": "In de adresbalk: typ d, een spatie en enkele woorden om je bladwijzers te vinden."
     },
     "guideMoreDiigo": {
-        "message": "Op diigo.com: Ga naar Swift Library achteraan het menu bovenaan, en na het aanmelden kom je in de Swift Library. De rest van diigo.com blijft zoals Diigo het heeft; in Swift Opties kun je My Library en Tools de Swift-pagina's laten openen."
+        "message": "Op diigo.com: Ga naar Swift Library achteraan het menu bovenaan, en na het aanmelden kom je in de Swift Library. Heb je verborgen tags, dan toont Verborgen tonen rechtsonder in je bibliotheek daar die bladwijzers in dat tabblad. De rest van diigo.com blijft zoals Diigo het heeft; in Swift Opties kun je My Library en Tools de Swift-pagina's laten openen."
+    },
+    "guideMoreItemMenu": {
+        "message": "De ⋯ van een item: Als gelezen of als ongelezen markeren, Toevoegen aan outliner, Delen in groep, Opnieuw aanmaken (als nieuw item, het oude verwijderd), en Publieke link maken, na een duidelijke waarschuwing, voor als je het wél wilt delen."
+    },
+    "guideMorePictures": {
+        "message": "Een afbeelding bij elke bladwijzer: de voorbeeldafbeelding van de pagina, of haar icoon, bewaard in deze browser. Ook een schermafbeelding bewaren, in het formulier of bij Bewerken, bewaart wat de pagina toont als privé-afbeelding in Diigo, alleen als je het aanvinkt."
+    },
+    "guideMoreOffline": {
+        "message": "Diigo plat? Op het aanmeldscherm van de Swift Library toont Bibliotheek offline raadplegen je bibliotheek zoals de add-on ze laatst bewaarde. Ben je weer aangemeld, dan gaat hij vanzelf verder."
     },
     "guideMoreSettings": {
         "message": "Je instellingen gaan mee naar je andere computers met het account van je browser."
     },
     "guidePrivacyText": {
-        "message": "De add-on stuurt niets naar de maker. Hij praat voor jou met diigo.com, met je aanmelding daar, en de kopie van je bibliotheek blijft in deze browser. Wat er verder waarheen gaat, en de keuzes daarover, staan in Swift Opties onder Privacy."
+        "message": "De add-on stuurt niets naar de maker. Hij praat voor jou met diigo.com, met je aanmelding daar, en de kopie van je bibliotheek blijft in deze browser. Een nieuwe publieke bladwijzer wordt eerst privé opgeslagen en pas daarna publiek gemaakt, en de add-on maakt nooit uit zichzelf een publieke link naar een item. Wat er verder waarheen gaat, en de keuzes daarover, staan in Swift Opties onder Privacy."
     },
     "guideDiigoTour": {
         "message": "Diigo's eigen rondleiding door wat Diigo doet: Learn more op diigo.com"
@@ -1149,6 +1184,24 @@
     },
     "libraryImageOpen": {
         "message": "De afbeelding zelf, in een nieuw tabblad"
+    },
+    "libraryPdfOpen": {
+        "message": "De PDF zelf, in een nieuw tabblad"
+    },
+    "pdfViewReader": {
+        "message": "Lezer van Diigo"
+    },
+    "askOk": {
+        "message": "OK"
+    },
+    "askCancel": {
+        "message": "Annuleren"
+    },
+    "pdfViewLoading": {
+        "message": "PDF laden…"
+    },
+    "pdfViewFailed": {
+        "message": "De PDF kon hier niet geladen worden."
     },
     "libraryRandomIntro": {
         "message": "10 willekeurige bladwijzers uit je library, geen met een verborgen tag. Klik links nog eens op Willekeurig voor 10 andere."
@@ -2166,6 +2219,20 @@
     },
     "setupSignIn": {
         "message": "Inloggen op diigo.com"
+    },
+    "setupOffline": {
+        "message": "Bibliotheek offline raadplegen"
+    },
+    "libraryOffline": {
+        "message": "Offline: je library zoals de add-on ze laatst bewaarde. Opslaan, verwijderen en andere wijzigingen komen niet bij Diigo tot je weer ingelogd bent op diigo.com; dan gaat deze pagina vanzelf verder."
+    },
+    "libraryDiigoDown": {
+        "message": "Diigo is nu niet bereikbaar ($WHY$). Probeer het later opnieuw; je library staat nog in de add-on.",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
     },
     "linkIgnore": {
         "message": "Niet dood: deze link negeren"

@@ -20,6 +20,9 @@
     "optionNoHiddenThumbs": {
         "message": "Ein Eintrag mit einem verborgenen Tag, gezeigt durch Verborgene zeigen oder eine Suche: kein Bild davor (kein Screenshot, kein Vorschaubild, kein eigenes Bild)."
     },
+    "optionPublicViaPrivate": {
+        "message": "Neue öffentliche Lesezeichen erst privat speichern und dann öffentlich machen (eine Datenschutzvorkehrung)"
+    },
     "optionHideOnDiigo": {
         "message": "Auch auf diigo.com: in deiner Bibliothek dort keine Lesezeichen mit einem verborgenen Tag und keine verborgenen Tags in der Liste der Tags, außer du suchst nach so einem Tag."
     },
@@ -63,7 +66,7 @@
         "message": "Neu anlegen"
     },
     "itemRecreateConfirm": {
-        "message": "„$TITLE$“ neu anlegen? Ein neuer Eintrag mit demselben Inhalt und dem heutigen Datum; der alte wird endgültig gelöscht, mit allem, was nur er hat (Markierungen, sein Platz in Outlinern, ein Freigabelink).",
+        "message": "„$TITLE$“ neu anlegen? Ein neuer Eintrag mit demselben Inhalt und dem heutigen Datum; der alte wird endgültig gelöscht, mit allem, was nur er hat (Markierungen, sein Platz in Outlinern).",
         "placeholders": {
             "title": {
                 "content": "$1"
@@ -75,6 +78,29 @@
     },
     "itemRecreateNoCopy": {
         "message": "Diigo hat keinen neuen Eintrag angelegt: Es hat den alten unverändert erneut gespeichert. Es wurde nichts gelöscht."
+    },
+    "itemMakeLink": {
+        "message": "Öffentlichen Link erstellen"
+    },
+    "itemMakeLinkConfirm": {
+        "message": "Einen öffentlichen Link zu „$TITLE$“ erstellen? Jeder mit dem Link kann diesen Eintrag öffnen, auch wenn er privat ist und ohne Anmeldung. Du kannst es nicht rückgängig machen: nur das Löschen des Eintrags hebt den Link auf (Neu anlegen behält den Eintrag und löscht den alten mit seinem Link). Link erstellen?",
+        "placeholders": {
+            "title": {
+                "content": "$1"
+            }
+        }
+    },
+    "itemMakeLinkWarn": {
+        "message": "Dieser Link ist öffentlich und kann nicht zurückgenommen werden. Lösche den Eintrag oder lege ihn neu an, um ihn aufzuheben."
+    },
+    "itemMakeLinkCopy": {
+        "message": "Link kopieren"
+    },
+    "itemMakeLinkCopied": {
+        "message": "Kopiert"
+    },
+    "itemMakeLinkFailed": {
+        "message": "Diigo hat keinen Link gegeben."
     },
     "itemPin": {
         "message": "Auf Start anheften"
@@ -310,7 +336,7 @@
         "message": "Notizen: eigener Text, schlicht oder formatiert, hier geschrieben und bearbeitet und mit einem Klick auf den Titel in der Seite gezeigt. Eine Notiz, deren Titel auf .py, .css, .html oder Ähnliches endet, ist Code und wird in Farben gezeigt. Notizen sind auf Diigo immer privat."
     },
     "guideTypeFile": {
-        "message": "Bilder und PDFs: hier hochgeladen, mit Titel, Beschreibung und Tags (ein PDF bis 64 MB); ein Bild wird in der Seite gezeigt. Hier gelöscht, bleibt ihre Datei im Papierkorb, sodass sie zurückgelegt werden können."
+        "message": "Bilder und PDFs: hier hochgeladen, mit Titel, Beschreibung und Tags (ein PDF bis 64 MB). Ein Bild wird in der Seite gezeigt; ein PDF öffnet sich in einem neuen Tab, im PDF-Betrachter deines Browsers. Hier gelöscht, bleibt ihre Datei im Papierkorb, sodass sie zurückgelegt werden können."
     },
     "guideTypeKindle": {
         "message": "Kindle: deine Kindle-Markierungen, auf diigo.com importiert. Sie können hier nicht erstellt oder bearbeitet werden; aus dem Papierkorb kommen sie zurück, indem du sie erneut importierst."
@@ -524,13 +550,22 @@
         "message": "In der Adressleiste: tippe d, ein Leerzeichen und ein paar Wörter, um deine Lesezeichen zu finden."
     },
     "guideMoreDiigo": {
-        "message": "Auf diigo.com: Zur Swift Library am Ende des Menüs oben, und nach der Anmeldung die Swift Library. Der Rest von diigo.com bleibt, wie Diigo ihn hat; in den Swift Einstellungen kannst du My Library und Tools die Swift-Seiten öffnen lassen."
+        "message": "Auf diigo.com: Zur Swift Library am Ende des Menüs oben, und nach der Anmeldung die Swift Library. Hast du versteckte Tags, zeigt Versteckte zeigen unten rechts in deiner Bibliothek dort diese Lesezeichen in diesem Tab. Der Rest von diigo.com bleibt, wie Diigo ihn hat; in den Swift Einstellungen kannst du My Library und Tools die Swift-Seiten öffnen lassen."
+    },
+    "guideMoreItemMenu": {
+        "message": "Das ⋯ eines Eintrags: Als gelesen oder ungelesen markieren, Zum Outliner hinzufügen, Mit Gruppe teilen, Neu anlegen (als neuer Eintrag, der alte gelöscht) und Öffentlichen Link erstellen, nach einer deutlichen Warnung, für wenn du ihn doch teilen willst."
+    },
+    "guideMorePictures": {
+        "message": "Ein Bild bei jedem Lesezeichen: das Vorschaubild seiner Seite oder ihr Symbol, in diesem Browser gespeichert. Auch einen Screenshot speichern, im Formular oder unter Bearbeiten, speichert, was die Seite zeigt, als privates Bild in Diigo, nur wenn du es ankreuzt."
+    },
+    "guideMoreOffline": {
+        "message": "Diigo nicht erreichbar? Auf dem Anmeldebildschirm der Swift Library zeigt Bibliothek offline ansehen deine Bibliothek, wie das Add-on sie zuletzt gespeichert hat. Wieder angemeldet, geht es von selbst weiter."
     },
     "guideMoreSettings": {
         "message": "Deine Einstellungen gehen mit dem Konto deines Browsers auf deine anderen Computer mit."
     },
     "guidePrivacyText": {
-        "message": "Die Erweiterung sendet nichts an ihren Entwickler. Sie spricht für dich mit diigo.com, mit deiner Anmeldung dort, und die Kopie deiner Bibliothek bleibt in diesem Browser. Was sonst wohin geht, und die Wahlmöglichkeiten dazu, stehen in den Swift Einstellungen unter Datenschutz."
+        "message": "Die Erweiterung sendet nichts an ihren Entwickler. Sie spricht für dich mit diigo.com, mit deiner Anmeldung dort, und die Kopie deiner Bibliothek bleibt in diesem Browser. Ein neues öffentliches Lesezeichen wird zuerst privat gespeichert und erst dann öffentlich gemacht, und die Erweiterung macht nie von selbst einen öffentlichen Link zu einem Eintrag. Was sonst wohin geht, und die Wahlmöglichkeiten dazu, stehen in den Swift Einstellungen unter Datenschutz."
     },
     "guideDiigoTour": {
         "message": "Diigos eigene Tour durch das, was Diigo kann: Learn more auf diigo.com"
@@ -1149,6 +1184,24 @@
     },
     "libraryImageOpen": {
         "message": "Das Bild selbst, in einem neuen Tab"
+    },
+    "libraryPdfOpen": {
+        "message": "Die PDF selbst, in einem neuen Tab"
+    },
+    "pdfViewReader": {
+        "message": "Diigos Reader"
+    },
+    "askOk": {
+        "message": "OK"
+    },
+    "askCancel": {
+        "message": "Abbrechen"
+    },
+    "pdfViewLoading": {
+        "message": "PDF wird geladen…"
+    },
+    "pdfViewFailed": {
+        "message": "Das PDF konnte hier nicht geladen werden."
     },
     "libraryRandomIntro": {
         "message": "10 zufällige Lesezeichen aus deiner Bibliothek, keines mit einem versteckten Tag. Klicke links erneut auf Zufällig für 10 andere."
@@ -2166,6 +2219,20 @@
     },
     "setupSignIn": {
         "message": "Bei diigo.com anmelden"
+    },
+    "setupOffline": {
+        "message": "Bibliothek offline ansehen"
+    },
+    "libraryOffline": {
+        "message": "Offline: deine Bibliothek, wie das Add-on sie zuletzt gespeichert hat. Speichern, Löschen und andere Änderungen erreichen Diigo erst, wenn du wieder auf diigo.com angemeldet bist; dann geht diese Seite von selbst weiter."
+    },
+    "libraryDiigoDown": {
+        "message": "Diigo ist gerade nicht erreichbar ($WHY$). Versuche es später noch einmal; deine Bibliothek ist noch im Add-on.",
+        "placeholders": {
+            "why": {
+                "content": "$1"
+            }
+        }
     },
     "linkIgnore": {
         "message": "Nicht tot: diesen Link ignorieren"

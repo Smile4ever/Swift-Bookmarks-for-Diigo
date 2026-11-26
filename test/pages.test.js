@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
-const OPTIONS = path.join(__dirname, '..', 'options');
+const OPTIONS = path.join(__dirname, '..', 'pages');
 
 for (const page of fs.readdirSync(OPTIONS).filter(file => file.endsWith('.html'))) {
   test(`${page}: its scripts declare no name twice`, () => {

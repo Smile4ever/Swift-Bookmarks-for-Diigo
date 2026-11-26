@@ -8,7 +8,7 @@ const tagInput = $('tags');
 
 let data = null;   // the bookmark and the user's tags, see openBookmark in background/background.js
 let allTags = [];  // the names of the user's tags, most used first
-let settings = DEFAULT_SETTINGS;  // see options/settings.js
+let settings = DEFAULT_SETTINGS;  // see pages/settings.js
 // what the page says of itself (content/content.js: pageInfo; background.js: pageInfo for a link): its description, its
 // keywords and the web address it calls its own
 let page = {
@@ -173,7 +173,7 @@ function tagButton(name) {
   return button;
 }
 
-// the user's tags that are whole words in the title or the url: tagsMentioned, in options/settings.js (also for the
+// the user's tags that are whole words in the title or the url: tagsMentioned, in pages/settings.js (also for the
 // sync of bookmarks of the browser, background/sync.js)
 
 // The user's tags among the keywords of the page (page.keywords): a keyword that is one ("Machine learning" for
@@ -234,7 +234,7 @@ function showSharing() {
   $('group').append(new Option(t('createGroup'), CREATE_GROUP));
   $('group').hidden = false;
   fillSelect($('outliner'), data.userOutliners.map(outliner => [outliner.id, outliner.title]));
-  // the option hideShareToOutliner (options/settings.js)
+  // the option hideShareToOutliner (pages/settings.js)
   if (settings.hideShareToOutliner) $('outliner').hidden = true;
 }
 
@@ -361,8 +361,8 @@ $('save').addEventListener('click', () => asking ? askUrl() : save());
 $('move').addEventListener('click', () => save({move: true}));
 $('close').addEventListener('click', close);
 
-$('delete').addEventListener('click', () => {
-  if (data.annotated && !confirm(t('confirmDelete'))) return;
+$('delete').addEventListener('click', async () => {
+  if (data.annotated && !await askConfirm(t('confirmDelete'), {danger: true})) return;
   browser.runtime.sendMessage({type: 'delete', url: data.bookmark.url, urlId: data.bookmark.urlId});
   close();
 });
@@ -384,7 +384,7 @@ document.addEventListener('keydown', e => {
 
 // ---- start ----
 
-// Without a page (url), from the Swift Library (options/library.js: addBookmark): first only the URL, with Next, as
+// Without a page (url), from the Swift Library (pages/library.js: addBookmark): first only the URL, with Next, as
 // Diigo's Add Bookmark window asks it; then the title of that page, and the rest of the form as for a page.
 let asking = !query.get('url');
 
@@ -441,7 +441,7 @@ if (asking) {
   $('save').textContent = t('libraryNext');
   $('url').focus();
 } else if (query.get('fetch')) {
-  // from Swift Discover (options/discover.js: save): what the page says of itself too, as for a link (background.js:
+  // from Swift Discover (pages/discover.js: save): what the page says of itself too, as for a link (background.js:
   // pageInfo), along with the description and the tags Discover gave
   browser.runtime.sendMessage({type: 'pageInfo', url: query.get('url')}).catch(() => null).then(info => {
     if (info) {

@@ -26,9 +26,7 @@ function homeRow(item, {stale = false, todo = false, pinned = false} = {}) {
   li.dataset.id = item.id;
   li.redraw = changed => homeRow(changed, {stale, todo, pinned});
   const title = element('a', 'title', item.title || item.url);
-  title.href = titleUrl(item);
-  title.target = '_blank';
-  title.rel = 'noopener noreferrer';
+  titleLink(title, item);
   if (item.unread) title.classList.add('unread');
   const icon = typeIcon(item);
   if (icon) title.prepend(icon);
@@ -150,8 +148,8 @@ function staleBlock(stale) {
   const content = rows(homeStale.map(id => index.get(id)).filter(Boolean), {stale: true});
   const all = element('button', 'all-read', message('homeAllRead'));
   all.type = 'button';
-  all.addEventListener('click', () => {
-    if (confirm(message('homeAllReadConfirm', String(stale.length)))) markRead(stale.map(item => item.id));
+  all.addEventListener('click', async () => {
+    if (await askConfirm(message('homeAllReadConfirm', String(stale.length)))) markRead(stale.map(item => item.id));
   });
   return homeBlock('stale', message('homeStale'), stale.length, content,
     {click: () => moreOf('unread', {sort: 'oldest'})}, all);
@@ -160,7 +158,7 @@ function staleBlock(stale) {
 // To do: what has a tag that starts with todo (todo, todo-work, todo:read…), the oldest first, as those wait longest;
 // Done for each, which takes those tags away (homeEdit); More the list of them all (the tag todo*, any tag that starts
 // so: library-search.js: matches), the oldest first too. Its own block on Start, only when there are some.
-// With todoRandom (options/settings.js), some of them at random instead, kept while the page is open (homeTodo, as
+// With todoRandom (pages/settings.js), some of them at random instead, kept while the page is open (homeTodo, as
 // Random's), one done replaced by another, and Others for others: with many, not always the same ones.
 const TODO = 'todo';
 const todoTags = item => item.tags.filter(tag => lower(tag).startsWith(TODO));
@@ -244,6 +242,8 @@ function itemMenuButton(item) {
       if (!settings.hideShareToOutliner) action('itemAddToOutliner', addToOutliner);
       if (sharesToGroup(item)) action('shareToGroup', shareToGroup);
       if (recreatable(item)) action('itemRecreate', recreateItem);
+      // Make public link: a share link on purpose, with a warning (library-add.js)
+      if (item.id) action('itemMakeLink', makePublicLink);
     }
     // Delete screenshot: the screenshots of a bookmark (index-item.js: screenshotsOf), as Delete does it (to the trash,
     // so Put back brings them back); once they are gone, the link to them out of its description (library-index.js:
@@ -604,8 +604,8 @@ function homeToolbar() {
   bar.classList.add('editing');
   bar.append(element('span', 'home-editing-intro', message('homeEditIntro')),
     button('homeAddBlock', () => editOwnBlock()),
-    button('homeResetLayout', () => {
-      if (confirm(message('homeResetConfirm'))) saveLayout(HOME_BLOCKS.map(id => ({id, shown: true})));
+    button('homeResetLayout', async () => {
+      if (await askConfirm(message('homeResetConfirm'))) saveLayout(HOME_BLOCKS.map(id => ({id, shown: true})));
     }),
     button('homeTodoDone', () => {
       homeEditing = false;
@@ -649,8 +649,8 @@ function editableBlock(entry, block, i, layout) {
     () => saveLayout(layout.map(other => other == entry ? {...other, shown: !other.shown} : other)));
   if (ownBlock(entry)) {
     tool('✎', 'libraryEdit', () => editOwnBlock(entry));
-    tool('✕', 'libraryDelete', () => {
-      if (confirm(message('homeBlockRemoveConfirm', name))) saveLayout(layout.filter(other => other != entry));
+    tool('✕', 'libraryDelete', async () => {
+      if (await askConfirm(message('homeBlockRemoveConfirm', name), {danger: true})) saveLayout(layout.filter(other => other != entry));
     });
   }
   block.querySelector('header').prepend(tools);

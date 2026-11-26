@@ -73,7 +73,7 @@ function sharingSelects(loaded) {
   browser.runtime.sendMessage({type: 'sharing'}).then(lists => {
     outliner.append(...(lists?.outliners || []).map(list => new Option(list.title, list.id)));
     group.append(...(lists?.groups || []).map(item => new Option(item.displayName, item.name)));
-    // none, or the option hideShareToOutliner (options/settings.js)
+    // none, or the option hideShareToOutliner (pages/settings.js)
     outliner.hidden = outliner.options.length < 2 || !!settings.hideShareToOutliner;
     loaded();
   }).catch(() => {});
@@ -360,9 +360,23 @@ function addItem(kind) {
 // ---- the menu ⋯ of an item (library-home.js: itemMenuButton): Add to outliner, Share to group, Recreate ----
 
 // what to choose in the popup, one menu: when there is nothing in it, why instead of the menu and no button
-function choicePopup(headingKey, saveKey, select, run) {
+// the item a choice popup is about, shown above the menu so you see what you're adding or sharing: its type icon (not a
+// bookmark) and its title, as in the list (library-list.js: typeIcon)
+function choiceItem(item) {
+  const row = element('div', 'choice-item');
+  const icon = typeIcon(item);
+  if (icon) row.append(icon);
+  row.append(element('span', 'choice-title', item.title || item.url || `(${item.id})`));
+  return row;
+}
+
+function choicePopup(headingKey, saveKey, select, run, {item} = {}) {
   const {card, fields, error, save, shut} = popupCard(headingKey, saveKey);
-  fields.append(select);
+  if (item) fields.append(choiceItem(item));
+  // in a .share wrapper, for the underline look of the sharing menus of the bookmark form (library.css: .card .share)
+  const share = element('div', 'share');
+  share.append(select);
+  fields.append(share);
   card.addEventListener('submit', async e => {
     e.preventDefault();
     if (!select.value) return select.focus();
@@ -387,7 +401,7 @@ function addToOutliner(item) {
     if (!await outlinerPart.addItems(id, [item])) return message('outlinersNotSaved', $('status').textContent || '?');
     showStatus(message('itemAddedToOutliner'));
     return null;
-  });
+  }, {item});
 }
 
 // Share to group: a public bookmark, as the bookmark form shares one (Share to group is hidden there for a private
@@ -401,12 +415,14 @@ function shareToGroup(item) {
   select.append(new Option(message('shareToGroup'), ''));
   const {fields, save} = choicePopup('shareToGroup', 'itemShare', select, async group => {
     const result = await browser.runtime.sendMessage({type: 'save', url: item.url, title: item.title,
-      description: item.description || '', tags: item.tags, private: false, unread: !!item.unread, group})
+      description: item.description || '', tags: item.tags, private: false, unread: !!item.unread, group,
+      // an item the library already has: save it public directly, no private-first precaution (diigoSave)
+      linkId: item.id})
       .catch(e => ({message: e.message}));
     if (!result?.ok) return message('libraryItemNotSaved', result?.message || String(result?.status ?? '?'));
     showStatus(message('itemSharedToGroup'));
     return null;
-  });
+  }, {item});
   save.disabled = true;
   browser.runtime.sendMessage({type: 'sharing'}).then(lists => {
     const groups = lists?.groups || [];
@@ -419,18 +435,29 @@ function shareToGroup(item) {
 }
 
 // Recreate: the item made again as a new one with what it has, and the old one deleted, for good (not in the trash,
-// without its file: deleteItems, keepFiles), with what only it had: highlights, its place in outliners, a share link
-// (PRIVACY.md); after a question that says so. A bookmark as Diigo's site saves one (singleSave), without a link_id, so
-// a new one at the same web address (Diigo lets a web address have more bookmarks), not through the toolbar API, which
-// by web address would change the bookmark there; when Diigo saved the old one again after all, it was saved as it was
-// and nothing is deleted (itemRecreateNoCopy). A note as a new note with its title, text and tags. Not an image or a
-// PDF: their file comes only through batch_share_links (index-item.js: itemFileUrl), which would give it a share link.
-const recreatable = item => (!item.type || item.type == 'bookmark') && !!item.url || isNoteWithText(item);
+// without its file: deleteItems, keepFiles), with what only the old one had (highlights, its place in outliners);
+// after a question that says so. A bookmark as Diigo's site saves one (singleSave), without a link_id, so a new one at
+// the same web address (Diigo lets a web address have more bookmarks), not through the toolbar API, which by web
+// address would change the bookmark there; when Diigo saved the old one again after all, it was saved as it was and
+// nothing is deleted (itemRecreateNoCopy). A note as a new note with its title, text and tags. An image or a PDF from
+// its file (index-item.js: itemFile), uploaded again; the old one is then deleted.
+const recreatable = item => (!item.type || item.type == 'bookmark') && !!item.url || isNoteWithText(item) ||
+  WITH_FILE.includes(item.type);
 
-async function newItemLike(item) {
+async function newItemLike(item, signal) {
   if (item.type == 'note') {
     const note = await postNote({title: item.title, content: item.content, rich: item.rich, tags: item.tags});
     return note ? {fresh: note} : {why: message('libraryNoteNotSaved', diigoAnswer || '?')};
+  }
+  if (WITH_FILE.includes(item.type)) {
+    // its file as the trash gets it (index-item.js: itemFile): a PDF through Diigo's own reader
+    const blob = (await itemFile(item, signal, {room: false}))?.file;
+    if (!blob?.size) return {why: message('libraryItemNotSaved', diigoAnswer || '?')};
+    const base = (item.title || item.type).replace(/[\\/:*?"<>|]+/g, ' ').trim().slice(0, 100) || item.type;
+    const name = item.type == 'pdf' ? (/\.pdf$/i.test(base) ? base : base + '.pdf') : base;
+    // restoreFile (library-index.js) uploads the file and saves its title, description, private and read later
+    const fresh = await restoreFile({...item, file: blob, fileName: name});
+    return fresh ? {fresh} : {why: message('libraryItemNotSaved', diigoAnswer || '?')};
   }
   const first = singleSave({...item, id: ''}, item.tags);
   const saved = await postSave(first.url, new URLSearchParams(first.params)).catch(e => {
@@ -447,11 +474,11 @@ async function newItemLike(item) {
 
 async function recreateItem(item) {
   if (controller) return showStatus(message('libraryBusyWait'), true);
-  if (!confirm(message('itemRecreateConfirm', item.title || item.url || item.id))) return;
+  if (!await askConfirm(message('itemRecreateConfirm', item.title || item.url || item.id), {danger: true})) return;
   const signal = start();
   let text = '', failed = false;
   try {
-    const {why} = await newItemLike(item);
+    const {why} = await newItemLike(item, signal);
     if (why) {
       text = why;
       failed = true;
@@ -472,4 +499,48 @@ async function recreateItem(item) {
     show({keepScroll: true});
     if (text) showStatus(text, failed);
   }
+}
+
+// ---- Make public link: a share link of the item, on purpose, with a warning ----
+
+// The public link of an item (batch_share_links: item_url), as Diigo's Share window gets it. '' when it gives none.
+async function itemShareUrl(linkId, signal) {
+  const params = new URLSearchParams({links: linkId});
+  const response = await fetch(`https://www.diigo.com/interact_api/batch_share_links?${params}`, {
+    credentials: 'include', headers: {'X-Requested-With': 'XMLHttpRequest'}, signal: timeLimit(signal),
+  });
+  return text(JSON.parse(await response.text())?.[linkId]?.item_url);
+}
+
+// Make public link, in the ... of an item: after a strong warning (itemMakeLinkConfirm), ask Diigo for the item's
+// share link and show it, copied to the clipboard. The link is public and can't be taken back: only deleting the item
+// (Recreate keeps the item) ends it. For when you do want to share something; not a thing the add-on does by itself.
+async function makePublicLink(item) {
+  if (!await askConfirm(message('itemMakeLinkConfirm', item.title || item.url || item.id), {danger: true})) return;
+  showStatus(message('saving'));
+  const link = await itemShareUrl(item.id).catch(() => '');
+  showStatus('');
+  if (!link) return showStatus(message('itemMakeLinkFailed'), true);
+  const {card, fields, save} = popupCard('itemMakeLink', 'close');
+  save.remove();
+  const warn = element('p', 'card-warning', message('itemMakeLinkWarn'));
+  warn.setAttribute('role', 'alert');
+  const box = element('div', 'make-link');
+  const a = element('a', 'make-link-url', link);
+  a.href = link;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  const copy = element('button', 'button', message('itemMakeLinkCopy'));
+  copy.type = 'button';
+  copy.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(link);
+      copy.textContent = message('itemMakeLinkCopied');
+    } catch (e) {
+      copy.textContent = message('itemMakeLinkCopied');
+    }
+  });
+  box.append(a, copy);
+  fields.append(warn, box);
+  navigator.clipboard.writeText(link).catch(() => {});
 }

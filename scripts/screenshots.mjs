@@ -12,7 +12,7 @@ import {fileURLToPath} from 'node:url';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'images', 'store');
-// the pictures of Swift Guide (options/guide.html) that aren't in the stores
+// the pictures of Swift Guide (pages/guide.html) that aren't in the stores
 const GUIDE_OUT = path.join(ROOT, 'images', 'guide');
 const ONLY = process.argv[2] || '';  // guide: only those of Swift Guide
 const ASSETS = path.join(ROOT, 'scripts', 'screenshot-assets');
@@ -340,7 +340,7 @@ async function main() {
   try {
     // the Swift Library first: it builds the index, which the form and Swift Discover use too
     const library = await newPage(browser);
-    await library.goto(base + 'options/library.html#view=all');
+    await library.goto(base + 'pages/library.html#view=all');
     await library.waitForSelector('#items .item', {timeout: 30000});
     await wait(4000);
 
@@ -354,20 +354,20 @@ async function main() {
     await wait(1500);
     await shot(library, 'similar-tags.png', GUIDE_OUT);
     await library.evaluate(() => $('similarDialog').close());
-    await library.goto(base + 'options/library.html#view=outliners&outliner=501');
+    await library.goto(base + 'pages/library.html#view=outliners&outliner=501');
     await library.reload();
     await wait(4000);
     await shot(library, 'outliner.png', GUIDE_OUT);
     if (ONLY == 'guide') return;
 
-    await library.goto(base + 'options/library.html#view=all');
+    await library.goto(base + 'pages/library.html#view=all');
     await library.reload();
     await library.waitForSelector('#items .item', {timeout: 30000});
     await wait(3000);
     await shot(library, '4-library.png');
 
     // 6: the menu of a dead link, in Dead links
-    await library.goto(base + 'options/library.html#view=dead');
+    await library.goto(base + 'pages/library.html#view=dead');
     await library.reload();
     await library.waitForSelector('#items .link-status[data-state="dead"]', {timeout: 30000});
     await wait(1000);
@@ -389,7 +389,7 @@ async function main() {
 
     // 5: Swift Discover
     const discover = await newPage(browser);
-    await discover.goto(base + 'options/discover.html');
+    await discover.goto(base + 'pages/discover.html');
     await discover.waitForSelector('#items li', {timeout: 30000});
     await wait(3000);
     await shot(discover, '5-discover.png');

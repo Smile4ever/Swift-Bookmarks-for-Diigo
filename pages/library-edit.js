@@ -559,12 +559,11 @@ function viewNote(item, li) {
   body.focus();
 }
 
-// An image shown here, so it needn't be looked at on diigo.com: its file as Diigo keeps it (itemFileUrl), fetched with
-// your sign-in and shown from this page (a blob), or the file the trash kept of it; as large as the popup lets it, a
-// click on it the file itself in a new tab. Below it when it was saved and its tags, as for a note; On Diigo in the
-// footer, for what is only there (its highlights, sharing).
+// An image shown here, so it needn't be looked at on diigo.com: its thumbnail (thumbnail_url) at a large size, fetched
+// with your sign-in and shown from this page (a blob), or the file the trash kept of it (index-item.js: largeImage),
+// as a privacy precaution. It is big enough to look at. No On Diigo link in the footer. A click on the shown image
+// opens it (the blob) in a new tab.
 function viewImage(item) {
-  const gone = !!(item.deletedAt || item.pendingDelete);
   const {card, fields, save} = popupCard('libraryAddImage', 'libraryEdit');
   // larger than the popup of a note: nearly as wide and high as the window (.popup.image-popup)
   $('popup').classList.add('wide', 'viewing', 'image-popup');
@@ -587,13 +586,6 @@ function viewImage(item) {
     meta.append(tag);
   }
   if (meta.children.length) fields.append(meta);
-  if (!gone) {
-    const onDiigo = element('a', 'on-diigo', message('libraryOpenDiigo'));
-    onDiigo.href = diigoItemUrl(item);
-    onDiigo.target = '_blank';
-    onDiigo.rel = 'noopener';
-    card.querySelector('footer').prepend(onDiigo);
-  }
 
   const loading = new AbortController();
   let shown = '';
@@ -603,8 +595,9 @@ function viewImage(item) {
   }, {once: true});
   (async () => {
     const file = item.file instanceof Blob ? item.file : await (async () => {
-      const url = await itemFileUrl(item.id, loading.signal);
-      if (!url) return null;
+      // the thumbnail at a large size (a privacy precaution)
+      if (!item.thumb) return null;
+      const url = largeImage(item);
       const answer = await fetch(url, {credentials: 'include', signal: timeLimit(loading.signal, FILE_TIME)});
       return answer.ok ? answer.blob() : null;
     })();
@@ -624,6 +617,56 @@ function viewImage(item) {
     status.textContent = e?.message || String(e);
     status.classList.add('error');
   });
+}
+
+
+// Open a PDF the way Diigo's own reader does. Diigo serves a PDF's file only through its reader page, and only to a
+// first-party, signed-in request on diigo.com — a cross-origin fetch or iframe from the add-on gets Cloudflare's wall
+// or the signed-out shell, not the file. So a live PDF opens in Diigo's reader in a new tab (a real navigation, where
+// your sign-in and Cloudflare work); the new tab keeps the Swift Library. There #swift-pdf has diigo-site/pdf-view.js click Download Original PDF and show the file with the
+// browser's own PDF viewer instead of saving it. A PDF the trash kept (its file as a blob, gone from Diigo) is shown
+// here inline from that blob.
+function viewPdf(item) {
+  if (!(item.file instanceof Blob)) {
+    const url = item.url || diigoItemUrl(item);
+    window.open(/^https?:\/\/(www\.)?diigo\.com\/item\/pdf\//i.test(url) ? url.replace(/#.*$/, '') + '#swift-pdf' : url,
+      '_blank', 'noopener');
+    return;
+  }
+  const {card, fields, save} = popupCard('libraryAddPdf', 'libraryEdit');
+  // nearly as wide and high as the window (.popup.pdf-popup), like the image view
+  $('popup').classList.add('wide', 'viewing', 'pdf-popup');
+  card.querySelector('header h1').textContent = item.title || message('libraryAddPdf');
+  save.remove();
+
+  const body = element('div', 'pdf-view');
+  fields.append(body);
+  const meta = element('div', 'note-meta');
+  if (item.created > 0 && item.created < 1e11) meta.append(element('span', 'date', dateFormat.format(item.created * 1000)));
+  for (const name of item.tags) {
+    const tag = element('button', 'tag', name);
+    tag.type = 'button';
+    tag.addEventListener('click', () => {
+      $('popup').close();
+      addTag(name);
+    });
+    meta.append(tag);
+  }
+  if (meta.children.length) fields.append(meta);
+
+  const shown = URL.createObjectURL(item.file);
+  $('popup').addEventListener('close', () => URL.revokeObjectURL(shown), {once: true});
+  const frame = element('iframe', 'pdf-frame');
+  frame.src = shown;
+  frame.title = item.title || '';
+  frame.style.width = '100%';
+  frame.style.height = '75vh';
+  frame.style.border = 'none';
+  const open = element('a', 'pdf-open', message('libraryPdfOpen'));
+  open.href = shown;
+  open.target = '_blank';
+  open.rel = 'noopener';
+  body.replaceChildren(frame, open);
 }
 
 

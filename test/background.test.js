@@ -49,7 +49,7 @@ function loadBackground() {
   });
   const context = vm.createContext({browser: api(), console, URL, URLSearchParams, AbortController, AbortSignal, setTimeout, clearTimeout, fetch: () => Promise.reject(new Error('no network in tests'))});
   // in the order of manifest.json: settings.js and index-item.js first
-  for (const file of ['options/settings.js', 'options/index-item.js', 'background/background.js']) {
+  for (const file of ['pages/settings.js', 'pages/index-item.js', 'background/background.js']) {
     vm.runInContext(fs.readFileSync(path.join(ROOT, file), 'utf8'), context, {filename: file});
   }
   // special: a call answered otherwise in one test
@@ -185,9 +185,9 @@ test('the menu of the toolbar button opens the Swift Library, a random bookmark,
   const created = callArgs.filter(call => call.name == 'tabs.create').map(call => call.args[0]);
   // a random bookmark without an index (none here): Random in the Swift Library, which builds it
   assert.deepStrictEqual(created.map(props => props.url), [
-    'moz-extension://id/options/library.html',
-    'moz-extension://id/options/library.html#random=new',
-    'moz-extension://id/options/discover.html',
+    'moz-extension://id/pages/library.html',
+    'moz-extension://id/pages/library.html#random=new',
+    'moz-extension://id/pages/discover.html',
   ]);
   assert.ok(created.every(props => props.index == 4));
 });
@@ -195,7 +195,7 @@ test('the menu of the toolbar button opens the Swift Library, a random bookmark,
 test('the Swift Library open in the window already: that tab, with what is asked for in its address', async () => {
   const {listeners, callArgs, special} = loadBackground();
   special['tabs.query'] = () => Promise.resolve([{id: 7, url: 'https://example.com/'},
-    {id: 8, url: 'moz-extension://id/options/library.html#view=all&q=x'}]);
+    {id: 8, url: 'moz-extension://id/pages/library.html#view=all&q=x'}]);
   const onClicked = listeners['contextMenus.onClicked'][0];
   await onClicked({menuItemId: 'library'}, {index: 3, windowId: 1});
   await onClicked({menuItemId: 'random'}, {index: 3, windowId: 1});
@@ -203,7 +203,7 @@ test('the Swift Library open in the window already: that tab, with what is asked
   const updates = callArgs.filter(call => call.name == 'tabs.update').map(call => call.args);
   // as it is, made the tab you see; Random: with that in its address
   assert.deepStrictEqual(JSON.parse(JSON.stringify(updates)), [
-    [8, {active: true}], [8, {active: true, url: 'moz-extension://id/options/library.html#random=new'}],
+    [8, {active: true}], [8, {active: true, url: 'moz-extension://id/pages/library.html#random=new'}],
   ]);
   // in the window of the tab of the button, not in another
   assert.ok(callArgs.some(call => call.name == 'tabs.query' && call.args[0]?.windowId == 1));
@@ -217,7 +217,7 @@ test('the toolbar button opens the Swift Library when set so; the shortcut still
   const page = {id: 5, index: 2, windowId: 1, url: 'https://example.com/article'};
   await listeners['action.onClicked'][0](page);
   const created = callArgs.filter(call => call.name == 'tabs.create').map(call => call.args[0].url);
-  assert.deepStrictEqual(created, ['moz-extension://id/options/library.html']);
+  assert.deepStrictEqual(created, ['moz-extension://id/pages/library.html']);
   // the title of the button says so
   const titles = callArgs.filter(call => call.name == 'action.setTitle').map(call => call.args[0].title);
   assert.ok(!titles.length || titles.every(title => title == 'browserActionLibraryTitle'));

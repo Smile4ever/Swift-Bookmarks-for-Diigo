@@ -88,8 +88,8 @@ async function saveLog() {
   setTimeout(() => URL.revokeObjectURL(url), 10000);
 }
 
-function clearLog() {
-  if (logEntries.length && !confirm(message('logClearConfirm', String(logEntries.length)))) return;
+async function clearLog() {
+  if (logEntries.length && !await askConfirm(message('logClearConfirm', String(logEntries.length)), {danger: true})) return;
   browser.storage.session.remove(ERROR_LOG).catch(() => {});
   browser.storage.session.set({[ERROR_LOG_SINCE]: Date.now()}).catch(() => {});
 }

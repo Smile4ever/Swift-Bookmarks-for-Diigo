@@ -1,3 +1,25 @@
+2026.11.26
+=====
+* Swift Discover opens on For you (by your tags) instead of Hot, so what matches your interests is at the top; the order can still be changed.
+* Swift Discover shows the characters in titles, descriptions and tags, not HTML codes like &#039; for an apostrophe (Diigo sends them doubly coded).
+* A Show hidden checkbox on diigo.com, at the bottom right of your own library when you have hidden tags: it shows the bookmarks with a hidden tag there for that tab, as Show hidden does in the Swift Library (hiding them on diigo.com left no way to see them there); off again in a new tab.
+* Opening an image in the Swift Library shows it from its thumbnail at a large size instead of fetching the full file, and without the On Diigo link.
+* Opening a PDF in the Swift Library opens its page on Diigo in a new tab (where your sign-in works), which then shows Loading PDF… until the tab opens the PDF itself (the blob Diigo's page loads it in, or else its original PDF) in the browser's own PDF viewer, instead of downloading it. A PDF the trash kept is shown inline. Download Original PDF on diigo.com itself still downloads.
+* Deleting an image or a PDF in Diigo's delete window: the add-on gets its file for the trash only once you click DELETE, not already when you choose Delete. DELETE waits a moment for it, and the window can't be closed meanwhile.
+* A click on the title of an image (in the list, on Start and in outliners) shows it in the Swift Library, also with Ctrl or the middle button.
+* The trash and Recreate keep an image as its thumbnail at a large size, as the Swift Library shows it, not its original file.
+* The trash and Recreate get the file of a PDF the way Diigo's own reader does: its page on Diigo opens for a moment in a tab in the background, and closes again by itself.
+* Recreate in the ⋯ of an item now also works for images and PDFs: the item is uploaded again as a new one and the old one is deleted.
+* Make public link in the ⋯ of an item: a link to the item that others can open, after a clear warning; for when you do want to share something.
+* New public bookmarks are saved privately first and then made public (Swift Options, Privacy; on by default), as a privacy precaution. A switch in Swift Options turns it off.
+* View the library offline, under Sign in in the Swift Library, for when diigo.com is down and the add-on takes you for signed out: your library as the add-on last kept it, with a note that changes don't reach Diigo; signed in again, the page goes on by itself. Clickable after 3 seconds, so a sign-in that comes in a moment isn't skipped.
+* When diigo.com can't be reached (no connection, no answer, an error of its server), the Swift Library says so, instead of asking you to sign in.
+* Swift Guide up to date: the ⋯ of an item, the picture at each bookmark and screenshots by choice, PDFs in the browser's own viewer, Show hidden on diigo.com, View the library offline, and public bookmarks saved private first; its pictures show the Swift Library as it is now.
+* Fixed: the number next to Show hidden stayed the same when an item with a hidden tag left the list (Put back in the trash, Remove for good, Delete).
+* Fixed: a tag chosen in All tags while Untagged was shown found nothing (untagged with a tag); it now shows All with that tag.
+* Leaving the Swift Library while something you deleted waits its 30 seconds no longer asks to stay on the page: it stays in the trash as not deleted yet, and Diigo deletes it once the Swift Library is open again. Only changes to an outliner that aren't on Diigo yet still ask.
+* The questions before something is done (Make public link, Delete, Empty trash, Recreate…) are a card in the look of the add-on instead of the browser's plain confirm box, with Cancel and OK; for what can't be undone, OK is red and Cancel has the focus, so Enter doesn't do it by accident.
+
 2026.11.25
 =====
 * The Swift Library shows your bookmarks while it builds its index the first time, growing as the pages load, instead of a wait on the setting-up screen until it is all there. Building again over an index you already have is unchanged: that one stays until the new one is ready.

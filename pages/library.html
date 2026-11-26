@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="library.css">
   <!-- Outliners (library-outliners.js): their list and the tree of one -->
   <link rel="stylesheet" href="outliners.css">
+  <link rel="stylesheet" href="ask.css">
 </head>
 <body>
   <!-- library.js: your Diigo library from the index of library-index.js, in the look of the new Diigo library -->
@@ -99,6 +100,7 @@
       <p class="setup-buttons">
         <button type="button" id="setupBuild" class="primary" hidden></button>
         <a id="setupSignIn" class="button primary" href="https://www.diigo.com/sign-in" target="_blank" rel="noopener" data-i18n="setupSignIn" hidden>Sign in on diigo.com</a>
+        <button type="button" id="setupOffline" data-i18n="setupOffline" hidden>View the library offline</button>
         <button type="button" id="setupStop" data-i18n="cleanupStop" hidden>Stop</button>
       </p>
     </div>
@@ -249,6 +251,7 @@
   </div>
 
   <script src="settings.js"></script>
+  <script src="ask.js"></script>
   <script src="index-item.js"></script>
   <script src="library-index.js"></script>
   <!-- in this order: library.js has what the others share, library-page.js puts them to work -->
